@@ -120,8 +120,7 @@ Spec: [[visualizations]]
 
 ## [approach::Collection]
 Class: aggregate
-Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании).
-Gallery: [![Bar model](visualizations/build/bar-model.png)](visualizations/build/bar-model.html) [![Venn diagram](visualizations/build/venn.png)](visualizations/build/venn.html) [![Gauss's trick](visualizations/build/gauss-pairing.png)](visualizations/build/gauss-pairing.html)
+Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании). Картинки — у каждого конкретного подхода ниже (`[approach::InclusionExclusion]`, `[approach::ArithmeticProgressionSum]`), не здесь — этот блок сам не про одну картинку, а про список.
 Invariants:
   - MUST: каждая запись — Essence / Recognized by / General case / Visualized by / Used in
   - MUST: `Visualized by` ссылается на блоки `[viz::*]`; «—» = сигнал завести картинку, не постоянное состояние
