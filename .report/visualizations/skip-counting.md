@@ -2,6 +2,7 @@
 
 Standard name: Skip counting — счёт прыжками по числовой прямой
 Class: visualization-technique
+Spec: [memory-bank/specs/visualizations.md](../../memory-bank/specs/visualizations.md) · term `[viz::SkipCounting]`
 Domain: делимость, кратность
 Approach: — (вне коллекции подходов: показывает само понятие «кратно», а не способ счёта;
 подготовительный шаг перед любым из подходов `approaches.md`, не подход сам по себе)

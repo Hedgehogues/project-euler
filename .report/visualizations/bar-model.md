@@ -2,6 +2,7 @@
 
 Standard name: Bar model / tape diagram — методика Singapore Math
 Class: visualization-technique
+Spec: [memory-bank/specs/visualizations.md](../../memory-bank/specs/visualizations.md) · term `[viz::BarModel]`
 Domain: включение-исключение, пересечение двух условий
 Approach: [Включение-исключение](../approaches.md#включение-исключение) — арифметическая форма
 (показывает, ИЗ КАКИХ чисел складывается каждая часть)

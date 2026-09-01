@@ -2,6 +2,7 @@
 
 Standard name: Gauss's trick — парное сложение («радуга»)
 Class: visualization-technique
+Spec: [memory-bank/specs/visualizations.md](../../memory-bank/specs/visualizations.md) · term `[viz::GaussPairing]`
 Domain: сумма арифметической прогрессии
 Approach: [Замкнутая формула суммы арифметической прогрессии](../approaches.md#замкнутая-формула-суммы-арифметической-прогрессии)
 Description: Числа складываются не по порядку, а парами с двух концов ряда; каждая пара даёт одну

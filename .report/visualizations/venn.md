@@ -2,6 +2,7 @@
 
 Standard name: Venn diagram — John Venn, 1880
 Class: visualization-technique
+Spec: [memory-bank/specs/visualizations.md](../../memory-bank/specs/visualizations.md) · term `[viz::VennDiagram]`
 Domain: пересечение двух (или трёх) условий
 Approach: [Включение-исключение](../approaches.md#включение-исключение) — пространственная
 форма (показывает, ЧТО есть общая часть, до чисел)

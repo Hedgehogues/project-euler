@@ -1,5 +1,8 @@
 # Каталог визуализаций — индекс
 
+> Спек (Requirements MUST/SHALL/SHOULD, находки, связи): `memory-bank/specs/visualizations.md`;
+> термины — `memory-bank/_terms.md`, контекст `viz`. Этот файл — рабочий каталог, не спек.
+
 > Формат каждого файла техники — RFC-блоки (как `_terms.md`): `# [viz::TechniqueName]`, затем
 > поля `Standard name / Class / Domain / Approach / Description / Sequence / Applicability /
 > Limits / Source / Used in / Example`. `Approach` — ссылка на запись в `../approaches.md` либо
