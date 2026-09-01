@@ -69,7 +69,19 @@ from the RFC documents each time.
      (f) write the `[method::Name]` block in `_terms.md` — ONE block, idea and picture fields on
      the same record (Essence/Recognized by/General case/Source; Picture/Sequence/Example; a
      shared Limits marking which limit belongs to the idea and which only to the drawing) — never
-     a separate "for the picture" block (principle 9).
+     a separate "for the picture" block (principle 9);
+     (g) **before calling the picture done, list every number that appears in the solution frame's
+     caption and confirm each one is directly visible or countable in an EARLIER frame** — a
+     number that only shows up in the final caption, with no earlier frame it can be checked
+     against, means the picture doesn't carry its own causal chain (principle 5) no matter how
+     polished it looks; go back and add the missing step, or find/build the frame that makes the
+     number countable, before moving on. Precedent: this exact gap shipped twice in one session
+     with two different records — `LCMViaGCD`'s second design asserted `3×35=7×15=105` in a
+     caption with the 3 and 7 nowhere derivable earlier in the sequence, and `SumOfSquares`'s
+     first design asserted `=4·5·9/6` the same way — both caught only by the user asking directly
+     what in the picture explains how the result is obtained, not by this skill's own process.
+     Having principle 5 written down did not, by itself, stop the violation from recurring; this
+     explicit per-number check is the step that's supposed to catch it before the user has to.
    - **Escalate** if the solution combines two or more techniques and it's unclear whether they are
      one atomic idea or should be split into independent records (per MUST-atomic-or-composed, the
      real test is "is each one recognizable in ANOTHER problem without the other" — if that test
