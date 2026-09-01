@@ -22,6 +22,8 @@ euclidean-algorithm|Euclidean algorithm|Euclidean algorithm (square-tiling)|Eucl
 lcm-via-gcd|LCM via GCD|Tile-count swap, from GCD|LCMViaGCD
 precomputation|Precomputation|Build once, look up many times|Precomputation
 sum-of-squares|Sum of squares|Square split into two triangular staircases|SumOfSquares
+sieve-of-eratosthenes|Sieve of Eratosthenes|Sieve of Eratosthenes|SieveOfEratosthenes
+nth-prime-bound|Upper bound on the nth prime|Rosser's bound on the nth prime|NthPrimeBound
 EOF
 }
 

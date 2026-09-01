@@ -41,7 +41,9 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::TrialDivision](../_terms.md#methodtrialdivision),
 [method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm),
 [method::LCMViaGCD](../_terms.md#methodlcmviagcd),
-[method::SumOfSquares](../_terms.md#methodsumofsquares).
+[method::SumOfSquares](../_terms.md#methodsumofsquares),
+[method::SieveOfEratosthenes](../_terms.md#methodsieveoferatosthenes),
+[method::NthPrimeBound](../_terms.md#methodnthprimebound).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the
@@ -155,7 +157,7 @@ rendering "by eye", no cloud, no hand-made pictures.
   (formerly `[method::Catalog]`) are exactly this Architecture section plus the MUST requirements
   below — a block restating them a second time in `_terms.md` was the same fact twice (F13). There
   is no separate context for pictures either (F10) — a picture is a set of fields on a method
-  record. `_terms.md` holds only the seven entities.
+  record. `_terms.md` holds only the twelve entities.
 
 ## Requirements
 > Statement — acceptance criterion — status.
