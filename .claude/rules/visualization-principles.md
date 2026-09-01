@@ -1,7 +1,7 @@
 # Principles for visualizing methods — catalog `memory-bank/`
 
 Source: the retro of the "visualization catalog" cycle, 2026-09-01 (session: euler001 → catalog →
-the `visualize-approach` skill). Every principle below is not a platitude but a rule derived from a
+the `document-problem` skill). Every principle below is not a platitude but a rule derived from a
 concrete round of revisions in which it was violated and fixed. It applies to anything that shows a
 solution as a picture: catalog records, per-problem infographics, frames in reports.
 
@@ -11,7 +11,7 @@ The RFC-style specs (requirements with ids, findings, acceptance criteria):
 the short, auto-loaded form.
 
 Related files: `memory-bank/index.md` (how the catalog is extended),
-`.claude/skills/visualize-approach/SKILL.md` (page assembly), `design-source-fidelity.md`
+`.claude/skills/document-problem/SKILL.md` (page assembly), `design-source-fidelity.md`
 ("a static check is not a render" — the same as principle 2 below, for mockups).
 
 ## 1. Form by understandability, name by form
@@ -287,9 +287,28 @@ mirrored into a spec AND a dictionary entry.
   formal MUST requirement, split correctly between the two specs. Found only when the user asked
   where they should move to, not while either spec was being written.
 
+## 16. A folder holding two distinguishable kinds of content splits into subfolders, one per kind
+
+Grouping by physical location is itself a claim: everything under one folder reads as "the same
+kind of thing." When a folder actually holds two conceptually different kinds — a rule that
+governs any record vs. one applied instance of it, a handful of published problems vs. everything
+else at the repo root — leaving them flat is not neutral, it hides a real distinction inside prose
+that a reader has to already know to look for. The fix is a subfolder per kind, so the distinction
+shows up in the file listing itself, not only in a README paragraph.
+
+- MUST: before adding a second, genuinely different kind of file to an existing folder — check
+  whether the existing content is homogeneous; if not, give the new kind (or the old one) its own
+  subfolder rather than letting the folder accumulate a mix.
+- Precedent: `memory-bank/specs/` mixed two meta-specs (govern any method record) with three
+  per-task specs (govern one solved problem) as a flat list — split into `specs/*.md` (meta) and
+  `specs/tasks/*.md` (applied) only after the user asked to separate them explicitly. The repo root
+  mixed three published, documented problems with everything else in the repository — split into
+  `problems/euler{NNN}` only after a second, separately worded request ("gather them in one
+  folder") that was, in substance, the exact same fix applied to a different pair.
+
 Trigger: any request to show a solution or a method as a picture — a new catalog record, a
 per-problem infographic, an edit to an existing visualization; an invocation of the
-`visualize-approach` skill; adding or editing any method record.
+`document-problem` skill; adding or editing any method record.
 Mechanization: `PASSIVE — risk logged`. Principles 1, 4, 5, 7, 11 are judgement calls and are not
 script-checkable. Principle 2 — `LIGHTWEIGHT-GATE — memory-bank/visualizations/build.sh` always
 produces a png and SKILL.md steps 3/4e require reading it before showing (there is no mechanical
@@ -301,6 +320,7 @@ the QR changes); principle 12 — partly `LIGHTWEIGHT-GATE` (`grep -r 'specs/eul
 in:' memory-bank/` must be empty — not wired into a script, checked by hand); principle 13 —
 partly `LIGHTWEIGHT-GATE` (a Cyrillic grep over tracked files — also by hand); principle 15 — not
 mechanized (checking whether a block's content is already covered elsewhere is a judgement call,
-same class as principles 1/4/5/7/11). The risk of a principle not being applied at the moment a
-picture ships or a record is added is accepted explicitly; the compensation has been the user's own
-questions, which caught these violations — which is exactly what should not be the mechanism.
+same class as principles 1/4/5/7/11); principle 16 — same as 15, judgement-only. The risk of a
+principle not being applied at the moment a picture ships or a record is added is accepted
+explicitly; the compensation has been the user's own questions, which caught these violations —
+which is exactly what should not be the mechanism.

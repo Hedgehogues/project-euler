@@ -43,7 +43,7 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the
 picture fields of `[method::*]` records (`Picture` / `Sequence` / `Example` and the part of
 `Limits` that bounds the drawing); the rules for choosing a form; frame structure; determinism of
-rebuilds; the builder skill `.claude/skills/visualize-approach/SKILL.md`; and every rule about how
+rebuilds; the builder skill `.claude/skills/document-problem/SKILL.md`; and every rule about how
 a picture relates to its idea.
 
 **Out of scope:** the idea fields themselves — see [approaches](approaches.md); speedup techniques
@@ -249,12 +249,14 @@ rendering "by eye", no cloud, no hand-made pictures.
 
 ### SHALL
 - The builder skill SHALL read `_terms.md` as the first step of every invocation and SHALL NOT rely
-  on memory of a previous one — **SHALL-terms-first**. Status: done (SKILL.md, step 1).
+  on memory of a previous one — **SHALL-terms-first**. Status: done
+  (`document-problem/SKILL.md`, step 1).
 - A new method SHALL go through the full cycle (standard-name lookup → shared example → `Sequence`
   → record + `examples/` + `cards()` row) BEFORE being shown to the owner —
-  **SHALL-full-cycle-before-show**. Status: done (SKILL.md, step 4).
+  **SHALL-full-cycle-before-show**. Status: done (`document-problem/SKILL.md`, step 3).
 - An ambiguous match against two or more records SHALL be resolved by asking the owner rather than
-  guessing — **SHALL-ask-on-ambiguity**. Status: done (SKILL.md, step 5).
+  guessing — **SHALL-ask-on-ambiguity**. Status: done (`document-problem/SKILL.md`, step 3,
+  "matches two or more existing blocks about equally well").
 
 ### SHOULD
 - The render-observation step (MUST-render-observed) SHOULD be mechanized in the skill as a
@@ -265,6 +267,6 @@ rendering "by eye", no cloud, no hand-made pictures.
 ## Links
 - The layer below, which this spec may reference and which never references back:
   [approaches](approaches.md) (requirements on the idea).
-- Rules (short auto-loaded form): `.claude/rules/visualization-principles.md` (principles 1–14).
-- Skill: `.claude/skills/visualize-approach/SKILL.md` (shell + build).
+- Rules (short auto-loaded form): `.claude/rules/visualization-principles.md` (principles 1–16).
+- Skill: `.claude/skills/document-problem/SKILL.md` (shell + build).
 - Records: `memory-bank/_terms.md`; index — `memory-bank/index.md`.

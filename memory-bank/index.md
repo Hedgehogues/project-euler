@@ -31,5 +31,5 @@
 
 ### Outside the memory bank
 - `problems/euler{NNN}/README.md` — the problem itself: statement, algorithm, submission status, links to the methods it uses and to its spec (all problems live under one `problems/` folder, not loose at the repo root)
-- `.claude/rules/visualization-principles.md` — principles 1–15 (the short, auto-loaded form of the spec requirements)
-- `.claude/skills/visualize-approach/SKILL.md` — the skill: finds a method in `_terms.md`, runs `build.sh`, opens the result
+- `.claude/rules/visualization-principles.md` — principles 1–16 (the short, auto-loaded form of the spec requirements)
+- `.claude/skills/document-problem/SKILL.md` — the skill: writes a solved problem's README + spec + any new method entries (catalog lookup, picture build, both), by precedent from `problems/euler001-003`; escalates when a new problem doesn't fit that precedent
