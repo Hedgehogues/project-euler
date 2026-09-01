@@ -1,8 +1,9 @@
 # Ubiquitous Language Index — projecteuler (объяснение решений)
 
-> Канонический словарь терминов каталога визуализаций и коллекции подходов. Формат:
-> `## [context::TermName]` · ссылки по `[[context::Name]]`. Контексты: `viz` — визуальные приёмы,
-> `approach` — математические подходы. Обновляется атомарно со спеком.
+> Канонический словарь терминов каталога визуализаций, коллекции подходов и решённых задач.
+> Формат: `## [context::TermName]` · ссылки по `[[context::Name]]`. Контексты: `viz` — визуальные
+> приёмы, `approach` — математические подходы, `euler` — сами задачи. Обновляется атомарно со
+> спеком.
 >
 > Это ЕДИНСТВЕННОЕ место, где живёт описание каждого приёма и подхода (карточек в `.report/`
 > больше нет). Картинка каждого приёма — `visualizations/build/<slug>.png`, собранная скриптом
@@ -149,3 +150,15 @@ Visualized by: [[viz::GaussPairing]]
 Used in: euler001
 Depends on: [[approach::Collection]]
 Spec: [[approaches]]
+
+## [euler::Problem001]
+Class: entity
+Description: Multiples of 3 and 5 — сумма натуральных чисел меньше N, кратных 3 или 5, за T запросов.
+Invariants:
+  - MUST: ответ на каждый запрос вычисляется за O(1), без цикла по [0, N)
+  - MUST: sumMultiplesBelow(n, k) считает кратные k строго МЕНЬШИЕ n — m = (n-1)/k, не n/k
+  - MUST: solve(n) = sumMultiplesBelow(n,3) + sumMultiplesBelow(n,5) − sumMultiplesBelow(n,15) — 15 = НОК(3,5), общая часть, посчитанная дважды
+  - MUST: solution.cpp — чистый ASCII
+Depends on: [[approach::InclusionExclusion]], [[approach::ArithmeticProgressionSum]]
+Spec: [[euler001]]
+Code: `euler001/solution.cpp` · `euler001/README.md`
