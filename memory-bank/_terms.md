@@ -120,6 +120,26 @@ Used in: euler001
 Depends on: [viz::Catalog](#vizcatalog), [approach::InclusionExclusion](#approachinclusionexclusion)
 Spec: [visualizations](specs/visualizations.md)
 
+## [viz::BinarySearch]
+Class: entity
+Standard name: Binary search
+Description: Ищем значение в уже отсортированном списке — каждый раз сравниваем с серединой оставшегося куска и отбрасываем половину, где искомого точно нет.
+Picture: ![Binary search](visualizations/build/binary-search.png)
+Approach: [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Sequence:
+  1. Problem — список чисел и искомое значение; где оно — неизвестно
+  2. Transform ½ — середина списка сравнена с искомым, половина, где его точно нет, отброшена
+  3. Transform ½ — то же самое повторяется на оставшемся куске
+  4. Solution — остался один элемент — это и есть ответ
+Invariants:
+  - MUST: список заранее отсортирован (или значения монотонны)
+  - MUST NOT: применяться к неотсортированному списку — деление пополам перестаёт что-либо гарантировать
+Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
+Example: `visualizations/examples/binary-search.{css,html}` (js не требуется — значения статичны) → `visualizations/build/binary-search.html`
+Used in: euler002
+Depends on: [viz::Catalog](#vizcatalog), [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Spec: [visualizations](specs/visualizations.md)
+
 ## [approach::Collection]
 Class: aggregate
 Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании). Картинки — у каждого конкретного подхода ниже (`[approach::InclusionExclusion]`, `[approach::ArithmeticProgressionSum]`), не здесь — этот блок сам не про одну картинку, а про список.
@@ -155,6 +175,17 @@ Used in: euler001
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
+## [approach::PrecomputeAndBinarySearch]
+Class: entity
+Essence: Один раз построить весь список возможных ответов заранее, каждый запрос — не пересчитывать, а найти готовое место в списке.
+Recognized by: одна и та же последовательность (не зависящая от запроса) используется много раз подряд с разными запросами; сама последовательность растёт быстро — её длина много меньше диапазона значений
+General case: если элементы последовательности монотонны по индексу, ответ на запрос «сколько членов последовательности ≤ X» — позиция X в отсортированном списке, находится бинарным поиском за O(log m), m — длина списка, не диапазон значений
+Visualized by: [viz::BinarySearch](#vizbinarysearch) (сам поиск места в списке; предвычисление списка — подготовительный шаг, не отдельная картинка, как [viz::SkipCounting](#vizskipcounting) для «кратно»)
+Picture: [![Binary search](visualizations/build/binary-search.png)](visualizations/build/binary-search.html)
+Used in: euler002
+Depends on: [approach::Collection](#approachcollection)
+Spec: [approaches](specs/approaches.md)
+
 ## [euler::Problem001]
 Class: entity
 Description: Multiples of 3 and 5 — сумма натуральных чисел меньше N, кратных 3 или 5, за T запросов.
@@ -166,3 +197,14 @@ Invariants:
 Depends on: [approach::InclusionExclusion](#approachinclusionexclusion), [approach::ArithmeticProgressionSum](#approacharithmeticprogressionsum)
 Spec: [euler001](specs/euler001.md)
 Code: `euler001/solution.cpp` · `euler001/README.md`
+
+## [euler::Problem002]
+Class: entity
+Description: Even Fibonacci numbers — сумма чётных чисел Фибоначчи, не превышающих N, за T запросов.
+Invariants:
+  - MUST: список чётных чисел Фибоначчи (и накопленная сумма по нему) строится один раз, до чтения запросов, не на каждый запрос заново
+  - MUST: ответ на запрос находится бинарным поиском (`upper_bound`) по готовому списку — O(log m) на запрос, m — число чётных членов Фибоначчи, не N
+  - MUST: N до 4·10^16 включительно помещается в `long long`, список чисел Фибоначчи не переполняется до превышения этого предела
+Depends on: [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Spec: [euler002](specs/euler002.md)
+Code: `euler002/solution.cpp` · `euler002/README.md`

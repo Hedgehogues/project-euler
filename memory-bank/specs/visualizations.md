@@ -17,7 +17,8 @@ tags: [projecteuler, visualization, catalog, explanation, draft]
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины домена — `_terms.md`,
 контекст `viz`: [viz::Catalog](../_terms.md#vizcatalog), [viz::PageSkeleton](../_terms.md#vizpageskeleton), [viz::SkipCounting](../_terms.md#vizskipcounting),
-[viz::BarModel](../_terms.md#vizbarmodel), [viz::GaussPairing](../_terms.md#vizgausspairing), [viz::VennDiagram](../_terms.md#vizvenndiagram).
+[viz::BarModel](../_terms.md#vizbarmodel), [viz::GaussPairing](../_terms.md#vizgausspairing), [viz::VennDiagram](../_terms.md#vizvenndiagram),
+[viz::BinarySearch](../_terms.md#vizbinarysearch).
 
 ## Скоуп
 **В скоупе:** структура каталога `memory-bank/visualizations/` (каркас, код кадров, сборка,
@@ -49,6 +50,11 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   входящей ссылки — выглядели как семь приёмов вместо четырёх. Трассировка: MUST-redirect-only-if-linked.
 - **F7** Подходы и картинки существовали как два несвязанных списка. Трассировка:
   MUST-approach-link.
+- **F8** (euler002) Второй раз подряд одна из двух половин решения (предвычисление списка) не
+  получила своей визуализации — тот же класс, что F1's skip counting: подготовительный шаг, не
+  отдельный приём. Подтверждает принцип 4/MUST-applicability-is-class с другой стороны — не
+  каждая половина алгоритма заслуживает картинки, только то, что само по себе узнаваемая техника
+  (здесь — бинарный поиск).
 
 ## Architecture
 
@@ -75,12 +81,12 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   подготовки; стандартное название ищется ПОСЛЕ выбора формы и именно для неё —
   **MUST-form-before-name** — критерий: в карточке поля `Standard name:` и `Source:` относятся к
   той форме, что нарисована, а не к родственнику с другой целью. Статус: реализовано (skip
-  counting, bar model, Gauss pairing, Venn).
+  counting, bar model, Gauss pairing, Venn, binary search).
 - Картинка MUST быть последовательностью кадров: первый — Problem (нерешённая ситуация, помечена
   как неверная/неизвестная), последний — Solution, между ними один и более Transform —
   **MUST-frame-sequence** — критерий: поле `Sequence:` спека и разметка `examples/<slug>.html`
   содержат те же кадры в том же порядке; одиночный статичный кадр — нарушение. Статус:
-  реализовано (4/4).
+  реализовано (5/5).
 - Подписи на картинке MUST быть символьными метками (`?`, `×2`, `−`, `⌒`, `∩`, `=`), MUST NOT
   быть предложениями — **MUST-symbolic-labels** — критерий: в `examples/<slug>.html` внутри
   `frame-tag` нет текста длиннее одного символа/короткого токена. Статус: реализовано.

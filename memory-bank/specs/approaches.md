@@ -14,7 +14,8 @@ tags: [projecteuler, approaches, explanation, draft]
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины — `_terms.md`, контекст
 `approach`: [approach::Collection](../_terms.md#approachcollection), [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion),
-[approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum).
+[approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum),
+[approach::PrecomputeAndBinarySearch](../_terms.md#approachprecomputeandbinarysearch).
 
 ## Скоуп
 **В скоупе:** блоки `[approach::*]` в `memory-bank/_terms.md`, схема записи, двусторонняя связь с
@@ -31,6 +32,11 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   понятие, не способ счёта). Трассировка: MUST-visualized-by, MUST-no-invented-approach.
 - **F2** Первая формулировка включения-исключения была «А+Б−АБ» — частный случай двух условий,
   выданный за общий. Трассировка: MUST-general-case.
+- **F3** (euler002) Признак подхода «предвычислить один раз + бинарный поиск на запрос» легко
+  спутать с самим предвычислением — предвычисление ничем не отличается от общего «сначала
+  посчитай, потом используй» и не тянет на отдельную визуализацию (тот же класс, что счёт
+  прыжками для «кратно», F1); отдельная, безусловно стандартная техника — сам бинарный поиск.
+  Трассировка: MUST-visualized-by, MUST-no-invented-approach.
 
 ## Architecture
 
@@ -50,7 +56,7 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 ### MUST
 - Каждая запись MUST содержать пять полей: Essence / Recognized by / General case / Visualized by
   / Used in — **MUST-entry-schema** — критерий: `grep` по каждому заголовку поля даёт
-  столько же строк, сколько записей. Статус: реализовано (2 записи).
+  столько же строк, сколько записей. Статус: реализовано (3 записи).
 - «Суть» MUST быть одной фразой без формул — **MUST-essence-plain** — критерий: в поле нет `·`,
   `/`, степеней, обозначений переменных. Статус: реализовано.
 - «Общий случай» MUST описывать идею для произвольных параметров, MUST NOT выдавать частный
@@ -71,8 +77,8 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 - Поле `Visualized by` MUST ссылаться на конкретные блоки `[viz::*]` (не на сам
   [viz::Catalog](../_terms.md#vizcatalog) — тот аггрегат, не отдельная картинка); значение «—» MUST
   трактоваться как сигнал завести картинку — **MUST-visualized-by** — критерий: у каждой записи
-  ≥1 ссылка либо явный «—» с пометкой «нужна картинка». Статус: реализовано (оба подхода имеют
-  картинки).
+  ≥1 ссылка либо явный «—» с пометкой «нужна картинка». Статус: реализовано (все три подхода
+  имеют картинки).
 - Подход MUST NOT заводиться под существующую картинку ради симметрии — **MUST-no-invented-approach**
   — критерий: картинка без подхода помечается на своей стороне (`Approach: —` с причиной), в
   коллекции записи нет. Статус: реализовано (skip counting).
