@@ -169,18 +169,18 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::LCMViaGCD]
 Class: entity
-Standard name: Least common multiple via GCD · picture — repeat-until-aligned bars (this catalog's own construction, not an independently named historical device — see Picture note)
+Standard name: Least common multiple via GCD · picture — tile-count swap (this catalog's own construction, not an independently named historical device — see Picture note)
 Essence: Build the smallest number divisible by a whole list of numbers, one at a time — each new number only ever contributes the part of itself not already covered by what came before.
 Recognized by: you need the smallest number that every number in a set or range divides into evenly ("smallest number divisible by all of 1..N") — the smallest common MULTIPLE, not the greatest common divisor
 General case: lcm(a, b) = a·b / gcd(a, b); for a list or range of more than two numbers, fold this pairwise across every element in turn — lcm(a, b, c, ...) = lcm(lcm(a, b), c, ...)
 Picture: ![LCM via GCD](visualizations/build/lcm-via-gcd.png)
 Sequence:
-  1. Problem — two bars, 35 and 15, different lengths; how many copies of each until the ends line up?
-  2. Transform × — three copies of 35 and seven copies of 15 both laid end to end, both rows now the same length
-  3. Solution — 3 × 35 = 7 × 15 = 105 = lcm(35, 15); the copy counts (3, 7) are the OTHER number divided by the gcd (5) — the two numbers repeat exactly enough times to reach the same point precisely because that shared tile size divides both
+  1. Problem — 35 shown tiled by 7 units of 5 (their gcd), 15 shown tiled by 3 units of 5 — the same unit exactly fits both, a different number of times each
+  2. Transform ⇄ — swap the counts: the 7 tiles counted inside 35 become how many times 15 repeats, and the 3 tiles counted inside 15 become how many times 35 repeats
+  3. Solution — 3 × 35 = 7 × 15 = 105 = lcm(35, 15); both rows reach the exact same length, because that is precisely what the swap guarantees
 Limits:
   - MUST NOT: be computed by just multiplying every number together — that overcounts factors the numbers already share; dividing by the gcd at each step is exactly what keeps the running result minimal
-Note: a standard LCM picture exists for a DIFFERENT technique — a Venn diagram of each number's prime factors, shared primes in the overlap — but drawing it here would show the factoring approach this method exists specifically to avoid (factoring is expensive, gcd is cheap). The picture used instead is not independently famous by its own name: it is this catalog's own construction, deliberately drawn to look and read differently from [method::EuclideanAlgorithm](#methodeuclideanalgorithm)'s square-tiling (bars stretching outward to a meeting point, not a rectangle shrinking down to a tile) even though the same gcd — 5 — sets both: it is the tile that measures the rectangle exactly in one picture, and it is what the two repeat-counts (3, 7) are the OTHER number divided by in the other. This idea's entire mechanism runs through EuclideanAlgorithm — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
+Note: a standard LCM picture exists for a DIFFERENT technique — a Venn diagram of each number's prime factors, shared primes in the overlap — but drawing it here would show the factoring approach this method exists specifically to avoid (factoring is expensive, gcd is cheap). The picture used instead is not independently famous by its own name: it is this catalog's own construction, deliberately drawn to differ from [method::EuclideanAlgorithm](#methodeuclideanalgorithm)'s square-tiling in both composition (linear tile-count-and-swap, not a shrinking rectangle) and in what it visibly derives (WHY the repeat counts 3 and 7 are what they are, shown by literally counting tiles, not asserted in a caption) — even though the same gcd, 5, anchors both pictures. This idea's entire mechanism runs through EuclideanAlgorithm — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
 Source: [Wikipedia — Least common multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
 Example: `visualizations/examples/lcm-via-gcd.{css,html}` (no js needed — the values are static) → `visualizations/build/lcm-via-gcd.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

@@ -60,63 +60,90 @@
   .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
 
   /* --- examples/lcm-via-gcd.css --- */
-.lc-wrap{position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding-top:4px;}
-.lc-row{display:flex; gap:2px;}
-.lc-bar{box-sizing:border-box; height:32px; display:flex; align-items:center; justify-content:center;
-  border-radius:5px; font-family:var(--font-m); font-size:13px; font-weight:700;
-  padding:0 6px;}
-.lc-bar.lc-a{width:105px; background:var(--a-bg); border:1.5px solid var(--a); color:var(--a);}
-.lc-bar.lc-b{width:45px; background:var(--b-bg); border:1.5px solid var(--b); color:var(--b);}
-.lc-bar.lc-good{background:var(--good-bg); border-color:var(--good); color:var(--good);}
-.lc-caption{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); margin-top:4px;}
-.lc-subcaption{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); opacity:.8;}
-.lc-ans{color:var(--good); font-weight:700;}
-.lc-endmark{position:absolute; left:315px; top:0; bottom:26px; width:2px; background:var(--good);}
+.lg-wrap{display:flex; flex-direction:column; align-items:flex-start; gap:10px;}
+
+.lg-ticked-row{display:flex; align-items:center; gap:12px;}
+.lg-ticked{display:flex; gap:2px;}
+.lg-ticked .lg-cell{box-sizing:border-box; width:15px; height:28px; border-radius:4px;
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-m); font-size:9px; font-weight:700;}
+.lg-ticked.lg-a .lg-cell{background:var(--a-bg); border:1.5px solid var(--a); color:var(--a);}
+.lg-ticked.lg-b .lg-cell{background:var(--b-bg); border:1.5px solid var(--b); color:var(--b);}
+.lg-ticked-label{font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--ink-soft);}
+
+.lg-swap-row{display:flex; align-items:center; gap:10px;}
+.lg-swap-count{width:34px; height:34px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  border-radius:8px; font-family:var(--font-m); font-weight:700; font-size:15px;}
+.lg-swap-count.lg-a{background:var(--a-bg); border:1.5px solid var(--a); color:var(--a);}
+.lg-swap-count.lg-b{background:var(--b-bg); border:1.5px solid var(--b); color:var(--b);}
+.lg-swap-arrow{font-family:var(--font-m); font-size:13px; color:var(--ink-soft);}
+
+.lg-row{display:flex; gap:2px;}
+.lg-bar{box-sizing:border-box; height:32px; display:flex; align-items:center; justify-content:center;
+  border-radius:5px; font-family:var(--font-m); font-size:12px; font-weight:700;}
+.lg-bar.lg-good{background:var(--good-bg); border:1.5px solid var(--good); color:var(--good);}
+.lg-bar.lg-w35{width:70px;}
+.lg-bar.lg-w15{width:30px;}
+
+.lg-caption{font-family:var(--font-m); font-size:12px; color:var(--ink-soft);}
+.lg-ans{color:var(--good); font-weight:700;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card" id="card">
     <h2>LCM via GCD</h2>
-    <div class="stdtag found">✓ Square-tiling, extended to LCM</div>
+    <div class="stdtag found">✓ Tile-count swap, from GCD</div>
     <div class="flow">
 <!-- examples/lcm-via-gcd.html -->
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-row"><div class="lc-bar lc-a">35</div></div>
-    <div class="lc-row"><div class="lc-bar lc-b">15</div></div>
-    <div class="lc-caption">how many copies of each until the ends line up?</div>
+  <div class="lg-wrap">
+    <div class="lg-ticked-row">
+      <div class="lg-ticked lg-a">
+        <div class="lg-cell">5</div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
+      </div>
+      <div class="lg-ticked-label">35 = 7 fives</div>
+    </div>
+    <div class="lg-ticked-row">
+      <div class="lg-ticked lg-b">
+        <div class="lg-cell">5</div><div class="lg-cell"></div><div class="lg-cell"></div>
+      </div>
+      <div class="lg-ticked-label">15 = 3 fives</div>
+    </div>
+    <div class="lg-caption">the same unit (5, their gcd) tiles both numbers exactly</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">×</div>
+<div class="frame-tag">⇄</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-row">
-      <div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div>
+  <div class="lg-wrap">
+    <div class="lg-swap-row">
+      <div class="lg-swap-count lg-a">7</div>
+      <div class="lg-swap-arrow">fives in 35 → repeat <b>15</b></div>
+      <div class="lg-swap-count lg-a">×7</div>
     </div>
-    <div class="lc-row">
-      <div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div>
+    <div class="lg-swap-row">
+      <div class="lg-swap-count lg-b">3</div>
+      <div class="lg-swap-arrow">fives in 15 → repeat <b>35</b></div>
+      <div class="lg-swap-count lg-b">×3</div>
     </div>
-    <div class="lc-caption">3 copies of 35 — 7 copies of 15 — both reach the same length</div>
+    <div class="lg-caption">the tile-count of one number becomes the repeat-count of the other</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-endmark"></div>
-    <div class="lc-row">
-      <div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div>
+  <div class="lg-wrap">
+    <div class="lg-row">
+      <div class="lg-bar lg-good lg-w35">35</div><div class="lg-bar lg-good lg-w35">35</div><div class="lg-bar lg-good lg-w35">35</div>
     </div>
-    <div class="lc-row">
-      <div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div>
+    <div class="lg-row">
+      <div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div><div class="lg-bar lg-good lg-w15">15</div>
     </div>
-    <div class="lc-caption">3 × 35 = 7 × 15 = <span class="lc-ans">105</span> = lcm(35, 15)</div>
-    <div class="lc-subcaption">3 = 15 ÷ 5, 7 = 35 ÷ 5 — 5 is gcd(35, 15)</div>
+    <div class="lg-caption">3 × 35 = 7 × 15 = <span class="lg-ans">105</span> = lcm(35, 15)</div>
   </div>
 </div></div>
     </div>
