@@ -3,9 +3,9 @@
 C++ solutions to the [Project Euler](https://projecteuler.net/) problem set, as posed on the
 [HackerRank Project Euler track](https://www.hackerrank.com/contests/projecteuler).
 
-Each problem gets its own directory (`euler001`, `euler002`, ...) containing a single
-`solution.cpp`. Solutions read multiple test cases from `stdin` (first line: number of cases `T`,
-followed by `T` lines of input) and print one answer per line, matching HackerRank's judge format.
+Each problem lives in its own directory (`euler001`, `euler002`, ...) with a single
+`solution.cpp`. Solutions read multiple test cases from `stdin` — first line is the number of
+cases `T`, followed by `T` lines of input — and print one answer per line.
 
 ## Build & run
 
@@ -15,25 +15,57 @@ g++ -O2 -std=c++20 -o solution eulerNNN/solution.cpp && ./solution < input.txt
 
 ## euler001 — Multiples of 3 and 5
 
-Sum every natural number below `N` that is a multiple of 3 or 5, for each of `T` given values
-of `N`.
+For each given `N`, sum every natural number below `N` that's a multiple of 3 or 5.
 
-Closed-form solution: sum the multiples of 3, add the multiples of 5, subtract the multiples of
-15 (inclusion–exclusion, since numbers divisible by both would otherwise be counted twice). No
-loop over the range is needed — the answer for any `N` is computed directly via the triangular-
-number formula, so runtime is `O(1)` per query.
+The trick is not to loop over the range at all. A sum of evenly-spaced numbers (all the
+multiples of 3 below `N`, say) can be added up with one multiplication instead of one at a
+time — that's [Gauss's famous pairing trick](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/).
+Do that separately for multiples of 3 and multiples of 5, then subtract the multiples of 15 once
+(they'd otherwise be counted in both sums) — that's
+[inclusion–exclusion](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle). The
+whole answer comes out of three multiplications, no matter how large `N` is.
 
-Status: **Accepted**, 100%.
+**Status: Accepted, 100%.**
 
-## Visualization catalog (euler001)
+### Why it works, in pictures
 
-`memory-bank/` holds the visual explanations built for euler001's solution — four standard
-techniques (skip counting on a number line, bar model, Gauss's pairing trick, Venn diagram).
-Each is described as an RFC-style term block in `memory-bank/_terms.md` (standard name, when to
-apply, limits, source, linked approach, rendered picture); the frame code lives in
-`memory-bank/visualizations/examples/<slug>.{css,html,js}` and `build.sh` assembles it into
-`build/<slug>.html` + a headless-Chrome `build/<slug>.png`. Every picture reads on its own,
-top-down: first frame is the problem, last is the solution, frames in between are the
-transformations. Requirements and findings: `memory-bank/specs/`; principles:
-`.claude/rules/visualization-principles.md`; assembler skill:
-`.claude/skills/visualize-approach/SKILL.md`. Text is in Russian.
+<table>
+<tr>
+<td width="50%">
+
+**Gauss's trick** — pair numbers from both ends of the run; every pair adds up to the same total.
+
+[![Gauss's trick](memory-bank/visualizations/build/gauss-pairing.png)](memory-bank/visualizations/build/gauss-pairing.html)
+
+</td>
+<td width="50%">
+
+**Inclusion–exclusion, as two overlapping bars** — add both sums, then take back what got
+counted twice.
+
+[![Bar model](memory-bank/visualizations/build/bar-model.png)](memory-bank/visualizations/build/bar-model.html)
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**The same idea, as two circles** — the overlap is exactly what got double-counted.
+
+[![Venn diagram](memory-bank/visualizations/build/venn.png)](memory-bank/visualizations/build/venn.html)
+
+</td>
+<td width="50%">
+
+**"Multiple of", made visible** — hopping down a number line by 2, then by 3, is what "multiple"
+actually means.
+
+[![Skip counting](memory-bank/visualizations/build/skip-counting.png)](memory-bank/visualizations/build/skip-counting.html)
+
+</td>
+</tr>
+</table>
+
+Each picture is generated, not hand-drawn — click one to see it live in a browser. The write-ups
+behind them (where each technique comes from, when it applies, its limits) live in
+[`memory-bank/`](memory-bank/_terms.md), in Russian.
