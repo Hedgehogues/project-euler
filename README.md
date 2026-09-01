@@ -21,7 +21,7 @@ g++ -O2 -std=c++20 -o solution eulerNNN/solution.cpp && ./solution < input.txt
 | [002](euler002) | Even Fibonacci numbers | Accepted, 100% |
 | [003](euler003) | Largest prime factor | Accepted, 100% |
 
-Each problem's own directory README has the write-up — the approach, why it works, and
-(where one exists) a picture of the idea. Shared write-ups that don't belong to any single
-problem — the methods themselves, each with its own picture — live in
-[`memory-bank/`](memory-bank/_terms.md).
+Each problem's own directory has a README (the write-up: approach, why it works, and — where one
+exists — a picture of the idea) and a `spec.md` (RFC-style requirements and acceptance criteria for
+that solution). Shared write-ups that don't belong to any single problem — the methods themselves,
+each with its own picture — live in [`memory-bank/`](memory-bank/_terms.md).

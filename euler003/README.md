@@ -20,6 +20,8 @@ independently against a brute-force scan (check every `d<=n` for primality and d
 `n=2..20000` plus the classic Project Euler checkpoints (`13195 → 29`,
 `600851475143 → 6857`, the full-size original `N`).
 
+Full requirements and acceptance criteria: [spec.md](spec.md).
+
 ## The idea behind it
 
 One catalogued idea (full write-up: [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
