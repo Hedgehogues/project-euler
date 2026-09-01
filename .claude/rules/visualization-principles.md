@@ -231,6 +231,34 @@ the page shell, frame labels, and therefore the text rendered into the pictures 
   match breaks silently on translation (precedent: the light-theme pinning did exactly that, and the
   rebuilt PNGs came out dark; caught by looking at the picture, per principle 2).
 
+## 14. Layers depend one way only: problems → pictures → ideas
+
+The catalog is layered, and the dependency arrow never reverses:
+
+```
+problems (euler{NNN}/README.md)  →  pictures (specs/visualizations.md)  →  ideas (specs/approaches.md)
+```
+
+Each layer may reference the one below it and MUST NOT reference the one above. The idea layer is
+the foundation: it knows nothing of pictures, of the build, or of problems, and its spec must be
+readable and applicable with every other spec closed.
+
+The practical consequence people get wrong: **a rule about the RELATIONSHIP between two layers
+belongs to the upper (dependent) one**, because that is the only side allowed to know both. "How
+many pictures may an idea have", "what if it has none", "a picture must not spawn an idea" — all
+of these live in the picture spec, never in the idea spec, even though they constrain ideas.
+
+- MUST: the idea spec contains no link to the picture spec and no requirement whose subject is a
+  picture, a build step or a problem.
+- MUST: relationship rules are written once, in the dependent layer — not mirrored into both (a
+  mirrored rule is the same duplication principle 9 forbids, one level up).
+- MUST: a record's `Spec:` field points at the layer that actually governs it — a record with no
+  picture points only at the idea spec.
+- Precedent: the idea spec used to open by calling itself "one half of a pair", list picture fields
+  in its own scope, and carry four picture-facing requirements — a cycle that made the base layer
+  unreadable on its own. Named by the user ("the requirements on visualizations and on ideas must
+  be independent"), not noticed while the two specs were being written side by side.
+
 Trigger: any request to show a solution or a method as a picture — a new catalog record, a
 per-problem infographic, an edit to an existing visualization; an invocation of the
 `visualize-approach` skill; adding or editing any method record.

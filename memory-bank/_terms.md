@@ -72,7 +72,7 @@ Limits:
 Source: [Wikipedia — Skip counting](https://en.wikipedia.org/wiki/Skip_counting) · [Wikipedia — Number line](https://en.wikipedia.org/wiki/Number_line) · teaching practice: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/)
 Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
 Depends on: [method::Catalog](#methodcatalog)
-Spec: [visualizations](specs/visualizations.md)
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::InclusionExclusion]
 Class: entity
@@ -136,7 +136,7 @@ Standard name: Precomputation
 Essence: Build everything that does not depend on the individual query once, up front — each query then only reads the ready result instead of recomputing it.
 Recognized by: the same structure (list, table, running sum) is used many times over with different queries and does not itself depend on the query; rebuilding it per query repeats identical work T times for nothing
 General case: lift the construction of the shared structure out of the query loop — its cost is paid once instead of T times; HOW a query is then answered from the ready structure (search, indexing, range sum) is a separate method, not part of precomputation
-Picture: — (there is no established visual form for "compute it ahead of time", unlike for what you then DO with the ready structure; the absence of a picture is not an argument against a separate record)
+Picture: — (there is no established visual form for "compute it ahead of time", unlike for what you then DO with the ready structure)
 Limits:
   - MUST NOT: be used when the structure depends on the query — then there is nothing to precompute
   - MUST: remember the build cost is always paid, even for a single query — with only one query there is no gain
