@@ -36,10 +36,12 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::InclusionExclusion](../_terms.md#methodinclusionexclusion),
 [method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
 [method::VennDiagram](../_terms.md#methodvenndiagram),
+[method::Precomputation](../_terms.md#methodprecomputation),
 [method::BinarySearch](../_terms.md#methodbinarysearch),
 [method::TrialDivision](../_terms.md#methodtrialdivision),
 [method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm),
-[method::LCMViaGCD](../_terms.md#methodlcmviagcd).
+[method::LCMViaGCD](../_terms.md#methodlcmviagcd),
+[method::SumOfSquares](../_terms.md#methodsumofsquares).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the

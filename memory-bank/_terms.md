@@ -150,6 +150,23 @@ Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_divis
 Example: `visualizations/examples/ladder-method.{css,html}` (no js needed — the values are static) → `visualizations/build/ladder-method.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
+## [method::SumOfSquares]
+Class: entity
+Standard name: Sum of squares formula · picture — square pyramidal number, stacked layers
+Essence: The sum of the first n squares has a closed-form cubic formula, computed directly instead of adding n terms one at a time.
+Recognized by: you need 1² + 2² + ... + n² — the terms being added are themselves squares, not the plain numbers ([method::ArithmeticProgressionSum](#methodarithmeticprogressionsum) is for that, plain-number, case)
+General case: sum of the first n squares = n(n+1)(2n+1) / 6, for any positive integer n
+Picture: ![Sum of squares](visualizations/build/sum-of-squares.png)
+Sequence:
+  1. Problem — four square layers, sides 4, 3, 2, 1, unlabeled; how many unit cells in total?
+  2. Transform + — each layer counted on its own: 4²=16, 3²=9, 2²=4, 1²=1
+  3. Solution — 1²+2²+3²+4² = 30 = 4·5·9/6
+Limits:
+  - MUST NOT: be confused with the LINEAR sum 1+2+...+n — that is [method::ArithmeticProgressionSum](#methodarithmeticprogressionsum), a different, lower-degree closed form; the two are easy to conflate because both apply to "the first n numbers"
+Source: [Wikipedia — Square pyramidal number](https://en.wikipedia.org/wiki/Square_pyramidal_number)
+Example: `visualizations/examples/sum-of-squares.{css,html}` (no js needed — the values are static) → `visualizations/build/sum-of-squares.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
 ## [method::EuclideanAlgorithm]
 Class: entity
 Standard name: Euclidean algorithm
