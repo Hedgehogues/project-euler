@@ -167,7 +167,7 @@ Standard name: Least common multiple via GCD
 Essence: Build the smallest number divisible by a whole list of numbers, one at a time — each new number only ever contributes the part of itself not already covered by what came before.
 Recognized by: you need the smallest number that every number in a set or range divides into evenly ("smallest number divisible by all of 1..N") — the smallest common MULTIPLE, not the greatest common divisor
 General case: lcm(a, b) = a·b / gcd(a, b); for a list or range of more than two numbers, fold this pairwise across every element in turn — lcm(a, b, c, ...) = lcm(lcm(a, b), c, ...)
-Picture: — (there is no established visual form of its own, separate from the Euclidean algorithm's — this idea is what you build using that result, not a distinct thing to draw)
+Picture: — (a standard LCM picture exists — a Venn diagram of each number's prime factors, shared primes in the overlap — but it belongs to a DIFFERENT technique: computing LCM via factorization, which this method exists specifically to avoid, since factoring is expensive and gcd is cheap. Drawing that Venn diagram here would show the idea this method deliberately sidesteps, not the idea itself)
 Limits:
   - MUST NOT: be computed by just multiplying every number together — that overcounts factors the numbers already share; dividing by the gcd at each step is exactly what keeps the running result minimal
 Note: this idea's entire mechanism runs through [method::EuclideanAlgorithm](#methodeuclideanalgorithm) — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.

@@ -43,7 +43,19 @@ from the RFC documents each time.
    - **Not catalogued** — add it properly, in this order, not as a shortcut inline description:
      (a) `WebSearch` for the established name and an encyclopedic source (Wikipedia, Britannica,
      cp-algorithms, a professional body — blogs are supplements only) BEFORE writing anything; if
-     none exists, say so in the record rather than inventing a citation;
+     none exists, say so in the record rather than inventing a citation. This search covers the
+     PICTURE too, not just the name — before writing `Picture: —`, actually check whether a
+     standard visual exists for the quantity/goal this method computes, even under a DIFFERENT
+     mechanism, rather than copying the "no picture" reasoning from a structurally similar prior
+     record by inertia. If one exists for a different mechanism, say so explicitly and explain why
+     it doesn't apply (drawing it would show the technique this method avoids, not the technique
+     itself) — that is a real, specific reason; "no established form" asserted without having
+     looked is not. Precedent: `[method::LCMViaGCD]`'s `Picture: —` first said "no established
+     visual form of its own" without checking — Wikipedia's own Least Common Multiple article
+     describes a real, standard Venn-diagram-via-prime-factorization visualization, just for a
+     different (factoring) technique than this method's (gcd-arithmetic) one. Caught only when the
+     user asked directly "where's the visualization for this one?" of two records in a row;
+
      (b) reuse the catalog's shared example ("multiples of 2 or 3, below 20"), or make a small one
      of your own and explain in the record why the shared one doesn't fit;
      (c) design the `Sequence:` from Problem to Solution, writing out every number of every frame
