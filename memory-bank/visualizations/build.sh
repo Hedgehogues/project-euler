@@ -21,7 +21,7 @@ ladder-method|Ladder method|Ladder method (division ladder)|TrialDivision
 euclidean-algorithm|Euclidean algorithm|Euclidean algorithm (square-tiling)|EuclideanAlgorithm
 lcm-via-gcd|LCM via GCD|Tile-count swap, from GCD|LCMViaGCD
 precomputation|Precomputation|Build once, look up many times|Precomputation
-sum-of-squares|Sum of squares|Square pyramidal number, stacked layers|SumOfSquares
+sum-of-squares|Sum of squares|Square split into two triangular staircases|SumOfSquares
 EOF
 }
 

@@ -120,6 +120,20 @@ and the problems themselves, which live in `problems/euler{NNN}/README.md`.
   didn't already state formally. Deleted from `_terms.md`; their one non-redundant content — that
   the shell has no separate context and the catalog has no root record of its own — folded into
   the Architecture section below. Traces to: the Bounded Context section below.
+- **F14** (user: "the picture doesn't answer how the result is obtained in the approach") The
+  first `SumOfSquares` picture stacked the four square layers, counted each honestly (16, 9, 4,
+  1), and then simply asserted "= 4·5·9/6" — the exact same violation F-class as the earlier
+  LCMViaGCD round: a number appearing in a caption with no visible route to it in the picture.
+  Investigated the source before redesigning: Wikipedia's own Square pyramidal number article
+  states the closed form is "proved by mathematical induction" — algebraic, not geometric — and
+  no encyclopedic source anywhere gives a geometric derivation of it. Rather than force an
+  unsourced/unverified 3D dissection (a real risk considered and rejected — a wrong geometric
+  claim shown as fact is worse than an honest gap), the picture was rebuilt around a real,
+  independently verified identity that IS fully showable: k² = T(k) + T(k−1) (a square splits into
+  two triangular numbers), summed over k=1..n — one honest step short of the final algebraic
+  simplification into the cubic form, not a fabricated full derivation. Traces to:
+  MUST-frame-sequence, MUST-picture-optional (the record's Note is explicit about exactly how far
+  the picture's derivation goes and where it hands off to a cited algebraic fact).
 
 ## Architecture
 

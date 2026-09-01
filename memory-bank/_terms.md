@@ -152,17 +152,18 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::SumOfSquares]
 Class: entity
-Standard name: Sum of squares formula · picture — square pyramidal number, stacked layers
+Standard name: Sum of squares formula · picture — square split into two triangular staircases (this catalog's own construction, verified but not independently sourced as a named device — see Picture note)
 Essence: The sum of the first n squares has a closed-form cubic formula, computed directly instead of adding n terms one at a time.
 Recognized by: you need 1² + 2² + ... + n² — the terms being added are themselves squares, not the plain numbers ([method::ArithmeticProgressionSum](#methodarithmeticprogressionsum) is for that, plain-number, case)
 General case: sum of the first n squares = n(n+1)(2n+1) / 6, for any positive integer n
 Picture: ![Sum of squares](visualizations/build/sum-of-squares.png)
 Sequence:
-  1. Problem — four square layers, sides 4, 3, 2, 1, unlabeled; how many unit cells in total?
-  2. Transform + — each layer counted on its own: 4²=16, 3²=9, 2²=4, 1²=1
-  3. Solution — 1²+2²+3²+4² = 30 = 4·5·9/6
+  1. Problem — a 4×4 square of unit cells, unlabeled; split it along the diagonal into two staircases?
+  2. Transform ⊿ — the growing staircase (T(4)=10 cells) and the rest (T(3)=6 cells): every k² splits into T(k) + T(k−1), the triangular numbers on either side of k
+  3. Solution — each of the four layers (k=1..4) split the same way; summing every blue staircase (1+3+6+10=20) and every red one (0+1+3+6=10) gives 30 = 1²+2²+3²+4²
 Limits:
   - MUST NOT: be confused with the LINEAR sum 1+2+...+n — that is [method::ArithmeticProgressionSum](#methodarithmeticprogressionsum), a different, lower-degree closed form; the two are easy to conflate because both apply to "the first n numbers"
+Note: no encyclopedic source gives a geometric derivation of the closed form n(n+1)(2n+1)/6 — Wikipedia's own Square pyramidal number article states it directly and says it "may be proved by mathematical induction" (an algebraic technique, not a picture). The picture therefore does NOT claim to derive the cubic closed form; what it DOES show, honestly and completely, is the real, checkable identity k² = T(k) + T(k−1) (T being the triangular number, already this catalog's own [method::ArithmeticProgressionSum](#methodarithmeticprogressionsum) at n=k) — summing that identity over k=1..n is a genuine, verifiable route to the same total, one level short of the final algebraic simplification into the cubic form. An earlier version of this picture stacked the four layers, counted each (16, 9, 4, 1), and then simply asserted "= 4·5·9/6" with no visible connection between the count and the formula — caught by the user asking directly what in the picture explains how the approach's result is obtained.
 Source: [Wikipedia — Square pyramidal number](https://en.wikipedia.org/wiki/Square_pyramidal_number)
 Example: `visualizations/examples/sum-of-squares.{css,html}` (no js needed — the values are static) → `visualizations/build/sum-of-squares.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

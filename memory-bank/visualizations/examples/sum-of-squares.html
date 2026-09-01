@@ -1,23 +1,27 @@
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
   <div class="sq-wrap">
-    <div class="sq-layer" style="grid-template-columns:repeat(4,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div>
-    <div class="sq-layer" style="grid-template-columns:repeat(3,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div>
-    <div class="sq-layer" style="grid-template-columns:repeat(2,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div>
-    <div class="sq-layer" style="grid-template-columns:repeat(1,15px);"><div class="sq-cell"></div></div>
-    <div class="sq-caption">four square layers, sides 4, 3, 2, 1 — how many unit cells in total?</div>
+    <div class="sq-grid">
+      <div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div>
+      <div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div>
+      <div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div>
+      <div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div>
+    </div>
+    <div class="sq-caption">4² = 16 cells — split along the diagonal into two staircases?</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">+</div>
+<div class="frame-tag">⊿</div>
 <div class="frame"><div class="frame-inner">
   <div class="sq-wrap">
-    <div class="sq-row"><div class="sq-layer sq-a" style="grid-template-columns:repeat(4,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div><div class="sq-count">4² = 16</div></div>
-    <div class="sq-row"><div class="sq-layer sq-a" style="grid-template-columns:repeat(3,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div><div class="sq-count">3² = 9</div></div>
-    <div class="sq-row"><div class="sq-layer sq-a" style="grid-template-columns:repeat(2,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div><div class="sq-count">2² = 4</div></div>
-    <div class="sq-row"><div class="sq-layer sq-a" style="grid-template-columns:repeat(1,15px);"><div class="sq-cell"></div></div><div class="sq-count">1² = 1</div></div>
-    <div class="sq-caption">each layer counted on its own — 16, 9, 4, 1</div>
+    <div class="sq-grid">
+      <div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div>
+      <div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div>
+      <div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div>
+      <div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div>
+    </div>
+    <div class="sq-caption">the growing staircase (blue) is T(4)=10, the rest (red) is T(3)=6 — every k² splits into T(k) + T(k−1)</div>
   </div>
 </div></div>
 
@@ -25,10 +29,24 @@
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
   <div class="sq-wrap">
-    <div class="sq-row"><div class="sq-layer sq-good" style="grid-template-columns:repeat(4,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div></div>
-    <div class="sq-row"><div class="sq-layer sq-good" style="grid-template-columns:repeat(3,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div></div>
-    <div class="sq-row"><div class="sq-layer sq-good" style="grid-template-columns:repeat(2,15px);"><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div><div class="sq-cell"></div></div></div>
-    <div class="sq-row"><div class="sq-layer sq-good" style="grid-template-columns:repeat(1,15px);"><div class="sq-cell"></div></div></div>
-    <div class="sq-caption">1² + 2² + 3² + 4² = <span class="sq-ans">30</span> = 4·5·9 / 6</div>
+    <div class="sq-layers">
+      <div class="sq-layer">
+        <div class="sq-mini" style="grid-template-columns:repeat(1,13px);"><div class="sq-cell sq-a"></div></div>
+        <div class="sq-eq">1² = T(1)+T(0) = 1+0</div>
+      </div>
+      <div class="sq-layer">
+        <div class="sq-mini" style="grid-template-columns:repeat(2,13px);"><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div></div>
+        <div class="sq-eq">2² = T(2)+T(1) = 3+1</div>
+      </div>
+      <div class="sq-layer">
+        <div class="sq-mini" style="grid-template-columns:repeat(3,13px);"><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div></div>
+        <div class="sq-eq">3² = T(3)+T(2) = 6+3</div>
+      </div>
+      <div class="sq-layer">
+        <div class="sq-mini" style="grid-template-columns:repeat(4,13px);"><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-b"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div><div class="sq-cell sq-a"></div></div>
+        <div class="sq-eq">4² = T(4)+T(3) = 10+6</div>
+      </div>
+    </div>
+    <div class="sq-caption">sum of all the blue staircases (1+3+6+10=20) + all the red ones (0+1+3+6=10) = <span class="sq-ans">30</span> = 1²+2²+3²+4²</div>
   </div>
 </div></div>
