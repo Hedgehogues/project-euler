@@ -9,7 +9,7 @@
 > none is legitimate with a stated reason.
 
 ## projecteuler — explaining solutions
-- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — Catalog, PageSkeleton, SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision
+- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
 - [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 
@@ -21,5 +21,5 @@
 
 ### Outside the memory bank
 - `euler{NNN}/README.md` — the problem itself: statement, algorithm, submission status, links to the methods it uses
-- `.claude/rules/visualization-principles.md` — principles 1–12 (the short, auto-loaded form of the spec requirements)
+- `.claude/rules/visualization-principles.md` — principles 1–15 (the short, auto-loaded form of the spec requirements)
 - `.claude/skills/visualize-approach/SKILL.md` — the skill: finds a method in `_terms.md`, runs `build.sh`, opens the result

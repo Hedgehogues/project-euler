@@ -32,9 +32,7 @@ escalation points); each requirement below is tied to the round in which it was 
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Domain terms live in `_terms.md`,
-context `method`: [method::Catalog](../_terms.md#methodcatalog),
-[method::PageSkeleton](../_terms.md#methodpageskeleton),
-[method::SkipCounting](../_terms.md#methodskipcounting),
+context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::InclusionExclusion](../_terms.md#methodinclusionexclusion),
 [method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
 [method::VennDiagram](../_terms.md#methodvenndiagram),
@@ -108,13 +106,25 @@ and the problems themselves, which live in `euler{NNN}/README.md`.
   on its own. Those requirements moved here, where both sides may be known; the idea spec now
   references nothing above it. Traces to: the Layer section above,
   MUST-picture-absence-says-nothing.
+- **F13** (user: "[method::Catalog] and [method::PageSkeleton] need to move out of `_terms.md` —
+  where's better?") Both blocks were pure restatement: `PageSkeleton`'s four bullets (no
+  method-specific class, substitution without paraphrasing, theme pinning, the QR block) already
+  existed as this spec's own MUST-theme-pinning-language-agnostic / MUST-qr-repo-link / the build
+  requirements below; `Catalog`'s ten bullets were split, word for word, between this spec's own
+  MUST requirements and `approaches.md`'s (idea-side ones there, picture-side ones here). Neither
+  block was a method (no Essence/Recognized by/Source) and neither added a fact the two specs
+  didn't already state formally. Deleted from `_terms.md`; their one non-redundant content — that
+  the shell has no separate context and the catalog has no root record of its own — folded into
+  the Architecture section below. Traces to: the Bounded Context section below.
 
 ## Architecture
 
 ### Overview (prose)
 Three separate sources, assembled by a script: the shared page shell
-([method::PageSkeleton](../_terms.md#methodpageskeleton), `visualizations/skeleton.html`), the
-method's record (the `[method::*]` block in `memory-bank/_terms.md`) and the frame code
+(`visualizations/skeleton.html` — fonts, color tokens, card and frame-flow layout, the
+`.repo`/QR block, placeholders `{{TITLE}} {{STDNAME}} {{SLUG}} {{TERM}} {{CSS}} {{HTML}} {{JS}}
+{{QR}}`; one shell for every method, no method-specific class inside it), the method's record
+(the `[method::*]` block in `memory-bank/_terms.md`) and the frame code
 (`visualizations/examples/<slug>.{css,html,js}`). `visualizations/build.sh` substitutes the code
 into the shell → `build/<slug>.html`, then a headless browser (light theme, width 720, height
 measured from the card) → `build/<slug>.png`; the png is embedded in the record via `Picture:`.
@@ -122,9 +132,12 @@ The skill finds the record → runs `build.sh <slug>` → looks at the png → o
 rendering "by eye", no cloud, no hand-made pictures.
 
 ### Bounded Context and Aggregate Root
-- `method` — the only context: [method::Catalog](../_terms.md#methodcatalog) (root): Method, Frame;
-  [method::PageSkeleton](../_terms.md#methodpageskeleton) (VO). There is no separate context for
-  pictures (see F10) — a picture is a set of fields on a method record.
+- `method` — the only context, and it has no separate aggregate-root/value-object records: the
+  shell just described (formerly `[method::PageSkeleton]`) and the catalog-level invariants
+  (formerly `[method::Catalog]`) are exactly this Architecture section plus the MUST requirements
+  below — a block restating them a second time in `_terms.md` was the same fact twice (F13). There
+  is no separate context for pictures either (F10) — a picture is a set of fields on a method
+  record. `_terms.md` holds only the seven entities.
 
 ## Requirements
 > Statement — acceptance criterion — status.

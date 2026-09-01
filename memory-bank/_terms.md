@@ -22,38 +22,6 @@
 > `visualizations/build.sh` from `visualizations/skeleton.html` + `visualizations/examples/<slug>.*`;
 > after any edit to `examples/`, rerun the build — pictures are never touched by hand.
 
-## [method::Catalog]
-Class: aggregate
-Description: The catalog of explanation methods — the `[method::*]` blocks of this file plus their sources under `memory-bank/visualizations/` (frames in `examples/`, shell in `skeleton.html`, build in `build.sh`, output in `build/`).
-Invariants:
-  - MUST: one method — ONE `[method::*]` block; the idea and its picture live in one block, not in two parallel lists (precedent: there used to be two contexts, `[viz::*]` and `[approach::*]`, with identical names, the same pictures and the same sources — pure duplication)
-  - MUST: at most one picture per method; an idea with two independently standard visual forms is two methods, not one with two portraits
-  - MUST: a method with no picture is legitimate — if the idea has no established visual form, `Picture: —` with a reason; the absence of a picture is NOT an argument against a separate record
-  - MUST: every method is an atomic idea OR an explicitly named composition of atomic ones; "atom + unnamed extra" is forbidden
-  - MUST: every method carries at least one encyclopedic source (Wikipedia, Britannica, cp-algorithms, a professional body such as NCTM); blogs and teaching sites are supplements only
-  - MUST: `build/*.png` is only ever the output of `build.sh` (headless browser, light theme, width 720) — never drawn or retouched by hand; rebuilt after any `examples/` edit
-  - MUST: rebuilding a method from the shell + `examples/` yields a byte-identical page
-  - MUST: one shared example across the whole catalog — "numbers below 20, multiples of 2 or 3" — never the numbers of a specific problem
-  - MUST NOT: hold anything about a specific problem, not even a "used in" backlink
-  - MUST NOT: leave a redirect stub with no inbound link (grep before choosing redirect vs delete)
-Entities:
-  - Method — one method: this block + frame code + built html/png
-  - Frame — one frame of the picture: Problem | Transform | Solution
-Commands: AddMethod, ReviseMethod (edit block/code + `build.sh`); reusing a method does NOT change this file — the problem links to the existing block from its own README
-Depends on: [method::PageSkeleton](#methodpageskeleton)
-Spec: [approaches](specs/approaches.md) (idea quality) · [visualizations](specs/visualizations.md) (picture quality)
-
-## [method::PageSkeleton]
-Class: value-object
-Description: The shared page shell (fonts, color tokens, card and frame-flow layout) — `visualizations/skeleton.html`, placeholders `{{TITLE}} {{STDNAME}} {{SLUG}} {{TERM}} {{CSS}} {{HTML}} {{JS}} {{QR}}`; one for all methods.
-Invariants:
-  - MUST: contain no method-specific class — those live only in `examples/<slug>.css`
-  - MUST: the page is assembled by substituting `examples/` files into the placeholders, with no paraphrasing and no new numbers or colors (`build.sh`)
-  - MUST: the dark palette is enabled only by a media query and disabled by the `data-theme="light"` attribute — that is what pins the snapshot to light regardless of the machine
-  - MUST: carry the `.repo` block with the repository QR code (`visualizations/qr-repo.svg`, placeholder `{{QR}}`) and the address in text; a method cannot remove it, and `build.sh` refuses to build without the QR file
-Depends on:
-Spec: [visualizations](specs/visualizations.md)
-
 ## [method::SkipCounting]
 Class: entity
 Standard name: Skip counting
@@ -71,7 +39,6 @@ Limits:
   - MUST NOT: be used for three or more conditions at once — a limit of the PICTURE: the number of colors on the line exceeds what one glance can separate
 Source: [Wikipedia — Skip counting](https://en.wikipedia.org/wiki/Skip_counting) · [Wikipedia — Number line](https://en.wikipedia.org/wiki/Number_line) · teaching practice: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/)
 Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::InclusionExclusion]
@@ -89,7 +56,6 @@ Limits:
   - MUST NOT: be used for three or more conditions — a limit of the PICTURE: a bar can only show a row of non-overlapping pieces, and with three overlapping conditions the intersections do not line up honestly in one row. The idea itself works for any k (at the cost of the term count growing as 2^k)
 Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle) · picture: [Wikipedia — Tape diagram](https://en.wikipedia.org/wiki/Tape_diagram) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
 Example: `visualizations/examples/bar-model.{css,html}` (no js needed — the values are static) → `visualizations/build/bar-model.html`
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::VennDiagram]
@@ -108,7 +74,6 @@ Limits:
 Source: [Wikipedia — Venn diagram](https://en.wikipedia.org/wiki/Venn_diagram) · [Britannica — John Venn](https://www.britannica.com/biography/John-Venn) · [ReadWriteThink](https://www.readwritethink.org/classroom-resources/lesson-plans/introducing-venn-diagram-kindergarten) · [Science Sparks](https://www.science-sparks.com/make-venn-diagram-hula-hoop/)
 Example: `visualizations/examples/venn.{css,html,js}` → `visualizations/build/venn.html`
 Note: closely related to [method::InclusionExclusion](#methodinclusionexclusion) and often used together with it, but a separate method by origin: the diagram was invented in 1880 to represent logical propositions, not to count.
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::ArithmeticProgressionSum]
@@ -127,7 +92,6 @@ Limits:
   - MUST: every intermediate number in the example must be distinct (the example uses 4·8·12·16·20, pairs of 24, total 60) — a limit of the PICTURE: in an earlier version the rectangle area and the final answer were both 30, and the explanation read as circular
 Source: [Wikipedia — Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/) · picture: [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
 Example: `visualizations/examples/gauss-pairing.{css,html,js}` → `visualizations/build/gauss-pairing.html`
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::Precomputation]
@@ -141,7 +105,6 @@ Limits:
   - MUST NOT: be used when the structure depends on the query — then there is nothing to precompute
   - MUST: remember the build cost is always paid, even for a single query — with only one query there is no gain
 Source: [Wikipedia — Precomputation](https://en.wikipedia.org/wiki/Precomputation) · [Wikipedia — Lookup table](https://en.wikipedia.org/wiki/Lookup_table) · [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md)
 
 ## [method::BinarySearch]
@@ -160,7 +123,6 @@ Limits:
   - MUST NOT: be used on an unsorted list — a limit of the IDEA: halving stops guaranteeing anything
 Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
 Example: `visualizations/examples/binary-search.{css,html}` (no js needed — the values are static) → `visualizations/build/binary-search.html`
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::TrialDivision]
@@ -180,5 +142,4 @@ Limits:
   - MUST: in the picture, divide by primes starting from the smallest — a limit of the PICTURE: the ladder must mirror the loop's mechanics (all the 2s first, then odd divisors in increasing order), not an arbitrary split into any two factors as in a free-form factor tree
 Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · picture: [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
 Example: `visualizations/examples/ladder-method.{css,html}` (no js needed — the values are static) → `visualizations/build/ladder-method.html`
-Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

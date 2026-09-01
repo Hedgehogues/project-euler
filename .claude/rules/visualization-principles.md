@@ -135,8 +135,9 @@ record, not by separate records. Found by the user ("there are duplicates again"
   picture. An idea may legitimately have a record with NO picture (precedent: "Precomputation" is
   independently recognizable, but "compute it ahead of time" has no visual form, unlike what you
   then do with the result — "binary search", which has one).
-- MUST NOT: give a picture to the aggregate/index block (`[method::Catalog]`) — an aggregate has no
-  single picture, it has a list; a copy of the image "for visibility at the top" is the same file
+- MUST NOT: give a picture to the aggregate/index concept (the catalog as a whole, described in
+  `visualizations.md`'s Architecture section, not a `_terms.md` block of its own) — an aggregate has
+  no single picture, it has a list; a copy of the image "for visibility at the top" is the same file
   shown twice (precedent: a gallery on the aggregate duplicated what the records below already
   showed).
 - MUST: the term name in the `cards()` table (`build.sh`) matches the block name — it is substituted
@@ -259,6 +260,27 @@ of these live in the picture spec, never in the idea spec, even though they cons
   unreadable on its own. Named by the user ("the requirements on visualizations and on ideas must
   be independent"), not noticed while the two specs were being written side by side.
 
+## 15. A term-block that only restates a spec's own requirements does not exist
+
+A `[method::*]` block earns its place by carrying a fact the specs don't already state formally —
+domain fields (`Essence`/`Recognized by`/`Source`) for an entity, or genuinely new information for
+anything else. A block whose every bullet is a second, informal copy of a MUST requirement that
+already lives in `approaches.md`/`visualizations.md` (with its own acceptance criterion and status)
+is not a term, it is the same fact written twice — the same failure principles 9 and 14 name, one
+level up: not two records for one idea, and not one rule mirrored into two specs, but one rule
+mirrored into a spec AND a dictionary entry.
+
+- MUST: before adding a `[method::*]` block that is not an entity (no Essence/Recognized by/
+  Source) — an aggregate, a shared shell, any piece of infrastructure — check whether every
+  invariant it would carry already exists as a MUST requirement in one of the two specs. If so, the
+  block adds nothing; describe the thing in the spec's own Architecture section instead.
+- MUST: a field with nothing to point at (a base record `Depends on:`, a record with no picture)
+  states the reason in place of the value — never leaves the field blank (precedent below).
+- Precedent: `[method::Catalog]` (ten invariants) and `[method::PageSkeleton]` (four) sat in
+  `_terms.md` for the whole life of the catalog; every one of those fourteen bullets was already a
+  formal MUST requirement, split correctly between the two specs. Found only when the user asked
+  where they should move to, not while either spec was being written.
+
 Trigger: any request to show a solution or a method as a picture — a new catalog record, a
 per-problem infographic, an edit to an existing visualization; an invocation of the
 `visualize-approach` skill; adding or editing any method record.
@@ -271,7 +293,8 @@ record (not implemented); principle 6 — `MECHANIZED — build.sh` (assembly on
 shell and the build fails without `qr-repo.svg`; decoding from the snapshot is a manual step when
 the QR changes); principle 12 — partly `LIGHTWEIGHT-GATE` (`grep -r 'specs/euler\|\[euler::\|^Used
 in:' memory-bank/` must be empty — not wired into a script, checked by hand); principle 13 —
-partly `LIGHTWEIGHT-GATE` (a Cyrillic grep over tracked files — also by hand). The risk of a
-principle not being applied at the moment a picture ships or a record is added is accepted
-explicitly; the compensation has been the user's own questions, which caught these violations —
-which is exactly what should not be the mechanism.
+partly `LIGHTWEIGHT-GATE` (a Cyrillic grep over tracked files — also by hand); principle 15 — not
+mechanized (checking whether a block's content is already covered elsewhere is a judgement call,
+same class as principles 1/4/5/7/11). The risk of a principle not being applied at the moment a
+picture ships or a record is added is accepted explicitly; the compensation has been the user's own
+questions, which caught these violations — which is exactly what should not be the mechanism.

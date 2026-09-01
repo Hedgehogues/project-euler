@@ -28,8 +28,7 @@ a textbook.
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Terms live in `_terms.md`, context
-`method`: [method::Catalog](../_terms.md#methodcatalog),
-[method::SkipCounting](../_terms.md#methodskipcounting),
+`method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::InclusionExclusion](../_terms.md#methodinclusionexclusion),
 [method::VennDiagram](../_terms.md#methodvenndiagram),
 [method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
@@ -81,6 +80,15 @@ techniques found during research and has its own citation discipline.
   That made the base layer depend on the layer above it — a cycle, and it meant this spec could not
   be read without the other one open. All picture-facing requirements and findings moved to the
   dependent layer; what remains here stands alone. Traces to: the Layer section above.
+- **F8** (user: "[method::Catalog] and [method::PageSkeleton] need to move out of `_terms.md` —
+  where's better?") Neither block was a method — no Essence/Recognized by/Source — and neither
+  carried anything new: every one of their bullets already existed, word for word, as a MUST
+  requirement below or in `visualizations.md` (one method one block → MUST-single-record-per-method,
+  atomic-or-composed → MUST-atomic-or-composed, byte-identical rebuild → MUST-deterministic-rebuild,
+  and so on for every remaining line). The two blocks were a second, informal copy of the specs, not
+  a distinct fact. Deleted from `_terms.md`; the seven entity records' now-orphaned
+  `Depends on: [method::Catalog]` line dropped too — it named nothing that `Spec:` didn't already
+  say. Traces to: the Bounded Context section below (no separate aggregate-root record).
 
 ## Architecture
 
@@ -94,8 +102,11 @@ reusing a known method does not change this file at all — the problem links to
 from its own README.
 
 ### Bounded Context and Aggregate Root
-- `method` — the only context; [method::Catalog](../_terms.md#methodcatalog) is the root and the
-  rest are entities.
+- `method` — the only context. It has no separate aggregate-root record: the catalog-level
+  invariants (schema, atomic-or-composed, sourcing) ARE the requirements below, not a block of
+  their own — a record restating them a second time (`Class: aggregate`) would be the same fact
+  twice, the exact duplication this spec elsewhere forbids on ideas (MUST-atomic-or-composed).
+  `_terms.md` holds only the entities — the seven `[method::*]` records themselves.
 
 ## Requirements
 > Statement — acceptance criterion — status.
