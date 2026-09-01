@@ -15,20 +15,19 @@ Trial division, but shrinking as it goes:
 - Whatever's left after that, if greater than 1, is prime — and since divisors were tried in
   increasing order, it's the largest one.
 
-Status: **Accepted**, 100% on HackerRank.
+Status: **Accepted**, 100% on HackerRank (submission 1410850859, 2026-07-12). Verified
+independently against a brute-force scan (check every `d<=n` for primality and divisibility) on
+`n=2..20000` plus the classic Project Euler checkpoints (`13195 → 29`,
+`600851475143 → 6857`, the full-size original `N`).
 
-## Spec
+## The idea behind it
 
-Full requirements, correctness criteria and the link to the underlying technique:
-[`memory-bank/specs/euler003.md`](../memory-bank/specs/euler003.md) (term:
-[`memory-bank/_terms.md`](../memory-bank/_terms.md), `[euler::Problem003]`).
-
-The algorithm is a standard, independently catalogued technique:
+One catalogued idea (full write-up: [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
 
 **Trial division** — check candidate divisors starting from the smallest, pulling each one out
 of the number as it's found. Shown here as the **ladder method** (also called the birthday cake
 method), the way it's taught in school: write the divisor to the side, the running quotient
-below, and stop once what's left is already prime.
+below, and stop once what's left is already prime. `[approach::TrialDivision]`
 
 [![Ladder method](../memory-bank/visualizations/build/ladder-method.png)](../memory-bank/visualizations/build/ladder-method.html)
 

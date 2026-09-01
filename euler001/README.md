@@ -13,29 +13,19 @@ Closed-form, `O(1)` per query — no loop over `[0, N)`:
   "multiples of 5" sums, so they're subtracted once (inclusion–exclusion):
   `answer(N) = sum_multiples(N,3) + sum_multiples(N,5) - sum_multiples(N,15)`
 
-Status: **Accepted**, 100% on HackerRank.
+Status: **Accepted**, 100% on HackerRank. Verified independently against a brute-force sum over
+`n=0..n-1` on the official samples and boundary `N` (0, 1, 3, 5, 15, 16), including the `n=15`
+case that would silently break a `<=` vs `<` off-by-one in `sum_multiples`.
 
-## Spec
+## The ideas behind it
 
-Full requirements, correctness criteria and links to the underlying math ideas:
-[`memory-bank/specs/euler001.md`](../memory-bank/specs/euler001.md) (term:
-[`memory-bank/_terms.md`](../memory-bank/_terms.md), `[euler::Problem001]`).
-
-The two ideas behind the closed form are catalogued on their own, independent of this problem:
-- **Inclusion–exclusion** — count/sum by condition, subtract what's double-counted.
-- **Arithmetic progression sum** — a run of evenly-spaced numbers, added by one multiplication.
-
-Both are described in [`memory-bank/specs/approaches.md`](../memory-bank/specs/approaches.md)
-(`[approach::InclusionExclusion]`, `[approach::ArithmeticProgressionSum]`), each with a picture
-showing the idea without the code:
+Three independently catalogued ideas — each recognizable in other problems on its own, not
+specific to this one (full write-ups: [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
 
 | | |
 |---|---|
-| [![Bar model](../memory-bank/visualizations/build/bar-model.png)](../memory-bank/visualizations/build/bar-model.html) | [![Venn diagram](../memory-bank/visualizations/build/venn.png)](../memory-bank/visualizations/build/venn.html) |
-| [![Gauss's trick](../memory-bank/visualizations/build/gauss-pairing.png)](../memory-bank/visualizations/build/gauss-pairing.html) | [![Skip counting](../memory-bank/visualizations/build/skip-counting.png)](../memory-bank/visualizations/build/skip-counting.html) |
-
-(Skip counting shows the underlying notion "multiple of" itself — it isn't tied to either
-approach above; see its own entry in `_terms.md`.)
+| **Arithmetic progression sum** — a run of evenly-spaced numbers, added by one multiplication instead of one at a time. `[approach::ArithmeticProgressionSum]` [![Gauss's trick](../memory-bank/visualizations/build/gauss-pairing.png)](../memory-bank/visualizations/build/gauss-pairing.html) | **Inclusion–exclusion** — count/sum by condition, subtract what's double-counted. `[approach::InclusionExclusion]` [![Bar model](../memory-bank/visualizations/build/bar-model.png)](../memory-bank/visualizations/build/bar-model.html) |
+| **Venn diagram** — the same overlap, seen as regions instead of arithmetic (a distinct idea from inclusion–exclusion, not just its picture — Venn invented it for logic, not counting). `[approach::VennDiagram]` [![Venn diagram](../memory-bank/visualizations/build/venn.png)](../memory-bank/visualizations/build/venn.html) | **Skip counting** — what "multiple of" actually looks like, hopping down a number line. Not tied to either approach above — a notion, not a technique. `[viz::SkipCounting]` [![Skip counting](../memory-bank/visualizations/build/skip-counting.png)](../memory-bank/visualizations/build/skip-counting.html) |
 
 ## Build & run
 
