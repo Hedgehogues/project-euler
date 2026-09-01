@@ -19,6 +19,7 @@ venn|Venn diagram|Venn diagram — John Venn, 1880|VennDiagram
 binary-search|Binary search|Binary search|BinarySearch
 ladder-method|Ladder method|Ladder method (division ladder)|TrialDivision
 euclidean-algorithm|Euclidean algorithm|Euclidean algorithm (square-tiling)|EuclideanAlgorithm
+lcm-via-gcd|LCM via GCD|Square-tiling, extended to LCM|LCMViaGCD
 EOF
 }
 

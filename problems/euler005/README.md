@@ -33,8 +33,8 @@ the larger one with the remainder of dividing it by the smaller. [`[method::Eucl
 
 **Least common multiple via GCD** — build the smallest number divisible by a whole list, one
 number at a time, using the GCD to avoid ever overcounting shared factors. [`[method::LCMViaGCD]`](../../memory-bank/_terms.md#methodlcmviagcd)
-— no picture of its own; this idea is what you build using the Euclidean algorithm's result, not a
-separate thing to draw.
+
+[![LCM via GCD](../../memory-bank/visualizations/build/lcm-via-gcd.png)](../../memory-bank/visualizations/build/lcm-via-gcd.html)
 
 ## Build & run
 

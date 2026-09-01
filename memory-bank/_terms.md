@@ -163,13 +163,18 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::LCMViaGCD]
 Class: entity
-Standard name: Least common multiple via GCD
+Standard name: Least common multiple via GCD · picture — square-tiling, extended (this catalog's own continuation of the Euclidean algorithm's tiling, not an independently named historical device — see Picture note)
 Essence: Build the smallest number divisible by a whole list of numbers, one at a time — each new number only ever contributes the part of itself not already covered by what came before.
 Recognized by: you need the smallest number that every number in a set or range divides into evenly ("smallest number divisible by all of 1..N") — the smallest common MULTIPLE, not the greatest common divisor
 General case: lcm(a, b) = a·b / gcd(a, b); for a list or range of more than two numbers, fold this pairwise across every element in turn — lcm(a, b, c, ...) = lcm(lcm(a, b), c, ...)
-Picture: — (a standard LCM picture exists — a Venn diagram of each number's prime factors, shared primes in the overlap — but it belongs to a DIFFERENT technique: computing LCM via factorization, which this method exists specifically to avoid, since factoring is expensive and gcd is cheap. Drawing that Venn diagram here would show the idea this method deliberately sidesteps, not the idea itself)
+Picture: ![LCM via GCD](visualizations/build/lcm-via-gcd.png)
+Sequence:
+  1. Problem — the 35×15 rectangle already tiled by 5×5 squares (21 of them); how long would they be laid end to end?
+  2. Transform ↷ — the grid unrolled into a single row, same 21 tiles
+  3. Solution — 21 × 5 = 105 = lcm(35, 15)
 Limits:
   - MUST NOT: be computed by just multiplying every number together — that overcounts factors the numbers already share; dividing by the gcd at each step is exactly what keeps the running result minimal
-Note: this idea's entire mechanism runs through [method::EuclideanAlgorithm](#methodeuclideanalgorithm) — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
+Note: a standard LCM picture exists for a DIFFERENT technique — a Venn diagram of each number's prime factors, shared primes in the overlap — but drawing it here would show the factoring approach this method exists specifically to avoid (factoring is expensive, gcd is cheap). The picture used instead is not independently famous by its own name: it is this catalog's direct extension of [method::EuclideanAlgorithm](#methodeuclideanalgorithm)'s own sourced tiling, illustrating the already-standard identity gcd(a,b)·lcm(a,b) = a·b (counting the tiles and multiplying by their side literally IS that identity). This idea's entire mechanism runs through EuclideanAlgorithm — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
 Source: [Wikipedia — Least common multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
-Spec: [approaches](specs/approaches.md)
+Example: `visualizations/examples/lcm-via-gcd.{css,html}` (no js needed — the values are static) → `visualizations/build/lcm-via-gcd.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
