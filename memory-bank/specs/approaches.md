@@ -15,7 +15,8 @@ tags: [projecteuler, approaches, explanation, draft]
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины — `_terms.md`, контекст
 `approach`: [approach::Collection](../_terms.md#approachcollection), [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion),
 [approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum),
-[approach::PrecomputeAndBinarySearch](../_terms.md#approachprecomputeandbinarysearch),
+[approach::Precomputation](../_terms.md#approachprecomputation),
+[approach::BinarySearch](../_terms.md#approachbinarysearch),
 [approach::TrialDivision](../_terms.md#approachtrialdivision).
 
 ## Скоуп
@@ -38,6 +39,15 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   посчитай, потом используй» и не тянет на отдельную визуализацию (тот же класс, что счёт
   прыжками для «кратно», F1); отдельная, безусловно стандартная техника — сам бинарный поиск.
   Трассировка: MUST-visualized-by, MUST-no-invented-approach.
+- **F5** (euler002, найдено прямым вопросом пользователя «точно по 1 подходу?») F3 смешала два
+  разных вопроса — «нужна ли этому шагу отдельная КАРТИНКА» (нет — предвычисление не рисуется, F1)
+  и «нужна ли этому шагу отдельная ЗАПИСЬ ПОДХОДА» (это не то же самое: у обеих задачи 1 идей —
+  включение-исключение и сумма прогрессии — своя литература, они узнаются в разных задачах порознь;
+  предвычисление и бинарный поиск — тоже: их можно узнать порознь в других задачах, только у
+  предвычисления нет своего визуального образа). Единый блок `PrecomputeAndBinarySearch` был
+  неверно слеплен из-за этой путаницы. Разделён на [approach::Precomputation](../_terms.md#approachprecomputation)
+  (без картинки — честно помечено, не выдумано) и [approach::BinarySearch](../_terms.md#approachbinarysearch)
+  (с картинкой). Трассировка: MUST-approach-independent-of-picture (новое).
 
 ## Architecture
 
@@ -57,7 +67,7 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 ### MUST
 - Каждая запись MUST содержать пять полей: Essence / Recognized by / General case / Visualized by
   / Used in — **MUST-entry-schema** — критерий: `grep` по каждому заголовку поля даёт
-  столько же строк, сколько записей. Статус: реализовано (4 записи).
+  столько же строк, сколько записей. Статус: реализовано (5 записей).
 - «Суть» MUST быть одной фразой без формул — **MUST-essence-plain** — критерий: в поле нет `·`,
   `/`, степеней, обозначений переменных. Статус: реализовано.
 - «Общий случай» MUST описывать идею для произвольных параметров, MUST NOT выдавать частный
@@ -70,7 +80,14 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 - Поле `Visualized by` MUST сопровождаться полем `Picture:` со встроенной картинкой (той же, что
   у блока `[viz::*]`), не только текстовой ссылкой — **MUST-inline-picture** — критерий: у блока
   подхода в `_terms.md` есть markdown-image, ведущий на `visualizations/build/<slug>.png`. Статус:
-  реализовано.
+  реализовано (для подходов, у которых есть картинка).
+- Наличие или отсутствие картинки у подхода MUST NOT решать, заводить ли для него отдельную
+  ЗАПИСЬ подхода — это два разных вопроса: «узнаётся ли эта идея отдельно от соседних» (решает
+  запись) и «есть ли у неё устоявшийся визуальный образ» (решает картинку) —
+  **MUST-approach-independent-of-picture** — критерий: `[approach::Precomputation]` — легитимная
+  отдельная запись без `Picture:` (у самого «посчитай заранее» нет образа), рядом с
+  `[approach::BinarySearch]`, у которого картинка есть; обе идеи узнаются в задачах порознь.
+  Статус: реализовано (найдено и исправлено после прямого вопроса пользователя — F5).
 - Блок-агрегат `[approach::Collection]` MUST NOT нести собственную встроенную картинку/галерею —
   **MUST-no-aggregate-picture** — критерий: у него нет `Picture:`/`Gallery:` поля; та же картинка
   уже встроена в конкретную запись подхода на пару абзацев ниже, третья копия — не находка, а
@@ -78,8 +95,9 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 - Поле `Visualized by` MUST ссылаться на конкретные блоки `[viz::*]` (не на сам
   [viz::Catalog](../_terms.md#vizcatalog) — тот аггрегат, не отдельная картинка); значение «—» MUST
   трактоваться как сигнал завести картинку — **MUST-visualized-by** — критерий: у каждой записи
-  ≥1 ссылка либо явный «—» с пометкой «нужна картинка». Статус: реализовано (все четыре подхода
-  имеют картинки).
+  ≥1 ссылка либо явный «—» с пометкой «нужна картинка» ИЛИ честным обоснованием, почему картинки,
+  видимо, не будет (см. MUST-approach-independent-of-picture). Статус: реализовано (4 из 5
+  подходов имеют картинки; `Precomputation` — обоснованное «—»).
 - Подход MUST NOT заводиться под существующую картинку ради симметрии — **MUST-no-invented-approach**
   — критерий: картинка без подхода помечается на своей стороне (`Approach: —` с причиной), в
   коллекции записи нет. Статус: реализовано (skip counting).

@@ -6,7 +6,7 @@
 - [euler003](specs/euler003.md) — Status: draft — спек решения euler003 (Largest prime factor): пробное деление с падающей границей, критерии корректности; README задачи — `../euler003/README.md`
 - [visualizations](specs/visualizations.md) — Status: draft — каталог визуальных приёмов объяснения: кадры проблема → преобразования → решение, детерминированная сборка `build.sh` из каркаса + `examples/`, привязка к подходам
 - [approaches](specs/approaches.md) — Status: draft — коллекция математических подходов для объяснения (не `TRICKS.md`): схема записи, двусторонняя связь с картинками
-- [_terms.md](_terms.md) — словарь и ЕДИНСТВЕННОЕ место описаний: контексты `viz` (Catalog, PageSkeleton, SkipCounting, BarModel, GaussPairing, VennDiagram, BinarySearch, LadderMethod — с картинками), `approach` (Collection, InclusionExclusion, ArithmeticProgressionSum, PrecomputeAndBinarySearch, TrialDivision), `euler` (Problem001, Problem002, Problem003)
+- [_terms.md](_terms.md) — словарь и ЕДИНСТВЕННОЕ место описаний: контексты `viz` (Catalog, PageSkeleton, SkipCounting, BarModel, GaussPairing, VennDiagram, BinarySearch, LadderMethod — с картинками), `approach` (Collection, InclusionExclusion, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision), `euler` (Problem001, Problem002, Problem003)
 
 ### Визуализации — исходники и сборка
 - `visualizations/examples/<slug>.{css,html,js}` — код кадров (правится руками)

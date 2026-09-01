@@ -21,15 +21,17 @@ Full requirements, correctness criteria and the link to the underlying technique
 [`memory-bank/specs/euler002.md`](../memory-bank/specs/euler002.md) (term:
 [`memory-bank/_terms.md`](../memory-bank/_terms.md), `[euler::Problem002]`).
 
-The lookup step is a standard, independently catalogued technique:
+This is two independently catalogued ideas, used together — not one:
+
+**Precomputation** — build whatever doesn't depend on the query once, before answering any
+query, instead of redoing that work on every single one. (`[approach::Precomputation]` — no
+picture of its own; there isn't a standard visual for "compute it ahead of time" the way there
+is for a specific lookup.)
 
 **Binary search** — narrow down to a value in a sorted list by repeatedly checking the middle
-and discarding the half that can't contain the answer.
+and discarding the half that can't contain the answer. (`[approach::BinarySearch]`.)
 
 [![Binary search](../memory-bank/visualizations/build/binary-search.png)](../memory-bank/visualizations/build/binary-search.html)
-
-(Building the list itself is a one-time setup step, not a separate technique — see
-`[approach::PrecomputeAndBinarySearch]` in `_terms.md`.)
 
 ## Build & run
 

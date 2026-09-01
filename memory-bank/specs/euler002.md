@@ -14,8 +14,10 @@ depend on the query.
 
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термин задачи:
-[euler::Problem002](../_terms.md#eulerproblem002). Использует один каталогизированный подход:
-[approach::PrecomputeAndBinarySearch](../_terms.md#approachprecomputeandbinarysearch).
+[euler::Problem002](../_terms.md#eulerproblem002). Использует два каталогизированных подхода —
+это НЕ одна идея: [approach::Precomputation](../_terms.md#approachprecomputation) (построить
+список один раз) и [approach::BinarySearch](../_terms.md#approachbinarysearch) (найти в нём
+ответ), каждая узнаётся в других задачах независимо от второй.
 
 ## Скоуп
 **В скоупе:** `euler002/solution.cpp` — модель задачи, алгоритм, обоснование сложности, критерии
@@ -29,12 +31,14 @@ ASCII-only — см. корневой README).
 
 ### Обзор (прозой)
 Чётные числа Фибоначчи встречаются раз в три члена (`F(0)=0` чётно, дальше нечётно-нечётно-чётно
-по кругу — сумма двух нечётных чётна). Вместо того чтобы проверять это на каждом члене заново на
-каждый запрос, решение один раз строит список ВСЕХ чётных членов Фибоначчи до `4·10^16` вместе с
-накопленной суммой ([approach::PrecomputeAndBinarySearch](../_terms.md#approachprecomputeandbinarysearch))
-— такой список короткий (чётный член растёт экспоненциально, поэтому членов до `4·10^16` всего
-десятки). На каждый запрос `N` — `upper_bound` по этому списку находит последний член `≤ N`, ответ
-— его накопленная сумма.
+по кругу — сумма двух нечётных чётна). Решение сочетает две отдельные идеи. Во-первых,
+[approach::Precomputation](../_terms.md#approachprecomputation): вместо того чтобы генерировать
+Фибоначчи заново на каждый запрос, список ВСЕХ чётных членов до `4·10^16` вместе с накопленной
+суммой строится один раз, до чтения запросов — такой список короткий (чётный член растёт
+экспоненциально, членов до `4·10^16` всего десятки). Во-вторых,
+[approach::BinarySearch](../_terms.md#approachbinarysearch): на каждый запрос `N` — `upper_bound`
+по этому готовому списку находит последний член `≤ N` за O(log m), не проходом по списку целиком;
+ответ — его накопленная сумма.
 
 ### Данные
 - Вход: `T`, затем `T` строк с `N` (до `4·10^16`).
@@ -65,7 +69,8 @@ ASCII-only — см. корневой README).
 - Ввод-вывод MUST соответствовать формату HackerRank — **MUST-io-format**. Статус: реализовано.
 
 ## Связи
-- Подход: [approach::PrecomputeAndBinarySearch](../_terms.md#approachprecomputeandbinarysearch).
+- Подходы: [approach::Precomputation](../_terms.md#approachprecomputation),
+  [approach::BinarySearch](../_terms.md#approachbinarysearch).
 - Визуальное объяснение (не дублируется здесь):
   [viz::BinarySearch](../_terms.md#vizbinarysearch) — общая техника, не завязанная на числа
   Фибоначчи; сквозной пример каталога, не числа этой задачи.

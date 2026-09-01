@@ -125,7 +125,7 @@ Class: entity
 Standard name: Binary search
 Description: Ищем значение в уже отсортированном списке — каждый раз сравниваем с серединой оставшегося куска и отбрасываем половину, где искомого точно нет.
 Picture: ![Binary search](visualizations/build/binary-search.png)
-Approach: [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Approach: [approach::BinarySearch](#approachbinarysearch)
 Sequence:
   1. Problem — список чисел и искомое значение; где оно — неизвестно
   2. Transform ½ — середина списка сравнена с искомым, половина, где его точно нет, отброшена
@@ -137,7 +137,7 @@ Invariants:
 Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
 Example: `visualizations/examples/binary-search.{css,html}` (js не требуется — значения статичны) → `visualizations/build/binary-search.html`
 Used in: euler002
-Depends on: [viz::Catalog](#vizcatalog), [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Depends on: [viz::Catalog](#vizcatalog), [approach::BinarySearch](#approachbinarysearch)
 Spec: [visualizations](specs/visualizations.md)
 
 ## [viz::LadderMethod]
@@ -196,12 +196,22 @@ Used in: euler001
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
-## [approach::PrecomputeAndBinarySearch]
+## [approach::Precomputation]
 Class: entity
-Essence: Один раз построить весь список возможных ответов заранее, каждый запрос — не пересчитывать, а найти готовое место в списке.
-Recognized by: одна и та же последовательность (не зависящая от запроса) используется много раз подряд с разными запросами; сама последовательность растёт быстро — её длина много меньше диапазона значений
-General case: если элементы последовательности монотонны по индексу, ответ на запрос «сколько членов последовательности ≤ X» — позиция X в отсортированном списке, находится бинарным поиском за O(log m), m — длина списка, не диапазон значений
-Visualized by: [viz::BinarySearch](#vizbinarysearch) (сам поиск места в списке; предвычисление списка — подготовительный шаг, не отдельная картинка, как [viz::SkipCounting](#vizskipcounting) для «кратно»)
+Essence: Один раз построить всё, что не зависит от конкретного запроса, заранее — каждый запрос потом не пересчитывает это, а только читает готовое.
+Recognized by: одна и та же структура (список, таблица, сумма) используется много раз подряд с разными запросами, и сама она от запроса не зависит; строить её заново на каждый запрос — повторять одну и ту же работу T раз без необходимости
+General case: вынести построение общей структуры из цикла обработки запросов — стоимость построения платится один раз, а не T раз; конкретный способ ОТВЕТИТЬ на запрос по готовой структуре (поиск, чтение по индексу, суммирование диапазона) — уже отдельная, самостоятельная идея, не часть предвычисления
+Visualized by: — (у самого «посчитай заранее» нет устоявшегося визуального образа, в отличие от того, ЧТО делают с готовой структурой; см. [approach::BinarySearch](#approachbinarysearch) — конкретный способ использования этой задачи)
+Used in: euler002
+Depends on: [approach::Collection](#approachcollection)
+Spec: [approaches](specs/approaches.md)
+
+## [approach::BinarySearch]
+Class: entity
+Essence: Найти место значения в уже отсортированном списке, каждый раз отбрасывая половину, где его точно нет.
+Recognized by: нужно найти элемент или позицию в списке, который уже отсортирован (или сам растёт по порядку)
+General case: сравниваем искомое значение с серединой оставшегося куска списка и отбрасываем ту половину, где ответа точно нет — O(log m) сравнений вместо перебора всех m элементов
+Visualized by: [viz::BinarySearch](#vizbinarysearch)
 Picture: [![Binary search](visualizations/build/binary-search.png)](visualizations/build/binary-search.html)
 Used in: euler002
 Depends on: [approach::Collection](#approachcollection)
@@ -237,7 +247,7 @@ Invariants:
   - MUST: список чётных чисел Фибоначчи (и накопленная сумма по нему) строится один раз, до чтения запросов, не на каждый запрос заново
   - MUST: ответ на запрос находится бинарным поиском (`upper_bound`) по готовому списку — O(log m) на запрос, m — число чётных членов Фибоначчи, не N
   - MUST: N до 4·10^16 включительно помещается в `long long`, список чисел Фибоначчи не переполняется до превышения этого предела
-Depends on: [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
+Depends on: [approach::Precomputation](#approachprecomputation), [approach::BinarySearch](#approachbinarysearch)
 Spec: [euler002](specs/euler002.md)
 Code: `euler002/solution.cpp` · `euler002/README.md`
 
