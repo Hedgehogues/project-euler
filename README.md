@@ -27,12 +27,13 @@ Status: **Accepted**, 100%.
 
 ## Visualization catalog (euler001)
 
-`.report/visualizations/` holds the visual explanations built for euler001's solution — four
-standard techniques (skip counting on a number line, bar model, Gauss's pairing trick, Venn
-diagram), each as an RFC-style spec (`<slug>.md`: standard name, when to apply, limits, source)
-plus the exact frame code in `examples/<slug>.{css,html,js}`. Every picture reads on its own,
+`memory-bank/` holds the visual explanations built for euler001's solution — four standard
+techniques (skip counting on a number line, bar model, Gauss's pairing trick, Venn diagram).
+Each is described as an RFC-style term block in `memory-bank/_terms.md` (standard name, when to
+apply, limits, source, linked approach, rendered picture); the frame code lives in
+`memory-bank/visualizations/examples/<slug>.{css,html,js}` and `build.sh` assembles it into
+`build/<slug>.html` + a headless-Chrome `build/<slug>.png`. Every picture reads on its own,
 top-down: first frame is the problem, last is the solution, frames in between are the
-transformations. The principles behind the catalog (why form is chosen for comprehensibility,
-why the render must be observed before it is shown, why applicability describes the problem
-class rather than the example) live in `.claude/rules/visualization-principles.md`; the page
-assembler is `.claude/skills/visualize-approach/SKILL.md`. Catalog text is in Russian.
+transformations. Requirements and findings: `memory-bank/specs/`; principles:
+`.claude/rules/visualization-principles.md`; assembler skill:
+`.claude/skills/visualize-approach/SKILL.md`. Text is in Russian.

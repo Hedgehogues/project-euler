@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Модель-полоска (bar model)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/bar-model.css --- */
+.eqrow{display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;}
+.psym{font-family:var(--font-m); font-size:16px; color:var(--ink-soft);}
+.pblock{padding:9px 16px; border-radius:8px; font-family:var(--font-m); font-weight:700; font-size:15px;}
+.pblock.a{background:var(--a-bg); color:var(--a); border:1.5px solid var(--a);}
+.pblock.b{background:var(--b-bg); color:var(--b); border:1.5px solid var(--b);}
+.pblock.wrong{background:var(--surface); color:var(--ink-soft); border:1.5px dashed var(--rule); position:relative;}
+.pblock.wrong::after{content:''; position:absolute; left:6px; right:6px; top:50%; border-top:2px solid var(--b); transform:rotate(-7deg);}
+
+.overlaprow{position:relative; height:56px; width:100%; margin:2px 0;}
+.obar{position:absolute; top:10px; height:32px; border-radius:6px; display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:12px; font-weight:700;}
+.obar.a{background:var(--a-bg); border:1.5px solid var(--a); color:var(--a); opacity:.9;}
+.obar.b{background:var(--b-bg); border:1.5px solid var(--b); color:var(--b); opacity:.75;}
+.oovl{position:absolute; top:2px; height:48px; background:var(--ab-bg); border:1.5px dashed var(--ab); border-radius:6px;}
+.oovl-label{position:absolute; top:-14px; width:100%; text-align:center; font-family:var(--font-m); font-size:10px; font-weight:700; color:var(--ab);}
+
+.bar-model{display:flex; width:100%; height:54px; border-radius:8px; overflow:hidden; border:1.5px solid var(--rule);}
+.bar-seg{display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:15px; font-weight:700; border-right:2px solid var(--surface);}
+.bar-seg:last-child{border-right:none;}
+.bar-labels{display:flex; margin-top:6px;}
+.bar-labels div{flex-shrink:0; text-align:center; font-family:var(--font-m); font-size:10px; color:var(--ink-soft); padding:0 2px;}
+.bar-sum{margin-top:14px; text-align:center; font-family:var(--font-m); font-size:15px; font-weight:700;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Модель-полоска (bar model)</h2>
+    <div class="stdtag found">✓ Bar model / tape diagram — Singapore Math</div>
+    <div class="flow">
+<!-- examples/bar-model.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="eqrow">
+    <span class="pblock a">90</span><span class="psym">+</span>
+    <span class="pblock b">63</span><span class="psym">=</span>
+    <span class="pblock wrong">153</span>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">−</div>
+<div class="frame"><div class="frame-inner">
+  <div class="overlaprow">
+    <div class="oovl" style="left:calc(54/117*100%); width:calc(36/117*100%);"></div>
+    <div class="oovl-label" style="left:calc(54/117*100%); width:calc(36/117*100%);">36</div>
+    <div class="obar a" style="left:0; width:calc(90/117*100%);">90</div>
+    <div class="obar b" style="left:calc(54/117*100%); width:calc(63/117*100%);">63</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="bar-model">
+    <div class="bar-seg" style="flex:54; background:var(--a-bg); color:var(--a);">54</div>
+    <div class="bar-seg" style="flex:36; background:var(--ab-bg); color:var(--ab);">36</div>
+    <div class="bar-seg" style="flex:27; background:var(--b-bg); color:var(--b);">27</div>
+  </div>
+  <div class="bar-labels">
+    <div style="flex:54;">только 2</div>
+    <div style="flex:36;">и то, и то</div>
+    <div style="flex:27;">только 3</div>
+  </div>
+  <div class="bar-sum">54 + 36 + 27 = <span class="ans">117</span></div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [viz::BarModel]</div>
+  </div>
+</div>
+<script>
+// examples/bar-model.js
+</script>
+</body>
+</html>

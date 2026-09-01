@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Диаграмма Венна</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/venn.css --- */
+.vennwrap{display:flex; justify-content:center;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Диаграмма Венна</h2>
+    <div class="stdtag found">✓ Venn diagram — John Venn, 1880</div>
+    <div class="flow">
+<!-- examples/venn.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="vennwrap">
+    <svg viewBox="0 0 260 130" width="260" height="130">
+      <circle cx="80" cy="65" r="52" style="fill:var(--a-bg); stroke:var(--a); stroke-width:2;"/>
+      <circle cx="180" cy="65" r="52" style="fill:var(--b-bg); stroke:var(--b); stroke-width:2;"/>
+      <text x="80" y="70" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" text-anchor="middle" style="fill:var(--a);">90</text>
+      <text x="180" y="70" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" text-anchor="middle" style="fill:var(--b);">63</text>
+    </svg>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">∩</div>
+<div class="frame"><div class="frame-inner">
+  <div class="vennwrap">
+    <svg viewBox="0 0 260 130" width="260" height="130">
+      <circle cx="103" cy="65" r="60" style="fill:var(--a-bg); stroke:var(--a); stroke-width:2;" fill-opacity="0.85"/>
+      <circle cx="157" cy="65" r="60" style="fill:var(--b-bg); stroke:var(--b); stroke-width:2;" fill-opacity="0.6"/>
+      <text x="130" y="70" font-family="JetBrains Mono, monospace" font-size="16" font-weight="700" text-anchor="middle" style="fill:var(--ab);">?</text>
+    </svg>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="vennwrap" id="venn"></div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [viz::VennDiagram]</div>
+  </div>
+</div>
+<script>
+// examples/venn.js
+(function(){
+  const only2 = 54, both = 36, only3 = 27, total = only2 + both + only3;
+  document.getElementById('venn').innerHTML = `
+    <svg viewBox="0 0 300 220" width="300" height="220">
+      <circle cx="110" cy="106" r="70" style="fill:var(--a-bg); stroke:var(--a); stroke-width:2;" fill-opacity="0.8"/>
+      <circle cx="190" cy="106" r="70" style="fill:var(--b-bg); stroke:var(--b); stroke-width:2;" fill-opacity="0.55"/>
+      <text x="75" y="112" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" text-anchor="middle" style="fill:var(--a);">${only2}</text>
+      <text x="150" y="112" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" text-anchor="middle" style="fill:var(--ab);">${both}</text>
+      <text x="225" y="112" font-family="JetBrains Mono, monospace" font-size="17" font-weight="700" text-anchor="middle" style="fill:var(--b);">${only3}</text>
+      <text x="150" y="205" font-family="JetBrains Mono, monospace" font-size="13" text-anchor="middle" style="fill:var(--ink);">${only2} + ${both} + ${only3} = ${total}</text>
+    </svg>`;
+})();
+</script>
+</body>
+</html>

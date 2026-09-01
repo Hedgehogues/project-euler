@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Счёт прыжками (skip counting)</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/skip-counting.css --- */
+.numline-row{display:flex; gap:3px; justify-content:center;}
+.ncell{width:26px; height:26px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:6px; font-family:var(--font-m); font-size:11px; color:var(--ink-soft); background:var(--surface);}
+.ncell.plain{border-style:dashed;}
+.ncell.a{border-color:var(--a); color:var(--a); background:var(--a-bg); font-weight:700; border-style:solid;}
+.ncell.b{border-color:var(--b); color:var(--b); background:var(--b-bg); font-weight:700; border-style:solid;}
+.ncell.both{border-color:var(--ab); color:var(--ab); background:var(--ab-bg); font-weight:700; border-style:solid;}
+.hops{display:block; margin:0 auto 4px;}
+.legend{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; font-size:11px; color:var(--ink-soft); margin-top:10px;}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend i{width:9px; height:9px; border-radius:3px; display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Счёт прыжками (skip counting)</h2>
+    <div class="stdtag found">✓ Skip counting</div>
+    <div class="flow">
+<!-- examples/skip-counting.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="numline-row" id="rowPlain"></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">×2</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="hops" id="hops2"></svg>
+  <div class="numline-row" id="row2"></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">×3</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="hops" id="hops3"></svg>
+  <div class="numline-row" id="row3"></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="numline-row" id="rowBoth"></div>
+  <div class="legend">
+    <span><i style="background:var(--a)"></i>кратно 2</span>
+    <span><i style="background:var(--b)"></i>кратно 3</span>
+    <span><i style="background:var(--ab)"></i>оба</span>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [viz::SkipCounting]</div>
+  </div>
+</div>
+<script>
+// examples/skip-counting.js
+(function(){
+  const N = 20; // numbers 1..19
+
+  function buildRow(id, colorFn){
+    const el = document.getElementById(id);
+    for (let i = 1; i < N; i++) {
+      const d = document.createElement('div');
+      const cls = colorFn(i);
+      d.className = 'ncell' + (cls ? ' ' + cls : '');
+      d.textContent = i;
+      el.appendChild(d);
+    }
+  }
+  buildRow('rowPlain', () => 'plain');
+  buildRow('row2', i => i % 2 === 0 ? 'a' : '');
+  buildRow('row3', i => i % 3 === 0 ? 'b' : '');
+  buildRow('rowBoth', i => {
+    const div2 = i % 2 === 0, div3 = i % 3 === 0;
+    if (div2 && div3) return 'both';
+    if (div2) return 'a';
+    if (div3) return 'b';
+    return '';
+  });
+
+  function cellCenters(rowEl){
+    const rowRect = rowEl.getBoundingClientRect();
+    return Array.from(rowEl.children).map(c => {
+      const r = c.getBoundingClientRect();
+      return (r.left + r.right) / 2 - rowRect.left;
+    });
+  }
+
+  function drawHops(svgId, rowId, divisor, colorVar){
+    const svg = document.getElementById(svgId);
+    const row = document.getElementById(rowId);
+    const rowRect = row.getBoundingClientRect();
+    const centers = cellCenters(row);
+    const width = rowRect.width;
+    const height = 24;
+    svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
+    svg.setAttribute('width', width);
+    svg.setAttribute('height', height);
+    const baseline = height - 2;
+    const multiples = [];
+    for (let i = divisor; i < N; i += divisor) multiples.push(i);
+    let path = '';
+    for (let k = 0; k < multiples.length - 1; k++) {
+      const x1 = centers[multiples[k] - 1];
+      const x2 = centers[multiples[k + 1] - 1];
+      const midx = (x1 + x2) / 2;
+      path += `M${x1},${baseline} Q${midx},2 ${x2},${baseline} `;
+    }
+    svg.innerHTML = `<path d="${path}" fill="none" stroke="var(${colorVar})" stroke-width="2"/>`;
+  }
+  drawHops('hops2', 'row2', 2, '--a');
+  drawHops('hops3', 'row3', 3, '--b');
+})();
+</script>
+</body>
+</html>

@@ -31,7 +31,7 @@
     return (r.left + r.right) / 2 - rowRect.left;
   });
   const width = rowRect.width;
-  const height = 50;
+  const height = 66; // arcs peak at height-44 / height-28; +16px headroom so the label above the outer arc is not clipped
   svg.setAttribute('viewBox', `0 0 ${width} ${height}`);
   svg.setAttribute('width', width);
   svg.setAttribute('height', height);

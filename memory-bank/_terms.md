@@ -3,102 +3,148 @@
 > Канонический словарь терминов каталога визуализаций и коллекции подходов. Формат:
 > `## [context::TermName]` · ссылки по `[[context::Name]]`. Контексты: `viz` — визуальные приёмы,
 > `approach` — математические подходы. Обновляется атомарно со спеком.
+>
+> Это ЕДИНСТВЕННОЕ место, где живёт описание каждого приёма и подхода (карточек в `.report/`
+> больше нет). Картинка каждого приёма — `visualizations/build/<slug>.png`, собранная скриптом
+> `visualizations/build.sh` из `visualizations/skeleton.html` + `visualizations/examples/<slug>.*`;
+> после любой правки `examples/` — перезапустить сборку, картинка руками не правится.
 
 ## [viz::Catalog]
 Class: aggregate
-Description: Каталог визуальных приёмов объяснения решения — `.report/visualizations/`: индекс, по одному RFC-спеку на приём, точный код кадров в `examples/`.
+Description: Каталог визуальных приёмов объяснения решения — `memory-bank/visualizations/`: исходники кадров в `examples/`, каркас `skeleton.html`, сборка `build.sh`, результат в `build/` (html + png на приём); описания приёмов — блоки `[viz::*]` этого файла.
 Invariants:
-  - MUST: один приём — один `<slug>.md` + до трёх файлов `examples/<slug>.{css,html,js}`; никаких отдельных картинок-файлов
-  - MUST: каждая карточка привязана к [[approach::Collection]] полем `Approach:` либо явно помечена «вне подходов» с причиной
-  - MUST: повторная сборка приёма из каркаса + `examples/` даёт байт-в-байт ту же картинку
+  - MUST: один приём — один блок `[viz::*]` здесь + до трёх файлов `examples/<slug>.{css,html,js}` + `build/<slug>.{html,png}`
+  - MUST: `build/*.png` — только результат `build.sh` (headless-браузер, светлая тема, ширина 720), никогда не рисуется и не правится руками; после правки `examples/` пересобирается
+  - MUST: каждый приём привязан к [[approach::Collection]] полем `Approach:` либо явно помечен «вне подходов» с причиной
+  - MUST: повторная сборка приёма из каркаса + `examples/` даёт байт-в-байт ту же страницу
   - MUST: сквозной пример один на весь каталог — «числа до 20, кратные 2 или 3», не числа конкретной задачи
   - MUST NOT: оставлять файл-редирект без единой входящей ссылки (перед выбором редирект/удаление — grep)
 Entities:
-  - Card — один приём: спек + код кадров
+  - Card — один приём: блок здесь + код кадров + собранные html/png
   - Frame — один кадр картинки: Problem | Transform | Solution
-Commands: AddCard, ReuseCard (дописать `Used in:`), ReviseCard (правка спека/кода + пересборка)
+Commands: AddCard, ReuseCard (дописать `Used in:`), ReviseCard (правка блока/кода + `build.sh`)
 Depends on: [[approach::Collection]], [[viz::PageSkeleton]]
 Spec: [[visualizations]]
 
 ## [viz::PageSkeleton]
 Class: value-object
-Description: Общий каркас страницы (шрифты, цветовые токены, layout карточки и потока кадров), один на все приёмы — живёт в `.claude/skills/visualize-approach/SKILL.md`.
+Description: Общий каркас страницы (шрифты, цветовые токены, layout карточки и потока кадров) — `visualizations/skeleton.html`, плейсхолдеры `{{TITLE}} {{STDNAME}} {{SLUG}} {{TERM}} {{CSS}} {{HTML}} {{JS}}`; один на все приёмы.
 Invariants:
   - MUST: не содержит ни одного приёмо-специфичного класса — те только в `examples/<slug>.css`
-  - MUST: страница собирается копированием каркаса + файлов `examples/` без пересказа и без новых чисел/цветов
+  - MUST: страница собирается подстановкой файлов `examples/` в плейсхолдеры без пересказа и без новых чисел/цветов (`build.sh`)
+  - MUST: тёмная палитра включается только медиа-запросом и отключается атрибутом `data-theme="light"` — так снимок фиксируется светлым независимо от машины
 Depends on:
 Spec: [[visualizations]]
 
 ## [viz::SkipCounting]
 Class: entity
-Description: Счёт прыжками по числовой прямой (skip counting) — прыжки постоянной длины отмечают кратные числа.
+Standard name: Skip counting — счёт прыжками по числовой прямой
+Description: Числа на прямой отмечаются прыжками постоянной длины; точка приземления каждого прыжка кратна длине прыжка.
+Picture: ![Skip counting](visualizations/build/skip-counting.png)
+Approach: — (вне коллекции подходов: показывает само понятие «кратно», а не способ счёта; подготовительный шаг перед любым из подходов, не подход сам по себе)
+Sequence:
+  1. Problem — числа на прямой без пометок, неизвестно, какие обладают нужным свойством
+  2. Transform ×2 — прыжки шагом 2 отмечают кратные 2
+  3. Transform ×3 — прыжки шагом 3 отмечают кратные 3
+  4. Solution — объединённая прямая, каждое число окрашено по принадлежности (2 / 3 / оба)
 Invariants:
-  - MUST: кадры — Problem (прямая без пометок) → Transform ×A → Transform ×B → Solution (объединённая раскраска)
-  - MUST: `Approach: —` — показывает само понятие «кратно», подготовительный шаг, не способ счёта
-  - MUST NOT: применяться для трёх и более условий одновременно (цвета перестают различаться)
+  - MUST: свойство чисел проверяется делением/остатком (кратность, чётность, делимость)
+  - MUST: число одновременных условий — одно или два
+  - MUST NOT: применяться как буквальный ручной способ счёта для больших чисел — приём верен для любых чисел, но рисовать прыжки вручную непрактично; для больших чисел ту же идею считают формулой
+  - MUST NOT: применяться для трёх и более условий одновременно — число цветов на прямой превышает различимое одним взглядом
+Source: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/) · [Math and Movement](https://mathandmovement.com/product/skip-counting-hopping-mat-2s/)
+Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
+Used in: euler001
 Depends on: [[viz::Catalog]]
 Spec: [[visualizations]]
 
 ## [viz::BarModel]
 Class: entity
-Description: Модель-полоска (bar model / tape diagram, Singapore Math) — полоска разбита на непересекающиеся куски, длина куска = количество.
+Standard name: Bar model / tape diagram — методика Singapore Math
+Description: Полоска фиксированной длины разбивается на непересекающиеся куски; длина каждого куска равна количеству элементов этой части.
+Picture: ![Bar model](visualizations/build/bar-model.png)
+Approach: [[approach::InclusionExclusion]] — арифметическая форма (из каких чисел складывается каждая часть)
+Sequence:
+  1. Problem — суммы по двум условиям складываются напрямую; итог зачёркнут (двойной счёт общей части)
+  2. Transform − — те же два числа показаны перекрывающимися; дважды учтённая часть выделена
+  3. Solution — полоска разбита на три честных куска (только 2, оба, только 3); их сумма — верный ответ
 Invariants:
-  - MUST: кадры — Problem (прямая сумма помечена как неверная) → Transform (перекрытие выделено) → Solution (три честных куска)
-  - MUST: `Approach:` = [[approach::InclusionExclusion]], арифметическая форма (из каких чисел состоит каждая часть)
-  - MUST NOT: применяться для трёх и более условий — пересечения не выстраиваются в один ряд честно
+  - MUST: в задаче есть «или» между двумя условиями, часть элементов удовлетворяет обоим сразу
+  - MUST NOT: применяться для трёх и более условий — полоска показывает только последовательность непересекающихся кусков подряд; при трёх пересекающихся условиях пересечения не выстраиваются в один ряд честно, раскладка перестаёт соответствовать структуре
+Source: [Third Space Learning](https://thirdspacelearning.com/us/blog/teach-bar-model-method/) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
+Example: `visualizations/examples/bar-model.{css,html}` (js не требуется — значения статичны) → `visualizations/build/bar-model.html`
+Used in: euler001
 Depends on: [[viz::Catalog]], [[approach::InclusionExclusion]]
 Spec: [[visualizations]]
 
 ## [viz::GaussPairing]
 Class: entity
-Description: Приём Гаусса, парное сложение («радуга») — числа сцепляются парами с двух концов, каждая пара даёт одну сумму.
+Standard name: Gauss's trick — парное сложение («радуга»)
+Description: Числа складываются не по порядку, а парами с двух концов ряда; каждая пара даёт одну и ту же сумму.
+Picture: ![Gauss pairing](visualizations/build/gauss-pairing.png)
+Approach: [[approach::ArithmeticProgressionSum]]
+Sequence:
+  1. Problem — числа ряда стоят по порядку, соединены «+», сумма не подсчитана
+  2. Transform ↔ — числа сцеплены в пары с двух концов дугами; над каждой дугой — сумма пары
+  3. Solution — итоговая сумма (число пар × сумма пары, плюс середина при нечётном числе элементов)
 Invariants:
-  - MUST: кадры — Problem (ряд со знаками «+», сумма не подсчитана) → Transform (дуги пар с суммой над каждой) → Solution (итог)
-  - MUST: `Approach:` = [[approach::ArithmeticProgressionSum]]
-  - MUST: все промежуточные числа примера различны (прецедент 30/30: площадь и итог совпадали — объяснение читалось как замкнутое)
-  - MUST NOT: применяться при переменном шаге между числами
+  - MUST: числа идут подряд с постоянным шагом (арифметическая прогрессия)
+  - MUST: все промежуточные числа примера различны (пример 4·8·12·16·20, пары 24, итог 60; прецедент 30/30 — площадь и итог совпадали, объяснение читалось как замкнутое)
+  - MUST NOT: применяться при переменном шаге — пары с двух концов дают разные суммы
+Source: [eduSeed](https://eduseed.in/2025/12/04/gauss-method-of-addition-the-day-a-10-year-old-outsmarted-his-teacher/) · [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
+Example: `visualizations/examples/gauss-pairing.{css,html,js}` → `visualizations/build/gauss-pairing.html`
+Used in: euler001
 Depends on: [[viz::Catalog]], [[approach::ArithmeticProgressionSum]]
 Spec: [[visualizations]]
 
 ## [viz::VennDiagram]
 Class: entity
-Description: Диаграмма Венна (John Venn, 1880) — два пересекающихся круга, каждая область — своя комбинация условий.
+Standard name: Venn diagram — John Venn, 1880 (термин ввёл C. I. Lewis, 1918)
+Description: Два (или три) пересекающихся круга; каждая непересекающаяся область — своя комбинация условий.
+Picture: ![Venn diagram](visualizations/build/venn.png)
+Approach: [[approach::InclusionExclusion]] — пространственная форма (что общая часть вообще есть, до чисел)
+Sequence:
+  1. Problem — два круга раздельно; неясно, как условия связаны
+  2. Transform ∩ — круги сближаются, появляется общая область без числа
+  3. Solution — три области подписаны числами
 Invariants:
-  - MUST: кадры — Problem (круги раздельно) → Transform (сближение, общая область без чисел) → Solution (три подписанные области)
-  - MUST: `Approach:` = [[approach::InclusionExclusion]], пространственная форма (что общая часть вообще есть)
-  - MUST NOT: применяться для четырёх и более условий одними кругами (доказуемо не покрывают все пересечения)
+  - MUST: важно увидеть саму структуру пересечения (есть общая часть или нет), не только размер
+  - MUST NOT: применяться для четырёх и более условий одними кругами — четыре круга доказуемо не отображают все пересечения; для двух-трёх работает без ограничений
+Source: [Britannica — John Venn](https://www.britannica.com/biography/John-Venn) · [ReadWriteThink](https://www.readwritethink.org/classroom-resources/lesson-plans/introducing-venn-diagram-kindergarten) · [Science Sparks](https://www.science-sparks.com/make-venn-diagram-hula-hoop/)
+Example: `visualizations/examples/venn.{css,html,js}` → `visualizations/build/venn.html`
+Used in: euler001
 Depends on: [[viz::Catalog]], [[approach::InclusionExclusion]]
 Spec: [[visualizations]]
 
 ## [approach::Collection]
 Class: aggregate
-Description: Коллекция математических подходов для объяснения решений — `.report/approaches.md`; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании).
+Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании).
 Invariants:
-  - MUST: каждая запись — Суть / Когда узнаётся / Общий случай / Визуализируется / Использовано в
-  - MUST: поле «Визуализируется» ссылается на карточки [[viz::Catalog]]; «—» = сигнал завести картинку, не постоянное состояние
+  - MUST: каждая запись — Essence / Recognized by / General case / Visualized by / Used in
+  - MUST: `Visualized by` ссылается на блоки `[viz::*]`; «—» = сигнал завести картинку, не постоянное состояние
   - MUST NOT: заводить подход под существующую картинку ради симметрии — картинка без подхода помечается на своей стороне
 Entities:
   - Entry — одна запись подхода
-Commands: AddEntry, LinkVisualization, ReuseEntry (дописать «Использовано в:»)
+Commands: AddEntry, LinkVisualization, ReuseEntry (дописать `Used in:`)
 Depends on: [[viz::Catalog]]
 Spec: [[approaches]]
 
 ## [approach::InclusionExclusion]
 Class: entity
-Description: Включение-исключение — посчитать по отдельности, потом вычесть посчитанное дважды.
-Invariants:
-  - MUST: узнаётся по «или» между двумя и более свойствами в условии
-  - MUST: общий случай — знакопеременная сумма по всем пересечениям k условий; «А+Б−АБ» — только k=2
-  - MUST: визуализируется двумя формами — [[viz::BarModel]] (числа) и [[viz::VennDiagram]] (форма)
+Essence: Посчитать по отдельности, потом вычесть то, что посчитано дважды.
+Recognized by: в условии есть «или» между двумя и более свойствами числа/объекта («кратно A ИЛИ кратно B»)
+General case: для k условий — знакопеременная сумма по всем пересечениям (попарным, тройным, …); «А+Б−АБ» — только k=2
+Visualized by: [[viz::BarModel]] (арифметическая форма — из каких чисел состоит каждая часть), [[viz::VennDiagram]] (пространственная — что общая часть вообще есть)
+Used in: euler001
 Depends on: [[approach::Collection]]
 Spec: [[approaches]]
 
 ## [approach::ArithmeticProgressionSum]
 Class: entity
-Description: Замкнутая формула суммы арифметической прогрессии — сумма чисел с равным шагом одним умножением.
-Invariants:
-  - MUST: узнаётся, когда нужна сумма (не количество) чисел, кратных чему-то, на отрезке
-  - MUST: общий случай — `k · m·(m+1)/2`, m — сколько таких чисел на отрезке; любые k, m, N
-  - MUST: визуализируется [[viz::GaussPairing]]
+Essence: Сумму чисел, идущих с равным шагом, можно получить одним умножением, не складывая по одному.
+Recognized by: нужна сумма (не количество) чисел, кратных чему-то, на отрезке
+General case: сумма первых m членов прогрессии с шагом k равна `k · m·(m+1)/2`, m — сколько таких чисел на отрезке; любые k, m, N
+Visualized by: [[viz::GaussPairing]]
+Used in: euler001
 Depends on: [[approach::Collection]]
 Spec: [[approaches]]
