@@ -485,14 +485,15 @@ Recognized by: the constraints bound how many candidates exist, that count multi
 General case: multiply out the candidate count implied by the constraints (ranges times queries times per-candidate work); compare it against what the machine can do in the allowed time; if it fits, enumerate directly — the check itself is just the problem's own definition. The count is what decides, and it is computable before a line of code is written
 Picture: ![Brute-force search](visualizations/build/brute-force-search.png)
 Sequence:
-  1. Problem — check every candidate: is that even affordable?
-  2. Transform count first — straight from the limits: 1000 positions &times; 7 digits &times; 100 queries = 700,000 candidates in one case; every ordering of 20 items (20!) = 2,400,000,000,000,000,000 in another
-  3. Solution — against a budget of about 100,000,000 simple steps, the first is 0.7% of it (enumerate directly), the second is 24 billion times over (hopeless) — the same technique, decided entirely by the count
+  1. Problem — a 6&times;6 field of "?" cells: one of them is the answer, and nothing distinguishes it from the outside
+  2. Transform &times; — the cells are counted without being opened (6 &times; 6 = 36) and set against a countable capacity of 100 empty slots: 36 &le; 100, so walking them all is affordable — decided before any cell is looked into
+  3. Solution — the cells are opened in order, each getting a &#10003;, until the answer (&#9733;) turns up at the 23rd; the rest are never touched
 Limits:
-  - MUST NOT: be chosen because no better idea came to mind — a limit of the IDEA: without the count against the budget it is a guess, and the count is exactly what makes it a decision
-  - MUST NOT: be applied when the candidate count grows factorially or exponentially in the input size unless the input is tiny — a limit of PRACTICE: those counts pass any budget within a few steps of growth (the 20! row above is the whole warning)
+  - MUST NOT: be chosen because no better idea came to mind — a limit of the IDEA: without the count against the budget it is a guess, and the count is exactly what makes it a decision. At real scale the same comparison runs in real units: e.g. 1000 positions &times; 7 digits &times; 100 queries = 700,000 checks against a budget of roughly 100,000,000 simple steps per second — under 1% of it, so enumeration is safe
+  - MUST NOT: be applied when the candidate count grows factorially or exponentially in the input size unless the input is tiny — a limit of PRACTICE: every ordering of just 20 items is already 20! &asymp; 2.4&times;10<sup>18</sup>, tens of billions of times past any per-second budget; counts of that shape pass any budget within a few steps of growth
+  - MUST: the picture's 36 cells and 100 slots are deliberately toy-sized so both sides of the comparison stay literally countable — a limit of the PICTURE: real candidate counts and budgets (the 700,000 and 100,000,000 above) don't fit in a drawable grid, so the record's text carries them instead
 Source: [Wikipedia — Brute-force search](https://en.wikipedia.org/wiki/Brute-force_search) ("systematically checking all possible candidates"; the article makes candidate count versus available resources the deciding factor) · [Wikipedia — Enumeration algorithm](https://en.wikipedia.org/wiki/Enumeration_algorithm)
-Example: `visualizations/examples/brute-force-search.{css,html}` (no js needed — the values are static) → `visualizations/build/brute-force-search.html`
+Example: `visualizations/examples/brute-force-search.{css,html,js}` → `visualizations/build/brute-force-search.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::VariableElimination]
