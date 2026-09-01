@@ -50,6 +50,12 @@
 
   .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
 
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
   .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
   .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
 
@@ -67,6 +73,10 @@
 {{HTML}}
     </div>
     <div class="filelink">memory-bank/_terms.md · [viz::{{TERM}}]</div>
+    <div class="repo">
+{{QR}}
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>исходники, спеки и остальные приёмы</div>
+    </div>
   </div>
 </div>
 <script>

@@ -23,13 +23,15 @@ assemble() {  # $1 slug $2 title $3 stdname $4 term
   local slug=$1 title=$2 std=$3 term=$4
   local css="examples/$slug.css" html="examples/$slug.html" js="examples/$slug.js"
   [ -f "$js" ] || js=/dev/null
+  [ -f qr-repo.svg ] || { echo "qr-repo.svg missing -- every visualization must carry the repo QR (principle 10)" >&2; exit 1; }
   awk -v title="$title" -v std="$std" -v slug="$slug" -v term="$term" \
-      -v cssf="$css" -v htmlf="$html" -v jsf="$js" '
+      -v cssf="$css" -v htmlf="$html" -v jsf="$js" -v qrf="qr-repo.svg" '
     function dump(f,   line) { while ((getline line < f) > 0) print line; close(f) }
     {
       if ($0 ~ /^\{\{CSS\}\}$/)       { dump(cssf);  next }
       if ($0 ~ /^\{\{HTML\}\}$/)      { dump(htmlf); next }
       if ($0 ~ /^\{\{JS\}\}$/)        { dump(jsf);   next }
+      if ($0 ~ /^\{\{QR\}\}$/)        { dump(qrf);   next }
       gsub(/\{\{TITLE\}\}/, title); gsub(/\{\{STDNAME\}\}/, std)
       gsub(/\{\{SLUG\}\}/, slug);   gsub(/\{\{TERM\}\}/, term)
       print

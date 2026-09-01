@@ -24,7 +24,9 @@ memory-bank/
   specs/approaches.md                — спек коллекции подходов
   visualizations/
     skeleton.html                    — общий каркас, плейсхолдеры {{TITLE}} {{STDNAME}} {{SLUG}}
-                                        {{TERM}} {{CSS}} {{HTML}} {{JS}}
+                                        {{TERM}} {{CSS}} {{HTML}} {{JS}} {{QR}}
+    qr-repo.svg                      — QR на репозиторий, вшивается в каждую страницу (принцип 10);
+                                        без него build.sh не собирает
     examples/<slug>.{css,html,js}    — код кадров приёма (js может отсутствовать)
     build.sh                         — сборка: skeleton + examples -> build/<slug>.html,
                                         затем headless Chrome -> build/<slug>.png (светлая тема)
