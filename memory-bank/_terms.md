@@ -231,12 +231,12 @@ General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform bound — evaluate the inequality at n=6: 6 &times; (ln 6 + ln ln 6) &asymp; 14.25, rounded up to a ceiling of 15
-  3. Solution — the 6th prime, 13, lands safely inside that computed ceiling of 15
+  2. Transform &times;6 — lay 6 tiles of the same length end to end, each tile the value of one unit ln 6 + ln ln 6 &asymp; 2.375; the row reaches 6 &times; 2.375 &asymp; 14.25
+  3. Solution — round 14.25 up to a ceiling of 15; the 6th prime, 13, lands safely inside it
 Limits:
   - MUST NOT: be used for n &lt; 6 — a limit of the IDEA: the inequality is proven only from n=6 upward; smaller n are checked directly instead
   - MUST: pad the computed bound rather than use it exactly at the boundary — a limit of PRACTICE, not of the theorem: the inequality is proven exact, but floating-point evaluation of ln/ln ln can round down by a hair right at the boundary
-Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is.
+Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is. The picture shows the ARITHMETIC of the formula geometrically — multiplication as 6 equal tiles laid end to end, the way [method::ArithmeticProgressionSum](#methodarithmeticprogressionsum) shows a sum, not a static substitution — but, like that record, does not derive WHY one tile has length ln n + ln ln n; that per-tile length is the cited analytic fact, not something this catalog re-derives geometrically.
 Source: [Wikipedia — Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function) (bounds section, upper bound attributed to Rosser, 1941)
 Example: `visualizations/examples/nth-prime-bound.{css,html}` (no js needed — the values are static) → `visualizations/build/nth-prime-bound.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
