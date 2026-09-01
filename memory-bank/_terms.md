@@ -231,7 +231,7 @@ General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform bound — evaluate the inequality at n=6: 6 &times; (ln 6 + ln ln 6) = 6 &times; (1.792 + 0.583) = 6 &times; 2.375 &asymp; 14.25, rounded up to a ceiling of 15
+  2. Transform bound — evaluate the inequality at n=6: 6 &times; (ln 6 + ln ln 6) &asymp; 14.25, rounded up to a ceiling of 15
   3. Solution — the 6th prime, 13, lands safely inside that computed ceiling of 15
 Limits:
   - MUST NOT: be used for n &lt; 6 — a limit of the IDEA: the inequality is proven only from n=6 upward; smaller n are checked directly instead
