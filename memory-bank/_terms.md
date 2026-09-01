@@ -227,16 +227,34 @@ Class: entity
 Standard name: Upper bound on the nth prime · picture — number-line ceiling (this catalog's own construction, not an independently named historical device — see Picture note)
 Essence: Before searching for the Nth prime, get an explicit numeric ceiling on how large it can possibly be from a proven inequality, instead of guessing a limit or growing the search open-endedly.
 Recognized by: you are told only the INDEX N of a prime (not any bound on the prime's own size) and need to know in advance how far a search or a sieve must reach to be certain of finding it
-General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln n &minus; 1) &lt; p<sub>n</sub> &lt; n(ln n + ln ln n) — the upper half alone is enough to size a sieve safely
+General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln n &minus; 1) &lt; p<sub>n</sub> &lt; n(ln n + ln ln n) — the upper half alone is enough to size a sieve safely; this inequality is a sharpened, explicit-for-every-n form of [method::PrimeNumberTheorem](#methodprimenumbertheorem)'s limit statement
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform &times;6 — lay 6 tiles of the same length end to end, each tile the value of one unit ln 6 + ln ln 6 &asymp; 2.375; the row reaches 6 &times; 2.375 &asymp; 14.25
-  3. Solution — round 14.25 up to a ceiling of 15; the 6th prime, 13, lands safely inside it
+  2. Transform bound — the proven inequality evaluated at n=6: 6 &times; (ln 6 + ln ln 6) &asymp; 14.25, rounded up to a ceiling of 15
+  3. Solution — the 6th prime, 13, lands safely inside that ceiling of 15
 Limits:
   - MUST NOT: be used for n &lt; 6 — a limit of the IDEA: the inequality is proven only from n=6 upward; smaller n are checked directly instead
   - MUST: pad the computed bound rather than use it exactly at the boundary — a limit of PRACTICE, not of the theorem: the inequality is proven exact, but floating-point evaluation of ln/ln ln can round down by a hair right at the boundary
-Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is. The picture shows the ARITHMETIC of the formula geometrically — multiplication as 6 equal tiles laid end to end, the way [method::ArithmeticProgressionSum](#methodarithmeticprogressionsum) shows a sum, not a static substitution — but, like that record, does not derive WHY one tile has length ln n + ln ln n; that per-tile length is the cited analytic fact, not something this catalog re-derives geometrically.
+Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is. This picture deliberately does NOT attempt to show WHY one unit of the formula has length ln n + ln ln n — an earlier version tried to render that arithmetic as 6 tiles laid end to end, but a tile literally labeled with the formula itself explains nothing about where the formula comes from, only restates it geometrically (direct user feedback: "useless"). The real "why" — primes thinning out in a way this exact ratio predicts — is a separate, independently standard fact with its own real picture: [method::PrimeNumberTheorem](#methodprimenumbertheorem).
 Source: [Wikipedia — Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function) (bounds section, upper bound attributed to Rosser, 1941)
 Example: `visualizations/examples/nth-prime-bound.{css,html}` (no js needed — the values are static) → `visualizations/build/nth-prime-bound.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::PrimeNumberTheorem]
+Class: entity
+Standard name: Prime number theorem
+Essence: As numbers grow, the fraction of them that are prime keeps shrinking, in a way one explicit formula — a number divided by its own natural logarithm — predicts increasingly accurately.
+Recognized by: you need to estimate how many primes lie below some bound, or how far apart primes typically run near a given size, without counting them one by one, and an approximate/asymptotic answer is acceptable
+General case: pi(x), the count of primes up to x, satisfies pi(x) / (x &divide; ln x) &rarr; 1 as x &rarr; infinity; equivalently, near a number of size x, roughly one integer in every ln(x) is prime — [method::NthPrimeBound](#methodnthprimebound) is this same fact turned around (given the COUNT n, bound the SIZE of the nth prime) and sharpened into an explicit inequality that holds at every n, not just in the limit
+Picture: ![Prime number theorem](visualizations/build/prime-number-theorem.png)
+Sequence:
+  1. Problem — how many primes lie at or below 100? Below 10,000? Below 1,000,000? Unknown.
+  2. Transform count vs x&divide;ln x — the real, counted totals (25, 1229, 78498) next to the formula's guess (21.7, 1086, 72382) at each of the three scales
+  3. Solution — the guess undershoots by 15.1%, then 13.2%, then 8.4% — the relative gap shrinks as the numbers grow
+Limits:
+  - MUST NOT: be read as an exact formula, or as increasingly accurate at every individual scale without exception — a limit of the IDEA: it is a LIMIT statement (exact only as x &rarr; infinity); the true count is known to run persistently a little above the guess at accessible scales (Littlewood proved the sign of the gap even flips infinitely often much further out)
+  - MUST: the three example scales are real, independently counted primes, not invented or interpolated — a limit of the PICTURE keeping it honest, not of the idea
+Source: [Wikipedia — Prime number theorem](https://en.wikipedia.org/wiki/Prime_number_theorem) · [Wikipedia — Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function) (the standard "ratio of &pi;(x) to x/log x and Li(x)" graph — this picture is this catalog's own discretized rendering of that same comparison at three concrete, verified scales, not a copy of the continuous plot)
+Example: `visualizations/examples/prime-number-theorem.{css,html}` (no js needed — the values are static) → `visualizations/build/prime-number-theorem.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

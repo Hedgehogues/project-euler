@@ -17,7 +17,7 @@
 > dictionary entry.
 
 ## projecteuler — explaining solutions
-- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision, EuclideanAlgorithm, LCMViaGCD, SumOfSquares, SieveOfEratosthenes, NthPrimeBound (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
+- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision, EuclideanAlgorithm, LCMViaGCD, SumOfSquares, SieveOfEratosthenes, NthPrimeBound, PrimeNumberTheorem (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
 - [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 - [tasks](specs/tasks.md) — Status: draft — requirements on a TASK SPEC's own format: six sections in order, methods must resolve, a Status line must name real evidence

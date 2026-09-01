@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Upper bound on the nth prime</title>
+<title>Prime number theorem</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
   :root{
@@ -59,68 +59,99 @@
   .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
   .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
 
-  /* --- examples/nth-prime-bound.css --- */
-.npb-card{display:flex; flex-direction:column; align-items:center; gap:10px;}
-.npb-label{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink);}
-.npb-line{display:flex; align-items:center; gap:6px; width:100%; max-width:400px; height:34px; position:relative;}
-.npb-open{justify-content:flex-start;}
-.npb-dash{flex:1; height:3px; background:repeating-linear-gradient(90deg, var(--ink-soft) 0 6px, transparent 6px 12px); border-radius:2px;}
-.npb-q{font-family:var(--font-m); font-weight:700; color:var(--ink-soft); font-size:16px; padding-left:4px;}
-.npb-note{font-size:12px; color:var(--ink-soft); text-align:center;}
-.npb-formula{font-family:var(--font-m); font-size:14px; color:var(--ink); background:var(--surface); border:1.5px solid var(--rule); border-radius:8px; padding:8px 14px;}
-.npb-arrow-row{font-family:var(--font-m); font-size:12px; color:var(--ink-soft);}
-.npb-big{font-family:var(--font-m); font-size:34px; font-weight:700; color:var(--b); background:var(--b-bg); border-radius:10px; padding:4px 22px;}
+  /* --- examples/prime-number-theorem.css --- */
+.pnt-row{display:flex; justify-content:center; gap:18px; align-items:flex-end;}
+.pnt-panel{display:flex; flex-direction:column; align-items:center; gap:6px; width:110px;}
+.pnt-panel-label{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); font-weight:700;}
+.pnt-bars{display:flex; align-items:flex-end; gap:6px; height:110px; width:100%; justify-content:center; padding-top:22px; box-sizing:border-box;}
+.pnt-q{font-family:var(--font-m); font-size:20px; font-weight:700; color:var(--ink-soft); align-self:center;}
+.pnt-bar{width:34px; border-radius:5px 5px 0 0; position:relative; display:flex; justify-content:center;}
+.pnt-bar span{position:absolute; top:-18px; font-family:var(--font-m); font-size:10px; font-weight:700; color:var(--ink); white-space:nowrap;}
+.pnt-real{background:var(--a);}
+.pnt-est{background:var(--good);}
+.pnt-legend{display:flex; justify-content:center; gap:16px; margin-top:14px; font-size:11px; color:var(--ink-soft);}
+.pnt-legend span{display:inline-flex; align-items:center; gap:5px;}
+.pnt-legend i{width:9px; height:9px; border-radius:3px; display:inline-block;}
 
-.npb-bar{position:relative; flex:1; height:10px; background:var(--a-bg); border:1.5px solid var(--a); border-radius:5px;}
-.npb-mark{position:absolute; top:-4px; width:2px; height:18px; background:var(--good); transform:translateX(-1px);}
-.npb-mark-label{position:absolute; bottom:24px; left:50%; transform:translateX(-100%); font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--good); white-space:nowrap;}
-.npb-wall-mark{background:var(--b);}
-.npb-wall-label{color:var(--b); bottom:auto; top:24px;}
+.pnt-gaprow{display:flex; align-items:center; justify-content:center; gap:10px;}
+.pnt-gap{display:flex; flex-direction:column; align-items:center; font-family:var(--font-m); font-size:20px; font-weight:700; color:var(--b); background:var(--b-bg); border-radius:10px; padding:8px 14px;}
+.pnt-gap span{font-size:10px; font-weight:500; color:var(--ink-soft); margin-top:2px;}
+.pnt-gap-small{color:var(--good); background:var(--good-bg);}
+.pnt-gaparrow{color:var(--ink-soft); font-family:var(--font-m); font-size:16px;}
+.pnt-note{margin-top:12px; font-size:12px; color:var(--ink-soft); text-align:center;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card" id="card">
-    <h2>Upper bound on the nth prime</h2>
-    <div class="stdtag found">✓ Rosser's bound on the nth prime</div>
+    <h2>Prime number theorem</h2>
+    <div class="stdtag found">✓ Prime number theorem</div>
     <div class="flow">
-<!-- examples/nth-prime-bound.html -->
+<!-- examples/prime-number-theorem.html -->
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
-  <div class="npb-card">
-    <div class="npb-label">6th prime — ?</div>
-    <div class="npb-line npb-open">
-      <div class="npb-dash"></div>
-      <div class="npb-q">?</div>
+  <div class="pnt-row">
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">primes &le; 100</div>
+      <div class="pnt-bars"><div class="pnt-q">?</div></div>
+    </div>
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">primes &le; 10,000</div>
+      <div class="pnt-bars"><div class="pnt-q">?</div></div>
+    </div>
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">primes &le; 1,000,000</div>
+      <div class="pnt-bars"><div class="pnt-q">?</div></div>
     </div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">proven ceiling</div>
+<div class="frame-tag">count vs x/ln x</div>
 <div class="frame"><div class="frame-inner">
-  <div class="npb-card">
-    <div class="npb-formula">6 &times; (ln&nbsp;6 + ln&nbsp;ln&nbsp;6) &asymp; 14.25</div>
-    <div class="npb-arrow-row">&darr; round up</div>
-    <div class="npb-big">15</div>
+  <div class="pnt-row">
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">&le; 100</div>
+      <div class="pnt-bars">
+        <div class="pnt-bar pnt-real" style="height:100%"><span>25</span></div>
+        <div class="pnt-bar pnt-est" style="height:86.8%"><span>21.7</span></div>
+      </div>
+    </div>
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">&le; 10,000</div>
+      <div class="pnt-bars">
+        <div class="pnt-bar pnt-real" style="height:100%"><span>1229</span></div>
+        <div class="pnt-bar pnt-est" style="height:88.3%"><span>1086</span></div>
+      </div>
+    </div>
+    <div class="pnt-panel">
+      <div class="pnt-panel-label">&le; 1,000,000</div>
+      <div class="pnt-bars">
+        <div class="pnt-bar pnt-real" style="height:100%"><span>78498</span></div>
+        <div class="pnt-bar pnt-est" style="height:92.2%"><span>72382</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="pnt-legend">
+    <span><i style="background:var(--a)"></i>real count of primes</span>
+    <span><i style="background:var(--good)"></i>guess: x &divide; ln x</span>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
-  <div class="npb-card">
-    <div class="npb-line">
-      <div class="npb-bar">
-        <div class="npb-mark" style="left:86.7%"><span class="npb-mark-label">13</span></div>
-        <div class="npb-mark npb-wall-mark" style="left:100%"><span class="npb-mark-label npb-wall-label">15</span></div>
-      </div>
-    </div>
-    <div class="npb-note">13 &lt; 15 &mdash; found inside the ceiling.</div>
+  <div class="pnt-gaprow">
+    <div class="pnt-gap">15.1%<span>too low</span></div>
+    <div class="pnt-gaparrow">&rarr;</div>
+    <div class="pnt-gap">13.2%<span>too low</span></div>
+    <div class="pnt-gaparrow">&rarr;</div>
+    <div class="pnt-gap pnt-gap-small">8.4%<span>too low</span></div>
   </div>
+  <div class="pnt-note">the bigger the numbers, the closer x &divide; ln x gets to the real count.</div>
 </div></div>
     </div>
-    <div class="filelink">memory-bank/_terms.md · [method::NthPrimeBound]</div>
+    <div class="filelink">memory-bank/_terms.md · [method::PrimeNumberTheorem]</div>
     <div class="repo">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
       <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
@@ -128,7 +159,7 @@
   </div>
 </div>
 <script>
-// examples/nth-prime-bound.js
+// examples/prime-number-theorem.js
 </script>
 </body>
 </html>
