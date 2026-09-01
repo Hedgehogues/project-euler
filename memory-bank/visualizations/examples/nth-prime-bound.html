@@ -10,10 +10,27 @@
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">proven ceiling</div>
+<div class="frame-tag">guess</div>
 <div class="frame"><div class="frame-inner">
   <div class="npb-card">
-    <div class="npb-formula">6 &times; (ln&nbsp;6 + ln&nbsp;ln&nbsp;6) &asymp; 14.25</div>
+    <div class="npb-step">
+      <div class="npb-steplabel">primes near x appear about every ln(x) numbers apart &mdash; guess:</div>
+      <div class="npb-formula">6 &times; ln 6 &asymp; 6 &times; 1.792 &asymp; 10.75</div>
+    </div>
+    <div class="npb-checkline npb-checkline-bad">
+      <span class="npb-checkmark">&#10007;</span> too small &mdash; the real 6th prime, 13, is already past 10.75
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">refine</div>
+<div class="frame"><div class="frame-inner">
+  <div class="npb-card">
+    <div class="npb-step">
+      <div class="npb-steplabel">the 6th prime is itself bigger than 6, so its OWN gap is a bit more than ln 6 &mdash; use ln(6 &times; ln 6) = ln 6 + ln ln 6 &asymp; 2.375 instead:</div>
+      <div class="npb-formula">6 &times; (ln 6 + ln ln 6) &asymp; 14.25</div>
+    </div>
     <div class="npb-arrow-row">&darr; round up</div>
     <div class="npb-big">15</div>
   </div>
@@ -29,6 +46,6 @@
         <div class="npb-mark npb-wall-mark" style="left:100%"><span class="npb-mark-label npb-wall-label">15</span></div>
       </div>
     </div>
-    <div class="npb-note">13 &lt; 15 &mdash; found inside the ceiling.</div>
+    <div class="npb-note">13 &lt; 15 &mdash; this time it fits.</div>
   </div>
 </div></div>
