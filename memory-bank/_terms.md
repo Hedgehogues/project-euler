@@ -121,6 +121,7 @@ Spec: [[visualizations]]
 ## [approach::Collection]
 Class: aggregate
 Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании).
+Gallery: [![Bar model](visualizations/build/bar-model.png)](visualizations/build/bar-model.html) [![Venn diagram](visualizations/build/venn.png)](visualizations/build/venn.html) [![Gauss's trick](visualizations/build/gauss-pairing.png)](visualizations/build/gauss-pairing.html)
 Invariants:
   - MUST: каждая запись — Essence / Recognized by / General case / Visualized by / Used in
   - MUST: `Visualized by` ссылается на блоки `[viz::*]`; «—» = сигнал завести картинку, не постоянное состояние
@@ -137,6 +138,7 @@ Essence: Посчитать по отдельности, потом вычест
 Recognized by: в условии есть «или» между двумя и более свойствами числа/объекта («кратно A ИЛИ кратно B»)
 General case: для k условий — знакопеременная сумма по всем пересечениям (попарным, тройным, …); «А+Б−АБ» — только k=2
 Visualized by: [[viz::BarModel]] (арифметическая форма — из каких чисел состоит каждая часть), [[viz::VennDiagram]] (пространственная — что общая часть вообще есть)
+Picture: [![Bar model](visualizations/build/bar-model.png)](visualizations/build/bar-model.html) [![Venn diagram](visualizations/build/venn.png)](visualizations/build/venn.html)
 Used in: euler001
 Depends on: [[approach::Collection]]
 Spec: [[approaches]]
@@ -147,6 +149,7 @@ Essence: Сумму чисел, идущих с равным шагом, мож�
 Recognized by: нужна сумма (не количество) чисел, кратных чему-то, на отрезке
 General case: сумма первых m членов прогрессии с шагом k равна `k · m·(m+1)/2`, m — сколько таких чисел на отрезке; любые k, m, N
 Visualized by: [[viz::GaussPairing]]
+Picture: [![Gauss's trick](visualizations/build/gauss-pairing.png)](visualizations/build/gauss-pairing.html)
 Used in: euler001
 Depends on: [[approach::Collection]]
 Spec: [[approaches]]
