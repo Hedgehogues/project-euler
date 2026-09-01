@@ -67,7 +67,7 @@ Sequence:
 Limits:
   - MUST NOT: применяться как буквальный ручной способ счёта для больших чисел (тысячи и больше) — предел ПРАКТИКИ, не идеи: сама идея верна для любых чисел, но там ту же кратность считают формулой, а не рисуют прыжки
   - MUST NOT: применяться для трёх и более условий одновременно — предел КАРТИНКИ: число цветов на прямой превышает различимое одним взглядом
-Source: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/) · [Math and Movement](https://mathandmovement.com/product/skip-counting-hopping-mat-2s/)
+Source: [Wikipedia — Skip counting](https://en.wikipedia.org/wiki/Skip_counting) · [Wikipedia — Number line](https://en.wikipedia.org/wiki/Number_line) · методика: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/)
 Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [visualizations](specs/visualizations.md)
@@ -85,7 +85,7 @@ Sequence:
   3. Solution — полоска разбита на три честных куска (только 2, оба, только 3); их сумма — верный ответ
 Limits:
   - MUST NOT: применяться для трёх и более условий — предел КАРТИНКИ: полоска показывает только ряд непересекающихся кусков подряд, при трёх пересекающихся условиях пересечения в один ряд честно не выстраиваются. Сама идея работает для любого k (ценой роста числа слагаемых как 2^k)
-Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle) · картинка: [Third Space Learning](https://thirdspacelearning.com/us/blog/teach-bar-model-method/) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
+Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle) · картинка: [Wikipedia — Tape diagram](https://en.wikipedia.org/wiki/Tape_diagram) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
 Example: `visualizations/examples/bar-model.{css,html}` (js не требуется — значения статичны) → `visualizations/build/bar-model.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
@@ -123,7 +123,7 @@ Sequence:
 Limits:
   - MUST NOT: применяться при переменном шаге между числами — предел ИДЕИ: пары с двух концов перестают давать одинаковую сумму, формула неприменима
   - MUST: все промежуточные числа примера различны (пример 4·8·12·16·20, пары по 24, итог 60) — предел КАРТИНКИ: прецедент 30/30, где площадь и итог совпали, и объяснение читалось как замкнутое само на себя
-Source: [Wikipedia — Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/) · картинка: [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/) · [eduSeed](https://eduseed.in/2025/12/04/gauss-method-of-addition-the-day-a-10-year-old-outsmarted-his-teacher/)
+Source: [Wikipedia — Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/) · картинка: [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
 Example: `visualizations/examples/gauss-pairing.{css,html,js}` → `visualizations/build/gauss-pairing.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
@@ -138,7 +138,7 @@ Picture: — (у самого «посчитай заранее» нет уст�
 Limits:
   - MUST NOT: применяться, когда структура зависит от запроса — тогда предвычислять нечего
   - MUST: помнить, что стоимость построения платится всегда, даже если запрос один — при единственном запросе выигрыша нет
-Source: [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
+Source: [Wikipedia — Precomputation](https://en.wikipedia.org/wiki/Precomputation) · [Wikipedia — Lookup table](https://en.wikipedia.org/wiki/Lookup_table) · [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md)
 
