@@ -143,3 +143,33 @@ Limits:
 Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · picture: [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
 Example: `visualizations/examples/ladder-method.{css,html}` (no js needed — the values are static) → `visualizations/build/ladder-method.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::EuclideanAlgorithm]
+Class: entity
+Standard name: Euclidean algorithm
+Essence: To find the greatest common divisor of two numbers, keep replacing the larger one by the remainder of dividing it by the smaller — repeat until nothing is left over; what remains is the answer.
+Recognized by: you need the greatest common divisor of two numbers, or need to reduce a fraction/ratio to lowest terms, or need to check whether two numbers share no common factor at all
+General case: gcd(a, 0) = a; gcd(a, b) = gcd(b, a mod b) for b > 0 — holds for any two non-negative integers, and always terminates (the number of steps is at most about 5 times the number of decimal digits of the smaller number)
+Picture: ![Euclidean algorithm](visualizations/build/euclidean-algorithm.png)
+Sequence:
+  1. Problem — a 35×15 rectangle; what size of square tiles it exactly is unknown
+  2. Transform ÷15 — two 15×15 squares tile part of the rectangle, leaving a 5×15 strip over
+  3. Solution — that strip is exactly covered by three 5×5 squares with nothing left over; 5 is the greatest common divisor
+Limits:
+  - MUST NOT: be applied to negative numbers without first taking absolute values — a limit of the IDEA: the remainder step assumes both numbers are non-negative
+Source: [Wikipedia — Euclidean algorithm](https://en.wikipedia.org/wiki/Euclidean_algorithm) · [cp-algorithms — Euclidean algorithm for computing GCD](https://cp-algorithms.com/algebra/euclid-algorithm.html)
+Example: `visualizations/examples/euclidean-algorithm.{css,html}` (no js needed — the values are static) → `visualizations/build/euclidean-algorithm.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::LCMViaGCD]
+Class: entity
+Standard name: Least common multiple via GCD
+Essence: Build the smallest number divisible by a whole list of numbers, one at a time — each new number only ever contributes the part of itself not already covered by what came before.
+Recognized by: you need the smallest number that every number in a set or range divides into evenly ("smallest number divisible by all of 1..N") — the smallest common MULTIPLE, not the greatest common divisor
+General case: lcm(a, b) = a·b / gcd(a, b); for a list or range of more than two numbers, fold this pairwise across every element in turn — lcm(a, b, c, ...) = lcm(lcm(a, b), c, ...)
+Picture: — (there is no established visual form of its own, separate from the Euclidean algorithm's — this idea is what you build using that result, not a distinct thing to draw)
+Limits:
+  - MUST NOT: be computed by just multiplying every number together — that overcounts factors the numbers already share; dividing by the gcd at each step is exactly what keeps the running result minimal
+Note: this idea's entire mechanism runs through [method::EuclideanAlgorithm](#methodeuclideanalgorithm) — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
+Source: [Wikipedia — Least common multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
+Spec: [approaches](specs/approaches.md)

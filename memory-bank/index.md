@@ -17,11 +17,11 @@
 > dictionary entry.
 
 ## projecteuler — explaining solutions
-- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
+- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision, EuclideanAlgorithm, LCMViaGCD (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
 - [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 - [tasks](specs/tasks.md) — Status: draft — requirements on a TASK SPEC's own format: six sections in order, methods must resolve, a Status line must name real evidence
-- [specs/tasks/euler001.md](specs/tasks/euler001.md) · [specs/tasks/euler002.md](specs/tasks/euler002.md) · [specs/tasks/euler003.md](specs/tasks/euler003.md) · [specs/tasks/euler004.md](specs/tasks/euler004.md) — the applied instances of `tasks.md`'s format; linked from each `problems/euler{NNN}/README.md`
+- [specs/tasks/euler001.md](specs/tasks/euler001.md) · [specs/tasks/euler002.md](specs/tasks/euler002.md) · [specs/tasks/euler003.md](specs/tasks/euler003.md) · [specs/tasks/euler004.md](specs/tasks/euler004.md) · [specs/tasks/euler005.md](specs/tasks/euler005.md) — the applied instances of `tasks.md`'s format; linked from each `problems/euler{NNN}/README.md`
 
 ### Pictures — sources and build
 - `visualizations/examples/<slug>.{css,html,js}` — frame code (edited by hand)

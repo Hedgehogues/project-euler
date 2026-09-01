@@ -37,7 +37,8 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
 [method::VennDiagram](../_terms.md#methodvenndiagram),
 [method::BinarySearch](../_terms.md#methodbinarysearch),
-[method::TrialDivision](../_terms.md#methodtrialdivision).
+[method::TrialDivision](../_terms.md#methodtrialdivision),
+[method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the

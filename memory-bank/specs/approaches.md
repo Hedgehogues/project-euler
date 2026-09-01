@@ -34,7 +34,9 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Terms live in `_terms.
 [method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
 [method::Precomputation](../_terms.md#methodprecomputation),
 [method::BinarySearch](../_terms.md#methodbinarysearch),
-[method::TrialDivision](../_terms.md#methodtrialdivision).
+[method::TrialDivision](../_terms.md#methodtrialdivision),
+[method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm),
+[method::LCMViaGCD](../_terms.md#methodlcmviagcd).
 
 ## Scope
 **In scope:** the idea fields of `[method::*]` records — `Essence`, `Recognized by`,
@@ -130,7 +132,7 @@ from its own README.
 ### MUST
 - Every record MUST carry Essence / Recognized by / General case / Source, and MUST NOT carry a
   field about a specific problem — **MUST-entry-schema** — criterion: grepping each mandatory
-  heading yields as many lines as there are method records (7); there is no `Used in:` field.
+  heading yields as many lines as there are method records (9); there is no `Used in:` field.
   Status: done.
 - "Essence" MUST be a single sentence without formulas — **MUST-essence-plain** — criterion: the
   field contains no `·`, `/`, exponents or variable names. Status: done.
@@ -143,7 +145,7 @@ from its own README.
   property of the solution. Status: done.
 - Every record MUST carry its own `Source:` field — an independent citation that the idea is
   standard — **MUST-source** — criterion: `grep -c '^Source:'` equals the number of method records.
-  Status: done (7 of 7).
+  Status: done (9 of 9).
 - At least one source MUST be ENCYCLOPEDIC (Wikipedia, Britannica, cp-algorithms, a professional
   body such as NCTM) — blogs, teaching sites and least of all shop pages are not evidence of
   standardness and may only supplement — **MUST-canonical-source** — criterion: every record's

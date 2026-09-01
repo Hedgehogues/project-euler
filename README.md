@@ -22,6 +22,7 @@ g++ -O2 -std=c++20 -o solution problems/eulerNNN/solution.cpp && ./solution < in
 | [002](problems/euler002) | Even Fibonacci numbers | Accepted, 100% |
 | [003](problems/euler003) | Largest prime factor | Accepted, 100% |
 | [004](problems/euler004) | Largest palindrome product | Accepted, 100% |
+| [005](problems/euler005) | Smallest multiple | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and (where one
 exists) a picture of the idea — and links to its RFC-style spec (requirements and acceptance
