@@ -209,14 +209,18 @@ rendering "by eye", no cloud, no hand-made pictures.
   `Picture:` field and one `build/*.png` link per record. An idea with two independently standard
   visual forms is two records (F9), not one with two portraits. Status: done.
 - A record without a picture MUST state the reason rather than leaving the field blank —
-  **MUST-picture-optional** — criterion: the value `Picture: —` is accompanied by an explanation of
-  why no visual form exists. Status: done ([method::Precomputation](../_terms.md#methodprecomputation)).
+  **MUST-picture-optional** — criterion: any `Picture: —` value is accompanied by an explanation of
+  why no visual form exists, checked live (a real search across the sources named in
+  MUST-canonical-source), not asserted from an earlier session's memory or copied from a
+  structurally similar record. Status: done — currently vacuously true (every record in the
+  catalog has a picture as of `EuclideanAlgorithm`/`LCMViaGCD`/`Precomputation`; the rule stays
+  binding for the next record that genuinely has none).
 - The absence of a picture MUST NOT be used as an argument about the idea — not about whether it is
   a technique, and not about whether it deserves its own record —
   **MUST-picture-absence-says-nothing** — criterion: no record is merged into another, and none is
-  denied, on the grounds that it has no picture; `Precomputation` stands as a record with
-  `Picture: —` beside `BinarySearch`, which has one. Status: done (violated twice — F7 — and
-  corrected both times by the user).
+  denied, on the grounds that it has no picture. Status: done (violated twice — F7 — and corrected
+  both times by the user; historically demonstrated by `Precomputation`, which stood picture-less
+  beside `BinarySearch` for exactly this reason before a picture was later found for it too).
 - A record MUST NOT be created just to give an existing picture something to point at —
   **MUST-no-invented-idea** — criterion: a picture with no self-standing idea produces no record.
   Status: done.

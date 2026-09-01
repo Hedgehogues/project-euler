@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>LCM via GCD</title>
+<title>Precomputation</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
   :root{
@@ -59,68 +59,64 @@
   .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
   .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
 
-  /* --- examples/lcm-via-gcd.css --- */
-.lc-wrap{position:relative; display:flex; flex-direction:column; align-items:flex-start; gap:8px; padding-top:4px;}
-.lc-row{display:flex; gap:2px;}
-.lc-bar{box-sizing:border-box; height:32px; display:flex; align-items:center; justify-content:center;
-  border-radius:5px; font-family:var(--font-m); font-size:13px; font-weight:700;
-  padding:0 6px;}
-.lc-bar.lc-a{width:105px; background:var(--a-bg); border:1.5px solid var(--a); color:var(--a);}
-.lc-bar.lc-b{width:45px; background:var(--b-bg); border:1.5px solid var(--b); color:var(--b);}
-.lc-bar.lc-good{background:var(--good-bg); border-color:var(--good); color:var(--good);}
-.lc-caption{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); margin-top:4px;}
-.lc-subcaption{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); opacity:.8;}
-.lc-ans{color:var(--good); font-weight:700;}
-.lc-endmark{position:absolute; left:315px; top:0; bottom:26px; width:2px; background:var(--good);}
+  /* --- examples/precomputation.css --- */
+.pc-col{display:flex; flex-direction:column; align-items:center; gap:4px;}
+.pc-row{display:flex; gap:14px;}
+.pc-arrows{font-family:var(--font-m); font-size:15px; color:var(--ink-soft); line-height:1;}
+.pc-q{width:40px; height:32px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:7px; background:var(--surface);
+  font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--ink);}
+.pc-q.pc-fast{border-color:var(--good); color:var(--good); background:var(--good-bg);}
+.pc-box{display:flex; align-items:center; justify-content:center; text-align:center;
+  border-radius:7px; font-family:var(--font-m); font-size:11px; font-weight:700; line-height:1.25;
+  padding:6px 10px;}
+.pc-box.pc-warn{width:40px; height:40px; background:var(--warn-bg); border:1.5px solid var(--warn); color:var(--warn);}
+.pc-box.pc-good{background:var(--good-bg); border:1.5px solid var(--good); color:var(--good);}
+.pc-box.pc-wide{padding:9px 18px; font-size:13px;}
+.pc-row.pc-fade{opacity:.45;}
+.pc-caption{font-family:var(--font-m); font-size:12px; color:var(--ink-soft); margin-top:6px; text-align:center;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <div class="card" id="card">
-    <h2>LCM via GCD</h2>
-    <div class="stdtag found">✓ Square-tiling, extended to LCM</div>
+    <h2>Precomputation</h2>
+    <div class="stdtag found">✓ Build once, look up many times</div>
     <div class="flow">
-<!-- examples/lcm-via-gcd.html -->
+<!-- examples/precomputation.html -->
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-row"><div class="lc-bar lc-a">35</div></div>
-    <div class="lc-row"><div class="lc-bar lc-b">15</div></div>
-    <div class="lc-caption">how many copies of each until the ends line up?</div>
+  <div class="pc-col">
+    <div class="pc-row"><div class="pc-q">Q1</div><div class="pc-q">Q2</div><div class="pc-q">Q3</div></div>
+    <div class="pc-arrows">↓&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
+    <div class="pc-row"><div class="pc-box pc-warn">build<br>list</div><div class="pc-box pc-warn">build<br>list</div><div class="pc-box pc-warn">build<br>list</div></div>
+    <div class="pc-caption">same work, built again for every query</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">×</div>
+<div class="frame-tag">→</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-row">
-      <div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div>
-    </div>
-    <div class="lc-row">
-      <div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div>
-    </div>
-    <div class="lc-caption">3 copies of 35 — 7 copies of 15 — both reach the same length</div>
+  <div class="pc-col">
+    <div class="pc-row pc-fade"><div class="pc-box pc-warn">build<br>list</div><div class="pc-box pc-warn">build<br>list</div><div class="pc-box pc-warn">build<br>list</div></div>
+    <div class="pc-arrows">↘&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↙</div>
+    <div class="pc-box pc-good pc-wide">build list — once</div>
+    <div class="pc-caption">merged into a single build, before any query is answered</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lc-wrap">
-    <div class="lc-endmark"></div>
-    <div class="lc-row">
-      <div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div>
-    </div>
-    <div class="lc-row">
-      <div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div>
-    </div>
-    <div class="lc-caption">3 × 35 = 7 × 15 = <span class="lc-ans">105</span> = lcm(35, 15)</div>
-    <div class="lc-subcaption">3 = 15 ÷ 5, 7 = 35 ÷ 5 — 5 is gcd(35, 15)</div>
+  <div class="pc-col">
+    <div class="pc-box pc-good pc-wide">list — built once</div>
+    <div class="pc-arrows">↙&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↘</div>
+    <div class="pc-row"><div class="pc-q pc-fast">Q1</div><div class="pc-q pc-fast">Q2</div><div class="pc-q pc-fast">Q3</div></div>
+    <div class="pc-caption">every query is now just a fast lookup</div>
   </div>
 </div></div>
     </div>
-    <div class="filelink">memory-bank/_terms.md · [method::LCMViaGCD]</div>
+    <div class="filelink">memory-bank/_terms.md · [method::Precomputation]</div>
     <div class="repo">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
       <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
@@ -128,7 +124,7 @@
   </div>
 </div>
 <script>
-// examples/lcm-via-gcd.js
+// examples/precomputation.js
 </script>
 </body>
 </html>

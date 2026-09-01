@@ -96,16 +96,22 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::Precomputation]
 Class: entity
-Standard name: Precomputation
+Standard name: Precomputation · picture — build-once fan-in/fan-out (this catalog's own construction, not an independently named historical device — see Picture note)
 Essence: Build everything that does not depend on the individual query once, up front — each query then only reads the ready result instead of recomputing it.
 Recognized by: the same structure (list, table, running sum) is used many times over with different queries and does not itself depend on the query; rebuilding it per query repeats identical work T times for nothing
 General case: lift the construction of the shared structure out of the query loop — its cost is paid once instead of T times; HOW a query is then answered from the ready structure (search, indexing, range sum) is a separate method, not part of precomputation
-Picture: — (there is no established visual form for "compute it ahead of time", unlike for what you then DO with the ready structure)
+Picture: ![Precomputation](visualizations/build/precomputation.png)
+Sequence:
+  1. Problem — three queries, each triggering its own separate build of the same list
+  2. Transform → — the three separate builds merge into a single build, done before any query is answered
+  3. Solution — the one built list is shared; every query becomes a fast lookup into it, not a rebuild
 Limits:
   - MUST NOT: be used when the structure depends on the query — then there is nothing to precompute
   - MUST: remember the build cost is always paid, even for a single query — with only one query there is no gain
+Note: no encyclopedic source describes a named, standard PICTURE for this idea (checked: Wikipedia's Precomputation and Memoization articles contain zero diagrams; cp-algorithms has no page on it) — the idea itself is standard and sourced below, but the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way the other pictures in this catalog are.
 Source: [Wikipedia — Precomputation](https://en.wikipedia.org/wiki/Precomputation) · [Wikipedia — Lookup table](https://en.wikipedia.org/wiki/Lookup_table) · [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
-Spec: [approaches](specs/approaches.md)
+Example: `visualizations/examples/precomputation.{css,html}` (no js needed — the values are static) → `visualizations/build/precomputation.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::BinarySearch]
 Class: entity
@@ -163,18 +169,18 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::LCMViaGCD]
 Class: entity
-Standard name: Least common multiple via GCD · picture — square-tiling, extended (this catalog's own continuation of the Euclidean algorithm's tiling, not an independently named historical device — see Picture note)
+Standard name: Least common multiple via GCD · picture — repeat-until-aligned bars (this catalog's own construction, not an independently named historical device — see Picture note)
 Essence: Build the smallest number divisible by a whole list of numbers, one at a time — each new number only ever contributes the part of itself not already covered by what came before.
 Recognized by: you need the smallest number that every number in a set or range divides into evenly ("smallest number divisible by all of 1..N") — the smallest common MULTIPLE, not the greatest common divisor
 General case: lcm(a, b) = a·b / gcd(a, b); for a list or range of more than two numbers, fold this pairwise across every element in turn — lcm(a, b, c, ...) = lcm(lcm(a, b), c, ...)
 Picture: ![LCM via GCD](visualizations/build/lcm-via-gcd.png)
 Sequence:
-  1. Problem — the 35×15 rectangle already tiled by 5×5 squares (21 of them); how long would they be laid end to end?
-  2. Transform ↷ — the grid unrolled into a single row, same 21 tiles
-  3. Solution — 21 × 5 = 105 = lcm(35, 15)
+  1. Problem — two bars, 35 and 15, different lengths; how many copies of each until the ends line up?
+  2. Transform × — three copies of 35 and seven copies of 15 both laid end to end, both rows now the same length
+  3. Solution — 3 × 35 = 7 × 15 = 105 = lcm(35, 15); the copy counts (3, 7) are the OTHER number divided by the gcd (5) — the two numbers repeat exactly enough times to reach the same point precisely because that shared tile size divides both
 Limits:
   - MUST NOT: be computed by just multiplying every number together — that overcounts factors the numbers already share; dividing by the gcd at each step is exactly what keeps the running result minimal
-Note: a standard LCM picture exists for a DIFFERENT technique — a Venn diagram of each number's prime factors, shared primes in the overlap — but drawing it here would show the factoring approach this method exists specifically to avoid (factoring is expensive, gcd is cheap). The picture used instead is not independently famous by its own name: it is this catalog's direct extension of [method::EuclideanAlgorithm](#methodeuclideanalgorithm)'s own sourced tiling, illustrating the already-standard identity gcd(a,b)·lcm(a,b) = a·b (counting the tiles and multiplying by their side literally IS that identity). This idea's entire mechanism runs through EuclideanAlgorithm — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
+Note: a standard LCM picture exists for a DIFFERENT technique — a Venn diagram of each number's prime factors, shared primes in the overlap — but drawing it here would show the factoring approach this method exists specifically to avoid (factoring is expensive, gcd is cheap). The picture used instead is not independently famous by its own name: it is this catalog's own construction, deliberately drawn to look and read differently from [method::EuclideanAlgorithm](#methodeuclideanalgorithm)'s square-tiling (bars stretching outward to a meeting point, not a rectangle shrinking down to a tile) even though the same gcd — 5 — sets both: it is the tile that measures the rectangle exactly in one picture, and it is what the two repeat-counts (3, 7) are the OTHER number divided by in the other. This idea's entire mechanism runs through EuclideanAlgorithm — unlike Precomputation and BinarySearch (independently useful without each other), this one cannot even be stated without the gcd it depends on.
 Source: [Wikipedia — Least common multiple](https://en.wikipedia.org/wiki/Least_common_multiple)
 Example: `visualizations/examples/lcm-via-gcd.{css,html}` (no js needed — the values are static) → `visualizations/build/lcm-via-gcd.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

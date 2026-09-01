@@ -1,37 +1,38 @@
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lg-wrap">
-    <div class="lg-grid" style="grid-template-columns:repeat(7,22px); grid-template-rows:repeat(3,22px);">
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell">5</div>
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
-    </div>
-    <div class="lg-caption">35×15, tiled by 5 &nbsp;→&nbsp; 21 tiles. Laid end to end?</div>
+  <div class="lc-wrap">
+    <div class="lc-row"><div class="lc-bar lc-a">35</div></div>
+    <div class="lc-row"><div class="lc-bar lc-b">15</div></div>
+    <div class="lc-caption">how many copies of each until the ends line up?</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">→</div>
+<div class="frame-tag">×</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lg-wrap">
-    <div class="lg-grid lg-fading" style="grid-template-columns:repeat(7,22px); grid-template-rows:repeat(3,22px);">
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
-      <div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div><div class="lg-cell"></div>
+  <div class="lc-wrap">
+    <div class="lc-row">
+      <div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div><div class="lc-bar lc-a">35</div>
     </div>
-    <div class="lg-unroll-arrow">↷ unroll into one row</div>
+    <div class="lc-row">
+      <div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div><div class="lc-bar lc-b">15</div>
+    </div>
+    <div class="lc-caption">3 copies of 35 — 7 copies of 15 — both reach the same length</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lg-wrap">
-    <div class="lg-row">
-      <div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div>
-      <div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div>
-      <div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div><div class="lg-cell lg-good"></div>
+  <div class="lc-wrap">
+    <div class="lc-endmark"></div>
+    <div class="lc-row">
+      <div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div><div class="lc-bar lc-a lc-good">35</div>
     </div>
-    <div class="lg-caption">21 × 5 = <span class="lg-ans">105</span> = lcm(35, 15)</div>
+    <div class="lc-row">
+      <div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div><div class="lc-bar lc-b lc-good">15</div>
+    </div>
+    <div class="lc-caption">3 × 35 = 7 × 15 = <span class="lc-ans">105</span> = lcm(35, 15)</div>
+    <div class="lc-subcaption">3 = 15 ÷ 5, 7 = 35 ÷ 5 — 5 is gcd(35, 15)</div>
   </div>
 </div></div>

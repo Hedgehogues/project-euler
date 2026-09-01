@@ -25,9 +25,9 @@ Two independently catalogued ideas, used together — not one (full write-ups:
 [`memory-bank/_terms.md`](../../memory-bank/_terms.md)):
 
 **Precomputation** — build whatever doesn't depend on the query once, before answering any
-query, instead of redoing that work on every single one. [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) — no
-picture of its own; there isn't a standard visual for "compute it ahead of time" the way there
-is for a specific lookup.
+query, instead of redoing that work on every single one. [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation)
+
+[![Precomputation](../../memory-bank/visualizations/build/precomputation.png)](../../memory-bank/visualizations/build/precomputation.html)
 
 **Binary search** — narrow down to a value in a sorted list by repeatedly checking the middle
 and discarding the half that can't contain the answer. [`[method::BinarySearch]`](../../memory-bank/_terms.md#methodbinarysearch)
