@@ -17,6 +17,7 @@ bar-model|Модель-полоска (bar model)|Bar model / tape diagram — S
 gauss-pairing|Приём Гаусса (радуга пар)|Gauss's trick|GaussPairing
 venn|Диаграмма Венна|Venn diagram — John Venn, 1880|VennDiagram
 binary-search|Бинарный поиск|Binary search|BinarySearch
+ladder-method|Метод лесенки (деление на простые)|Ladder method (division ladder)|LadderMethod
 EOF
 }
 

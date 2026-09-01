@@ -1,0 +1,9 @@
+.ladder{display:flex; flex-direction:column; align-items:center; gap:0;}
+.lrow{display:flex; align-items:center; gap:10px;}
+.ldiv{width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:8px; font-family:var(--font-m); font-size:14px;
+  font-weight:700; color:var(--ink-soft); background:var(--surface);}
+.lbar{border-left:2px solid var(--rule); border-top:2px solid var(--rule); border-radius:6px 0 0 0;
+  padding:6px 14px 6px 10px;}
+.lnum{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
+.lnum.prime{color:var(--good); background:var(--good-bg); padding:4px 12px; border-radius:8px; border:1.5px solid var(--good);}

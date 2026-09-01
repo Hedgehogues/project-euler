@@ -18,7 +18,7 @@ tags: [projecteuler, visualization, catalog, explanation, draft]
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины домена — `_terms.md`,
 контекст `viz`: [viz::Catalog](../_terms.md#vizcatalog), [viz::PageSkeleton](../_terms.md#vizpageskeleton), [viz::SkipCounting](../_terms.md#vizskipcounting),
 [viz::BarModel](../_terms.md#vizbarmodel), [viz::GaussPairing](../_terms.md#vizgausspairing), [viz::VennDiagram](../_terms.md#vizvenndiagram),
-[viz::BinarySearch](../_terms.md#vizbinarysearch).
+[viz::BinarySearch](../_terms.md#vizbinarysearch), [viz::LadderMethod](../_terms.md#vizladdermethod).
 
 ## Скоуп
 **В скоупе:** структура каталога `memory-bank/visualizations/` (каркас, код кадров, сборка,
@@ -55,6 +55,12 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   отдельный приём. Подтверждает принцип 4/MUST-applicability-is-class с другой стороны — не
   каждая половина алгоритма заслуживает картинки, только то, что само по себе узнаваемая техника
   (здесь — бинарный поиск).
+- **F9** (euler003) Перед выбором формы для пробного деления сравнили два стандартных варианта —
+  вольное «факторное дерево» (любая пара множителей на каждом шаге) и «метод лесенки» (строго
+  наименьший простой делитель, деление до тех пор, пока остаток сам не окажется простым).
+  Выбрали лесенку — единственный вариант из двух, который буквально совпадает с механикой
+  реализованного алгоритма (сначала все двойки, потом возрастающие нечётные делители), а не
+  просто иллюстрирует общую идею «разложить на множители». Трассировка: MUST-form-before-name.
 
 ## Architecture
 
@@ -81,12 +87,12 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
   подготовки; стандартное название ищется ПОСЛЕ выбора формы и именно для неё —
   **MUST-form-before-name** — критерий: в карточке поля `Standard name:` и `Source:` относятся к
   той форме, что нарисована, а не к родственнику с другой целью. Статус: реализовано (skip
-  counting, bar model, Gauss pairing, Venn, binary search).
+  counting, bar model, Gauss pairing, Venn, binary search, ladder method).
 - Картинка MUST быть последовательностью кадров: первый — Problem (нерешённая ситуация, помечена
   как неверная/неизвестная), последний — Solution, между ними один и более Transform —
   **MUST-frame-sequence** — критерий: поле `Sequence:` спека и разметка `examples/<slug>.html`
   содержат те же кадры в том же порядке; одиночный статичный кадр — нарушение. Статус:
-  реализовано (5/5).
+  реализовано (6/6).
 - Подписи на картинке MUST быть символьными метками (`?`, `×2`, `−`, `⌒`, `∩`, `=`), MUST NOT
   быть предложениями — **MUST-symbolic-labels** — критерий: в `examples/<slug>.html` внутри
   `frame-tag` нет текста длиннее одного символа/короткого токена. Статус: реализовано.

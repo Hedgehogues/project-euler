@@ -140,6 +140,27 @@ Used in: euler002
 Depends on: [viz::Catalog](#vizcatalog), [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
 Spec: [visualizations](specs/visualizations.md)
 
+## [viz::LadderMethod]
+Class: entity
+Standard name: Ladder method (division ladder) — a.k.a. birthday cake method, upside-down division
+Description: Число делим на маленькие простые по очереди, записывая делитель слева и остаток снизу, пока то, что осталось, само не окажется простым.
+Picture: ![Ladder method](visualizations/build/ladder-method.png)
+Approach: [approach::TrialDivision](#approachtrialdivision)
+Sequence:
+  1. Problem — число 30 без разбиения
+  2. Transform ÷2 — делим на 2, снизу остаток 15
+  3. Transform ÷3 — делим 15 на 3, снизу остаток 5
+  4. Solution — 5 уже само простое, дальше не делится — это и есть самый большой простой множитель
+Invariants:
+  - MUST: на каждом шаге делим именно на простое число, начиная с самого маленького
+  - MUST: точно повторяет механику пробного деления (сначала все двойки, потом нечётные делители по возрастанию) — не произвольную разбивку на любые два множителя, как в вольном факторном дереве
+  - MUST NOT: применяться, если само число уже больше, чем практично проверять пробными делителями (очень большие числа без маленьких множителей) — метод остаётся верным, но лесенка станет неоправданно длинной
+Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
+Example: `visualizations/examples/ladder-method.{css,html}` (js не требуется — значения статичны) → `visualizations/build/ladder-method.html`
+Used in: euler003
+Depends on: [viz::Catalog](#vizcatalog), [approach::TrialDivision](#approachtrialdivision)
+Spec: [visualizations](specs/visualizations.md)
+
 ## [approach::Collection]
 Class: aggregate
 Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании). Картинки — у каждого конкретного подхода ниже (`[approach::InclusionExclusion]`, `[approach::ArithmeticProgressionSum]`), не здесь — этот блок сам не про одну картинку, а про список.
@@ -186,6 +207,17 @@ Used in: euler002
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
+## [approach::TrialDivision]
+Class: entity
+Essence: Проверить по очереди все маленькие числа, начиная с 2 — делится ли на них — и выделить простые множители.
+Recognized by: нужно разложить число на простые множители или найти конкретный (например, самый большой) простой множитель
+General case: перебираем делители d от 2, пока d·d ≤ оставшегося числа; на каждом делителе выносим его из числа, пока делится нацело; если после перебора осталось число больше 1 — оно само простое (и, если делители перебирались по возрастанию, это и есть самый большой множитель)
+Visualized by: [viz::LadderMethod](#vizladdermethod)
+Picture: [![Ladder method](visualizations/build/ladder-method.png)](visualizations/build/ladder-method.html)
+Used in: euler003
+Depends on: [approach::Collection](#approachcollection)
+Spec: [approaches](specs/approaches.md)
+
 ## [euler::Problem001]
 Class: entity
 Description: Multiples of 3 and 5 — сумма натуральных чисел меньше N, кратных 3 или 5, за T запросов.
@@ -208,3 +240,15 @@ Invariants:
 Depends on: [approach::PrecomputeAndBinarySearch](#approachprecomputeandbinarysearch)
 Spec: [euler002](specs/euler002.md)
 Code: `euler002/solution.cpp` · `euler002/README.md`
+
+## [euler::Problem003]
+Class: entity
+Description: Largest prime factor — наибольший простой множитель N, за T запросов.
+Invariants:
+  - MUST: сначала выносится весь множитель 2, потом перебираются только нечётные делители, начиная с 3
+  - MUST: перебор останавливается по условию p*p <= n, где n — то, что ОСТАЛОСЬ после уже вынесенных делителей, не исходное N
+  - MUST: если после перебора n > 1 осталось больше 1 — это само простое число и ответ (перебор шёл по возрастанию)
+  - MUST: solution.cpp — чистый ASCII
+Depends on: [approach::TrialDivision](#approachtrialdivision)
+Spec: [euler003](specs/euler003.md)
+Code: `euler003/solution.cpp` · `euler003/README.md`

@@ -19,6 +19,7 @@ g++ -O2 -std=c++20 -o solution eulerNNN/solution.cpp && ./solution < input.txt
 |---|---|---|
 | [001](euler001) | Multiples of 3 and 5 | Accepted, 100% |
 | [002](euler002) | Even Fibonacci numbers | Accepted, 100% |
+| [003](euler003) | Largest prime factor | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and
 (where one exists) a picture of the idea. Shared write-ups that don't belong to any single
