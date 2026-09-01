@@ -1,0 +1,10 @@
+.pnum{width:44px; height:44px; display:inline-flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:8px; font-family:var(--font-m); font-size:14px; font-weight:700;
+  color:var(--ink-soft); background:var(--surface);}
+.pnum.plain{border-style:dashed;}
+.pnum.p1{border-color:var(--a); color:var(--a); background:var(--a-bg); border-style:solid;}
+.pnum.p2{border-color:var(--b); color:var(--b); background:var(--b-bg); border-style:solid;}
+.pnum.mid{border-color:var(--ab); color:var(--ab); background:var(--ab-bg); border-style:solid;}
+.pairsRow{display:flex; gap:6px; justify-content:center;}
+.psym{font-family:var(--font-m); font-size:16px; color:var(--ink-soft);}
+.eqrow{display:flex; align-items:center; justify-content:center; gap:8px; flex-wrap:wrap;}
