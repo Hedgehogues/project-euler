@@ -476,3 +476,39 @@ Limits:
 Source: [Wikipedia — Permutation](https://en.wikipedia.org/wiki/Permutation) (&sect; Generation in lexicographic order)
 Example: `visualizations/examples/next-permutation.{css,html}` (no js needed — the values are static) → `visualizations/build/next-permutation.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::BruteForceSearch]
+Class: entity
+Standard name: Brute-force search (exhaustive search, "generate and test")
+Essence: Check every candidate the problem allows — but only after counting, from the given limits alone, that there are few enough of them to get through in the time available.
+Recognized by: the constraints bound how many candidates exist, that count multiplied by the cost of checking one fits the time budget, and no structure in the problem is needed beyond testing each candidate against the definition
+General case: multiply out the candidate count implied by the constraints (ranges times queries times per-candidate work); compare it against what the machine can do in the allowed time; if it fits, enumerate directly — the check itself is just the problem's own definition. The count is what decides, and it is computable before a line of code is written
+Picture: ![Brute-force search](visualizations/build/brute-force-search.png)
+Sequence:
+  1. Problem — check every candidate: is that even affordable?
+  2. Transform count first — straight from the limits: 1000 positions &times; 7 digits &times; 100 queries = 700,000 candidates in one case; every ordering of 20 items (20!) = 2,400,000,000,000,000,000 in another
+  3. Solution — against a budget of about 100,000,000 simple steps, the first is 0.7% of it (enumerate directly), the second is 24 billion times over (hopeless) — the same technique, decided entirely by the count
+Limits:
+  - MUST NOT: be chosen because no better idea came to mind — a limit of the IDEA: without the count against the budget it is a guess, and the count is exactly what makes it a decision
+  - MUST NOT: be applied when the candidate count grows factorially or exponentially in the input size unless the input is tiny — a limit of PRACTICE: those counts pass any budget within a few steps of growth (the 20! row above is the whole warning)
+Source: [Wikipedia — Brute-force search](https://en.wikipedia.org/wiki/Brute-force_search) ("systematically checking all possible candidates"; the article makes candidate count versus available resources the deciding factor) · [Wikipedia — Enumeration algorithm](https://en.wikipedia.org/wiki/Enumeration_algorithm)
+Example: `visualizations/examples/brute-force-search.{css,html}` (no js needed — the values are static) → `visualizations/build/brute-force-search.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::VariableElimination]
+Class: entity
+Standard name: Elimination by substitution (solving a system of equations)
+Essence: When the unknowns are tied together by an equation, one of them can be written in terms of the others and substituted away — the search then runs over one fewer unknown.
+Recognized by: you are searching over two or more unknowns that must satisfy given equations, and at least one of those equations can be solved for one unknown in terms of the rest
+General case: solve one constraint for one unknown; substitute that expression into the remaining constraints; the search space loses a whole dimension per unknown eliminated. Works for non-linear systems too, as long as the chosen unknown can actually be isolated — and each substituted value must still be checked for validity (a whole number, inside range, in the required order)
+Picture: ![Variable elimination](visualizations/build/variable-elimination.png)
+Sequence:
+  1. Problem — two unknowns with 6 possible values each: 36 pairs to try
+  2. Transform substitute — they are tied by a + b = 7, so b = 7 &minus; a; b stops being free
+  3. Solution — 6 pairs left instead of 36, one per value of a; the square of candidates has collapsed to a line through it
+Limits:
+  - MUST NOT: be treated as removing the need to CHECK the substituted value — a limit of PRACTICE: the derived value can come out fractional, negative, or out of the required order, and each of those still has to be rejected explicitly
+  - MUST: isolate an unknown that the constraint actually determines uniquely — a limit of the IDEA: if the constraint leaves two possible values (a square root, say), the substitution branches instead of eliminating, and the dimension does not drop
+Source: [Wikipedia — System of equations](https://en.wikipedia.org/wiki/System_of_equations) · [Wikipedia — System of linear equations](https://en.wikipedia.org/wiki/System_of_linear_equations) (&sect; substitution: "solve the top equation for x in terms of y... substitute this expression... results in a single equation involving only the variable y" — stated there for a linear system; the same move is what eliminates an unknown in a non-linear one)
+Example: `visualizations/examples/variable-elimination.{css,html,js}` → `visualizations/build/variable-elimination.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

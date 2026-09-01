@@ -13,9 +13,8 @@ base `K` costs only `O(log_K N)` digits — is already fast enough; there is no 
 that a named technique would explain.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the direct two-base palindrome check is already the whole computation; see
-the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 10^6 bounds the candidates, each checked in as many steps as it has digits.
 
 ## Scope
 **In scope:** `problems/euler036/solution.cpp` — the base-10 and base-`K` palindrome checks,
@@ -53,5 +52,5 @@ pass.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler036/solution.cpp`; directory README: `problems/euler036/README.md`.

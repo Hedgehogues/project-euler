@@ -56,7 +56,9 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::DayOfWeekFormula](../_terms.md#methoddayofweekformula),
 [method::LehmerCode](../_terms.md#methodlehmercode),
 [method::CycleDetectionViaRemainders](../_terms.md#methodcycledetectionviaremainders),
-[method::NextPermutation](../_terms.md#methodnextpermutation).
+[method::NextPermutation](../_terms.md#methodnextpermutation),
+[method::BruteForceSearch](../_terms.md#methodbruteforcesearch),
+[method::VariableElimination](../_terms.md#methodvariableelimination).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the
@@ -170,7 +172,7 @@ rendering "by eye", no cloud, no hand-made pictures.
   (formerly `[method::Catalog]`) are exactly this Architecture section plus the MUST requirements
   below — a block restating them a second time in `_terms.md` was the same fact twice (F13). There
   is no separate context for pictures either (F10) — a picture is a set of fields on a method
-  record. `_terms.md` holds only the twenty-five entities.
+  record. `_terms.md` holds only the twenty-seven entities.
 
 ## Requirements
 > Statement — acceptance criterion — status.

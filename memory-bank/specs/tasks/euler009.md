@@ -14,9 +14,8 @@ costs up to `O(N²)` per query and `O(T·N²)` overall — at `T=N=3000` that is
 second equation for `b` directly turns the search into a single `O(N)` loop over `a` per query.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the algebraic elimination of `b` is specific to this problem's pair of
-equations, not a general reusable technique; see the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::VariableElimination](../../_terms.md#methodvariableelimination) — one equation is solved for an unknown and substituted away, dropping the search to a single loop.
 
 ## Scope
 **In scope:** `problems/euler009/solution.cpp` — the substitution, the search over `a`,
@@ -57,5 +56,5 @@ only when the division is exact and `a<b<c`, and tracks the best `a·b·c` seen.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::VariableElimination](../../_terms.md#methodvariableelimination).
 - Code: `problems/euler009/solution.cpp`; directory README: `problems/euler009/README.md`.

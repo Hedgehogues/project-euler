@@ -14,8 +14,9 @@ the computation; the only real technique is generating every permutation without
 duplicating any, in a fixed, well-defined order.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::NextPermutation](../../_terms.md#methodnextpermutation).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+(`../../_terms.md`): [method::NextPermutation](../../_terms.md#methodnextpermutation),
+[method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 
 ## Scope
 **In scope:** `problems/euler032/solution.cpp` — the permutation loop, the three-way split check,
@@ -59,5 +60,6 @@ by more than one split or permutation). The final answer is the sum of that set.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::NextPermutation](../../_terms.md#methodnextpermutation).
+- Methods: [method::NextPermutation](../../_terms.md#methodnextpermutation),
+  [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler032/solution.cpp`; directory README: `problems/euler032/README.md`.

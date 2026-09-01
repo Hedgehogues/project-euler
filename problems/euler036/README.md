@@ -18,9 +18,11 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — checking whether a sequence of digits reads
-the same forwards and backwards is a direct comparison, not a technique with any shortcut to
-explain.
+**Brute-force search** — `N ≤ 10^6` bounds the candidates, and each check costs only as many steps as
+the number has digits in the two bases — so every number below `N` is simply checked directly.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
 ## Build & run
 

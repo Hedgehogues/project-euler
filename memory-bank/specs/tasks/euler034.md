@@ -15,9 +15,8 @@ reading (`19`'s digit-factorial sum is `1! + 9! = 362881`, and `362881 / 19` is 
 further technique is needed.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the direct digit-factorial-sum check is already the whole computation; see
-the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 10^5 bounds the candidates outright.
 
 ## Scope
 **In scope:** `problems/euler034/solution.cpp` — the digit-factorial precomputation, the direct
@@ -61,5 +60,5 @@ far larger than its actual constraint allows.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler034/solution.cpp`; directory README: `problems/euler034/README.md`.

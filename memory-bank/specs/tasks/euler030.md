@@ -15,9 +15,8 @@ gives the point past which no number can qualify, since `10^(d-1)` overtakes `d 
 permanently once `d` is large enough.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — deriving the search bound is specific to this problem's digit-power growth
-comparison; see the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — the derived digit-growth bound caps the candidate range before the scan starts.
 
 ## Scope
 **In scope:** `problems/euler030/solution.cpp` — the bound derivation, the direct digit-power
@@ -59,5 +58,5 @@ powers (looked up from a precomputed `digitPow` table) and compare to the number
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler030/solution.cpp`; directory README: `problems/euler030/README.md`.

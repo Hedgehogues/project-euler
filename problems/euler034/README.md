@@ -21,8 +21,11 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — the search is a direct definition check over
-a small range, with no shortcut a named technique would explain.
+**Brute-force search** — `N ≤ 10^5` bounds the candidates outright, and each check is a handful of
+digit-factorial lookups — so every number below `N` is simply checked directly.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
 ## Build & run
 

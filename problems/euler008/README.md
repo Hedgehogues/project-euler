@@ -17,9 +17,12 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — the constraints (`K ≤ 7`) are small enough
-that scanning every window directly and tracking the best product is already fast enough; there is
-no shortcut being taken that a named technique would explain.
+**Brute-force search** — the limits themselves settle it: at most 1000 starting positions times at
+most 7 digits each, times 100 queries — around 700,000 multiplications in the worst case, far
+inside the time budget, so every window is simply checked directly.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
 ## Build & run
 

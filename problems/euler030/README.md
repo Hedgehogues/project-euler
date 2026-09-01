@@ -20,9 +20,12 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — deriving how far the search needs to reach is
-a one-off bound specific to this problem's digit-power growth comparison, not a general reusable
-technique, and the search itself is a direct definition check once that bound is known.
+**Brute-force search** — the search bound is derived first (a `d`-digit number is at least `10^(d-1)`,
+while its digit-power sum is at most `d · 9^N`) — at `N=6` that caps the range under `4×10^6`
+candidates, so every number below it is simply checked directly.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
 ## Build & run
 

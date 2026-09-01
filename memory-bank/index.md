@@ -20,7 +20,8 @@
 - [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision, EuclideanAlgorithm, LCMViaGCD, SumOfSquares, SieveOfEratosthenes, NthPrimeBound, PrimeNumberTheorem, PrefixSum,
   DivisorCountFormula, BigIntegerArithmetic, Memoization, FastExponentiation,
   ModularInverseFermat, LatticePaths, DynamicProgramming, DayOfWeekFormula, LehmerCode,
-  CycleDetectionViaRemainders, NextPermutation (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
+  CycleDetectionViaRemainders, NextPermutation, BruteForceSearch, VariableElimination
+  (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
 - [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 - [tasks](specs/tasks.md) — Status: draft — requirements on a TASK SPEC's own format: six sections in order, methods must resolve, a Status line must name real evidence

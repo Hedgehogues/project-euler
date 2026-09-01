@@ -22,9 +22,12 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — grouping numbers by which digits get removed
-(a bitmask enumeration specific to this problem's "cancel matching digits" rule) is a one-off
-combinatorial search, not a general reusable technique.
+**Brute-force search** — `N ≤ 4` bounds the candidates to at most 9000 numbers times at most 6
+digit-removal masks each — small enough that every number and every removal is simply checked
+directly, then grouped.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
 ## Build & run
 

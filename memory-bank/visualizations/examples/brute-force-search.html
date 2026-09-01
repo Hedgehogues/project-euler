@@ -1,0 +1,34 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="bf-big">check every candidate &mdash; can we afford it?</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">count first</div>
+<div class="frame"><div class="frame-inner">
+  <table class="bf-table">
+    <tr><th>candidates, straight from the constraints</th><th>how many</th></tr>
+    <tr><td>1000 positions &times; 7 digits &times; 100 queries</td><td class="bf-ok">700,000</td></tr>
+    <tr><td>every ordering of 20 items (20!)</td><td class="bf-bad">2,400,000,000,000,000,000</td></tr>
+  </table>
+  <div class="bf-note">the count comes from the given limits &mdash; before writing any code.</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="bf-budget">budget: about 100,000,000 simple steps</div>
+  <div class="bf-bars">
+    <div class="bf-barrow">
+      <span class="bf-barlabel bf-ok">700,000</span>
+      <div class="bf-track"><div class="bf-fill bf-fill-ok" style="width:0.7%"></div></div>
+      <span class="bf-verdict bf-ok">&#10003; 0.7% of it &mdash; just enumerate</span>
+    </div>
+    <div class="bf-barrow">
+      <span class="bf-barlabel bf-bad">20!</span>
+      <div class="bf-track"><div class="bf-fill bf-fill-bad" style="width:100%"></div></div>
+      <span class="bf-over">&raquo;</span>
+      <span class="bf-verdict bf-bad">&#10007; 24 billion times over &mdash; hopeless</span>
+    </div>
+  </div>
+</div></div>

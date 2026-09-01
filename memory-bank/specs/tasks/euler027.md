@@ -15,8 +15,9 @@ how each candidate value is tested for primality, and trial division up to its s
 already fast enough at this scale.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+(`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision),
+[method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 
 ## Scope
 **In scope:** `problems/euler027/solution.cpp` — the `(a,b)` search, the primality test,
@@ -60,5 +61,6 @@ the longest run is kept.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::TrialDivision](../../_terms.md#methodtrialdivision).
+- Methods: [method::TrialDivision](../../_terms.md#methodtrialdivision),
+  [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler027/solution.cpp`; directory README: `problems/euler027/README.md`.

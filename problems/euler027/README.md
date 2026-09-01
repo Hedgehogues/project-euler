@@ -24,6 +24,12 @@ factoring: trying divisors up to its square root.
 
 [![Ladder method](../../memory-bank/visualizations/build/ladder-method.png)](../../memory-bank/visualizations/build/ladder-method.html)
 
+**Brute-force search** — the `(a, b)` pairs themselves are simply all tried: `N ≤ 2000` bounds them
+to at most 2000 values of `a` times the primes up to `N`, each scored by a short prime run.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
+
 ## Build & run
 
 ```

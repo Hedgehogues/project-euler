@@ -14,9 +14,8 @@ small enough that no closed form or precomputation is needed; the direct scan al
 comfortably inside the time limit.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the fixed small grid makes the direct scan already sufficient; see the
-Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — the fixed 20x20 grid times 4 directions bounds the candidates to 1600 lines.
 
 ## Scope
 **In scope:** `problems/euler011/solution.cpp` — the direction scan, correctness criteria.
@@ -54,5 +53,5 @@ product seen.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler011/solution.cpp`; directory README: `problems/euler011/README.md`.

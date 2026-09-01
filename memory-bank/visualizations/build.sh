@@ -37,6 +37,8 @@ day-of-week-formula|Day-of-week formula|Determination of the day of the week (Sa
 lehmer-code|Lehmer code|Lehmer code (factorial number system)|LehmerCode
 cycle-detection-remainders|Cycle detection via remainders|Repeating decimal (remainder tracking)|CycleDetectionViaRemainders
 next-permutation|Next permutation|Permutation (generation in lexicographic order)|NextPermutation
+brute-force-search|Brute-force search|Brute-force search (exhaustive search)|BruteForceSearch
+variable-elimination|Variable elimination|Solving a system by substitution|VariableElimination
 EOF
 }
 

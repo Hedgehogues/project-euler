@@ -19,9 +19,12 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — solving the second equation for `b` once
-`c` is substituted out is a one-off algebraic manipulation specific to this problem's two
-equations, not a general, independently reusable technique.
+**Variable elimination** — the two equations tie the three unknowns together, so `c` is
+substituted away and the remaining equation is solved for `b` in terms of `a` — dropping the
+search from two free unknowns to one.
+[`[method::VariableElimination]`](../../memory-bank/_terms.md#methodvariableelimination)
+
+[![Variable elimination](../../memory-bank/visualizations/build/variable-elimination.png)](../../memory-bank/visualizations/build/variable-elimination.html)
 
 ## Build & run
 

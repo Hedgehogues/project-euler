@@ -14,8 +14,8 @@ digits directly costs at most `1000 × 7 = 7000` operations per query — no clo
 precomputation is needed to stay inside the time limit; the direct definition IS the solution.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the constraints make the direct scan already sufficient; see the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — the candidate count follows straight from the limits (at most 1000 positions x 7 digits x 100 queries).
 
 ## Scope
 **In scope:** `problems/euler008/solution.cpp` — the direct window scan, correctness criteria.
@@ -51,5 +51,5 @@ scratch, which is cheap enough given `K ≤ 7`.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler008/solution.cpp`; directory README: `problems/euler008/README.md`.

@@ -26,6 +26,12 @@ repeated in-place transformation, not by any other listing method.
 
 [![Next permutation](../../memory-bank/visualizations/build/next-permutation.png)](../../memory-bank/visualizations/build/next-permutation.html)
 
+**Brute-force search** — what the permutations feed is an exhaustive check: `N ≤ 9` bounds the
+candidates to `9! = 362,880` permutations times a handful of splits each, well inside the budget.
+[`[method::BruteForceSearch]`](../../memory-bank/_terms.md#methodbruteforcesearch)
+
+[![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
+
 ## Build & run
 
 ```

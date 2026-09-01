@@ -14,9 +14,8 @@ which digits each removal-mask produces, is already fast; the search itself — 
 the whole computation at this scale.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the digit-removal-mask grouping is specific to this problem's cancellation
-rule, not a general reusable technique; see the Vision.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 4 bounds the candidates to at most 9000 numbers times at most 6 removal masks.
 
 ## Scope
 **In scope:** `problems/euler033/solution.cpp` — the digit-mask enumeration, the grouping, the
@@ -61,5 +60,5 @@ deduplicated in a `std::set` before summing.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
 - Code: `problems/euler033/solution.cpp`; directory README: `problems/euler033/README.md`.
