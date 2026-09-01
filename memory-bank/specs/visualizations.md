@@ -16,8 +16,8 @@ tags: [projecteuler, visualization, catalog, explanation, draft]
 
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины домена — `_terms.md`,
-контекст `viz`: [[viz::Catalog]], [[viz::PageSkeleton]], [[viz::SkipCounting]],
-[[viz::BarModel]], [[viz::GaussPairing]], [[viz::VennDiagram]].
+контекст `viz`: [viz::Catalog](../_terms.md#vizcatalog), [viz::PageSkeleton](../_terms.md#vizpageskeleton), [viz::SkipCounting](../_terms.md#vizskipcounting),
+[viz::BarModel](../_terms.md#vizbarmodel), [viz::GaussPairing](../_terms.md#vizgausspairing), [viz::VennDiagram](../_terms.md#vizvenndiagram).
 
 ## Скоуп
 **В скоупе:** структура каталога `memory-bank/visualizations/` (каркас, код кадров, сборка,
@@ -25,7 +25,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
 правила выбора формы приёма, структура кадров, привязка к подходам, детерминизм повторной
 сборки, навык-сборщик `.claude/skills/visualize-approach/SKILL.md`.
 
-**Вне скоупа:** сами математические подходы (см. [[approaches]]); приёмы ускорения вычислений
+**Вне скоупа:** сами математические подходы (см. [approaches](approaches.md)); приёмы ускорения вычислений
 (`TRICKS.md`); публикация картинок в облако (сознательно отвергнута — сборка только локальная);
 перевод каталога на английский (открытый вопрос владельца).
 
@@ -53,7 +53,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
 ## Architecture
 
 ### Обзор (прозой)
-Три раздельных источника, сборка — скрипт: общий каркас страницы ([[viz::PageSkeleton]],
+Три раздельных источника, сборка — скрипт: общий каркас страницы ([viz::PageSkeleton](../_terms.md#vizpageskeleton),
 `visualizations/skeleton.html`), описание приёма (блок `[viz::*]` в `memory-bank/_terms.md`: что
 это, откуда, применимость, границы, ссылка на подход, картинка), код кадров
 (`visualizations/examples/<slug>.{css,html,js}`). `visualizations/build.sh` подставляет код в
@@ -63,8 +63,8 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
 глаз», никакого облака, никаких картинок руками.
 
 ### Bounded Contexts и Aggregate Roots
-- `viz` — [[viz::Catalog]] (root): Card, Frame; [[viz::PageSkeleton]] (VO).
-- `approach` — [[approach::Collection]] (root) — соседний контекст, связь через явные ссылки в
+- `viz` — [viz::Catalog](../_terms.md#vizcatalog) (root): Card, Frame; [viz::PageSkeleton](../_terms.md#vizpageskeleton) (VO).
+- `approach` — [approach::Collection](../_terms.md#approachcollection) (root) — соседний контекст, связь через явные ссылки в
   обе стороны, не через общее поле.
 
 ## Requirements
@@ -116,7 +116,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
 - Код кадров MUST храниться отдельно от спека, спек ссылается на него полем `Example:` —
   **MUST-code-separate** — критерий: в блоке `[viz::*]` нет кода, только поле `Example:` с путями; `examples/<slug>.{css,html,js}`
   существуют и совпадают с тем, что вставляет навык. Статус: реализовано.
-- Каждая карточка MUST нести поле `Approach:` — ссылку на запись [[approach::Collection]] либо
+- Каждая карточка MUST нести поле `Approach:` — ссылку на запись [approach::Collection](../_terms.md#approachcollection) либо
   явное «—» с причиной — **MUST-approach-link** — критерий: `grep '^Approach:'` даёт строку в
   каждом блоке `[viz::*]`; для skip-counting — «—, показывает понятие "кратно", не способ счёта».
   Статус: реализовано.
@@ -161,5 +161,5 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины
 - Правила: `.claude/rules/visualization-principles.md` (принципы 1–9, каждый ↔ MUST выше).
 - Навык: `.claude/skills/visualize-approach/SKILL.md` (каркас + сборка).
 - Каталог: `memory-bank/index.md`, описания — `memory-bank/_terms.md`.
-- Соседний спек: [[approaches]].
+- Соседний спек: [approaches](approaches.md).
 - Термины: `_terms.md`, контекст `viz`.

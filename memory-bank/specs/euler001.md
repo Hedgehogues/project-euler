@@ -13,14 +13,14 @@ tags: [projecteuler, euler001, solution, draft]
 
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термин задачи: `[euler::Problem001]`
-(`_terms.md`). Использует два уже каталогизированных подхода: [[approach::InclusionExclusion]],
-[[approach::ArithmeticProgressionSum]] (`specs/approaches.md`).
+(`_terms.md`). Использует два уже каталогизированных подхода: [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion),
+[approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum) (`specs/approaches.md`).
 
 ## Скоуп
 **В скоупе:** `euler001/solution.cpp` — модель задачи, формула, обоснование `O(1)`, критерии
 корректности.
 
-**Вне скоупа:** визуальное объяснение решения ([[visualizations]] — отдельный каталог, не
+**Вне скоупа:** визуальное объяснение решения ([visualizations](visualizations.md) — отдельный каталог, не
 дублируется здесь); общие правила репозитория (формат ввода-вывода, ASCII-only — см. корневой
 README).
 
@@ -28,9 +28,9 @@ README).
 
 ### Обзор (прозой)
 Сумма кратных `k`, строго меньших `n`, — сумма арифметической прогрессии
-([[approach::ArithmeticProgressionSum]]): `m = floor((n-1)/k)` кратных, их сумма
+([approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum)): `m = floor((n-1)/k)` кратных, их сумма
 `k · m·(m+1)/2` — реализовано как `sumMultiplesBelow(n, k)`. Ответ на «кратно 3 ИЛИ 5» —
-включение-исключение ([[approach::InclusionExclusion]]) над этой формулой:
+включение-исключение ([approach::InclusionExclusion](../_terms.md#approachinclusionexclusion)) над этой формулой:
 `solve(n) = sumMultiplesBelow(n,3) + sumMultiplesBelow(n,5) − sumMultiplesBelow(n,15)`
 (15 = НОК(3,5) — общая часть, посчитанная дважды). Каждый запрос — три вызова формулы, без цикла
 по диапазону `[0, n)`.
@@ -55,7 +55,7 @@ README).
   тестом на `n=15`. Статус: реализовано.
 - `solve(n)` MUST вычитать сумму кратных 15, не 3·5=15 «на словах» — общая часть считается через
   НОК(3,5), не через произведение (совпадает здесь, но это НОК, не любое совпадение) —
-  **MUST-lcm-not-product** — критерий: комментарий/связь с [[approach::InclusionExclusion]]
+  **MUST-lcm-not-product** — критерий: комментарий/связь с [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion)
   явная. Статус: реализовано.
 - `solution.cpp` MUST быть чистым ASCII (нет кириллицы/спецсимволов в коде и комментариях) —
   **MUST-ascii-only** — критерий: `grep -nP '[^\x00-\x7F]' solution.cpp` пуст. Статус: реализовано.
@@ -63,9 +63,9 @@ README).
   одна строка ответа на каждый запрос) — **MUST-io-format**. Статус: реализовано.
 
 ## Связи
-- Подходы: [[approach::InclusionExclusion]], [[approach::ArithmeticProgressionSum]]
+- Подходы: [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion), [approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum)
   (`specs/approaches.md`).
-- Визуальное объяснение (не дублируется здесь): [[visualizations]] — все четыре карточки
+- Визуальное объяснение (не дублируется здесь): [visualizations](visualizations.md) — все четыре карточки
   используют этот же пример («кратно 2 или 3, до 20», сквозной, не 3/5 из этой задачи).
 - Код: `euler001/solution.cpp`; директорийный README: `euler001/README.md`.
 - Термин: `_terms.md`, `[euler::Problem001]`.

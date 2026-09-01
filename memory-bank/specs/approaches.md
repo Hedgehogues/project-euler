@@ -13,17 +13,17 @@ tags: [projecteuler, approaches, explanation, draft]
 
 ## Термины
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY — как в RFC 2119. Термины — `_terms.md`, контекст
-`approach`: [[approach::Collection]], [[approach::InclusionExclusion]],
-[[approach::ArithmeticProgressionSum]].
+`approach`: [approach::Collection](../_terms.md#approachcollection), [approach::InclusionExclusion](../_terms.md#approachinclusionexclusion),
+[approach::ArithmeticProgressionSum](../_terms.md#approacharithmeticprogressionsum).
 
 ## Скоуп
 **В скоупе:** блоки `[approach::*]` в `memory-bank/_terms.md`, схема записи, двусторонняя связь с
-[[visualizations]], дисциплина пополнения.
+[visualizations](visualizations.md), дисциплина пополнения.
 
 **Вне скоупа:** `TRICKS.md` в корне репозитория — приёмы УСКОРЕНИЯ вычисления, найденные в
 исследовательском процессе, со своей цитатной дисциплиной; здесь — идеи, которые стоит
 проговорить при объяснении, независимо от того, ускоряют они что-то или нет. Сами картинки —
-[[visualizations]].
+[visualizations](visualizations.md).
 
 ## Находки, положенные в основу
 - **F1** Коллекция подходов и каталог картинок существовали параллельно без ссылок; при связывании
@@ -41,7 +41,7 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 повторное применение известного подхода — строка в `Used in`, не новый блок.
 
 ### Bounded Contexts и Aggregate Roots
-- `approach` — [[approach::Collection]] (root): Entry.
+- `approach` — [approach::Collection](../_terms.md#approachcollection) (root): Entry.
 - `viz` — соседний контекст, связь через `Визуализируется:` ↔ `Approach:`.
 
 ## Requirements
@@ -68,7 +68,8 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
   **MUST-no-aggregate-picture** — критерий: у него нет `Picture:`/`Gallery:` поля; та же картинка
   уже встроена в конкретную запись подхода на пару абзацев ниже, третья копия — не находка, а
   дублирование (прецедент: галерея была добавлена и убрана в этой же сессии). Статус: реализовано.
-- Поле `Visualized by` MUST ссылаться на блоки `[viz::*]` [[viz::Catalog]]; значение «—» MUST
+- Поле `Visualized by` MUST ссылаться на конкретные блоки `[viz::*]` (не на сам
+  [viz::Catalog](../_terms.md#vizcatalog) — тот аггрегат, не отдельная картинка); значение «—» MUST
   трактоваться как сигнал завести картинку — **MUST-visualized-by** — критерий: у каждой записи
   ≥1 ссылка либо явный «—» с пометкой «нужна картинка». Статус: реализовано (оба подхода имеют
   картинки).
@@ -93,6 +94,6 @@ Visualized by (ссылки на блоки `[viz::*]`) / Used in (задачи)
 
 ## Связи
 - Файл коллекции: блоки `[approach::*]` в `memory-bank/_terms.md`.
-- Соседний спек: [[visualizations]] (картинки для каждого подхода).
+- Соседний спек: [visualizations](visualizations.md) (картинки для каждого подхода).
 - Правила: `.claude/rules/visualization-principles.md`, принцип 9 (двусторонняя связь).
 - Не путать: `TRICKS.md` (корень репозитория), CLAUDE.md «Communication style».
