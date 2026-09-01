@@ -6,11 +6,14 @@
 > `.md`, только в своей Wiki). Контексты: `viz` — визуальные приёмы, `approach` — математические
 > подходы. Обновляется атомарно со спеком.
 >
-> **Здесь нет конкретных задач.** Memory-bank хранит только переиспользуемое знание — приёмы и
-> подходы; сама задача (её условие, решение, критерии корректности) живёт в своей директории
-> (`euler{NNN}/README.md`), и каталог ссылается на неё только полем `Used in:` — одной строкой,
-> не отдельным спеком. Задача, повторно использующая уже описанный подход/приём, дописывает
-> строку в `Used in:`, а не заводит новый блок.
+> **Здесь нет ни одного упоминания конкретной задачи** — ни условия, ни решения, ни даже ссылки
+> «использовано в». Этот файл — только базовые примитивы: идея (подход) и её картинка (приём),
+> сами по себе, безотносительно к тому, где они применялись. Связь идёт в ОДНУ сторону: задача
+> (`euler{NNN}/README.md`) ссылается на нужный ей блок здесь по имени (`[approach::Name]` →
+> `_terms.md#approachname`); обратной ссылки отсюда на задачу нет и не заводится — она была бы
+> вторым, дублирующим и рассинхронизирующимся местом хранения одного и того же факта. Задача,
+> повторно использующая уже описанный подход/приём, просто ссылается на существующий блок — этот
+> файл при этом не меняется вообще.
 >
 > Картинка каждого приёма — `visualizations/build/<slug>.png`, собранная скриптом
 > `visualizations/build.sh` из `visualizations/skeleton.html` + `visualizations/examples/<slug>.*`;
@@ -29,7 +32,7 @@ Invariants:
 Entities:
   - Card — один приём: блок здесь + код кадров + собранные html/png
   - Frame — один кадр картинки: Problem | Transform | Solution
-Commands: AddCard, ReuseCard (дописать `Used in:`), ReviseCard (правка блока/кода + `build.sh`)
+Commands: AddCard, ReviseCard (правка блока/кода + `build.sh`); повторное использование приёма НЕ меняет этот файл — задача ссылается на существующий блок из своего README
 Depends on: [approach::Collection](#approachcollection), [viz::PageSkeleton](#vizpageskeleton)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -62,7 +65,6 @@ Invariants:
   - MUST NOT: применяться для трёх и более условий одновременно — число цветов на прямой превышает различимое одним взглядом
 Source: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/) · [Math and Movement](https://mathandmovement.com/product/skip-counting-hopping-mat-2s/)
 Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
-Used in: [euler001](../euler001/README.md)
 Depends on: [viz::Catalog](#vizcatalog)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -81,7 +83,6 @@ Invariants:
   - MUST NOT: применяться для трёх и более условий — полоска показывает только последовательность непересекающихся кусков подряд; при трёх пересекающихся условиях пересечения не выстраиваются в один ряд честно, раскладка перестаёт соответствовать структуре
 Source: [Third Space Learning](https://thirdspacelearning.com/us/blog/teach-bar-model-method/) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
 Example: `visualizations/examples/bar-model.{css,html}` (js не требуется — значения статичны) → `visualizations/build/bar-model.html`
-Used in: [euler001](../euler001/README.md)
 Depends on: [viz::Catalog](#vizcatalog), [approach::InclusionExclusion](#approachinclusionexclusion)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -101,7 +102,6 @@ Invariants:
   - MUST NOT: применяться при переменном шаге — пары с двух концов дают разные суммы
 Source: [eduSeed](https://eduseed.in/2025/12/04/gauss-method-of-addition-the-day-a-10-year-old-outsmarted-his-teacher/) · [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
 Example: `visualizations/examples/gauss-pairing.{css,html,js}` → `visualizations/build/gauss-pairing.html`
-Used in: [euler001](../euler001/README.md)
 Depends on: [viz::Catalog](#vizcatalog), [approach::ArithmeticProgressionSum](#approacharithmeticprogressionsum)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -120,7 +120,6 @@ Invariants:
   - MUST NOT: применяться для четырёх и более условий одними кругами — четыре круга доказуемо не отображают все пересечения; для двух-трёх работает без ограничений
 Source: [Britannica — John Venn](https://www.britannica.com/biography/John-Venn) · [ReadWriteThink](https://www.readwritethink.org/classroom-resources/lesson-plans/introducing-venn-diagram-kindergarten) · [Science Sparks](https://www.science-sparks.com/make-venn-diagram-hula-hoop/)
 Example: `visualizations/examples/venn.{css,html,js}` → `visualizations/build/venn.html`
-Used in: [euler001](../euler001/README.md)
 Depends on: [viz::Catalog](#vizcatalog), [approach::VennDiagram](#approachvenndiagram)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -140,7 +139,6 @@ Invariants:
   - MUST NOT: применяться к неотсортированному списку — деление пополам перестаёт что-либо гарантировать
 Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
 Example: `visualizations/examples/binary-search.{css,html}` (js не требуется — значения статичны) → `visualizations/build/binary-search.html`
-Used in: [euler002](../euler002/README.md)
 Depends on: [viz::Catalog](#vizcatalog), [approach::BinarySearch](#approachbinarysearch)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -161,7 +159,6 @@ Invariants:
   - MUST NOT: применяться, если само число уже больше, чем практично проверять пробными делителями (очень большие числа без маленьких множителей) — метод остаётся верным, но лесенка станет неоправданно длинной
 Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
 Example: `visualizations/examples/ladder-method.{css,html}` (js не требуется — значения статичны) → `visualizations/build/ladder-method.html`
-Used in: [euler003](../euler003/README.md)
 Depends on: [viz::Catalog](#vizcatalog), [approach::TrialDivision](#approachtrialdivision)
 Spec: [visualizations](specs/visualizations.md)
 
@@ -169,14 +166,14 @@ Spec: [visualizations](specs/visualizations.md)
 Class: aggregate
 Description: Коллекция математических подходов для объяснения решений — блоки `[approach::*]` этого файла; не путать с `TRICKS.md` (приёмы ускорения, найденные в исследовании). Каждый подход — простая, атомарная идея ИЛИ явная композиция нескольких атомарных идей; ни у одной записи картинок не может быть больше одной.
 Invariants:
-  - MUST: каждая запись — Essence / Recognized by / General case / Visualized by / Source / Used in
+  - MUST: каждая запись — Essence / Recognized by / General case / Visualized by / Source; ничего о конкретной задаче, даже обратной ссылки
   - MUST: `Visualized by` ссылается ровно на ОДИН блок `[viz::*]` (0 — легитимно и помечается явно; 2+ — нарушение, идеи разводятся на отдельные записи)
   - MUST: у записи есть `Source:` — ссылка на независимый источник, откуда идея стандартна (не только у картинки)
   - MUST NOT: заводить подход под существующую картинку ради симметрии — картинка без подхода помечается на своей стороне
   - MUST NOT: быть «простой идеей + шум» — либо запись атомарна (одна неделимая идея), либо явно называет, из каких атомарных идей она составлена
 Entities:
   - Entry — одна запись подхода
-Commands: AddEntry, LinkVisualization, ReuseEntry (дописать `Used in:`)
+Commands: AddEntry, LinkVisualization; повторное использование подхода НЕ меняет этот файл — задача ссылается на существующий блок из своего README
 Depends on: [viz::Catalog](#vizcatalog)
 Spec: [approaches](specs/approaches.md)
 
@@ -188,7 +185,6 @@ General case: для k условий — знакопеременная сум�
 Visualized by: [viz::BarModel](#vizbarmodel)
 Picture: [![Bar model](visualizations/build/bar-model.png)](visualizations/build/bar-model.html)
 Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle)
-Used in: [euler001](../euler001/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
@@ -200,7 +196,6 @@ General case: каждая непересекающаяся область со�
 Visualized by: [viz::VennDiagram](#vizvenndiagram)
 Picture: [![Venn diagram](visualizations/build/venn.png)](visualizations/build/venn.html)
 Source: [Wikipedia — Venn diagram](https://en.wikipedia.org/wiki/Venn_diagram) · [Britannica — John Venn](https://www.britannica.com/biography/John-Venn) (диаграмма изобретена в 1880 для представления логических утверждений, не для счёта — родственна [approach::InclusionExclusion](#approachinclusionexclusion), но отдельная по происхождению идея, часто используемая вместе с ней)
-Used in: [euler001](../euler001/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
@@ -212,7 +207,6 @@ General case: сумма первых m членов прогрессии с ш�
 Visualized by: [viz::GaussPairing](#vizgausspairing)
 Picture: [![Gauss's trick](visualizations/build/gauss-pairing.png)](visualizations/build/gauss-pairing.html)
 Source: [eduSeed](https://eduseed.in/2025/12/04/gauss-method-of-addition-the-day-a-10-year-old-outsmarted-his-teacher/) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/)
-Used in: [euler001](../euler001/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
@@ -223,7 +217,6 @@ Recognized by: одна и та же структура (список, табл�
 General case: вынести построение общей структуры из цикла обработки запросов — стоимость построения платится один раз, а не T раз; конкретный способ ОТВЕТИТЬ на запрос по готовой структуре (поиск, чтение по индексу, суммирование диапазона) — уже отдельная, самостоятельная идея, не часть предвычисления
 Visualized by: — (у самого «посчитай заранее» нет устоявшегося визуального образа, в отличие от того, ЧТО делают с готовой структурой; см. [approach::BinarySearch](#approachbinarysearch) — конкретный способ использования этой задачи)
 Source: [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
-Used in: [euler002](../euler002/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
@@ -235,7 +228,6 @@ General case: сравниваем искомое значение с серед
 Visualized by: [viz::BinarySearch](#vizbinarysearch)
 Picture: [![Binary search](visualizations/build/binary-search.png)](visualizations/build/binary-search.html)
 Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
-Used in: [euler002](../euler002/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)
 
@@ -247,6 +239,5 @@ General case: перебираем делители d от 2, пока d·d ≤ 
 Visualized by: [viz::LadderMethod](#vizladdermethod)
 Picture: [![Ladder method](visualizations/build/ladder-method.png)](visualizations/build/ladder-method.html)
 Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division)
-Used in: [euler003](../euler003/README.md)
 Depends on: [approach::Collection](#approachcollection)
 Spec: [approaches](specs/approaches.md)

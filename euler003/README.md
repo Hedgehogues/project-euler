@@ -27,7 +27,7 @@ One catalogued idea (full write-up: [`memory-bank/_terms.md`](../memory-bank/_te
 **Trial division** — check candidate divisors starting from the smallest, pulling each one out
 of the number as it's found. Shown here as the **ladder method** (also called the birthday cake
 method), the way it's taught in school: write the divisor to the side, the running quotient
-below, and stop once what's left is already prime. `[approach::TrialDivision]`
+below, and stop once what's left is already prime. [`[approach::TrialDivision]`](../memory-bank/_terms.md#approachtrialdivision)
 
 [![Ladder method](../memory-bank/visualizations/build/ladder-method.png)](../memory-bank/visualizations/build/ladder-method.html)
 

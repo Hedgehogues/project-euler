@@ -19,7 +19,9 @@ description: Показывает наглядную визуализацию м
 ```
 memory-bank/
   _terms.md                          — блоки [viz::*] (описание, Sequence, Applicability/Limits,
-                                        Source, Approach, Used in, Picture) и [approach::*]
+                                        Source, Approach, Picture) и [approach::*]; ни одного
+                                        упоминания конкретной задачи (принцип 12) — задача
+                                        ссылается СЮДА из своего README, не наоборот
   specs/visualizations.md            — спек каталога (Requirements MUST/SHALL/SHOULD)
   specs/approaches.md                — спек коллекции подходов
   visualizations/

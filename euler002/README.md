@@ -23,12 +23,12 @@ Two independently catalogued ideas, used together — not one (full write-ups:
 [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
 
 **Precomputation** — build whatever doesn't depend on the query once, before answering any
-query, instead of redoing that work on every single one. `[approach::Precomputation]` — no
+query, instead of redoing that work on every single one. [`[approach::Precomputation]`](../memory-bank/_terms.md#approachprecomputation) — no
 picture of its own; there isn't a standard visual for "compute it ahead of time" the way there
 is for a specific lookup.
 
 **Binary search** — narrow down to a value in a sorted list by repeatedly checking the middle
-and discarding the half that can't contain the answer. `[approach::BinarySearch]`
+and discarding the half that can't contain the answer. [`[approach::BinarySearch]`](../memory-bank/_terms.md#approachbinarysearch)
 
 [![Binary search](../memory-bank/visualizations/build/binary-search.png)](../memory-bank/visualizations/build/binary-search.html)
 
