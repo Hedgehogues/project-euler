@@ -17,22 +17,22 @@ Status: **Accepted**, 100% on HackerRank. Verified independently against a fresh
 over Fibonacci terms on `n = 0, 1, 2, 8, 10, 100, 4000000` — including `n=0`/`n=1`, where the
 answer is 0 because no even term has been reached yet.
 
-Full requirements and acceptance criteria: [spec.md](../memory-bank/specs/tasks/euler002.md).
+Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tasks/euler002.md).
 
 ## The ideas behind it
 
 Two independently catalogued ideas, used together — not one (full write-ups:
-[`memory-bank/_terms.md`](../memory-bank/_terms.md)):
+[`memory-bank/_terms.md`](../../memory-bank/_terms.md)):
 
 **Precomputation** — build whatever doesn't depend on the query once, before answering any
-query, instead of redoing that work on every single one. [`[method::Precomputation]`](../memory-bank/_terms.md#methodprecomputation) — no
+query, instead of redoing that work on every single one. [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) — no
 picture of its own; there isn't a standard visual for "compute it ahead of time" the way there
 is for a specific lookup.
 
 **Binary search** — narrow down to a value in a sorted list by repeatedly checking the middle
-and discarding the half that can't contain the answer. [`[method::BinarySearch]`](../memory-bank/_terms.md#methodbinarysearch)
+and discarding the half that can't contain the answer. [`[method::BinarySearch]`](../../memory-bank/_terms.md#methodbinarysearch)
 
-[![Binary search](../memory-bank/visualizations/build/binary-search.png)](../memory-bank/visualizations/build/binary-search.html)
+[![Binary search](../../memory-bank/visualizations/build/binary-search.png)](../../memory-bank/visualizations/build/binary-search.html)
 
 ## Build & run
 

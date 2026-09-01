@@ -17,7 +17,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued me
 [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
 
 ## Scope
-**In scope:** `euler001/solution.cpp` — the model, the formula, the `O(1)` argument, correctness
+**In scope:** `problems/euler001/solution.cpp` — the model, the formula, the `O(1)` argument, correctness
 criteria.
 
 **Out of scope:** the visual explanation of either method (the catalog, not this task — see the
@@ -58,12 +58,12 @@ formula, no loop over `[0, n)`.
   coincidental product — **MUST-lcm-not-product** — criterion: the third term is tied explicitly
   to [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion)'s overlap term, not to
   multiplication in general. Status: done.
-- `euler001/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
-  `grep -nP '[^\x00-\x7F]' euler001/solution.cpp` is empty. Status: done.
+- `problems/euler001/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
+  `grep -nP '[^\x00-\x7F]' problems/euler001/solution.cpp` is empty. Status: done.
 - I/O MUST match HackerRank's format (first line `T`, then `T` lines of `N`; one answer line per
   query) — **MUST-io-format**. Status: done.
 
 ## Links
 - Methods: [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
   [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
-- Code: `euler001/solution.cpp`; directory README: `euler001/README.md`.
+- Code: `problems/euler001/solution.cpp`; directory README: `problems/euler001/README.md`.

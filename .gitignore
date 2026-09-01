@@ -1,12 +1,119 @@
-# Compiled binaries
-euler[0-9][0-9][0-9]/solution
-euler[0-9][0-9][0-9]/solution.out
-*.o
-*.out
+# Build artifacts
+euler*/solution
+problems/euler*/solution
+euler*/oracle
+euler*/validate_geometry
+euler*/oracle_dp
+euler*/property_test
+euler*/xcheck
+euler*/direct_check*
+euler*/hypotheses/crossover_brute
+euler*/hypotheses/crossover_brute2
+euler*/hypotheses/crossover_final
+euler*/hypotheses/h3_coin_dp
+euler*/hypotheses/h3_greedy_check
+euler*/hypotheses/H[0-9]
+euler*/hypotheses/h3_solution
+euler*/hypotheses/h4_solution
+euler*/hypotheses/h5_solution
+euler*/hypotheses/h6_solution
+euler*/hypotheses/property_test_h2
+euler*/hypotheses/property_test_h3
+euler*/hypotheses/property_test_h6
+euler*/hypotheses/h5_property_test
+euler*/hypotheses/gen_bench_input
+euler*/hypotheses/cbmc_ntt_butterfly
+euler*/hypotheses/cbmc_bitreversal
+euler*/hypotheses/cbmc_garner
+euler*/solution_baseline
+euler*/hypotheses/H_crossover_solution
+euler*/hypotheses/bm_sweep
+euler*/hypotheses/benchmark
+euler*/hypotheses/benchmark_crossover
+euler*/hypotheses/gen_queries_crossover
+euler*/hypotheses/gen_smt_sparse
+euler*/hypotheses/cbmc_sparse_reduce
+euler194/hypotheses/H15_adversarial_gen
+euler194/hypotheses/H15_bruteforce_check
+euler194/hypotheses/fitness_harness
+euler194/hypotheses/H43_gap_audit
+euler194/hypotheses/H43_singleseed_test
+euler194/hypotheses/H43_build_diff
+euler194/hypotheses/H43_e2e_gen
+euler194/hypotheses/H43_bench_gen
 
-# macOS
+# Generated test/benchmark data (regenerable from the committed .cpp generators/oracles --
+# not repo content, see euler228's xcheck.cpp/oracle.cpp for how to reproduce)
+euler*/test_*.txt
+euler*/bench*.txt
+euler*/*_out.txt
+euler*/*_out*.txt
+
+# Python bytecode caches (Python itself is against repo convention — see CLAUDE.md "Known process debt" —
+# but any stray __pycache__ left behind by running existing scripts should never be tracked)
+__pycache__/
+*.pyc
+
+# Ephemeral tool output (not repo content)
+.playwright-mcp/
+
+# OS cruft
 .DS_Store
 
-# Editor/IDE
-.vscode/
-.idea/
+# HackerRank session credentials (cookie/CSRF) -- token-level secrets, never committed.
+# Physically separate from .hackerrank/ (tracked scripts): .hackerrank/hr_submit.sh and
+# hr_poll.sh source this at runtime; see hackerrank_api_notes.md.
+.env.hackerrank
+
+# Compiled pre-commit checker (rebuilt on demand by .githooks/pre-commit)
+.githooks/.precommit_check_bin
+
+# Nested agent worktree checkouts (each is its own git working copy inside
+# .claude/worktrees/ -- must never be tracked/added to the main repo's tree)
+.claude/worktrees/
+
+# jaiora plugin's own internal state -- a separate automated system running
+# against this repo (see .logs/_meta/ audit note); its bookkeeping is not
+# this repo's process bookkeeping and must not collide with .logs/euler*/
+.claude/.jaiora-hashes
+.claude/.jaiora-version
+.claude/settings.local.json
+
+# NOTE: .claude/rules/ was PREVIOUSLY gitignored here (grouped with the jaiora plugin's own
+# internal cache state above by mistake). Un-ignored 2026-07-18
+# (.logs/_meta/step-claude-rules-git-tracking.md): unlike .jaiora-hashes/.jaiora-version, these
+# are hand-authored process rules (round-economics.md, verification-ladder.md,
+# hypothesis-reframing.md, etc.) that CLAUDE.md itself references and depends on -- not
+# regenerable plugin cache. Existed ONLY on local disk with no git history, no Time Machine, no
+# other copy found anywhere -- a single-disk-failure risk for months of accumulated process
+# knowledge. Now tracked like any other repo file.
+.logs/apply-*.log
+.logs/tool-calls.log
+
+# euler195 build artifacts
+euler195/solution
+euler195/hypotheses/oracle
+euler195/hypotheses/naive
+euler195/hypotheses/fast_v1
+euler195/hypotheses/direct_count
+euler195/hypotheses/debug_enum
+euler195/hypotheses/debug2
+euler195/hypotheses/cmpG
+euler195/hypotheses/gen_random
+euler195/hypotheses/profiled
+euler195/hypotheses/profiled3
+euler195/hypotheses/time_A
+euler195/hypotheses/time_G2
+euler195/hypotheses/time_merged
+euler195/hypotheses/solution_final
+# .hackerrank compiled tool binaries
+.hackerrank/guess_structure
+.hackerrank/const_factor_bench
+euler241/hypotheses/round8-denom/baseline_counted
+euler241/hypotheses/round8-denom/pruned_variant
+euler241/hypotheses/round8-denom/pruned_asan*
+
+# Heavy third-party tool build artifacts (RapidCheck source+lib, Lean4 mathlib cache/build)
+# -- adoption is documented in TOOLS.md (T74-T76) with rebuild instructions; the multi-GB
+# built artifacts themselves are not versioned. See .logs/_meta/step-tooling-decomp-*.
+.tools_trial/

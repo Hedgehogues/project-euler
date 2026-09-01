@@ -17,7 +17,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued me
 (`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision).
 
 ## Scope
-**In scope:** `euler003/solution.cpp` — the model, the algorithm, correctness and bound arguments.
+**In scope:** `problems/euler003/solution.cpp` — the model, the algorithm, correctness and bound arguments.
 
 **Out of scope:** the visual explanation of the ladder method as a general technique (the catalog,
 not this task); repository-wide rules (I/O format, ASCII-only — see the root README).
@@ -58,10 +58,10 @@ no small factors.
 - If `n > 1` remains after the divisor loop, it MUST be taken as a prime factor itself (and hence
   the answer, since the loop tried divisors in increasing order) — **MUST-remainder-is-prime** —
   criterion: `if (n > 1) largest = n;` after the loop. Status: done.
-- `euler003/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
-  `grep -nP '[^\x00-\x7F]' euler003/solution.cpp` is empty. Status: done.
+- `problems/euler003/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
+  `grep -nP '[^\x00-\x7F]' problems/euler003/solution.cpp` is empty. Status: done.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
 - Method: [method::TrialDivision](../../_terms.md#methodtrialdivision).
-- Code: `euler003/solution.cpp`; directory README: `euler003/README.md`.
+- Code: `problems/euler003/solution.cpp`; directory README: `problems/euler003/README.md`.

@@ -11,7 +11,7 @@ tags: [projecteuler, visualization, catalog, explanation, draft]
 This layer sits **above the ideas** and depends on them one-way:
 
 ```
-problems (euler{NNN}/README.md)  →  pictures (this spec)  →  ideas (specs/approaches.md)
+problems (problems/euler{NNN}/README.md)  →  pictures (this spec)  →  ideas (specs/approaches.md)
 ```
 
 This spec may — and does — reference [approaches](approaches.md); that spec references nothing
@@ -48,7 +48,7 @@ a picture relates to its idea.
 
 **Out of scope:** the idea fields themselves — see [approaches](approaches.md); speedup techniques
 (`TRICKS.md`); publishing pictures to the cloud (deliberately rejected — the build is local only);
-and the problems themselves, which live in `euler{NNN}/README.md`.
+and the problems themselves, which live in `problems/euler{NNN}/README.md`.
 
 ## Findings this is built on
 - **F1** Cards were chosen by whether a canonical name existed rather than by how understandable

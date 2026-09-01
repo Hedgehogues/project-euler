@@ -205,13 +205,10 @@ problem itself points at the block it needs by name
 that would be a second, duplicating and drift-prone source of the same fact, needing an edit on every
 problem rename.
 
-- MUST: `memory-bank/` contains no `specs/euler{NNN}.md` files and no `[euler::*]` blocks.
+- MUST: the DICTIONARY (`_terms.md`) contains no `[euler::*]` blocks.
 - MUST NOT: a field such as `Used in:` (or any other naming a specific problem) in `_terms.md`
   blocks — neither as a spec nor as a single line with a link. The only permissible mention runs the
-  other way: in `euler{NNN}/README.md`, linking TO the primitive, not back.
-- MUST: facts about a specific problem worth keeping (submission id, brute-force verification) live
-  in `euler{NNN}/README.md` as a short line, not in a separate RFC spec with MUST ids — the problem
-  is solved and accepted; it needs the fact of verification, not a machinery of requirements.
+  other way: in `problems/euler{NNN}/README.md`, linking TO the primitive, not back.
 - Precedent 1: `specs/euler001.md`/`euler002.md`/`euler003.md` duplicated what was already in the
   problems' READMEs, plus formal MUST criteria nobody will revisit for a finished routine problem —
   found and removed at the user's direct request.
@@ -219,6 +216,15 @@ problem rename.
   line — also a mention of a problem, just a single line. The user caught it with the next question
   ("these are supposed to be just the primitives, no?") — the "no problems" rule had been declared
   but not applied all the way; the lines were removed entirely.
+
+**Amended (2026-09-01):** the two bullets forbidding a `specs/euler{NNN}.md` PATH and requiring
+verification facts to live only in the README, one line, no RFC machinery — both from the ORIGINAL
+version of this principle — are reversed by the user's own later, explicit choice: applied per-task
+specs (`memory-bank/specs/tasks/euler{NNN}.md`, format governed by `specs/tasks.md`) are legitimate.
+What did NOT reverse: the dictionary itself. The distinction the original version of this principle
+missed — a dictionary entry is reusable knowledge that must never change on reuse; a task's own spec
+is the opposite by nature, a fixed one-time acceptance record — is why forbidding one doesn't have
+to forbid the other. See `specs/approaches.md`'s finding F9 for the full account.
 
 ## 13. The whole repository is in English
 
@@ -237,7 +243,7 @@ the page shell, frame labels, and therefore the text rendered into the pictures 
 The catalog is layered, and the dependency arrow never reverses:
 
 ```
-problems (euler{NNN}/README.md)  →  pictures (specs/visualizations.md)  →  ideas (specs/approaches.md)
+problems (problems/euler{NNN}/README.md)  →  pictures (specs/visualizations.md)  →  ideas (specs/approaches.md)
 ```
 
 Each layer may reference the one below it and MUST NOT reference the one above. The idea layer is

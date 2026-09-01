@@ -20,18 +20,18 @@ independently against a brute-force scan (check every `d<=n` for primality and d
 `n=2..20000` plus the classic Project Euler checkpoints (`13195 → 29`,
 `600851475143 → 6857`, the full-size original `N`).
 
-Full requirements and acceptance criteria: [spec.md](../memory-bank/specs/tasks/euler003.md).
+Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tasks/euler003.md).
 
 ## The idea behind it
 
-One catalogued idea (full write-up: [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
+One catalogued idea (full write-up: [`memory-bank/_terms.md`](../../memory-bank/_terms.md)):
 
 **Trial division** — check candidate divisors starting from the smallest, pulling each one out
 of the number as it's found. Shown here as the **ladder method** (also called the birthday cake
 method), the way it's taught in school: write the divisor to the side, the running quotient
-below, and stop once what's left is already prime. [`[method::TrialDivision]`](../memory-bank/_terms.md#methodtrialdivision)
+below, and stop once what's left is already prime. [`[method::TrialDivision]`](../../memory-bank/_terms.md#methodtrialdivision)
 
-[![Ladder method](../memory-bank/visualizations/build/ladder-method.png)](../memory-bank/visualizations/build/ladder-method.html)
+[![Ladder method](../../memory-bank/visualizations/build/ladder-method.png)](../../memory-bank/visualizations/build/ladder-method.html)
 
 ## Build & run
 

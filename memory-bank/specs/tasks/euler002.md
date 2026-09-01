@@ -18,7 +18,7 @@ together, not one (`../../_terms.md`): [method::Precomputation](../../_terms.md#
 [method::BinarySearch](../../_terms.md#methodbinarysearch).
 
 ## Scope
-**In scope:** `euler002/solution.cpp` — the model, the algorithm, the complexity argument,
+**In scope:** `problems/euler002/solution.cpp` — the model, the algorithm, the complexity argument,
 correctness criteria.
 
 **Out of scope:** the visual explanation of binary search as a general technique (the catalog, not
@@ -57,11 +57,11 @@ exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) �
 - Building the list MUST NOT overflow or loop forever for `N` up to `4·10^16` —
   **MUST-no-overflow-at-bound** — criterion: `N_MAX = 4·10^16` fits in `long long`
   (`< 2^63 ≈ 9.2·10^18`); the build loop stops on `a <= N_MAX`, not unconditionally. Status: done.
-- `euler002/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
-  `grep -nP '[^\x00-\x7F]' euler002/solution.cpp` is empty. Status: done.
+- `problems/euler002/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
+  `grep -nP '[^\x00-\x7F]' problems/euler002/solution.cpp` is empty. Status: done.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
 - Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
   [method::BinarySearch](../../_terms.md#methodbinarysearch).
-- Code: `euler002/solution.cpp`; directory README: `euler002/README.md`.
+- Code: `problems/euler002/solution.cpp`; directory README: `problems/euler002/README.md`.

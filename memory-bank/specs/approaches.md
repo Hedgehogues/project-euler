@@ -13,7 +13,7 @@ no build pipeline, no problems. Layers above may reference it, and it references
 that direction is fixed and one-way:
 
 ```
-problems (euler{NNN}/README.md)  →  pictures (specs/visualizations.md)  →  ideas (this spec)
+problems (problems/euler{NNN}/README.md)  →  pictures (specs/visualizations.md)  →  ideas (this spec)
 ```
 
 A rule about the relationship between an idea and its picture therefore does NOT live here — it
@@ -168,7 +168,7 @@ from its own README.
   narrowed by F9 to name the dictionary specifically once task specs returned to `specs/`).
 - Reusing a known method on a new problem MUST NOT change this layer —
   **MUST-reuse-changes-nothing** — criterion: `git diff` on `_terms.md` is empty when a problem
-  using an already-described method is added; the link appears only in `euler{NNN}/README.md`.
+  using an already-described method is added; the link appears only in `problems/euler{NNN}/README.md`.
   Status: done.
 - This spec MUST NOT reference any layer above it — **MUST-no-upward-reference** — criterion: it
   contains no link to `visualizations.md` and no requirement whose subject is a picture, a build
