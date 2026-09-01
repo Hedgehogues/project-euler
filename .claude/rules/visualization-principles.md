@@ -1,225 +1,249 @@
-# Принципы визуализации приёмов — каталог `memory-bank/visualizations/`
+# Principles for visualizing methods — catalog `memory-bank/`
 
-Источник: ретро цикла «каталог визуализаций» 2026-09-01 (сессия euler001 → каталог → навык
-`visualize-approach`). Каждый принцип ниже — не общее место, а правило, выведенное из
-конкретного раунда правок, в котором оно было нарушено и починено. Применяется ко всему, что
-показывает решение картинкой: карточки каталога, инфографика по задаче, кадры в отчётах.
+Source: the retro of the "visualization catalog" cycle, 2026-09-01 (session: euler001 → catalog →
+the `visualize-approach` skill). Every principle below is not a platitude but a rule derived from a
+concrete round of revisions in which it was violated and fixed. It applies to anything that shows a
+solution as a picture: catalog records, per-problem infographics, frames in reports.
 
-Спеки в RFC-формате (требования с id, находки, критерии приёмки): `memory-bank/specs/
-visualizations.md`, `memory-bank/specs/approaches.md`; термины — `memory-bank/_terms.md`. Каждый
-принцип ниже соответствует MUST-требованию там; этот файл — короткая форма для автозагрузки.
+The RFC-style specs (requirements with ids, findings, acceptance criteria):
+`memory-bank/specs/visualizations.md`, `memory-bank/specs/approaches.md`; terms —
+`memory-bank/_terms.md`. Each principle below corresponds to a MUST requirement there; this file is
+the short, auto-loaded form.
 
-Связанные файлы: `memory-bank/index.md` (дисциплина пополнения каталога),
-`.claude/skills/visualize-approach/SKILL.md` (сборка страницы), `design-source-fidelity.md`
-(«статическая проверка ≠ рендер» — тот же принцип 2 ниже для моков).
+Related files: `memory-bank/index.md` (how the catalog is extended),
+`.claude/skills/visualize-approach/SKILL.md` (page assembly), `design-source-fidelity.md`
+("a static check is not a render" — the same as principle 2 below, for mockups).
 
-## 1. Форма — по понятности, имя — по форме
+## 1. Form by understandability, name by form
 
-Визуальная форма приёма выбирается по тому, насколько она понятна с первого взгляда человеку без
-подготовки (уровень сложности — как в обучении детей математике: счёт прыжками, полоска, пары
-с концов, круги), а НЕ по наличию у неё известного названия. Стандартное название ищется ПОСЛЕ
-выбора формы — именно для этой формы, и записывается отдельным полем.
+The visual form is chosen by how understandable it is at a glance to someone with no preparation
+(the simplicity level of skip counting, a bar, pairing from both ends, circles), NOT by whether it
+has a well-known name. The standard name is looked up AFTER the form is chosen — for that exact
+form — and recorded in its own field.
 
-- MUST: сначала форма, потом `WebSearch` её стандартного названия и источника.
-- MUST NOT: подгонять приём под известное имя ради цитаты (прецедент: Решето Эратосфена с
-  перевёрнутой целью — имя настоящее, форма чужая).
-- MUST NOT: упоминать детей/школу в тексте — простота уровня, не адресат.
+- MUST: form first, then a `WebSearch` for its standard name and source.
+- MUST NOT: bend a method to fit a known name for the sake of a citation (precedent: the Sieve of
+  Eratosthenes with its purpose inverted — a real name on a foreign form).
+- MUST NOT: mention children or school in the text — simplicity is a level, not an addressee.
 
-## 2. Картинка увидена до того, как показана
+## 2. The picture is seen before it is shown
 
-«Готово» не объявляется, пока результат отрисовки не наблюдался. Подсчёт открытых/закрытых тегов
-— проверка целостности разметки, не проверка картинки; это два разных вопроса.
+"Done" is not declared until the render has been observed. Counting opening and closing tags checks
+the integrity of the markup, not the picture; those are two different questions.
 
-- MUST: перед показом пользователю — открыть и посмотреть (скриншот/зум), не только валидировать
-  структуру.
-- MUST: геометрия для наложений (дуги, стрелки, подписи над элементами) измеряется у уже
-  отрисованных элементов (`getBoundingClientRect`), не вычисляется из предполагаемых CSS-размеров.
-- Прецедент: за одну сессию четыре раза первым дефект увидел пользователь по скриншоту — дважды
-  совпадение чисел в соседних шагах, дважды съехавшие дуги.
+- MUST: before showing the user — open and look (screenshot/zoom), not just validate structure.
+- MUST: geometry for overlays (arcs, arrows, labels above elements) is measured from already
+  rendered elements (`getBoundingClientRect`), never computed from assumed CSS sizes.
+- Precedent: in one session, four times running the user was the first to see the defect from a
+  screenshot — twice a coincidence of numbers in adjacent steps, twice arcs drifted out of place.
+- Precedent 2: a later language switch (`lang="ru"` → `lang="en"`) silently broke the light-theme
+  pinning in the build script, and the PNGs came out dark. No text check would have caught it —
+  looking at the picture did.
 
-## 3. Числа в соседних шагах не совпадают случайно
+## 3. Numbers in adjacent steps do not coincide by accident
 
-Если в объяснении один и тот же номер появляется в двух шагах по разным причинам (площадь
-прямоугольника 30 и итог 30), объяснение читается как замкнутое на себя. Пример подбирается так,
-чтобы все промежуточные числа были различимы.
+If the same number shows up in two steps for different reasons (a rectangle's area of 30 and a total
+of 30), the explanation reads as circular. The example is chosen so that all intermediate numbers
+are distinguishable.
 
-- MUST: перед фиксацией примера — выписать все числа шагов и убедиться, что нет совпадений.
-- Прецедент: шаг 2 → шаг 4 в приёме Гаусса; ошибка вернулась при перегенерации, потому что
-  проверялась глазами, а не списком чисел.
+- MUST: before fixing an example — write out every number of every step and confirm there are no
+  coincidences.
+- Precedent: step 2 → step 4 in the Gauss method; the error came back on a rebuild because it was
+  checked by eye rather than against a list of numbers.
 
-## 4. Применимость описывает класс задач, а не параметры примера
+## 4. Applicability describes a class of problems, not the example's parameters
 
-Поле «когда применять» говорит о том, какие задачи приём берёт вообще; параметры показательного
-примера (до 20, кратные 2 и 3, пять столбиков) туда не протекают. Если у примера есть свой
-предел (рисовать вручную удобно только на коротком отрезке), он идёт в «границы» с явной
-пометкой «предел рисования, не приёма».
+The "when to apply" field says which problems the method covers at all; the demonstration example's
+parameters (below 20, multiples of 2 and 3, five bars) must not leak into it. If the example has its
+own bound (drawing by hand is only convenient over a short stretch), that goes into "limits",
+explicitly marked as a limit of the drawing rather than of the method.
 
-- MUST: проверка — «исключает ли эта формулировка случай, который приём на самом деле берёт?»;
-  если да — это пересказ примера.
-- MUST: границы называют настоящую причину предела (полоска не умеет показывать пересечения трёх
-  условий в один ряд; четыре круга доказуемо не покрывают все пересечения), не «становится тесно
-  / путает глаз».
-- MUST: исправление формулировки в одной карточке проверяется на всех остальных сразу — правило,
-  не экземпляр (прецедент: понадобилось второе замечание «примени обобщение к остальным»).
+- MUST: the check is "does this wording exclude a case the method actually covers?"; if yes, it is a
+  restatement of the example.
+- MUST: limits name the real cause (a bar cannot show three-way intersections in one row; four
+  circles provably cannot cover every intersection), not "it gets crowded / confuses the eye".
+- MUST: a wording fix in one record is checked against all the others at once — a rule, not an
+  instance (precedent: it took a second remark, "now apply that generalization to the rest").
 
-## 5. Картинка несёт причинную цепочку сама, текст только дополняет
+## 5. The picture carries the causal chain itself; text only supplements
 
-Визуализация — последовательность кадров: первый — проблема (нерешённая ситуация, помеченная как
-неверная или неизвестная), последний — решение, между ними — преобразования. Подписи на
-картинке — символьные метки (`?`, `×2`, `−`, `⌒`, `∩`, `=`), не предложения. Всё, что нужно
-читать, живёт в спеке, не на картинке.
+A visualization is a sequence of frames: the first is the problem (an unsolved situation, marked
+wrong or unknown), the last is the solution, and the ones between are transformations. Labels on the
+picture are symbolic marks (`?`, `×2`, `−`, `↔`, `∩`, `=`), not sentences. Everything meant to be
+read lives in the record, not on the picture.
 
-- MUST: один статичный кадр «решение» + абзацы «почему» под ним — нарушение; переход от проблемы
-  к ответу должен быть виден, не прочитан.
-- MUST: справочная часть (название, источник, применимость, границы) — отдельный md-спек в
-  RFC-блоках (`[viz::Name]`, поля MUST/MUST NOT), не текст под картинкой.
+- MUST: one static "solution" frame plus paragraphs of "why" underneath is a violation — the move
+  from problem to answer must be seen, not read.
+- MUST: the reference part (name, source, applicability, limits) is a markdown record in RFC blocks
+  (`[method::Name]`, MUST/MUST NOT fields), not text under the picture.
 
-## 6. Одинаковость держится файлами, не намерением
+## 6. Sameness is held by files, not by intention
 
-Повторный показ приёма собирается из трёх версионированных входов — общий каркас
-(`memory-bank/visualizations/skeleton.html`), описание (блок `[viz::*]` в `_terms.md`), точный код
-кадров (`examples/<slug>.{css,html,js}`) — скриптом `build.sh`, без пересказа; картинка
-`build/<slug>.png` — вывод того же скрипта (headless-браузер, светлая тема), не рисунок руками.
-Если реальные числа/раскладка живут во временном файле, а в спеке только идея кадров словами,
-повтор не совпадёт с прошлым, каким бы строгим ни выглядел спек.
+Showing a method again is assembled from three version-controlled inputs — the shared shell
+(`memory-bank/visualizations/skeleton.html`), the description (the `[method::*]` block in
+`_terms.md`) and the exact frame code (`examples/<slug>.{css,html,js}`) — by `build.sh`, with no
+paraphrasing; the picture `build/<slug>.png` is the output of that same script (headless browser,
+light theme), never a hand drawing. If the real numbers and layout live in a temporary file while
+the record holds only the idea of the frames in words, a rebuild will not match the previous one, no
+matter how strict the record looks.
 
-- MUST: спек ссылается на код, код лежит отдельно; смена формы работы (артефакт → локальный html,
-  один файл → md+examples) сопровождается проверкой «из сохранённого получится то же самое?».
-- Прецедент: требование одинаковости стояло в навыке с самого начала и было нарушено ровно в
-  момент, когда спеки стали выглядеть строже — пользователь поймал вопросом «а получится та же?».
+- MUST: the record references the code, the code lives separately; a change in how the work is done
+  (cloud artifact → local html, one file → record + examples) is accompanied by the check "will the
+  same thing come out of what has been saved?".
+- Precedent: the sameness requirement was in the skill from the start and was violated at exactly
+  the moment the records started to look stricter — the user caught it by asking "will it come out
+  the same?".
 
-## 7. Общий пример — сквозной и не привязан к задаче
+## 7. The shared example runs through the whole catalog and is not tied to a problem
 
-Все приёмы иллюстрируются одним случаем («числа до 20, кратные 2 или 3»), не числами конкретной
-задачи (не 3 и 5 из euler001). Это доказывает, что приём общий, и делает карточки сравнимыми
-между собой. Новый приём, несовместимый со сквозным случаем, заводит свой маленький и объясняет
-в спеке, почему.
+Every method is illustrated with one case ("numbers below 20, multiples of 2 or 3"), never a
+specific problem's numbers (not euler001's 3 and 5). That proves the method is general and makes the
+records comparable with one another. A new method incompatible with the shared case introduces its
+own small one and explains why in the record.
 
-## 8. Каждый md-файл — один приём; редирект только там, где на старое имя уже ссылаются
+## 8. One record per method; a redirect only where the old name is already linked
 
-Переименование или замена приёма оставляет старый файл заглушкой-редиректом на новый ТОЛЬКО если
-старое имя уже закоммичено или на него есть ссылки (логи, спеки, чужие файлы) — иначе ссылки
-повиснут. Если ссылок нет (имя жило только в рабочей сессии, в репозитории его не было) —
-старый файл просто удаляется: заглушка без единой входящей ссылки читается как лишний приём в
-каталоге (прецедент: три стуба уехали в публичный репозиторий без истории и выглядели как семь
-приёмов вместо четырёх). Перед выбором — `grep` по старому имени, не память.
+Renaming or replacing a method leaves the old file as a redirect stub ONLY if the old name is
+already committed or something links to it (logs, specs, other people's files) — otherwise links
+would dangle. If nothing links to it (the name lived only inside a working session and never made it
+into the repository), the old file is simply deleted: a stub with no inbound link reads as an extra
+method in the catalog (precedent: three stubs shipped to the public repository and made four
+techniques look like seven). Before choosing — grep for the old name, do not rely on memory.
 
-## 9. Один метод — одна запись: идея и картинка не разводятся по двум спискам
+## 9. One method, one record: the idea and the picture are not split across two lists
 
-Идея («что это, когда узнаётся») и её картинка («как это показать») — не два параллельных
-каталога, а ПОЛЯ ОДНОЙ записи `[method::*]`: `Essence`/`Recognized by`/`General case`/`Source` —
-про идею, `Picture`/`Sequence`/`Example` — про изображение, `Limits` — про границы обоих, с
-пометкой, где предел идеи, а где только рисунка.
+The idea ("what it is, when it is recognized") and its picture ("how to show it") are not two
+parallel catalogs but FIELDS OF ONE `[method::*]` record: `Essence`/`Recognized by`/`General case`/
+`Source` for the idea, `Picture`/`Sequence`/`Example` for the drawing, `Limits` for the bounds of
+both, marking which limit belongs to the idea and which only to the drawing.
 
-Два списка выглядят разумно («слои же разные»), но на практике вырождаются в дубль: одинаковые
-имена в обоих контекстах, одна и та же картинка вставлена дважды, тот же источник, описание —
-пересказ соседнего. Прецедент: каталог полгода жил с контекстами `[viz::*]` и `[approach::*]`;
-`grep` показал два блока `VennDiagram`, два `BinarySearch`, пять картинок по два вхождения. Я
-дважды защищал это разделение («это разные слои», «у них разные поля») — довод неверен: слои
-различаются полями внутри записи, а не отдельными записями. Поймано пользователем («опять дубли
-есть»), не найдено самостоятельно.
+Two lists look reasonable ("the layers really are different"), but in practice they degenerate into
+duplication: identical names in both contexts, the same picture embedded twice, the same source, a
+description that paraphrases its neighbour. Precedent: the catalog lived with the contexts
+`[viz::*]` and `[approach::*]`; a grep showed two `VennDiagram` blocks, two `BinarySearch`, and five
+pictures with two occurrences each. This split was defended twice ("they are different layers",
+"they have different fields") — the argument is wrong: layers are distinguished by fields inside a
+record, not by separate records. Found by the user ("there are duplicates again"), not on my own.
 
-- MUST: `grep -oE '^## \[\w+::\w+\]' _terms.md | sort | uniq -d` пуст — одинаковых имён нет.
-- MUST: каждая картинка `build/*.png` упомянута в `_terms.md` ровно один раз.
-- MUST NOT: заводить перекрёстные поля вида `Approach:` ↔ `Visualized by:` — они нужны только
-  тогда, когда списка два; при одной записи связывать нечего.
-- MUST: наличие или отсутствие картинки НЕ решает, заводить ли отдельную запись — это два разных
-  вопроса. «Узнаётся ли идея в других задачах отдельно от соседних» — решает запись. «Есть ли у
-  идеи устоявшийся визуальный образ» — решает картинку. Идея может законно иметь запись БЕЗ
-  картинки (прецедент: «Precomputation» — отдельно узнаваемая идея, но у «посчитай заранее» нет
-  образа, в отличие от «бинарного поиска», у которого он есть).
-- MUST NOT: давать картинку блоку-агрегату/индексу (`[method::Catalog]`) — у агрегата нет одной
-  картинки, есть список; копия изображения «для наглядности сверху» — тот же файл, показанный
-  дважды (прецедент: галерея у агрегата дублировала то, что показывают записи ниже).
-- MUST: имя термина в таблице `cards()` (`build.sh`) совпадает с именем блока — оно подставляется
-  в подпись НА САМОЙ картинке; при переименовании блоков подписи молча становятся мёртвыми
-  ссылками (прецедент: после объединения контекстов на картинках остались бы `[method::BarModel]`
-  и `[method::LadderMethod]`, которых уже нет — поймано только сверкой таблицы с файлом).
+- MUST: `grep -oE '^## \[\w+::\w+\]' _terms.md | sort | uniq -d` is empty — no identical names.
+- MUST: every `build/*.png` is mentioned in `_terms.md` exactly once.
+- MUST NOT: introduce cross-reference fields such as `Approach:` ↔ `Visualized by:` — they are only
+  needed when there are two lists; with one record there is nothing to bridge.
+- MUST: the presence or absence of a picture does NOT decide whether to create a separate record —
+  those are two different questions. "Is this idea recognized in other problems apart from its
+  neighbours" decides the record. "Does the idea have an established visual form" decides the
+  picture. An idea may legitimately have a record with NO picture (precedent: "Precomputation" is
+  independently recognizable, but "compute it ahead of time" has no visual form, unlike what you
+  then do with the result — "binary search", which has one).
+- MUST NOT: give a picture to the aggregate/index block (`[method::Catalog]`) — an aggregate has no
+  single picture, it has a list; a copy of the image "for visibility at the top" is the same file
+  shown twice (precedent: a gallery on the aggregate duplicated what the records below already
+  showed).
+- MUST: the term name in the `cards()` table (`build.sh`) matches the block name — it is substituted
+  into the caption ON THE PICTURE ITSELF; renaming blocks silently turns those captions into dead
+  references (precedent: after merging the contexts the pictures would have read
+  `[method::BarModel]` and `[method::LadderMethod]`, which no longer exist — caught only by
+  reconciling the table against the file).
 
-## 10. На каждой визуализации — QR-код на репозиторий
+## 10. Every visualization carries a QR code to the repository
 
-Картинка живёт отдельно от текста (её пересылают, вставляют в чат, показывают с экрана) — путь
-назад к исходникам, спекам и остальным приёмам должен быть на самой картинке, не в подписи
-рядом. Поэтому каждая собранная страница и каждый снимок несут QR-код на
-`https://github.com/Hedgehogues/project-euler` плюс адрес текстом (для тех, кто не сканирует).
+A picture lives apart from its text (it gets forwarded, pasted into chats, shown on a screen) — so
+the way back to the sources, records and other methods has to be on the picture itself, not in a
+caption beside it. Every built page and every snapshot therefore carries a QR code to
+`https://github.com/Hedgehogues/project-euler` plus the address in text (for those who do not scan).
 
-- MUST: QR — часть каркаса (`skeleton.html`, блок `.repo`), не отдельного приёма; приём не может
-  его отключить.
-- MUST: QR — статичный файл `memory-bank/visualizations/qr-repo.svg`, сгенерированный один раз с
-  уровнем коррекции M и закоммиченный; `build.sh` отказывается собирать без него.
-- MUST: после генерации/смены QR — декодировать его из СОБРАННОГО png (не из svg) и сверить URL;
-  QR, который не читается со снимка, — не QR.
-- MUST NOT: закрывать QR другими элементами, уменьшать ниже ~70px в собранной странице,
-  перекрашивать в цвет с низким контрастом к фону.
+- MUST: the QR is part of the shell (`skeleton.html`, the `.repo` block), not of an individual
+  method; a method cannot switch it off.
+- MUST: the QR is a static file `memory-bank/visualizations/qr-repo.svg`, generated once with error
+  correction level M and committed; `build.sh` refuses to build without it.
+- MUST: after generating or changing the QR — decode it from the BUILT png (not from the svg) and
+  check the URL; a QR that cannot be read off the snapshot is not a QR.
+- MUST NOT: cover the QR with other elements, shrink it below ~70px on the built page, or recolor it
+  into something with low contrast against the background.
 
-## 11. Метод — атом или названная композиция атомов; на метод — не больше одной картинки
+## 11. A method is an atom or a named composition of atoms; at most one picture per method
 
-Каталог методов — не свалка формул, а алгебра: каждая запись либо неделимая идея (не
-раскладывается дальше на что-то более простое и переиспользуемое), либо явно названная
-композиция из 2+ неделимых идей, использованных вместе. Запрещённое промежуточное состояние —
-«неделимая идея + довесок, который не назван отдельно» (композиция без признания, что это
-композиция).
+The method catalog is not a pile of formulas but an algebra: each record is either an indivisible
+idea (it does not decompose further into something simpler and reusable) or an explicitly named
+composition of two or more indivisible ideas used together. The forbidden middle state is "an
+indivisible idea plus an extra that is not named separately" — a composition without admitting that
+it is one.
 
-Прямое следствие: у одной записи не может быть двух картинок. Если запись пытается указать на 2+
-визуализации сразу — это почти всегда сигнал, что под одним именем спрятаны ДВЕ разные идеи,
-которые просто часто применяются вместе, а не одна идея с двумя равноценными портретами.
-Разводить их на отдельные записи — не бюрократия, а честное признание структуры; ничего при этом
-не теряется — обе картинки остаются, каждая при своей записи.
+A direct consequence: a record cannot have two pictures. If a record tries to point at two or more
+visualizations at once, that is almost always a signal that TWO different ideas are hiding under one
+name — ideas that are simply often applied together, not one idea with two equal portraits. Splitting
+them into separate records is not bureaucracy but an honest acknowledgement of the structure; nothing
+is lost — both pictures stay, each with its own record.
 
-- MUST: не больше одного поля `Picture:` и одной ссылки на `build/*.png` в записи.
-- MUST: прежде чем сливать две идеи в одну запись — спросить, узнаётся ли каждая из них в ДРУГОЙ
-  задаче БЕЗ второй (тест независимости); если да — это 2 записи, не 1.
-- MUST NOT: сливать идею-с-картинкой и идею-без-картинки в одну запись только потому, что у
-  второй нет своего визуального образа — отсутствие картинки не довод против отдельной записи
-  (принцип 9).
-- Прецедент №1: `Precomputation` + `BinarySearch` euler002 были слиты в одну запись `Precompute-
-  AndBinarySearch` именно из-за этой путаницы — разведены после прямого вопроса пользователя.
-- Прецедент №2: `InclusionExclusion` несла ОБЕ картинки (полоска и диаграмма Венна) — при
-  честном разборе оказалось, что это две независимо стандартные идеи с разным происхождением
-  (арифметика подсчёта vs. представление логических утверждений кругами, Джон Венн, 1880, для
-  совсем другой цели, не для счёта) — разведены на `InclusionExclusion` (полоска) и `VennDiagram`
-  (диаграмма), ничего не потеряно.
-- Различать с принципом 9: там — «одна идея не должна быть РАЗМАЗАНА по двум записям» (дубль),
-  здесь — «две идеи не должны быть СЛЕПЛЕНЫ в одну запись» (шум). Обе ошибки встречались в этом
-  каталоге, обе находил пользователь.
+- MUST: no more than one `Picture:` field and one `build/*.png` link per record.
+- MUST: before fusing two ideas into one record — ask whether each is recognized in ANOTHER problem
+  WITHOUT the other (the independence test); if so, that is 2 records, not 1.
+- MUST NOT: fuse an idea-with-a-picture and an idea-without-one into a single record merely because
+  the second has no visual form of its own — the absence of a picture is not an argument against a
+  separate record (principle 9).
+- Precedent 1: euler002's `Precomputation` + `BinarySearch` were fused into one
+  `PrecomputeAndBinarySearch` record out of exactly this confusion — separated after a direct
+  question from the user.
+- Precedent 2: `InclusionExclusion` carried BOTH pictures (the bar and the Venn diagram) — an honest
+  review showed these are two independently standard ideas with different origins (counting
+  arithmetic vs. representing logical propositions with circles, John Venn, 1880, for an entirely
+  different purpose) — separated into `InclusionExclusion` (the bar) and `VennDiagram` (the
+  diagram); nothing lost.
+- Distinguish from principle 9: there, "one idea must not be SPREAD across two records"
+  (duplication); here, "two ideas must not be FUSED into one record" (noise). Both errors occurred
+  in this catalog, and the user found both.
 
-## 12. Memory-bank хранит переиспользуемое знание, не конкретные задачи — и не ссылки на них
+## 12. The memory bank holds reusable knowledge, not specific problems — and no links to them
 
-Каталоги приёмов и подходов — про то, что переносится между задачами, как учебник: там нет
-номеров конкретных домашних заданий, где формула когда-то использовалась. Конкретная задача (её
-условие, решение, критерии корректности) уже проверена один раз реальным сабмитом — это разовый
-факт, не знание, которое стоит держать в общем каталоге. Связь однонаправленная: задача сама
-ссылается на нужный ей блок по имени (`../memory-bank/_terms.md#approachname`); обратной ссылки
-«где применялось» каталог не ведёт вообще — это был бы второй, дублирующий и рассинхронизирующийся
-источник одного и того же факта, который пришлось бы править при каждом переименовании задачи.
+The method catalog is about what transfers between problems, like a textbook: it carries no numbers
+of the particular homework assignments where a formula once got used. A specific problem (its
+statement, solution, correctness criteria) has already been checked once by a real submission — that
+is a one-off fact, not knowledge worth keeping in a shared catalog. The link is one-directional: the
+problem itself points at the block it needs by name
+(`../memory-bank/_terms.md#methodname`); the catalog keeps no reverse "used in" pointer at all —
+that would be a second, duplicating and drift-prone source of the same fact, needing an edit on every
+problem rename.
 
-- MUST: в `memory-bank/` нет файлов `specs/euler{NNN}.md` и блоков `[euler::*]`.
-- MUST NOT: поле вида `Used in:` (или любое другое, называющее конкретную задачу) в блоках
-  `_terms.md` — ни как спек, ни как одна строка со ссылкой. Единственное упоминание задачи
-  допустимо в обратную сторону: в `euler{NNN}/README.md`, ссылкой НА примитив, не наоборот.
-- MUST: факты о конкретной задаче, стоящие сохранения (submission id, брутфорс-проверка) —
-  живут в `euler{NNN}/README.md` короткой строкой, не в отдельном RFC-спеке с MUST-id — задача
-  уже решена и принята, ей не нужна машинерия требований, нужен факт проверки.
-- Прецедент №1: `specs/euler001.md`/`euler002.md`/`euler003.md` дублировали то, что уже было в
-  README задач, плюс формальные MUST-критерии, которые никто не будет пересматривать для
-  завершённой рутинной задачи — найдено и убрано по прямому запросу пользователя.
-- Прецедент №2: даже после удаления спеков в каждом блоке осталась строка `Used in: euler001` —
-  тоже упоминание задачи, просто в одну строку. Пользователь поймал это следующим вопросом
-  («здесь же только базовые примитивы, ничего про задачу быть не должно, не?») — само правило
-  «никаких задач» было объявлено, но применено не до конца; строки убраны полностью.
+- MUST: `memory-bank/` contains no `specs/euler{NNN}.md` files and no `[euler::*]` blocks.
+- MUST NOT: a field such as `Used in:` (or any other naming a specific problem) in `_terms.md`
+  blocks — neither as a spec nor as a single line with a link. The only permissible mention runs the
+  other way: in `euler{NNN}/README.md`, linking TO the primitive, not back.
+- MUST: facts about a specific problem worth keeping (submission id, brute-force verification) live
+  in `euler{NNN}/README.md` as a short line, not in a separate RFC spec with MUST ids — the problem
+  is solved and accepted; it needs the fact of verification, not a machinery of requirements.
+- Precedent 1: `specs/euler001.md`/`euler002.md`/`euler003.md` duplicated what was already in the
+  problems' READMEs, plus formal MUST criteria nobody will revisit for a finished routine problem —
+  found and removed at the user's direct request.
+- Precedent 2: even after the specs were deleted, every block still carried a `Used in: euler001`
+  line — also a mention of a problem, just a single line. The user caught it with the next question
+  ("these are supposed to be just the primitives, no?") — the "no problems" rule had been declared
+  but not applied all the way; the lines were removed entirely.
 
-Trigger: любой запрос показать решение/приём картинкой — новая карточка каталога, инфографика по
-задаче, правка существующей визуализации; вызов навыка `visualize-approach`; добавление или
-правка любой записи подхода.
-Mechanization: `PASSIVE — risk logged`. Принципы 1, 4, 5, 7, 11 — суждение, скриптом не
-проверяются. Принцип 2 — `LIGHTWEIGHT-GATE — memory-bank/visualizations/build.sh` всегда
-производит png, а SKILL.md шаги 3/4e требуют его прочитать до показа (блокировки показа без
-чтения нет — риск принят); принцип 3 — списком чисел в блоке термина (не реализовано); принцип 6
-— `MECHANIZED — build.sh` (сборка только из `skeleton.html` + `examples/`); принцип 10 —
-`MECHANIZED — build.sh` (QR вшит в каркас, сборка падает без `qr-repo.svg`; декодирование со
-снимка — ручной шаг при смене QR); принцип 12 — частично `LIGHTWEIGHT-GATE` (`grep -r
-'specs/euler\|\[euler::' memory-bank/` должен быть пуст — не встроено в скрипт, ручная проверка).
-Риск непримения в момент выпуска картинки/добавления подхода принят явно; компенсация —
-пользовательские вопросы, которые дважды подряд ловили именно эти нарушения (1:1-картинка и
-задачи-в-memory-bank), чего быть не должно — оба раза находка была моя задним числом, не
-превентивная.
+## 13. The whole repository is in English
+
+Everything that ships in the public repository is written in English: records, specs, build scripts,
+the page shell, frame labels, and therefore the text rendered into the pictures themselves.
+
+- MUST: a grep for Cyrillic across the tracked files of the public repository is empty.
+- MUST: after changing anything on the picture side, rebuild — a translated source with stale PNGs
+  means the pictures still speak the old language.
+- MUST NOT: key any build-script substitution on a language-specific string (`lang="ru"`) — such a
+  match breaks silently on translation (precedent: the light-theme pinning did exactly that, and the
+  rebuilt PNGs came out dark; caught by looking at the picture, per principle 2).
+
+Trigger: any request to show a solution or a method as a picture — a new catalog record, a
+per-problem infographic, an edit to an existing visualization; an invocation of the
+`visualize-approach` skill; adding or editing any method record.
+Mechanization: `PASSIVE — risk logged`. Principles 1, 4, 5, 7, 11 are judgement calls and are not
+script-checkable. Principle 2 — `LIGHTWEIGHT-GATE — memory-bank/visualizations/build.sh` always
+produces a png and SKILL.md steps 3/4e require reading it before showing (there is no mechanical
+block on showing without looking — the risk is accepted); principle 3 — a list of numbers in the
+record (not implemented); principle 6 — `MECHANIZED — build.sh` (assembly only from
+`skeleton.html` + `examples/`); principle 10 — `MECHANIZED — build.sh` (the QR is baked into the
+shell and the build fails without `qr-repo.svg`; decoding from the snapshot is a manual step when
+the QR changes); principle 12 — partly `LIGHTWEIGHT-GATE` (`grep -r 'specs/euler\|\[euler::\|^Used
+in:' memory-bank/` must be empty — not wired into a script, checked by hand); principle 13 —
+partly `LIGHTWEIGHT-GATE` (a Cyrillic grep over tracked files — also by hand). The risk of a
+principle not being applied at the moment a picture ships or a record is added is accepted
+explicitly; the compensation has been the user's own questions, which caught these violations —
+which is exactly what should not be the mechanism.

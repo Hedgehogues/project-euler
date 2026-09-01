@@ -23,5 +23,5 @@ g++ -O2 -std=c++20 -o solution eulerNNN/solution.cpp && ./solution < input.txt
 
 Each problem's own directory README has the write-up — the approach, why it works, and
 (where one exists) a picture of the idea. Shared write-ups that don't belong to any single
-problem — the math ideas and the picture-drawing techniques themselves — live in
-[`memory-bank/`](memory-bank/_terms.md), in Russian.
+problem — the methods themselves, each with its own picture — live in
+[`memory-bank/`](memory-bank/_terms.md).

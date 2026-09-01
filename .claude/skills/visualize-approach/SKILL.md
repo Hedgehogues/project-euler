@@ -1,112 +1,127 @@
 ---
 name: visualize-approach
-description: Показывает наглядную визуализацию математического/алгоритмического подхода (включение-исключение, трюк Гаусса, диаграмма Венна и т.п.) по каталогу memory-bank/visualizations/. Описания методов — блоки [method::*] в memory-bank/_terms.md (идея и картинка в одной записи); код кадров — examples/<slug>.*; картинка собирается скриптом build.sh из общего каркаса skeleton.html (локально, без облака). Вызов навыка на один и тот же приём даёт байт-в-байт один и тот же результат.
+description: Shows a visualization of a mathematical/algorithmic method (inclusion-exclusion, Gauss's trick, Venn diagram and so on) from the catalog in memory-bank/. Method descriptions are [method::*] blocks in memory-bank/_terms.md (idea and picture in one record); frame code lives in visualizations/examples/<slug>.*; the picture is built by build.sh from the shared shell skeleton.html (locally, no cloud). Invoking the skill on the same method yields a byte-identical result every time.
 ---
 
-# Визуализация подхода
+# Visualizing a method
 
-Принципы, которым подчиняется всё ниже — `.claude/rules/visualization-principles.md`; полные
-требования с критериями — `memory-bank/specs/visualizations.md`. Этот файл — механика.
+The principles behind everything below: `.claude/rules/visualization-principles.md`; the full
+requirements with acceptance criteria: `memory-bank/specs/visualizations.md` (picture) and
+`memory-bank/specs/approaches.md` (idea). This file is the mechanics.
 
-Цель навыка — не изобретать новую картинку каждый раз, а КОНСИСТЕНТНО собирать уже
-каталогизированный приём из трёх версионированных частей: каркас (`skeleton.html`), код кадров
-(`examples/<slug>.{css,html,js}`), описание (блок `[method::<Term>]` в `_terms.md`). Сборка —
-скрипт, не рука. Если навык невольно даёт два разных результата на один и тот же запрос — это
-баг навыка, не допустимая вариативность.
+The point of the skill is not to invent a new picture each time but to CONSISTENTLY assemble an
+already-catalogued method from three version-controlled parts: the shell (`skeleton.html`), the
+frame code (`examples/<slug>.{css,html,js}`) and the description (the `[method::<Term>]` block in
+`_terms.md`). Assembly is a script, not a hand. If the skill inadvertently produces two different
+results for the same request, that is a bug in the skill, not acceptable variance.
 
-## Структура каталога
+## Catalog layout
 
 ```
 memory-bank/
-  _terms.md                          — блоки [method::*]: ОДНА запись на метод, идея и картинка
-                                        полями одной записи (Essence/Recognized by/General case/
-                                        Source + Picture/Sequence/Example/Limits), не двумя
-                                        списками (принцип 9); ни одного упоминания конкретной
-                                        задачи (принцип 12) — задача ссылается СЮДА из README
-  specs/visualizations.md            — спек каталога (Requirements MUST/SHALL/SHOULD)
-  specs/approaches.md                — спек коллекции подходов
+  _terms.md                          — [method::*] blocks: ONE record per method, idea and picture
+                                        as fields of the same record (Essence/Recognized by/
+                                        General case/Source + Picture/Sequence/Example/Limits),
+                                        not two lists (principle 9); not a single mention of a
+                                        specific problem (principle 12) — a problem links HERE
+                                        from its own README, never the other way round
+  specs/visualizations.md            — requirements on the picture (MUST/SHALL/SHOULD)
+  specs/approaches.md                — requirements on the idea
   visualizations/
-    skeleton.html                    — общий каркас, плейсхолдеры {{TITLE}} {{STDNAME}} {{SLUG}}
+    skeleton.html                    — shared shell, placeholders {{TITLE}} {{STDNAME}} {{SLUG}}
                                         {{TERM}} {{CSS}} {{HTML}} {{JS}} {{QR}}
-    qr-repo.svg                      — QR на репозиторий, вшивается в каждую страницу (принцип 10);
-                                        без него build.sh не собирает
-    examples/<slug>.{css,html,js}    — код кадров приёма (js может отсутствовать)
-    build.sh                         — сборка: skeleton + examples -> build/<slug>.html,
-                                        затем headless Chrome -> build/<slug>.png (светлая тема)
-    build/<slug>.{html,png}          — результат; png вставлен в _terms.md
+    qr-repo.svg                      — repository QR, baked into every page (principle 10);
+                                        build.sh refuses to build without it
+    examples/<slug>.{css,html,js}    — the method's frame code (js may be absent)
+    build.sh                         — build: skeleton + examples -> build/<slug>.html,
+                                        then headless Chrome -> build/<slug>.png (light theme)
+    build/<slug>.{html,png}          — output; the png is embedded in _terms.md
 ```
 
-Один метод — один блок в `_terms.md` + файлы `examples/` + строка в таблице `cards()` внутри
-`build.sh` (slug | заголовок | стандартное название | имя термина). Имя термина в `cards()` ДОЛЖНО
-совпадать с именем блока `[method::*]` — оно подставляется в подпись на самой картинке; slug
-картинки при этом может отличаться (`ladder-method` ↔ `TrialDivision`). Никаких картинок руками:
-`build/*.png` — только вывод `build.sh`.
+One method — one block in `_terms.md` + files in `examples/` + a row in the `cards()` table inside
+`build.sh` (slug | title | standard name | term name). The term name in `cards()` MUST match the
+`[method::*]` block name — it is substituted into the caption on the picture itself; the picture
+slug may differ (`ladder-method` ↔ `TrialDivision`). No hand-made pictures: `build/*.png` is only
+ever the output of `build.sh`.
 
-## Кадры — фиксированная структура
+## Frames — a fixed structure
 
-Первый кадр — Problem, последний — Solution, между ними один и более Transform (то же деление,
-что в поле `Sequence:` блока термина):
+The first frame is Problem, the last is Solution, with one or more Transform frames between (the
+same division as in the record's `Sequence:` field):
 
 ```html
-<div class="frame-tag">{символ шага, не предложение}</div>
-<div class="frame"><div class="frame-inner">{картинка кадра}</div></div>
+<div class="frame-tag">{a symbol for the step, not a sentence}</div>
+<div class="frame"><div class="frame-inner">{the frame's picture}</div></div>
 <div class="flow-arrow">↓</div>
-{... следующий кадр ...}
+{... next frame ...}
 <div class="frame-tag solved">=</div>
-<div class="frame"><div class="frame-inner">{картинка решения}</div></div>
+<div class="frame"><div class="frame-inner">{the solution's picture}</div></div>
 ```
 
-`frame-tag` — короткий символ (`?`, `×2`, `−`, `↔`, `∩`, `=`), не подпись: картинка обязана быть
-понятна БЕЗ чтения текста.
+`frame-tag` is a short symbol (`?`, `×2`, `−`, `↔`, `∩`, `=`), not a caption: the picture must be
+understandable WITHOUT reading any text.
 
-## Вход
+## Input
 
-Свободное описание подхода/визуализации: «трюк Гаусса», «покажи включение-исключение»,
-«диаграмма Венна», «как объяснить кратные 7 и 11» (навык сопоставляет с ПОДХОДОМ, не с задачей).
+A free-form description of a method or visualization: "Gauss's trick", "show inclusion-exclusion",
+"Venn diagram", "how do I explain multiples of 7 and 11" (the skill matches it against a METHOD,
+not against a problem).
 
-## Шаги (строго по порядку)
+## Steps (strictly in order)
 
-1. **Прочитать `memory-bank/_terms.md` целиком** — обязательный первый шаг каждого вызова.
+1. **Read `memory-bank/_terms.md` in full** — mandatory first step of every invocation.
 
-2. **Сопоставить запрос с блоком `[method::*]`** по сути:
-   - «двойной счёт», «пересекающиеся условия», «или» → `BarModel`, либо `VennDiagram` (если
-     просят «диаграмму»/«круги»/«Венна» — Venn; не уточнил — предложить оба, шаг 5).
-   - «что входит в ответ», «какие числа», «на прямой», «кратные» → `SkipCounting`.
-   - «сумма прогрессии», «Гаусс», «почему формула», «без перебора» → `GaussPairing`.
-   - Совпадения нет → шаг 4.
+2. **Match the request against a `[method::*]` block** by substance:
+   - "double counting", "overlapping conditions", "or" → `InclusionExclusion`, or `VennDiagram`
+     (if circles/Venn are asked for explicitly; if unspecified — offer both, step 5).
+   - "what goes into the answer", "which numbers", "on a number line", "multiples" → `SkipCounting`.
+   - "sum of a progression", "Gauss", "why the formula", "without iterating" →
+     `ArithmeticProgressionSum`.
+   - "find in a sorted list", "log n lookup" → `BinarySearch`.
+   - "prime factors", "largest prime factor", "factorize" → `TrialDivision`.
+   - No match → step 4.
 
-3. **Совпадение найдено:** взять slug из поля `Example:` блока, выполнить
-   `memory-bank/visualizations/build.sh <slug>`, **посмотреть `build/<slug>.png` (Read)** —
-   обязательный шаг наблюдения перед показом, — затем `open build/<slug>.html` и показать
-   пользователю картинку + поля `Description` / `Invariants` блока дословно, коротко. Ничего не
-   перерисовывать: код `examples/` уже провалидирован.
+3. **Match found:** take the slug from the record's `Example:` field, run
+   `memory-bank/visualizations/build.sh <slug>`, **look at `build/<slug>.png` (Read)** — the
+   mandatory observation step before showing anything — then `open build/<slug>.html` and show the
+   user the picture plus the record's `Essence` / `Limits` fields verbatim and briefly. Redraw
+   nothing: the `examples/` code has already been validated.
 
-4. **Совпадения нет — новый приём, полный цикл, не разовая картинка:**
-   a. `WebSearch` на устоявшееся название и источник ДО написания. Не находится — так и писать в
-      блоке: «отдельного названия нет», ближайший реальный родственник с пометкой «не то же».
-   b. Сквозной пример каталога («кратно 2 или 3, до 20») — переиспользовать; несовместим — свой
-      маленький, с объяснением в блоке, почему.
-   c. Спроектировать `Sequence:` от Problem до Solution; выписать ВСЕ числа кадров и убедиться,
-      что нет случайных совпадений между шагами.
-   d. Написать `examples/<slug>.{css,html,js}`; геометрию наложений (дуги, подписи над
-      элементами) брать через `getBoundingClientRect`, не из констант CSS.
-   e. Добавить строку в `cards()` в `build.sh`; выполнить `build.sh <slug>`; **посмотреть png**;
-      съехало — чинить `examples/`, пересобрать, посмотреть снова.
-   f. Написать блок `[method::<Term>]` в `_terms.md` — ОДИН блок на метод, все поля по образцу
-      существующих (идея: Essence/Recognized by/General case/Source; картинка: Picture/Sequence/
-      Example; общее: Limits с пометкой, где предел идеи, а где рисунка). Отдельного блока «под
-      картинку» не заводить — это дубль (принцип 9).
-   g. Только ПОСЛЕ этого — показать результат.
+4. **No match — a new method, the full cycle, not a one-off picture:**
+   a. `WebSearch` for the established name and a source BEFORE writing anything. If none is found,
+      say so in the record: "no established name of its own", plus the closest real relative marked
+      as "not the same thing". At least one source must be encyclopedic (Wikipedia, Britannica,
+      cp-algorithms, a professional body) — blogs are supplements only.
+   b. Reuse the catalog's shared example ("multiples of 2 or 3, below 20"); if incompatible, make a
+      small one of your own and explain in the record why.
+   c. Design the `Sequence:` from Problem to Solution; write out EVERY number of every frame and
+      confirm there are no accidental coincidences between steps.
+   d. Write `examples/<slug>.{css,html,js}`; take overlay geometry (arcs, labels above elements)
+      via `getBoundingClientRect`, never from CSS constants.
+   e. Add a row to `cards()` in `build.sh`; run `build.sh <slug>`; **look at the png**; if anything
+      drifted — fix `examples/`, rebuild, look again.
+   f. Write the `[method::<Term>]` block in `_terms.md` — ONE block per method, all fields modelled
+      on the existing ones (idea: Essence/Recognized by/General case/Source; picture:
+      Picture/Sequence/Example; shared: Limits, marking which limit belongs to the idea and which
+      only to the drawing). Do not create a separate "for the picture" block — that is duplication
+      (principle 9).
+   g. Only THEN show the result.
 
-5. **Неоднозначность** (2+ блока подходят одинаково) — `AskUserQuestion`, не угадывать.
+5. **Ambiguity** (two or more blocks fit equally well) — `AskUserQuestion`, do not guess.
 
-6. **Противоречие в сохранённом примере** (числа совпали, подпись обрезана, дуга съехала) —
-   чинится правкой `examples/` + `build.sh` + просмотр png, не заменяется на объяснение без
-   картинки.
+6. **A contradiction in a stored example** (numbers coincide, a label is clipped, an arc drifted) —
+   is fixed by editing `examples/` + `build.sh` + looking at the png, never by replacing it with an
+   explanation without a picture.
 
-## Жёсткое правило детерминизма
+## Language
 
-Один и тот же приём — один и тот же код в `examples/`, один и тот же каркас, один и тот же
-`build.sh` → одна и та же страница и картинка. Единственное легитимное отличие между двумя
-вызовами — правка `examples/`/`_terms.md` по прямой просьбе пользователя, за которой всегда
-следует пересборка. Без такой правки — байт-в-байт то же самое.
+Everything in the repository is in English (principle 13): records, specs, scripts, the shell,
+frame labels — and therefore the text rendered into the pictures. After any change on the picture
+side, rebuild, otherwise translated sources ship with stale PNGs.
+
+## The hard determinism rule
+
+The same method — the same code in `examples/`, the same shell, the same `build.sh` → the same page
+and the same picture. The only legitimate difference between two invocations is an edit to
+`examples/`/`_terms.md` at the user's explicit request, which is always followed by a rebuild.
+Without such an edit — byte-for-byte the same thing.

@@ -9,15 +9,15 @@ cd "$(dirname "$0")"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 WIDTH=720
 
-# slug | title | standard name | term (== имя блока [method::*] в ../_terms.md, не имя картинки)
+# slug | title | standard name | term (== the [method::*] block name in ../_terms.md, not the picture slug)
 cards() {
   cat <<'EOF'
-skip-counting|Счёт прыжками (skip counting)|Skip counting|SkipCounting
-bar-model|Модель-полоска (bar model)|Bar model / tape diagram — Singapore Math|InclusionExclusion
-gauss-pairing|Приём Гаусса (радуга пар)|Gauss's trick|ArithmeticProgressionSum
-venn|Диаграмма Венна|Venn diagram — John Venn, 1880|VennDiagram
-binary-search|Бинарный поиск|Binary search|BinarySearch
-ladder-method|Метод лесенки (деление на простые)|Ladder method (division ladder)|TrialDivision
+skip-counting|Skip counting|Skip counting|SkipCounting
+bar-model|Bar model|Bar model / tape diagram — Singapore Math|InclusionExclusion
+gauss-pairing|Gauss's pairing trick|Gauss's trick|ArithmeticProgressionSum
+venn|Venn diagram|Venn diagram — John Venn, 1880|VennDiagram
+binary-search|Binary search|Binary search|BinarySearch
+ladder-method|Ladder method|Ladder method (division ladder)|TrialDivision
 EOF
 }
 
@@ -45,7 +45,9 @@ assemble() {  # $1 slug $2 title $3 stdname $4 term
 # virtual time) so the PNG is exactly the card, not a tall empty viewport.
 screenshot() {  # $1 slug
   local slug=$1 shot="build/.shot-$slug.html" probe="build/.probe-$slug.html"
-  sed 's#<html lang="ru">#<html lang="ru" data-theme="light">#' "build/$slug.html" > "$shot"
+  # Match <html ...> whatever its attributes are -- keying on lang="ru" once silently broke the
+  # light pinning the moment the skeleton switched to lang="en", and the PNGs came out dark.
+  sed -E 's#<html([^>]*)>#<html\1 data-theme="light">#' "build/$slug.html" > "$shot"
   sed 's#</body>#<script>window.addEventListener("load",()=>{document.body.setAttribute("data-h",Math.ceil(document.documentElement.scrollHeight))});</script></body>#' \
       "$shot" > "$probe"
   local h

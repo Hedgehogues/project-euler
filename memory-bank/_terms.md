@@ -1,129 +1,131 @@
-# Ubiquitous Language Index — projecteuler (объяснение решений)
+# Ubiquitous Language Index — projecteuler (explaining solutions)
 
-> Канонический словарь методов объяснения решений. Формат: `## [context::TermName]` · ссылки —
-> обычные markdown-ссылки на этот же файл, `[context::Name](#анкор)` (не `[[wikilink]]` — GitHub
-> его не рендерит кликабельным в обычном `.md`, только в своей Wiki). Контекст один: `method` —
-> метод объяснения (идея + её картинка в ОДНОМ блоке).
+> Canonical dictionary of explanation methods. Format: `## [context::TermName]` · links are plain
+> markdown links into this same file, `[context::Name](#anchor)` (not `[[wikilink]]` — GitHub does
+> not render those as links in ordinary `.md`, only inside its own Wiki). One context: `method` —
+> an explanation method (the idea and its picture in ONE block).
 >
-> **Один метод — один блок.** Идея («что это и когда узнаётся») и её картинка («как это
-> показать») — не два параллельных списка, а поля одной записи: `Essence`/`Recognized by`/
-> `General case` — про идею, `Picture`/`Sequence`/`Example` — про её изображение, `Limits` — про
-> границы обоих, с пометкой, где предел идеи, а где только рисунка. Картинок у метода не больше
-> одной; метод без картинки легитимен, если у идеи нет устоявшегося визуального образа.
+> **One method, one block.** The idea ("what it is, when you recognize it") and its picture ("how
+> to show it") are not two parallel catalogs but FIELDS OF ONE RECORD: `Essence`/`Recognized by`/
+> `General case`/`Source` describe the idea, `Picture`/`Sequence`/`Example` describe the drawing,
+> and `Limits` covers both — each bullet marking whether the limit belongs to the idea or only to
+> the drawing. A method has at most one picture; a method with no picture is legitimate when the
+> idea has no established visual form.
 >
-> **Здесь нет ни одного упоминания конкретной задачи** — ни условия, ни решения, ни ссылки
-> «использовано в». Это базовые примитивы сами по себе. Связь идёт в ОДНУ сторону: задача
-> (`euler{NNN}/README.md`) ссылается на нужный ей блок по имени (`[method::Name]` →
-> `_terms.md#methodname`); обратной ссылки отсюда на задачу нет. Задача, повторно использующая
-> уже описанный метод, просто ссылается на существующий блок — этот файл при этом не меняется.
+> **Not a single mention of a specific problem lives here** — no statement, no solution, not even
+> a "used in" backlink. These are the primitives themselves. The link runs ONE way: a problem
+> (`euler{NNN}/README.md`) points at the block it needs by name (`[method::Name]` →
+> `_terms.md#methodname`); there is no reverse pointer. A problem reusing an already-described
+> method simply links to the existing block — this file does not change at all.
 >
-> Картинка каждого метода — `visualizations/build/<slug>.png`, собранная скриптом
-> `visualizations/build.sh` из `visualizations/skeleton.html` + `visualizations/examples/<slug>.*`;
-> после любой правки `examples/` — перезапустить сборку, картинка руками не правится.
+> Each method's picture is `visualizations/build/<slug>.png`, produced by
+> `visualizations/build.sh` from `visualizations/skeleton.html` + `visualizations/examples/<slug>.*`;
+> after any edit to `examples/`, rerun the build — pictures are never touched by hand.
 
 ## [method::Catalog]
 Class: aggregate
-Description: Каталог методов объяснения — блоки `[method::*]` этого файла плюс их исходники в `memory-bank/visualizations/` (кадры в `examples/`, каркас `skeleton.html`, сборка `build.sh`, результат в `build/`).
+Description: The catalog of explanation methods — the `[method::*]` blocks of this file plus their sources under `memory-bank/visualizations/` (frames in `examples/`, shell in `skeleton.html`, build in `build.sh`, output in `build/`).
 Invariants:
-  - MUST: один метод — ОДИН блок `[method::*]`; идея и её картинка живут в одном блоке, не в двух параллельных списках (прецедент: раньше было два контекста, `[viz::*]` и `[approach::*]`, с одинаковыми именами, одними и теми же картинками и источниками — чистое дублирование)
-  - MUST: у метода не больше одной картинки; идея с двумя независимо стандартными визуальными формами — это два разных метода, а не один с двумя портретами
-  - MUST: метод без картинки легитимен — если у идеи нет устоявшегося визуального образа, `Picture: —` с причиной; отсутствие картинки НЕ довод против отдельной записи
-  - MUST: каждый метод — атомарная идея ИЛИ явно названная композиция атомарных; «атом + неназванный довесок» запрещён
-  - MUST: `build/*.png` — только результат `build.sh` (headless-браузер, светлая тема, ширина 720), никогда не рисуется и не правится руками; после правки `examples/` пересобирается
-  - MUST: повторная сборка метода из каркаса + `examples/` даёт байт-в-байт ту же страницу
-  - MUST: сквозной пример один на весь каталог — «числа до 20, кратные 2 или 3», не числа конкретной задачи
-  - MUST NOT: хранить что-либо о конкретной задаче, даже обратную ссылку «использовано в»
-  - MUST NOT: оставлять файл-редирект без единой входящей ссылки (перед выбором редирект/удаление — grep)
+  - MUST: one method — ONE `[method::*]` block; the idea and its picture live in one block, not in two parallel lists (precedent: there used to be two contexts, `[viz::*]` and `[approach::*]`, with identical names, the same pictures and the same sources — pure duplication)
+  - MUST: at most one picture per method; an idea with two independently standard visual forms is two methods, not one with two portraits
+  - MUST: a method with no picture is legitimate — if the idea has no established visual form, `Picture: —` with a reason; the absence of a picture is NOT an argument against a separate record
+  - MUST: every method is an atomic idea OR an explicitly named composition of atomic ones; "atom + unnamed extra" is forbidden
+  - MUST: every method carries at least one encyclopedic source (Wikipedia, Britannica, cp-algorithms, a professional body such as NCTM); blogs and teaching sites are supplements only
+  - MUST: `build/*.png` is only ever the output of `build.sh` (headless browser, light theme, width 720) — never drawn or retouched by hand; rebuilt after any `examples/` edit
+  - MUST: rebuilding a method from the shell + `examples/` yields a byte-identical page
+  - MUST: one shared example across the whole catalog — "numbers below 20, multiples of 2 or 3" — never the numbers of a specific problem
+  - MUST NOT: hold anything about a specific problem, not even a "used in" backlink
+  - MUST NOT: leave a redirect stub with no inbound link (grep before choosing redirect vs delete)
 Entities:
-  - Method — один метод: блок здесь + код кадров + собранные html/png
-  - Frame — один кадр картинки: Problem | Transform | Solution
-Commands: AddMethod, ReviseMethod (правка блока/кода + `build.sh`); повторное использование метода НЕ меняет этот файл — задача ссылается на существующий блок из своего README
+  - Method — one method: this block + frame code + built html/png
+  - Frame — one frame of the picture: Problem | Transform | Solution
+Commands: AddMethod, ReviseMethod (edit block/code + `build.sh`); reusing a method does NOT change this file — the problem links to the existing block from its own README
 Depends on: [method::PageSkeleton](#methodpageskeleton)
-Spec: [approaches](specs/approaches.md) (качество идеи) · [visualizations](specs/visualizations.md) (качество картинки)
+Spec: [approaches](specs/approaches.md) (idea quality) · [visualizations](specs/visualizations.md) (picture quality)
 
 ## [method::PageSkeleton]
 Class: value-object
-Description: Общий каркас страницы (шрифты, цветовые токены, layout карточки и потока кадров) — `visualizations/skeleton.html`, плейсхолдеры `{{TITLE}} {{STDNAME}} {{SLUG}} {{TERM}} {{CSS}} {{HTML}} {{JS}} {{QR}}`; один на все методы.
+Description: The shared page shell (fonts, color tokens, card and frame-flow layout) — `visualizations/skeleton.html`, placeholders `{{TITLE}} {{STDNAME}} {{SLUG}} {{TERM}} {{CSS}} {{HTML}} {{JS}} {{QR}}`; one for all methods.
 Invariants:
-  - MUST: не содержит ни одного метод-специфичного класса — те только в `examples/<slug>.css`
-  - MUST: страница собирается подстановкой файлов `examples/` в плейсхолдеры без пересказа и без новых чисел/цветов (`build.sh`)
-  - MUST: тёмная палитра включается только медиа-запросом и отключается атрибутом `data-theme="light"` — так снимок фиксируется светлым независимо от машины
-  - MUST: несёт блок `.repo` с QR-кодом на репозиторий (`visualizations/qr-repo.svg`, плейсхолдер `{{QR}}`) и адресом текстом; метод не может его убрать; `build.sh` не собирает без файла QR
+  - MUST: contain no method-specific class — those live only in `examples/<slug>.css`
+  - MUST: the page is assembled by substituting `examples/` files into the placeholders, with no paraphrasing and no new numbers or colors (`build.sh`)
+  - MUST: the dark palette is enabled only by a media query and disabled by the `data-theme="light"` attribute — that is what pins the snapshot to light regardless of the machine
+  - MUST: carry the `.repo` block with the repository QR code (`visualizations/qr-repo.svg`, placeholder `{{QR}}`) and the address in text; a method cannot remove it, and `build.sh` refuses to build without the QR file
 Depends on:
 Spec: [visualizations](specs/visualizations.md)
 
 ## [method::SkipCounting]
 Class: entity
-Standard name: Skip counting — счёт прыжками по числовой прямой
-Essence: Идти по числам равными прыжками — куда приземлился, то и кратно длине прыжка.
-Recognized by: нужно понять или показать, какие числа обладают свойством кратности, ДО каких-либо вычислений — прикинуть на глаз, проверить гипотезу, объяснить саму идею «кратно» с нуля
-General case: прыжки длиной k отмечают ровно кратные k; несколько разных длин прыжков дают несколько групп, а числа, кратные сразу нескольким, — те, где приземления совпали
+Standard name: Skip counting
+Essence: Move along the numbers in equal hops — wherever you land is a multiple of the hop length.
+Recognized by: you need to see or show which numbers have the multiple-of property BEFORE any computation — to eyeball it, to check a hunch, to explain what "multiple" even means from scratch
+General case: hops of length k mark exactly the multiples of k; several hop lengths give several groups, and the numbers that are multiples of more than one are those where the landings coincide
 Picture: ![Skip counting](visualizations/build/skip-counting.png)
 Sequence:
-  1. Problem — числа на прямой без пометок, неизвестно, какие обладают нужным свойством
-  2. Transform ×2 — прыжки шагом 2 отмечают кратные 2
-  3. Transform ×3 — прыжки шагом 3 отмечают кратные 3
-  4. Solution — объединённая прямая, каждое число окрашено по принадлежности (2 / 3 / оба)
+  1. Problem — numbers on the line with no marks; which ones have the property is unknown
+  2. Transform ×2 — hops of 2 mark the multiples of 2
+  3. Transform ×3 — hops of 3 mark the multiples of 3
+  4. Solution — the combined line, each number colored by what it belongs to (2 / 3 / both)
 Limits:
-  - MUST NOT: применяться как буквальный ручной способ счёта для больших чисел (тысячи и больше) — предел ПРАКТИКИ, не идеи: сама идея верна для любых чисел, но там ту же кратность считают формулой, а не рисуют прыжки
-  - MUST NOT: применяться для трёх и более условий одновременно — предел КАРТИНКИ: число цветов на прямой превышает различимое одним взглядом
-Source: [Wikipedia — Skip counting](https://en.wikipedia.org/wiki/Skip_counting) · [Wikipedia — Number line](https://en.wikipedia.org/wiki/Number_line) · методика: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/)
+  - MUST NOT: be used as a literal by-hand counting method for large numbers (thousands and up) — a limit of PRACTICE, not of the idea: the idea holds for any numbers, but there you compute the same multiples with a formula instead of drawing hops
+  - MUST NOT: be used for three or more conditions at once — a limit of the PICTURE: the number of colors on the line exceeds what one glance can separate
+Source: [Wikipedia — Skip counting](https://en.wikipedia.org/wiki/Skip_counting) · [Wikipedia — Number line](https://en.wikipedia.org/wiki/Number_line) · teaching practice: [SplashLearn](https://www.splashlearn.com/blog/how-to-teach-skip-counting/) · [WeAreTeachers](https://www.weareteachers.com/skip-counting/)
 Example: `visualizations/examples/skip-counting.{css,html,js}` → `visualizations/build/skip-counting.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [visualizations](specs/visualizations.md)
 
 ## [method::InclusionExclusion]
 Class: entity
-Standard name: Inclusion–exclusion principle · картинка — bar model / tape diagram (Singapore Math)
-Essence: Посчитать по отдельности, потом вычесть то, что посчитано дважды.
-Recognized by: в условии есть «или» между двумя и более свойствами числа/объекта, и важно точное количество или сумма («кратно A ИЛИ кратно B»)
-General case: для k условий — знакопеременная сумма по всем пересечениям (попарным, тройным, …); «А+Б−АБ» — только случай k=2
+Standard name: Inclusion–exclusion principle · picture — bar model / tape diagram (Singapore Math)
+Essence: Count each part separately, then subtract whatever got counted twice.
+Recognized by: the statement has an "or" between two or more properties of a number/object, and the exact count or sum matters ("a multiple of A OR a multiple of B")
+General case: for k conditions — an alternating sum over all intersections (pairwise, triple, …); "A+B−AB" is only the k=2 case
 Picture: ![Bar model](visualizations/build/bar-model.png)
 Sequence:
-  1. Problem — суммы по двум условиям складываются напрямую; итог зачёркнут (двойной счёт общей части)
-  2. Transform − — те же два числа показаны перекрывающимися; дважды учтённая часть выделена
-  3. Solution — полоска разбита на три честных куска (только 2, оба, только 3); их сумма — верный ответ
+  1. Problem — the two per-condition sums are added directly; the total is struck through (the shared part is double-counted)
+  2. Transform − — the same two numbers shown overlapping; the twice-counted part is highlighted
+  3. Solution — the bar split into three honest pieces (only 2, both, only 3); their sum is the right answer
 Limits:
-  - MUST NOT: применяться для трёх и более условий — предел КАРТИНКИ: полоска показывает только ряд непересекающихся кусков подряд, при трёх пересекающихся условиях пересечения в один ряд честно не выстраиваются. Сама идея работает для любого k (ценой роста числа слагаемых как 2^k)
-Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle) · картинка: [Wikipedia — Tape diagram](https://en.wikipedia.org/wiki/Tape_diagram) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
-Example: `visualizations/examples/bar-model.{css,html}` (js не требуется — значения статичны) → `visualizations/build/bar-model.html`
+  - MUST NOT: be used for three or more conditions — a limit of the PICTURE: a bar can only show a row of non-overlapping pieces, and with three overlapping conditions the intersections do not line up honestly in one row. The idea itself works for any k (at the cost of the term count growing as 2^k)
+Source: [Wikipedia — Inclusion–exclusion principle](https://en.wikipedia.org/wiki/Inclusion%E2%80%93exclusion_principle) · picture: [Wikipedia — Tape diagram](https://en.wikipedia.org/wiki/Tape_diagram) · [Maths — No Problem!](https://mathsnoproblem.com/en/approach/bar-modelling)
+Example: `visualizations/examples/bar-model.{css,html}` (no js needed — the values are static) → `visualizations/build/bar-model.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::VennDiagram]
 Class: entity
-Standard name: Venn diagram — John Venn, 1880 (термин ввёл C. I. Lewis, 1918)
-Essence: Показать связь двух (или трёх) условий кругами — сама структура пересечения видна раньше любых чисел.
-Recognized by: важно понять, ЕСТЬ ли общая часть у условий и как области соотносятся, а точное количество в каждой — уже вторично
-General case: каждая непересекающаяся область соответствует своей комбинации условий; диаграмма остаётся осмысленной и без единого числа — это про структуру, не про счёт
+Standard name: Venn diagram — John Venn, 1880 (the term was coined by C. I. Lewis, 1918)
+Essence: Show how two (or three) conditions relate using circles — the shape of the overlap is visible before any numbers are.
+Recognized by: what matters is whether the conditions overlap AT ALL and how the regions relate; the exact count in each is secondary
+General case: each non-overlapping region corresponds to its own combination of conditions; the diagram still makes sense with no numbers written in it at all — it is about structure, not counting
 Picture: ![Venn diagram](visualizations/build/venn.png)
 Sequence:
-  1. Problem — два круга раздельно; неясно, как условия связаны
-  2. Transform ∩ — круги сближаются, появляется общая область без числа
-  3. Solution — три области подписаны числами
+  1. Problem — two separate circles; how the conditions relate is unclear
+  2. Transform ∩ — the circles move together, a shared region appears with no number in it
+  3. Solution — all three regions labeled with numbers
 Limits:
-  - MUST NOT: применяться для четырёх и более условий одними кругами — здесь предел идеи и предел картинки совпадают (идея по сути визуальна): доказано, что четыре круга не отображают все возможные пересечения; для двух-трёх работает без ограничений
+  - MUST NOT: be used for four or more conditions with plain circles — here the limit of the idea and of the picture coincide (the idea is inherently visual): four circles are provably unable to show every possible intersection; for two or three it works without reservation
 Source: [Wikipedia — Venn diagram](https://en.wikipedia.org/wiki/Venn_diagram) · [Britannica — John Venn](https://www.britannica.com/biography/John-Venn) · [ReadWriteThink](https://www.readwritethink.org/classroom-resources/lesson-plans/introducing-venn-diagram-kindergarten) · [Science Sparks](https://www.science-sparks.com/make-venn-diagram-hula-hoop/)
 Example: `visualizations/examples/venn.{css,html,js}` → `visualizations/build/venn.html`
-Note: родственна [method::InclusionExclusion](#methodinclusionexclusion) и часто применяется вместе с ней, но это отдельный метод по происхождению: диаграмма изобретена в 1880 для представления логических утверждений, не для счёта.
+Note: closely related to [method::InclusionExclusion](#methodinclusionexclusion) and often used together with it, but a separate method by origin: the diagram was invented in 1880 to represent logical propositions, not to count.
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::ArithmeticProgressionSum]
 Class: entity
-Standard name: Sum of an arithmetic progression · картинка — Gauss's trick, парное сложение («радуга»)
-Essence: Сумму чисел, идущих с равным шагом, можно получить одним умножением, не складывая по одному.
-Recognized by: нужна сумма (не количество) чисел, идущих с постоянным шагом — кратных чему-то на отрезке, любого равномерного ряда
-General case: сумма первых m членов прогрессии с шагом k равна `k · m·(m+1)/2`, где m — сколько таких чисел на отрезке; любые k, m, N
+Standard name: Sum of an arithmetic progression · picture — Gauss's trick, pairing from both ends
+Essence: A run of evenly spaced numbers can be added with one multiplication instead of one term at a time.
+Recognized by: you need the sum (not the count) of numbers spaced at a constant step — multiples of something over a range, any evenly spaced run
+General case: the sum of the first m terms of a progression with step k is `k · m·(m+1)/2`, where m is how many such numbers fall in the range; any k, m, N
 Picture: ![Gauss pairing](visualizations/build/gauss-pairing.png)
 Sequence:
-  1. Problem — числа ряда стоят по порядку, соединены «+», сумма не подсчитана
-  2. Transform ↔ — числа сцеплены в пары с двух концов дугами; над каждой дугой — сумма пары
-  3. Solution — итоговая сумма (число пар × сумма пары, плюс середина при нечётном числе элементов)
+  1. Problem — the run stands in order joined by "+", the sum not computed
+  2. Transform ↔ — the numbers are linked into pairs from both ends by arcs; each arc is labeled with the pair's sum
+  3. Solution — the total (number of pairs × pair sum, plus the middle term when the count is odd)
 Limits:
-  - MUST NOT: применяться при переменном шаге между числами — предел ИДЕИ: пары с двух концов перестают давать одинаковую сумму, формула неприменима
-  - MUST: все промежуточные числа примера различны (пример 4·8·12·16·20, пары по 24, итог 60) — предел КАРТИНКИ: прецедент 30/30, где площадь и итог совпали, и объяснение читалось как замкнутое само на себя
-Source: [Wikipedia — Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/) · картинка: [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
+  - MUST NOT: be used when the step between numbers varies — a limit of the IDEA: pairs from both ends stop summing to the same value and the formula does not apply
+  - MUST: every intermediate number in the example must be distinct (the example uses 4·8·12·16·20, pairs of 24, total 60) — a limit of the PICTURE: in an earlier version the rectangle area and the final answer were both 30, and the explanation read as circular
+Source: [Wikipedia — Arithmetic progression](https://en.wikipedia.org/wiki/Arithmetic_progression) · [BetterExplained — Techniques for Adding the Numbers 1 to 100](https://betterexplained.com/articles/techniques-for-adding-the-numbers-1-to-100/) · picture: [NCTM — The Story of Gauss](https://www.nctm.org/Publications/TCM-blog/Blog/The-Story-of-Gauss/)
 Example: `visualizations/examples/gauss-pairing.{css,html,js}` → `visualizations/build/gauss-pairing.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
@@ -131,13 +133,13 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 ## [method::Precomputation]
 Class: entity
 Standard name: Precomputation
-Essence: Один раз построить всё, что не зависит от конкретного запроса, заранее — каждый запрос потом не пересчитывает это, а только читает готовое.
-Recognized by: одна и та же структура (список, таблица, сумма) используется много раз подряд с разными запросами, и сама она от запроса не зависит; строить её заново на каждый запрос — повторять одну и ту же работу T раз без необходимости
-General case: вынести построение общей структуры из цикла обработки запросов — стоимость построения платится один раз, а не T раз; конкретный способ ОТВЕТИТЬ на запрос по готовой структуре (поиск, чтение по индексу, суммирование диапазона) — уже отдельный метод, не часть предвычисления
-Picture: — (у самого «посчитай заранее» нет устоявшегося визуального образа, в отличие от того, ЧТО делают с готовой структурой; отсутствие картинки — не довод против отдельной записи)
+Essence: Build everything that does not depend on the individual query once, up front — each query then only reads the ready result instead of recomputing it.
+Recognized by: the same structure (list, table, running sum) is used many times over with different queries and does not itself depend on the query; rebuilding it per query repeats identical work T times for nothing
+General case: lift the construction of the shared structure out of the query loop — its cost is paid once instead of T times; HOW a query is then answered from the ready structure (search, indexing, range sum) is a separate method, not part of precomputation
+Picture: — (there is no established visual form for "compute it ahead of time", unlike for what you then DO with the ready structure; the absence of a picture is not an argument against a separate record)
 Limits:
-  - MUST NOT: применяться, когда структура зависит от запроса — тогда предвычислять нечего
-  - MUST: помнить, что стоимость построения платится всегда, даже если запрос один — при единственном запросе выигрыша нет
+  - MUST NOT: be used when the structure depends on the query — then there is nothing to precompute
+  - MUST: remember the build cost is always paid, even for a single query — with only one query there is no gain
 Source: [Wikipedia — Precomputation](https://en.wikipedia.org/wiki/Precomputation) · [Wikipedia — Lookup table](https://en.wikipedia.org/wiki/Lookup_table) · [GeeksforGeeks — Precomputation Techniques for Competitive Programming](https://www.geeksforgeeks.org/dsa/precomputation-techniques-for-competitive-programming/)
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md)
@@ -145,38 +147,38 @@ Spec: [approaches](specs/approaches.md)
 ## [method::BinarySearch]
 Class: entity
 Standard name: Binary search
-Essence: Найти место значения в уже отсортированном списке, каждый раз отбрасывая половину, где его точно нет.
-Recognized by: нужно найти элемент или позицию в списке, который уже отсортирован (или сам растёт по порядку)
-General case: сравниваем искомое значение с серединой оставшегося куска и отбрасываем ту половину, где ответа быть не может — O(log m) сравнений вместо перебора всех m элементов
+Essence: Find where a value sits in an already sorted list by repeatedly discarding the half that cannot contain it.
+Recognized by: you need to find an element or a position in a list that is already sorted (or grows in order by construction)
+General case: compare the target against the middle of the remaining stretch and drop the half where the answer cannot be — O(log m) comparisons instead of scanning all m elements
 Picture: ![Binary search](visualizations/build/binary-search.png)
 Sequence:
-  1. Problem — список чисел и искомое значение; где оно — неизвестно
-  2. Transform ½ — середина списка сравнена с искомым, половина, где его точно нет, отброшена
-  3. Transform ½ — то же самое повторяется на оставшемся куске
-  4. Solution — остался один элемент — это и есть ответ
+  1. Problem — a list of numbers and a target; where it sits is unknown
+  2. Transform ½ — the middle is compared with the target, the half that cannot contain it is discarded
+  3. Transform ½ — the same repeats on what is left
+  4. Solution — one element remains — that is the answer
 Limits:
-  - MUST NOT: применяться к неотсортированному списку — предел ИДЕИ: деление пополам перестаёт что-либо гарантировать
+  - MUST NOT: be used on an unsorted list — a limit of the IDEA: halving stops guaranteeing anything
 Source: [cp-algorithms — Binary Search](https://cp-algorithms.com/num_methods/binary_search.html) · [Wikipedia — Binary search algorithm](https://en.wikipedia.org/wiki/Binary_search_algorithm)
-Example: `visualizations/examples/binary-search.{css,html}` (js не требуется — значения статичны) → `visualizations/build/binary-search.html`
+Example: `visualizations/examples/binary-search.{css,html}` (no js needed — the values are static) → `visualizations/build/binary-search.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
 
 ## [method::TrialDivision]
 Class: entity
-Standard name: Trial division · картинка — ladder method (division ladder), a.k.a. birthday cake method
-Essence: Проверить по очереди маленькие числа, начиная с 2 — делится ли на них — и так выделить простые множители.
-Recognized by: нужно разложить число на простые множители или найти конкретный (например, самый большой) простой множитель
-General case: перебираем делители d от 2, пока d·d ≤ ОСТАВШЕГОСЯ числа; на каждом делителе выносим его, пока делится нацело — остаток при этом падает, и граница перебора падает вместе с ним; если после перебора осталось число больше 1, оно само простое (и при переборе по возрастанию это наибольший множитель)
+Standard name: Trial division · picture — ladder method (division ladder), a.k.a. birthday cake method
+Essence: Try the small numbers in turn, starting at 2 — see what divides — and peel off the prime factors that way.
+Recognized by: you need to factor a number into primes or to find one particular (say, the largest) prime factor
+General case: try divisors d from 2 while d·d ≤ what REMAINS of the number; at each divisor peel it out while it divides evenly — the remainder shrinks and the trial bound falls with it; if what is left after the loop exceeds 1, it is itself prime (and with divisors tried in increasing order, it is the largest factor)
 Picture: ![Ladder method](visualizations/build/ladder-method.png)
 Sequence:
-  1. Problem — число 30 без разбиения
-  2. Transform ÷2 — делим на 2, снизу остаток 15
-  3. Transform ÷3 — делим 15 на 3, снизу остаток 5
-  4. Solution — 5 уже само простое, дальше не делится — это и есть самый большой простой множитель
+  1. Problem — the number 30, not yet broken down
+  2. Transform ÷2 — divide by 2, quotient 15 written below
+  3. Transform ÷3 — divide 15 by 3, quotient 5 written below
+  4. Solution — 5 is already prime and divides no further — that is the largest prime factor
 Limits:
-  - MUST NOT: применяться к большим числам без маленьких множителей — предел ИДЕИ по стоимости: перебор доходит до корня из числа, что при полупростом числе из десятков цифр непрактично (там нужны другие методы факторизации)
-  - MUST: на картинке делим именно на простое, начиная с наименьшего — предел КАРТИНКИ: лесенка обязана повторять механику перебора (сначала все двойки, потом нечётные по возрастанию), а не произвольную разбивку на любые два множителя, как в вольном факторном дереве
-Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · картинка: [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
-Example: `visualizations/examples/ladder-method.{css,html}` (js не требуется — значения статичны) → `visualizations/build/ladder-method.html`
+  - MUST NOT: be used on large numbers with no small factors — a limit of the IDEA by cost: the loop runs to the square root, which is impractical for a semiprime of tens of digits (other factorization methods belong there)
+  - MUST: in the picture, divide by primes starting from the smallest — a limit of the PICTURE: the ladder must mirror the loop's mechanics (all the 2s first, then odd divisors in increasing order), not an arbitrary split into any two factors as in a free-form factor tree
+Source: [Wikipedia — Trial division](https://en.wikipedia.org/wiki/Trial_division) · picture: [Math = Love — Birthday Cake Method](https://mathequalslove.net/prime-factorization-using-birthday-cake-method/) · [Scaffolded Math and Science — Ladder Method](https://www.scaffoldedmath.com/2019/02/finding-gcf-and-lcm-with-upside-down-cake-method.html)
+Example: `visualizations/examples/ladder-method.{css,html}` (no js needed — the values are static) → `visualizations/build/ladder-method.html`
 Depends on: [method::Catalog](#methodcatalog)
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

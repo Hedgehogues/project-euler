@@ -1,25 +1,25 @@
 # Index
 
-> Memory-bank хранит только переиспользуемое знание — методы объяснения, как учебник. Ни одной
-> конкретной задачи и ни одной ссылки на задачу здесь нет: связь идёт в обратную сторону, задача
-> (`euler{NNN}/README.md`) сама ссылается на нужный ей блок по имени.
+> The memory bank holds only reusable knowledge — explanation methods, like a textbook. Not a
+> single specific problem and not a single link to one lives here: the link runs the other way,
+> a problem (`euler{NNN}/README.md`) points at the block it needs by name.
 >
-> **Один метод — один блок.** Идея и её картинка не разведены по двум параллельным спискам, а
-> живут полями одной записи `[method::*]`; картинок у метода не больше одной, отсутствие картинки
-> легитимно с явной причиной.
+> **One method, one block.** The idea and its picture are not split across two parallel lists but
+> live as fields of a single `[method::*]` record; a method has at most one picture, and having
+> none is legitimate with a stated reason.
 
-## projecteuler — объяснение решений
-- [_terms.md](_terms.md) — словарь и ЕДИНСТВЕННОЕ место описаний: контекст `method` — Catalog, PageSkeleton, SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision
-- [approaches](specs/approaches.md) — Status: draft — требования к КАЧЕСТВУ ИДЕИ в записи метода: атомарность или названная композиция, узнаваемость по условию, независимый источник, не больше одной картинки
-- [visualizations](specs/visualizations.md) — Status: draft — требования к КАЧЕСТВУ КАРТИНКИ: кадры проблема → преобразования → решение, детерминированная сборка `build.sh`, наблюдение рендера, QR на репозиторий
+## projecteuler — explaining solutions
+- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — Catalog, PageSkeleton, SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision
+- [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
+- [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 
-### Картинки — исходники и сборка
-- `visualizations/examples/<slug>.{css,html,js}` — код кадров (правится руками)
-- `visualizations/skeleton.html` — общий каркас страницы
-- `visualizations/build.sh` — сборка: `build/<slug>.html` + `build/<slug>.png` (headless-браузер, светлая тема); таблица `cards()` связывает slug картинки с именем блока `[method::*]`
-- `visualizations/build/` — результат; картинки вставлены в `_terms.md`
+### Pictures — sources and build
+- `visualizations/examples/<slug>.{css,html,js}` — frame code (edited by hand)
+- `visualizations/skeleton.html` — the shared page shell
+- `visualizations/build.sh` — build: `build/<slug>.html` + `build/<slug>.png` (headless browser, light theme); the `cards()` table maps a picture slug to its `[method::*]` block name
+- `visualizations/build/` — output; the pictures are embedded in `_terms.md`
 
-### Вне memory-bank
-- `euler{NNN}/README.md` — сама задача: условие, алгоритм, статус сабмита, ссылки на использованные методы отсюда
-- `.claude/rules/visualization-principles.md` — принципы 1–12 (короткая автозагружаемая форма требований спеков)
-- `.claude/skills/visualize-approach/SKILL.md` — навык: находит метод в `_terms.md`, запускает `build.sh`, открывает результат
+### Outside the memory bank
+- `euler{NNN}/README.md` — the problem itself: statement, algorithm, submission status, links to the methods it uses
+- `.claude/rules/visualization-principles.md` — principles 1–12 (the short, auto-loaded form of the spec requirements)
+- `.claude/skills/visualize-approach/SKILL.md` — the skill: finds a method in `_terms.md`, runs `build.sh`, opens the result
