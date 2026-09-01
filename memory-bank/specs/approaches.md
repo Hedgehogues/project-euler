@@ -89,6 +89,19 @@ techniques found during research and has its own citation discipline.
   a distinct fact. Deleted from `_terms.md`; the seven entity records' now-orphaned
   `Depends on: [method::Catalog]` line dropped too — it named nothing that `Spec:` didn't already
   say. Traces to: the Bounded Context section below (no separate aggregate-root record).
+- **F9** (user: "each task needs a spec.md too" — first placed in `euler{NNN}/`, then "keep it next
+  to the specs, not in the solution") Reopens half of F4, deliberately, on the user's explicit
+  choice: `memory-bank/specs/euler{NNN}.md` returns as a real path. What does NOT reopen: the
+  DICTIONARY (`_terms.md`) stays exactly as task-free as F4/F5 left it — no `[euler::*]` record, no
+  `Used in:` field, nothing a problem-side rename would ever need to touch. The distinction F4
+  originally missed: a spec and a dictionary entry are different kinds of artifact. A dictionary
+  entry is reusable knowledge that must never change when a problem is added or renamed
+  (MUST-reuse-changes-nothing). A task's own spec is the opposite by nature — a fixed,
+  one-time acceptance record for one already-solved problem, useful as a reference precisely
+  because it never needs to change either, just not for the same reason. `specs/` was always a
+  folder of RFC documents, not the dictionary; grouping a task's spec there with the catalog's own
+  specs is the same kind of document living together, not task knowledge leaking into the
+  dictionary. Traces to: MUST-no-task-specifics (narrowed to the dictionary).
 
 ## Architecture
 
@@ -142,10 +155,14 @@ from its own README.
   **MUST-atomic-or-composed** — criterion: when a solution uses two or more independently
   recognizable ideas, each gets its own record; the test is whether each is recognized in ANOTHER
   problem WITHOUT the other. Status: done (precedent F2: `Precomputation` + `BinarySearch`).
-- The catalog MUST NOT hold ANYTHING about a specific problem — no statement, no solution, no
-  correctness criteria, not even a "used in" backlink — **MUST-no-task-specifics** — criterion:
-  `memory-bank/` contains no `specs/euler{NNN}.md`, no `[euler::*]` records and no `Used in:`
-  field. Status: done (in two passes — F4, then F5).
+- The catalog — `_terms.md`'s `[method::*]` records — MUST NOT hold ANYTHING about a specific
+  problem — no statement, no solution, no correctness criteria, not even a "used in" backlink —
+  **MUST-no-task-specifics** — criterion: `_terms.md` contains no `[euler::*]` records and no
+  `Used in:` field; reusing a known method on a new problem touches no line of it (see
+  MUST-reuse-changes-nothing below). A task's OWN requirements and acceptance criteria are a
+  different artifact and live in `memory-bank/specs/euler{NNN}.md`, alongside this spec — that is
+  not a violation, it's the correct home for an RFC document. Status: done (F4, F5; narrowed by F9
+  to name the dictionary specifically once task specs returned to `specs/`).
 - Reusing a known method on a new problem MUST NOT change this layer —
   **MUST-reuse-changes-nothing** — criterion: `git diff` on `_terms.md` is empty when a problem
   using an already-described method is added; the link appears only in `euler{NNN}/README.md`.

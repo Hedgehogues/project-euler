@@ -17,7 +17,7 @@ Status: **Accepted**, 100% on HackerRank. Verified independently against a brute
 `n=0..n-1` on the official samples and boundary `N` (0, 1, 3, 5, 15, 16), including the `n=15`
 case that would silently break a `<=` vs `<` off-by-one in `sum_multiples`.
 
-Full requirements and acceptance criteria: [spec.md](spec.md).
+Full requirements and acceptance criteria: [spec.md](../memory-bank/specs/euler001.md).
 
 ## The ideas behind it
 
