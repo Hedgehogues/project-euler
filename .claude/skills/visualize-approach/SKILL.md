@@ -26,8 +26,11 @@ visualizations/examples/<slug>.{css,html,js}` — точная реализац�
 .report/visualizations/
   index.md              — таблица «приём -> файл», читается первым шагом
   <slug>.md             — один приём, RFC-блок [viz::Name]: Standard name / Class / Domain /
+                           Approach (ссылка на ../approaches.md или явное «—» с причиной) /
                            Description / Sequence / Applicability / Limits / Source / Used in /
                            Example (ссылки на examples/<slug>.*, не сам код)
+  ../approaches.md      — коллекция подходов; каждая запись полем «Визуализируется» ссылается
+                           обратно на <slug>.md (связь двусторонняя, принцип 9 правил)
   examples/<slug>.css   — приёмо-специфичные CSS-классы (общий каркас не дублируется)
   examples/<slug>.html  — разметка ВНУТРИ <div class="flow">...</div>, все кадры от Problem до
                            Solution
