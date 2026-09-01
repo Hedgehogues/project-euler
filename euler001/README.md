@@ -19,13 +19,13 @@ case that would silently break a `<=` vs `<` off-by-one in `sum_multiples`.
 
 ## The ideas behind it
 
-Three independently catalogued ideas — each recognizable in other problems on its own, not
+Four independently catalogued methods — each recognizable in other problems on its own, not
 specific to this one (full write-ups: [`memory-bank/_terms.md`](../memory-bank/_terms.md)):
 
 | | |
 |---|---|
-| **Arithmetic progression sum** — a run of evenly-spaced numbers, added by one multiplication instead of one at a time. [`[approach::ArithmeticProgressionSum]`](../memory-bank/_terms.md#approacharithmeticprogressionsum) [![Gauss's trick](../memory-bank/visualizations/build/gauss-pairing.png)](../memory-bank/visualizations/build/gauss-pairing.html) | **Inclusion–exclusion** — count/sum by condition, subtract what's double-counted. [`[approach::InclusionExclusion]`](../memory-bank/_terms.md#approachinclusionexclusion) [![Bar model](../memory-bank/visualizations/build/bar-model.png)](../memory-bank/visualizations/build/bar-model.html) |
-| **Venn diagram** — the same overlap, seen as regions instead of arithmetic (a distinct idea from inclusion–exclusion, not just its picture — Venn invented it for logic, not counting). [`[approach::VennDiagram]`](../memory-bank/_terms.md#approachvenndiagram) [![Venn diagram](../memory-bank/visualizations/build/venn.png)](../memory-bank/visualizations/build/venn.html) | **Skip counting** — what "multiple of" actually looks like, hopping down a number line. Not tied to either approach above — a notion, not a technique. [`[viz::SkipCounting]`](../memory-bank/_terms.md#vizskipcounting) [![Skip counting](../memory-bank/visualizations/build/skip-counting.png)](../memory-bank/visualizations/build/skip-counting.html) |
+| **Arithmetic progression sum** — a run of evenly-spaced numbers, added by one multiplication instead of one at a time. [`[method::ArithmeticProgressionSum]`](../memory-bank/_terms.md#methodarithmeticprogressionsum) [![Gauss's trick](../memory-bank/visualizations/build/gauss-pairing.png)](../memory-bank/visualizations/build/gauss-pairing.html) | **Inclusion–exclusion** — count/sum by condition, subtract what's double-counted. [`[method::InclusionExclusion]`](../memory-bank/_terms.md#methodinclusionexclusion) [![Bar model](../memory-bank/visualizations/build/bar-model.png)](../memory-bank/visualizations/build/bar-model.html) |
+| **Venn diagram** — the same overlap, seen as regions instead of arithmetic (a distinct idea from inclusion–exclusion, not just its picture — Venn invented it for logic, not counting). [`[method::VennDiagram]`](../memory-bank/_terms.md#methodvenndiagram) [![Venn diagram](../memory-bank/visualizations/build/venn.png)](../memory-bank/visualizations/build/venn.html) | **Skip counting** — what "multiple of" actually looks like, hopping down a number line: the groundwork the other three build on. [`[method::SkipCounting]`](../memory-bank/_terms.md#methodskipcounting) [![Skip counting](../memory-bank/visualizations/build/skip-counting.png)](../memory-bank/visualizations/build/skip-counting.html) |
 
 ## Build & run
 

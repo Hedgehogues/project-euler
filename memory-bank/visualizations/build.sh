@@ -9,15 +9,15 @@ cd "$(dirname "$0")"
 CHROME="${CHROME:-/Applications/Google Chrome.app/Contents/MacOS/Google Chrome}"
 WIDTH=720
 
-# slug | title | standard name | term
+# slug | title | standard name | term (== имя блока [method::*] в ../_terms.md, не имя картинки)
 cards() {
   cat <<'EOF'
 skip-counting|Счёт прыжками (skip counting)|Skip counting|SkipCounting
-bar-model|Модель-полоска (bar model)|Bar model / tape diagram — Singapore Math|BarModel
-gauss-pairing|Приём Гаусса (радуга пар)|Gauss's trick|GaussPairing
+bar-model|Модель-полоска (bar model)|Bar model / tape diagram — Singapore Math|InclusionExclusion
+gauss-pairing|Приём Гаусса (радуга пар)|Gauss's trick|ArithmeticProgressionSum
 venn|Диаграмма Венна|Venn diagram — John Venn, 1880|VennDiagram
 binary-search|Бинарный поиск|Binary search|BinarySearch
-ladder-method|Метод лесенки (деление на простые)|Ladder method (division ladder)|LadderMethod
+ladder-method|Метод лесенки (деление на простые)|Ladder method (division ladder)|TrialDivision
 EOF
 }
 
