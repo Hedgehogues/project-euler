@@ -44,7 +44,19 @@ context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
 [method::SumOfSquares](../_terms.md#methodsumofsquares),
 [method::SieveOfEratosthenes](../_terms.md#methodsieveoferatosthenes),
 [method::NthPrimeBound](../_terms.md#methodnthprimebound),
-[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem).
+[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem),
+[method::PrefixSum](../_terms.md#methodprefixsum),
+[method::DivisorCountFormula](../_terms.md#methoddivisorcountformula),
+[method::BigIntegerArithmetic](../_terms.md#methodbigintegerarithmetic),
+[method::Memoization](../_terms.md#methodmemoization),
+[method::FastExponentiation](../_terms.md#methodfastexponentiation),
+[method::ModularInverseFermat](../_terms.md#methodmodularinversefermat),
+[method::LatticePaths](../_terms.md#methodlatticepaths),
+[method::DynamicProgramming](../_terms.md#methoddynamicprogramming),
+[method::DayOfWeekFormula](../_terms.md#methoddayofweekformula),
+[method::LehmerCode](../_terms.md#methodlehmercode),
+[method::CycleDetectionViaRemainders](../_terms.md#methodcycledetectionviaremainders),
+[method::NextPermutation](../_terms.md#methodnextpermutation).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the
@@ -158,7 +170,7 @@ rendering "by eye", no cloud, no hand-made pictures.
   (formerly `[method::Catalog]`) are exactly this Architecture section plus the MUST requirements
   below — a block restating them a second time in `_terms.md` was the same fact twice (F13). There
   is no separate context for pictures either (F10) — a picture is a set of fields on a method
-  record. `_terms.md` holds only the thirteen entities.
+  record. `_terms.md` holds only the twenty-five entities.
 
 ## Requirements
 > Statement — acceptance criterion — status.

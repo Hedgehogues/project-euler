@@ -1,0 +1,8 @@
+.dow-big{font-family:var(--font-m); font-size:19px; font-weight:700; text-align:center; color:var(--ink);}
+.dow-formula{font-family:var(--font-m); font-size:16px; font-weight:700; text-align:center; color:var(--ink); margin-bottom:10px;}
+.dow-terms{display:flex; flex-direction:column; gap:4px; font-family:var(--font-m); font-size:11px; color:var(--ink-soft); max-width:340px; margin:0 auto;}
+.dow-eq{font-family:var(--font-m); font-size:20px; font-weight:700; text-align:center; color:var(--ink); margin-bottom:14px;}
+.dow-week{display:flex; justify-content:center; gap:4px;}
+.dow-week span{width:52px; height:34px; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--rule); border-radius:6px; font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--ink-soft);}
+.dow-hit{border-color:var(--good) !important; color:var(--good) !important; background:var(--good-bg);}
+.dow-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:12px;}

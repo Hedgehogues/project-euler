@@ -1,0 +1,35 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mz-goal">fib(4) = ?</div>
+  <div class="mz-note">fib(4) needs fib(3) AND fib(2) &mdash; and fib(3) itself needs fib(2) too.</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">expand</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mz-tree">
+    <div class="mz-node">fib(4)
+      <div class="mz-children">
+        <div class="mz-node">fib(3)
+          <div class="mz-children">
+            <div class="mz-node mz-fresh">fib(2)
+              <div class="mz-children">
+                <div class="mz-node mz-leaf">fib(1) = 1</div>
+                <div class="mz-node mz-leaf">fib(0) = 0</div>
+              </div>
+              <div class="mz-store">1 + 0 = 1 &mdash; store it</div>
+            </div>
+            <div class="mz-node mz-leaf">fib(1) = 1</div>
+          </div>
+        </div>
+        <div class="mz-node mz-cached">fib(2) &rarr; 1 (cached, not recomputed)</div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mz-eq">fib(4) = fib(3) + fib(2) = 2 + 1 = <b>3</b></div>
+</div></div>

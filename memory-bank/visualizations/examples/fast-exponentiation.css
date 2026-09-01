@@ -1,0 +1,7 @@
+.fe-big{font-family:var(--font-m); font-size:24px; font-weight:700; text-align:center; color:var(--ink);}
+.fe-good{color:var(--good);}
+.fe-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:10px; max-width:440px; margin-left:auto; margin-right:auto;}
+.fe-table{border-collapse:collapse; margin:0 auto; font-family:var(--font-m); font-size:13px;}
+.fe-table th, .fe-table td{border:1.5px solid var(--rule); padding:6px 10px; text-align:center; color:var(--ink);}
+.fe-table th{color:var(--ink-soft); font-weight:700; font-size:11px;}
+.fe-odd{color:var(--a); font-weight:700;}

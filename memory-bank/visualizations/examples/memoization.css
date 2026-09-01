@@ -1,0 +1,11 @@
+.mz-goal{font-family:var(--font-m); font-size:20px; font-weight:700; text-align:center; color:var(--ink);}
+.mz-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:10px; max-width:420px; margin-left:auto; margin-right:auto;}
+.mz-tree{font-family:var(--font-m); font-size:13px;}
+.mz-node{border:1.5px solid var(--rule); border-radius:6px; padding:4px 8px; background:var(--surface); color:var(--ink); display:inline-block; margin:3px 0;}
+.mz-children{margin-left:22px; padding-left:14px; border-left:2px dashed var(--rule); display:flex; flex-direction:column; gap:2px;}
+.mz-leaf{color:var(--ink-soft); font-weight:400;}
+.mz-fresh{border-color:var(--a); color:var(--a); background:var(--a-bg); font-weight:700;}
+.mz-cached{border-color:var(--good); color:var(--good); background:var(--good-bg); font-weight:700;}
+.mz-store{font-size:11px; color:var(--a); margin:2px 0 2px 22px;}
+.mz-eq{font-family:var(--font-m); font-size:22px; font-weight:700; text-align:center; color:var(--ink);}
+.mz-eq b{color:var(--good);}

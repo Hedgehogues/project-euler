@@ -25,6 +25,18 @@ sum-of-squares|Sum of squares|Square split into two triangular staircases|SumOfS
 sieve-of-eratosthenes|Sieve of Eratosthenes|Sieve of Eratosthenes|SieveOfEratosthenes
 nth-prime-bound|Upper bound on the nth prime|Rosser's bound on the nth prime|NthPrimeBound
 prime-number-theorem|Prime number theorem|Prime number theorem|PrimeNumberTheorem
+prefix-sum|Prefix sum|Prefix sum|PrefixSum
+divisor-count-formula|Divisor count formula|Divisor function|DivisorCountFormula
+big-integer-arithmetic|Big-integer arithmetic|Arbitrary-precision arithmetic|BigIntegerArithmetic
+memoization|Memoization|Memoization|Memoization
+fast-exponentiation|Fast exponentiation|Exponentiation by squaring|FastExponentiation
+modular-inverse-fermat|Modular inverse via Fermat|Modular multiplicative inverse (Fermat's little theorem)|ModularInverseFermat
+lattice-paths|Lattice paths|Lattice path|LatticePaths
+dynamic-programming|Dynamic programming|Dynamic programming|DynamicProgramming
+day-of-week-formula|Day-of-week formula|Determination of the day of the week (Sakamoto's algorithm)|DayOfWeekFormula
+lehmer-code|Lehmer code|Lehmer code (factorial number system)|LehmerCode
+cycle-detection-remainders|Cycle detection via remainders|Repeating decimal (remainder tracking)|CycleDetectionViaRemainders
+next-permutation|Next permutation|Permutation (generation in lexicographic order)|NextPermutation
 EOF
 }
 

@@ -1,0 +1,13 @@
+.dcf-big{font-family:var(--font-m); font-size:40px; font-weight:700; text-align:center; color:var(--ink);}
+.dcf-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:10px;}
+.dcf-factor{font-family:var(--font-m); font-size:18px; font-weight:700; text-align:center; color:var(--ink); margin-bottom:12px;}
+.dcf-choices{display:flex; justify-content:center; gap:12px; flex-wrap:wrap;}
+.dcf-chip{font-family:var(--font-m); font-size:12px; font-weight:700; border-radius:8px; padding:6px 10px; border:1.5px solid;}
+.dcf-chip.a{color:var(--a); background:var(--a-bg); border-color:var(--a);}
+.dcf-chip.b{color:var(--b); background:var(--b-bg); border-color:var(--b);}
+.dcf-grid{border-collapse:collapse; margin:0 auto; font-family:var(--font-m); font-size:14px;}
+.dcf-grid td{border:1.5px solid var(--rule); width:56px; height:36px; text-align:center; color:var(--ink); font-weight:700;}
+.dcf-grid td.dcf-hdr{font-size:12px; font-weight:700;}
+.dcf-grid td.dcf-hdr.a{color:var(--a); background:var(--a-bg);}
+.dcf-grid td.dcf-hdr.b{color:var(--b); background:var(--b-bg);}
+.dcf-grid td.dcf-corner{border:none;}

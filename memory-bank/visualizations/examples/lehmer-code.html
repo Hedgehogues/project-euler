@@ -1,0 +1,24 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lc-big">15th permutation of "abcd" = ?</div>
+  <div class="lc-note">listing all 24 permutations to count to the 15th works, but doesn't scale to 13 letters (6,227,020,800 of them).</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">peel off digits</div>
+<div class="frame"><div class="frame-inner">
+  <table class="lc-table">
+    <tr><th>pool</th><th>index &divide; (size&minus;1)!</th><th>pick</th><th>remainder</th></tr>
+    <tr><td>a b c d</td><td>14 &divide; 3! = 2</td><td class="lc-pick">c</td><td>14 mod 6 = 2</td></tr>
+    <tr><td>a b d</td><td>2 &divide; 2! = 1</td><td class="lc-pick">b</td><td>2 mod 2 = 0</td></tr>
+    <tr><td>a d</td><td>0 &divide; 1! = 0</td><td class="lc-pick">a</td><td>0 mod 1 = 0</td></tr>
+    <tr><td>d</td><td>0 &divide; 0! = 0</td><td class="lc-pick">d</td><td>&mdash;</td></tr>
+  </table>
+  <div class="lc-note">15th permutation = index 14 (0-based); each digit removes one letter from the shrinking pool, no listing needed.</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lc-answer">c b a d</div>
+</div></div>

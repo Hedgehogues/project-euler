@@ -1,0 +1,10 @@
+.ps-row{display:flex; gap:3px; justify-content:center;}
+.ps-row2{margin-top:4px;}
+.ps-cell{width:34px; height:34px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:6px; font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--ink-soft); background:var(--surface);}
+.ps-cell.range{border-color:var(--a); color:var(--a); background:var(--a-bg);}
+.ps-cell.good{border-color:var(--good); color:var(--good); background:var(--good-bg);}
+.ps-cell.bad{border-color:var(--b); color:var(--b); background:var(--b-bg);}
+.ps-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:10px;}
+.ps-eq{font-family:var(--font-m); font-size:26px; font-weight:700; text-align:center;}
+.ps-eq b{font-weight:700;}

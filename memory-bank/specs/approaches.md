@@ -40,7 +40,19 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Terms live in `_terms.
 [method::SumOfSquares](../_terms.md#methodsumofsquares),
 [method::SieveOfEratosthenes](../_terms.md#methodsieveoferatosthenes),
 [method::NthPrimeBound](../_terms.md#methodnthprimebound),
-[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem).
+[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem),
+[method::PrefixSum](../_terms.md#methodprefixsum),
+[method::DivisorCountFormula](../_terms.md#methoddivisorcountformula),
+[method::BigIntegerArithmetic](../_terms.md#methodbigintegerarithmetic),
+[method::Memoization](../_terms.md#methodmemoization),
+[method::FastExponentiation](../_terms.md#methodfastexponentiation),
+[method::ModularInverseFermat](../_terms.md#methodmodularinversefermat),
+[method::LatticePaths](../_terms.md#methodlatticepaths),
+[method::DynamicProgramming](../_terms.md#methoddynamicprogramming),
+[method::DayOfWeekFormula](../_terms.md#methoddayofweekformula),
+[method::LehmerCode](../_terms.md#methodlehmercode),
+[method::CycleDetectionViaRemainders](../_terms.md#methodcycledetectionviaremainders),
+[method::NextPermutation](../_terms.md#methodnextpermutation).
 
 ## Scope
 **In scope:** the idea fields of `[method::*]` records — `Essence`, `Recognized by`,
@@ -128,7 +140,7 @@ from its own README.
   invariants (schema, atomic-or-composed, sourcing) ARE the requirements below, not a block of
   their own — a record restating them a second time (`Class: aggregate`) would be the same fact
   twice, the exact duplication this spec elsewhere forbids on ideas (MUST-atomic-or-composed).
-  `_terms.md` holds only the entities — the thirteen `[method::*]` records themselves.
+  `_terms.md` holds only the entities — the twenty-five `[method::*]` records themselves.
 
 ## Requirements
 > Statement — acceptance criterion — status.
@@ -136,7 +148,7 @@ from its own README.
 ### MUST
 - Every record MUST carry Essence / Recognized by / General case / Source, and MUST NOT carry a
   field about a specific problem — **MUST-entry-schema** — criterion: grepping each mandatory
-  heading yields as many lines as there are method records (13); there is no `Used in:` field.
+  heading yields as many lines as there are method records (25); there is no `Used in:` field.
   Status: done.
 - "Essence" MUST be a single sentence without formulas — **MUST-essence-plain** — criterion: the
   field contains no `·`, `/`, exponents or variable names. Status: done.
@@ -149,7 +161,7 @@ from its own README.
   property of the solution. Status: done.
 - Every record MUST carry its own `Source:` field — an independent citation that the idea is
   standard — **MUST-source** — criterion: `grep -c '^Source:'` equals the number of method records.
-  Status: done (13 of 13).
+  Status: done (25 of 25).
 - At least one source MUST be ENCYCLOPEDIC (Wikipedia, Britannica, cp-algorithms, a professional
   body such as NCTM) — blogs, teaching sites and least of all shop pages are not evidence of
   standardness and may only supplement — **MUST-canonical-source** — criterion: every record's
@@ -182,7 +194,7 @@ from its own README.
 
 ### SHOULD
 - A method's name SHOULD be the commonly accepted one, verified by search —
-  **SHOULD-standard-name**. Status: done for all thirteen (each name checked by search before it was
+  **SHOULD-standard-name**. Status: done for all twenty-five (each name checked by search before it was
   written down).
 
 ## Links

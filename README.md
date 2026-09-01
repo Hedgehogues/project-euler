@@ -25,6 +25,36 @@ g++ -O2 -std=c++20 -o solution problems/eulerNNN/solution.cpp && ./solution < in
 | [005](problems/euler005) | Smallest multiple | Accepted, 100% |
 | [006](problems/euler006) | Sum square difference | Accepted, 100% |
 | [007](problems/euler007) | 10001st prime | Accepted, 100% |
+| [008](problems/euler008) | Largest product in a series | Accepted, 100% |
+| [009](problems/euler009) | Special Pythagorean triplet | Accepted, 100% |
+| [010](problems/euler010) | Summation of primes | Accepted, 100% |
+| [011](problems/euler011) | Largest product in a grid | Accepted, 100% |
+| [012](problems/euler012) | Highly divisible triangular number | Accepted, 100% |
+| [013](problems/euler013) | Large sum | Accepted, 100% |
+| [014](problems/euler014) | Longest Collatz sequence | Accepted, 100% |
+| [015](problems/euler015) | Lattice paths | Accepted, 100% |
+| [016](problems/euler016) | Power digit sum | Accepted, 100% |
+| [017](problems/euler017) | Number to Words | Accepted, 100% |
+| [018](problems/euler018) | Maximum path sum I | Accepted, 100% |
+| [019](problems/euler019) | Counting Sundays | Accepted, 100% |
+| [020](problems/euler020) | Factorial digit sum | Accepted, 100% |
+| [021](problems/euler021) | Amicable numbers | Accepted, 100% |
+| [022](problems/euler022) | Names scores | Accepted, 100% |
+| [023](problems/euler023) | Non-abundant sums | Accepted, 100% |
+| [024](problems/euler024) | Lexicographic permutations | Accepted, 100% |
+| [025](problems/euler025) | N-digit Fibonacci number | Accepted, 100% |
+| [026](problems/euler026) | Reciprocal cycles | Accepted, 100% |
+| [027](problems/euler027) | Quadratic primes | Accepted, 100% |
+| [028](problems/euler028) | Number spiral diagonals | Accepted, 100% |
+| [029](problems/euler029) | Distinct powers | Accepted, 100% |
+| [030](problems/euler030) | Digit Nth powers | Accepted, 100% |
+| [031](problems/euler031) | Coin sums | Accepted, 100% |
+| [032](problems/euler032) | Pandigital products | Accepted, 100% |
+| [033](problems/euler033) | Digit canceling fractions | Accepted, 100% |
+| [034](problems/euler034) | Digit factorials | Accepted, 100% |
+| [035](problems/euler035) | Circular primes | Accepted, 100% |
+| [036](problems/euler036) | Double-base palindromes | Accepted, 100% |
+| [037](problems/euler037) | Truncatable primes | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and (where one
 exists) a picture of the idea — and links to its RFC-style spec (requirements and acceptance

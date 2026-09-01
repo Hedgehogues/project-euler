@@ -1,0 +1,26 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <table class="lp-grid">
+    <tr><td class="lp-start">1</td><td class="lp-q">?</td><td class="lp-q">?</td></tr>
+    <tr><td class="lp-q">?</td><td class="lp-q">?</td><td class="lp-q">?</td></tr>
+    <tr><td class="lp-q">?</td><td class="lp-q">?</td><td class="lp-q">?</td></tr>
+  </table>
+  <div class="lp-note">only right and down moves &mdash; how many routes from top-left to bottom-right of a 2&times;2 grid?</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">build up</div>
+<div class="frame"><div class="frame-inner">
+  <table class="lp-grid">
+    <tr><td>1</td><td>1</td><td>1</td></tr>
+    <tr><td>1</td><td>2</td><td>3</td></tr>
+    <tr><td>1</td><td>3</td><td class="lp-building">6</td></tr>
+  </table>
+  <div class="lp-note">every point = the routes to the point above it + the routes to the point left of it (the only two ways to arrive)</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lp-eq">C(2+2, 2) = <span class="lp-good">6</span> routes</div>
+</div></div>

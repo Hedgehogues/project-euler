@@ -260,3 +260,219 @@ Limits:
 Source: [Wikipedia — Prime number theorem](https://en.wikipedia.org/wiki/Prime_number_theorem) · [Wikipedia — Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function) (the standard "ratio of &pi;(x) to x/log x and Li(x)" graph — this picture is this catalog's own discretized rendering of that same comparison at three concrete, verified scales, not a copy of the continuous plot)
 Example: `visualizations/examples/prime-number-theorem.{css,html}` (no js needed — the values are static) → `visualizations/build/prime-number-theorem.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::PrefixSum]
+Class: entity
+Standard name: Prefix sum · picture — running-total row plus subtraction (this catalog's own construction, the array/running-total idea sourced, the two-row picture not independently attributed — see Source)
+Essence: Build a running-total array once — each cell holding everything added up to that point — so the sum of ANY range afterward is a single subtraction, not a re-added loop.
+Recognized by: many queries each ask for the sum (or count) over a range of a fixed array, and re-adding the range from scratch every time would repeat the same work across overlapping queries
+General case: prefix[i] = prefix[i-1] + value[i] (prefix[0] = 0); the sum of positions L..R is prefix[R] - prefix[L-1], for any L &le; R
+Picture: ![Prefix sum](visualizations/build/prefix-sum.png)
+Sequence:
+  1. Problem — 8 numbers in a row (3,1,4,5,9,2,6,8); the sum of the highlighted range (positions 3-6) is unknown
+  2. Transform running total — a second row underneath, each cell the running total up to that position (3,4,8,13,22,24,30,38)
+  3. Solution — the range sum is just two of those cells subtracted: 24 &minus; 4 = 20
+Limits:
+  - MUST NOT: be used when the underlying array changes between queries — a limit of the IDEA: every update would force rebuilding every prefix cell after it (a Fenwick/segment tree is the structure for that case, not covered here)
+  - MUST: read the LOWER prefix cell one position before the range starts (prefix[L-1], not prefix[L]) — a limit of PRACTICE: off-by-one here is the single most common bug in this technique
+Source: [Wikipedia — Prefix sum](https://en.wikipedia.org/wiki/Prefix_sum) (definition) · [GeeksforGeeks — Understanding Prefix Sums](https://www.geeksforgeeks.org/dsa/understanding-prefix-sums/) (the range-query-via-subtraction application)
+Example: `visualizations/examples/prefix-sum.{css,html,js}` → `visualizations/build/prefix-sum.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::DivisorCountFormula]
+Class: entity
+Standard name: Divisor function &tau;(n) (also written d(n) or &sigma;<sub>0</sub>(n))
+Essence: The number of divisors of n depends only on the EXPONENTS in its prime factorization — pick, independently for each prime, how many copies of it to include, and multiply the counts of choices together.
+Recognized by: you need HOW MANY divisors a number has (not the divisors themselves, and not their sum) — often for many numbers, or for one number too large to just list divisors of directly
+General case: if n = p<sub>1</sub><sup>e<sub>1</sub></sup> &times; p<sub>2</sub><sup>e<sub>2</sub></sup> &times; ... &times; p<sub>k</sub><sup>e<sub>k</sub></sup>, then &tau;(n) = (e<sub>1</sub>+1)(e<sub>2</sub>+1)...(e<sub>k</sub>+1); the function is multiplicative, so &tau;(a&middot;b) = &tau;(a)&middot;&tau;(b) whenever gcd(a,b)=1 — useful for splitting a number into coprime pieces before counting
+Picture: ![Divisor count formula](visualizations/build/divisor-count-formula.png)
+Sequence:
+  1. Problem — the number 20; how many divisors it has is unknown
+  2. Transform factor — 20 = 2&sup2; &times; 5&sup1;; the exponent of 2 gives 3 independent choices (2&#8304;, 2&sup1;, 2&sup2;), the exponent of 5 gives 2 (5&#8304;, 5&sup1;)
+  3. Solution — a 3&times;2 grid of every combination, each cell an actual divisor (1, 2, 4, 5, 10, 20) — 6 cells, so 6 divisors
+Limits:
+  - MUST NOT: be applied by picking exponents that are NOT independent — a limit of the IDEA: the formula relies on the Fundamental Theorem of Arithmetic giving a UNIQUE factorization, so every combination of exponent-choices names a genuinely different divisor exactly once
+  - MUST: the grid's two axes must be genuinely independent prime factors — a limit of the PICTURE: with three or more distinct primes the grid becomes a cube or higher, no longer drawable flat (the formula itself keeps working for any number of factors; only the two-axis picture is limited to two)
+Source: [Wikipedia — Divisor function](https://en.wikipedia.org/wiki/Divisor_function) · [cp-algorithms — Number of divisors / sum of divisors](https://cp-algorithms.com/algebra/divisors.html)
+Example: `visualizations/examples/divisor-count-formula.{css,html}` (no js needed — the values are static) → `visualizations/build/divisor-count-formula.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::BigIntegerArithmetic]
+Class: entity
+Standard name: Arbitrary-precision arithmetic (big-integer / "long" arithmetic)
+Essence: When a number has more digits than a native integer type can hold, store it as an array of digits and operate on it the same way a person does on paper — column by column, carrying the overflow into the next column.
+Recognized by: a number in the problem is too large for any fixed-width integer type (dozens or hundreds of digits, or growing without any given bound), and only a small piece of the result is actually needed (its value, its first/last few digits, its digit sum)
+General case: represent the number least-significant-digit-first in a fixed base (usually 10, or a larger power of 10 for speed); addition and multiplication-by-a-small-constant both propagate a carry left exactly like grade-school column arithmetic, just with the per-column operation swapped (add two digits, or multiply one digit by the constant) — the carry-propagation mechanism is identical either way
+Picture: ![Big-integer arithmetic](visualizations/build/big-integer-arithmetic.png)
+Sequence:
+  1. Problem — 187 + 259 stacked, too many digits to add as one native number (illustrative only — the technique is for numbers with far more digits than this)
+  2. Transform carry — right to left: 7+9=16, write 6 carry 1; 8+5+1=14, write 4 carry 1; 1+2+1=4
+  3. Solution — 446, read off column by column, no native integer ever held the full sum until the very last digit was written
+Limits:
+  - MUST NOT: be reached for a number that already fits in a native 64-bit (or 128-bit) integer — a limit of the IDEA: the whole point is avoiding overflow that a native type would already handle
+  - MUST: propagate a carry that can exceed a single digit when multiplying by a constant bigger than 9 — a limit of PRACTICE: unlike addition (carry always 0 or 1), multiplying a digit by a two-digit constant can carry a two-digit amount into the next column
+Source: [Wikipedia — Arbitrary-precision arithmetic](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic) · [cp-algorithms — Arbitrary-Precision Arithmetic](https://cp-algorithms.com/algebra/big-integer.html)
+Example: `visualizations/examples/big-integer-arithmetic.{css,html}` (no js needed — the values are static) → `visualizations/build/big-integer-arithmetic.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::Memoization]
+Class: entity
+Standard name: Memoization
+Essence: The first time a recursive call is answered, write the answer down; every later call asking the exact same question reads the answer back instead of doing the work again.
+Recognized by: a recursive definition is called on the SAME input more than once across different branches of the recursion (overlapping subproblems), and computing it fresh each time would repeat identical work
+General case: wrap the recursive function with a cache (array or hash map) keyed by its argument(s); on entry, return the cached value if present, otherwise compute normally and store the result before returning — the recursion's own structure is untouched, only entry/exit is intercepted
+Picture: ![Memoization](visualizations/build/memoization.png)
+Sequence:
+  1. Problem — computing fib(4) needs fib(3) and fib(2); fib(3) itself ALSO needs fib(2) — the same call twice
+  2. Transform expand — the first fib(2) is computed fully (fib(1)+fib(0)=1+0=1) and stored; the second fib(2), needed directly by fib(4), just reads that stored 1 back instead of expanding again
+  3. Solution — fib(4) = fib(3) + fib(2) = 2 + 1 = 3, with fib(2)'s work paid for only once
+Limits:
+  - MUST NOT: be used when a call's result depends on more than just its own arguments (e.g. it also reads or mutates outside state) — a limit of the IDEA: a cache keyed only by arguments would return a stale answer for a call whose true result has since changed
+  - MUST: cache on the exact arguments that determine the result, no more and no fewer — a limit of PRACTICE: caching on too few argument bits collapses genuinely different calls onto one stored answer; caching on irrelevant extra bits never lets the cache hit at all
+Source: [Wikipedia — Memoization](https://en.wikipedia.org/wiki/Memoization) · [Wikipedia — Overlapping subproblems](https://en.wikipedia.org/wiki/Overlapping_subproblems)
+Example: `visualizations/examples/memoization.{css,html}` (no js needed — the values are static) → `visualizations/build/memoization.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::FastExponentiation]
+Class: entity
+Standard name: Exponentiation by squaring (binary exponentiation, "square-and-multiply")
+Essence: To raise a number to the power n, halve n and square the base at every step instead of multiplying by the base n times — the exponent shrinks by half each round, so the whole thing finishes in about log2(n) multiplications, not n.
+Recognized by: you need base^exponent for a LARGE exponent (thousands, millions, or a variable up to some big bound), especially under a modulus, and multiplying one factor in at a time is too slow
+General case: while exponent &gt; 0 — if the exponent is odd, multiply the running result by the current base; square the base; halve the exponent (integer division) — repeat; works identically under a modulus by reducing after every multiplication
+Picture: ![Fast exponentiation](visualizations/build/fast-exponentiation.png)
+Sequence:
+  1. Problem — 3<sup>13</sup>; multiplying by 3 thirteen times is 12 multiplications
+  2. Transform halve &amp; square — 4 rows, the exponent halving each time (13&rarr;6&rarr;3&rarr;1&rarr;0); the base squares every row, and the running result only picks up the base on the rows where the exponent is odd
+  3. Solution — 3<sup>13</sup> = 1594323, reached in 4 rows instead of 12 multiplications
+Limits:
+  - MUST NOT: be applied to a non-associative operation — a limit of the IDEA: squaring the base and combining partial results relies on `(a&middot;a)&middot;a = a&middot;(a&middot;a)`, which fails for operations without that property
+  - MUST: reduce modulo the modulus after EVERY multiplication when working modularly, not just at the end — a limit of PRACTICE: the base and result both grow every squaring step and overflow a fixed-width integer type within a handful of rounds otherwise
+Source: [Wikipedia — Exponentiation by squaring](https://en.wikipedia.org/wiki/Exponentiation_by_squaring)
+Example: `visualizations/examples/fast-exponentiation.{css,html}` (no js needed — the values are static) → `visualizations/build/fast-exponentiation.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::ModularInverseFermat]
+Class: entity
+Standard name: Modular multiplicative inverse via Fermat's little theorem
+Essence: There is no division in modular arithmetic, but under a PRIME modulus, dividing by a is the same as multiplying by a fixed power of a — a<sup>p&minus;2</sup> — a proven fact, not a search.
+Recognized by: you need to divide by a number modulo a prime (most often as part of a formula with a factorial or a binomial coefficient in the denominator, mod 10^9+7 or similar)
+General case: for prime p and a not a multiple of p, a<sup>p&minus;1</sup> &equiv; 1 (mod p) (Fermat's little theorem); multiplying both sides by a<sup>&minus;1</sup> gives a<sup>&minus;1</sup> &equiv; a<sup>p&minus;2</sup> (mod p) — computed with [method::FastExponentiation](#methodfastexponentiation), never by searching for the inverse
+Picture: ![Modular inverse via Fermat](visualizations/build/modular-inverse-fermat.png)
+Sequence:
+  1. Problem — 1 &divide; 3 (mod 7): no direct division exists
+  2. Transform Fermat — x = 3<sup>7&minus;2</sup> mod 7 = 3<sup>5</sup> mod 7 = 5, by the proven theorem, not trial and error
+  3. Solution — verify: 3 &times; 5 = 15 = 7 + 7 + 1 &equiv; 1 (mod 7); the division really does check out
+Limits:
+  - MUST NOT: be used when the modulus is not prime — a limit of the IDEA: Fermat's little theorem itself requires a prime modulus (Euler's theorem with &phi;(m) is the generalization for composite m, and needs m's factorization)
+  - MUST NOT: be used when a is a multiple of p — a limit of the IDEA: a has no inverse at all mod p in that case (gcd(a,p)=p, not 1)
+Source: [Wikipedia — Fermat's little theorem](https://en.wikipedia.org/wiki/Fermat's_little_theorem) · [cp-algorithms — Modular Inverse](https://cp-algorithms.com/algebra/module-inverse.html)
+Example: `visualizations/examples/modular-inverse-fermat.{css,html}` (no js needed — the values are static) → `visualizations/build/modular-inverse-fermat.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::LatticePaths]
+Class: entity
+Standard name: Lattice path counting (grid paths / binomial coefficient)
+Essence: The number of shortest routes across a grid, moving only right or down, is a binomial coefficient — choosing WHICH steps are "right" (or equivalently which are "down") out of the whole sequence of moves.
+Recognized by: you need to count routes/paths through a grid that only move in two fixed directions (right and down, or equivalently any two perpendicular directions), from one corner to another
+General case: across an N&times;M grid of squares (an (N+1)&times;(M+1) grid of points), the number of shortest routes from one corner to the opposite one is C(N+M, N) — out of N+M total moves, choose which N of them are "right" (the rest are forced to be "down")
+Picture: ![Lattice paths](visualizations/build/lattice-paths.png)
+Sequence:
+  1. Problem — a 2&times;2 grid of points to fill in; how many routes from top-left to bottom-right?
+  2. Transform build up — each point's route count is the point above it plus the point to its left (the only two ways to arrive there); filling the grid this way reaches 6 in the bottom-right corner
+  3. Solution — C(2+2, 2) = 6 routes, matching the filled-in grid exactly
+Limits:
+  - MUST NOT: be used when some cells are blocked/forbidden — a limit of the IDEA: the closed-form binomial coefficient counts EVERY monotone path; a grid with holes needs the cell-by-cell build-up (or inclusion-exclusion) instead, not the closed form
+  - MUST: the grid pictured is deliberately tiny (2&times;2) — a limit of the PICTURE: for a real N&times;M grid the same build-up table would need (N+1)&times;(M+1) cells, impractical to draw much larger than this
+Source: [Wikipedia — Lattice path](https://en.wikipedia.org/wiki/Lattice_path) · [Wikipedia — Binomial coefficient](https://en.wikipedia.org/wiki/Binomial_coefficient)
+Example: `visualizations/examples/lattice-paths.{css,html}` (no js needed — the values are static) → `visualizations/build/lattice-paths.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::DynamicProgramming]
+Class: entity
+Standard name: Dynamic programming (bottom-up / tabulation)
+Essence: Build the optimal answer to the whole problem from the already-solved optimal answers to its smaller pieces, smallest first, instead of exploring every whole path from scratch.
+Recognized by: the best choice at any point can be expressed using only the best answers to the smaller subproblems it leads to (optimal substructure), and those subproblems recur across many different larger problems (overlapping subproblems)
+General case: order the subproblems from smallest/base case to largest; for each one, combine the already-computed answers of the subproblems it depends on (often via a min/max/sum) into its own answer, storing it as it is computed; the final answer is the entry for the whole problem, built without exploring any path twice
+Picture: ![Dynamic programming](visualizations/build/dynamic-programming.png)
+Sequence:
+  1. Problem — a number triangle; moving only to an adjacent number below, which top-to-bottom path scores highest is unclear
+  2. Transform bottom-up — the bottom row is already optimal (nowhere left to go); every row above adds itself to the BETTER of the two cells directly below it, e.g. 2 + max(8,5) = 10, all the way up
+  3. Solution — the top cell, 23, IS the best total — no path was ever explored end to end
+Limits:
+  - MUST NOT: be used when the optimal choice at a point depends on more than just the optimal values of its subproblems (e.g. the actual path taken matters, not just its score) — a limit of the IDEA: optimal substructure can fail for constraints that couple choices non-locally
+  - MUST: combine subproblems with the SAME combining rule the problem actually asks for (max here; it would be sum, count, or min for a different problem) — a limit of PRACTICE: reusing "the DP idea" without checking which combining rule applies is a common source of wrong answers
+Source: [Wikipedia — Dynamic programming](https://en.wikipedia.org/wiki/Dynamic_programming) · [Wikipedia — Optimal substructure](https://en.wikipedia.org/wiki/Optimal_substructure)
+Example: `visualizations/examples/dynamic-programming.{css,html}` (no js needed — the values are static) → `visualizations/build/dynamic-programming.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::DayOfWeekFormula]
+Class: entity
+Standard name: Determination of the day of the week (Sakamoto's algorithm)
+Essence: The day of the week is a single sum of a few pieces (a leap-year correction, a fixed per-month offset, the day itself), taken modulo 7 — no calendar simulation needed.
+Recognized by: you need the day of the week for a date, possibly a huge or far-future one, without stepping through the calendar day by day or month by month
+General case: treating January and February as months 13 and 14 of the PREVIOUS year (so the leap-day correction only has to look at whole years), the weekday index is `(y + y/4 - y/100 + y/400 + t[m-1] + d) mod 7`, where `t = {0,3,2,5,0,3,5,1,4,6,2,4}` is a fixed per-month offset table and 0..6 maps Sunday..Saturday
+Picture: ![Day-of-week formula](visualizations/build/day-of-week-formula.png)
+Sequence:
+  1. Problem — 1 Jan 2000: which day of the week?
+  2. Transform sum the terms — the adjusted year 1999, plus leap-year corrections (+499, &minus;19, +4), plus January's month offset (0), plus the day (1): total 2484
+  3. Solution — 2484 mod 7 = 6 &rarr; Saturday, counted off on the 7-day strip; 1 Jan 2000 really was a Saturday
+Limits:
+  - MUST NOT: be used for dates before the Gregorian calendar's adoption (the formula assumes the modern leap-year rule throughout) — a limit of the IDEA: the Julian calendar's leap-year rule differs, and adoption dates vary by country
+  - MUST: reduce the year modulo 2800 first for very large years before evaluating the formula — a limit of PRACTICE: the Gregorian calendar's weekday pattern repeats every `lcm(400, 7) = 2800` years, and reducing first keeps every intermediate value small regardless of how large the input year is
+Source: [Wikipedia — Determination of the day of the week](https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week) (Sakamoto's algorithm section)
+Example: `visualizations/examples/day-of-week-formula.{css,html}` (no js needed — the values are static) → `visualizations/build/day-of-week-formula.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::LehmerCode]
+Class: entity
+Standard name: Lehmer code (factorial number system)
+Essence: The Nth permutation in lexicographic order can be built directly, one element at a time, by repeatedly dividing the (0-based) index by a shrinking factorial — no need to list any of the permutations before it.
+Recognized by: you need the Nth permutation of a sequence directly (by index, possibly a huge one), not all permutations up to it, and not just "some" permutation
+General case: with a pool of k remaining elements and a 0-based index, divide the index by (k&minus;1)! — the quotient selects which of the k remaining elements comes next (remove it from the pool), the remainder becomes the index for the next, one-smaller round; repeating until the pool is empty reconstructs the whole permutation
+Picture: ![Lehmer code](visualizations/build/lehmer-code.png)
+Sequence:
+  1. Problem — the 15th permutation of "abcd"; listing all 24 to count to it doesn't scale (13 letters would mean 6,227,020,800 of them)
+  2. Transform peel off digits — index 14, divided by shrinking factorials (3!, 2!, 1!, 0!), picks one letter from the shrinking pool each round: c, then b, then a, then d
+  3. Solution — c b a d, built directly, without ever listing the 14 permutations that come before it
+Limits:
+  - MUST NOT: be used with a 1-based index without first converting it to 0-based — a limit of PRACTICE: "the Nth permutation" is usually asked 1-indexed, but the divide-by-factorial process itself is defined on the 0-based position in the lexicographic list
+  - MUST: use the LARGEST leftover factorial first, walking it down by one element each round — a limit of the IDEA: choosing factorials out of order breaks the correspondence between the digit sequence and an actual base with each place's radix shrinking by one
+Source: [Wikipedia — Lehmer code](https://en.wikipedia.org/wiki/Lehmer_code) · [Wikipedia — Factorial number system](https://en.wikipedia.org/wiki/Factorial_number_system)
+Example: `visualizations/examples/lehmer-code.{css,html}` (no js needed — the values are static) → `visualizations/build/lehmer-code.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::CycleDetectionViaRemainders]
+Class: entity
+Standard name: Cycle detection via remainder tracking (why decimal expansions repeat)
+Essence: There are only finitely many possible remainders in a division — so stepping through it and remembering every remainder already seen is guaranteed to find a repeat, and exactly where it starts.
+Recognized by: you need the length (or existence) of a repeating pattern produced by an iterated process with a fixed, small number of possible internal states — most directly, the repeating block of a fraction's decimal expansion
+General case: run the process (here, long division: multiply the remainder by 10, divide by the denominator to get the next digit, keep the new remainder) while recording the step index at which each remainder first appeared; the moment a remainder repeats, the cycle length is the CURRENT step minus the step it was first recorded at — guaranteed to happen within (denominator) steps, since there are only that many possible remainders
+Picture: ![Cycle detection via remainders](visualizations/build/cycle-detection-remainders.png)
+Sequence:
+  1. Problem — 1/7 = 0.? ; how long is the repeating block?
+  2. Transform track remainders — step by step, the remainder after each digit: 1, 3, 2, 6, 4, 5, then 1 again — already seen at step 0
+  3. Solution — 1/7 = 0.(142857); cycle length = 6 &minus; 0 = 6
+Limits:
+  - MUST NOT: be used expecting a repeat to appear beyond (number of possible states) steps — a limit of the IDEA: the pigeonhole guarantee is exactly this bound, not an estimate
+  - MUST: record the step at which EACH remainder first appears (not just the most recent one) — a limit of PRACTICE: without a per-remainder record, detecting that "this remainder happened before" is possible, but recovering exactly how long ago is not
+Source: [Wikipedia — Repeating decimal](https://en.wikipedia.org/wiki/Repeating_decimal) (the remainder-tracking algorithm section)
+Example: `visualizations/examples/cycle-detection-remainders.{css,html}` (no js needed — the values are static) → `visualizations/build/cycle-detection-remainders.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::NextPermutation]
+Class: entity
+Standard name: Next permutation in lexicographic order (Narayana Pandita's algorithm)
+Essence: To get from one permutation to the very next one in dictionary order, find the last place the sequence still climbs, swap in the smallest later value big enough to keep climbing there, then flip the now-falling tail back into its own smallest order.
+Recognized by: you need to generate ALL permutations of a sequence, one at a time, in lexicographic order — not the Nth one directly, and not one arbitrary permutation
+General case: scan from the right for the last index i with a[i] &lt; a[i+1] (the "pivot"; if none exists, the sequence is already the last permutation); scan from the right again for the last index j &gt; i with a[j] &gt; a[i]; swap a[i] and a[j]; reverse the whole suffix after position i (it was strictly falling, so reversing makes it the smallest possible ordering of those same values)
+Picture: ![Next permutation](visualizations/build/next-permutation.png)
+Sequence:
+  1. Problem — 1 3 5 4 2; what permutation comes right after it?
+  2. Transform find &amp; swap — 3 is the last climb (3&lt;5); scanning from the right, 4 is the last value still bigger than 3; swap them, giving 1 4 5 3 2
+  3. Solution — everything after the swapped-in 4 (5, 3, 2) was falling; reversing it gives 2 3 5, so the answer is 1 4 2 3 5
+Limits:
+  - MUST NOT: be used to jump directly to a specific far-away Nth permutation — a limit of the IDEA: each call only advances by one step; reaching the Nth permutation this way costs O(N) steps ([method::LehmerCode](#methodlehmercode) reaches it directly instead)
+  - MUST: reverse the suffix, never just re-sort it — a limit of PRACTICE: the suffix is already guaranteed strictly decreasing at that point, so reversing it is the same as sorting it ascending, but a general sort would hide (and needlessly cost more than) that guarantee
+Source: [Wikipedia — Permutation](https://en.wikipedia.org/wiki/Permutation) (&sect; Generation in lexicographic order)
+Example: `visualizations/examples/next-permutation.{css,html}` (no js needed — the values are static) → `visualizations/build/next-permutation.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

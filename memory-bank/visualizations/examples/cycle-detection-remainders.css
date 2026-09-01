@@ -1,0 +1,9 @@
+.cdr-big{font-family:var(--font-m); font-size:17px; font-weight:700; text-align:center; color:var(--ink); max-width:440px; margin:0 auto;}
+.cdr-table{border-collapse:collapse; margin:0 auto; font-family:var(--font-m); font-size:13px;}
+.cdr-table th, .cdr-table td{border:1.5px solid var(--rule); padding:6px 14px; text-align:center; color:var(--ink);}
+.cdr-table th{color:var(--ink-soft); font-weight:700; font-size:11px;}
+.cdr-table td.cdr-first{color:var(--a); font-weight:700;}
+.cdr-table td.cdr-repeat{color:var(--b); font-weight:700;}
+.cdr-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:12px;}
+.cdr-eq{font-family:var(--font-m); font-size:17px; font-weight:700; text-align:center; color:var(--ink);}
+.cdr-good{color:var(--good); font-size:22px;}

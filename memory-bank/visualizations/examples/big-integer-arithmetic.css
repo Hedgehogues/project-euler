@@ -1,0 +1,9 @@
+.bia-stack{display:flex; flex-direction:column; align-items:center; gap:2px; font-family:var(--font-m); font-size:22px; font-weight:700; color:var(--ink);}
+.bia-row{display:flex; gap:8px;}
+.bia-row span{width:26px; text-align:center;}
+.bia-op{color:var(--ink-soft); font-weight:700;}
+.bia-rule{width:118px; height:2px; background:var(--ink); margin:4px 0;}
+.bia-result span{color:var(--good);}
+.bia-carries span{width:26px;}
+.bia-carry{font-size:13px; color:var(--b); background:var(--b-bg); border-radius:5px;}
+.bia-note{font-size:12px; color:var(--ink-soft); text-align:center; margin-top:12px; max-width:420px;}
