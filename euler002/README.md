@@ -17,7 +17,7 @@ Status: **Accepted**, 100% on HackerRank. Verified independently against a fresh
 over Fibonacci terms on `n = 0, 1, 2, 8, 10, 100, 4000000` — including `n=0`/`n=1`, where the
 answer is 0 because no even term has been reached yet.
 
-Full requirements and acceptance criteria: [spec.md](../memory-bank/specs/euler002.md).
+Full requirements and acceptance criteria: [spec.md](../memory-bank/specs/tasks/euler002.md).
 
 ## The ideas behind it
 

@@ -90,18 +90,21 @@ techniques found during research and has its own citation discipline.
   `Depends on: [method::Catalog]` line dropped too — it named nothing that `Spec:` didn't already
   say. Traces to: the Bounded Context section below (no separate aggregate-root record).
 - **F9** (user: "each task needs a spec.md too" — first placed in `euler{NNN}/`, then "keep it next
-  to the specs, not in the solution") Reopens half of F4, deliberately, on the user's explicit
-  choice: `memory-bank/specs/euler{NNN}.md` returns as a real path. What does NOT reopen: the
-  DICTIONARY (`_terms.md`) stays exactly as task-free as F4/F5 left it — no `[euler::*]` record, no
-  `Used in:` field, nothing a problem-side rename would ever need to touch. The distinction F4
-  originally missed: a spec and a dictionary entry are different kinds of artifact. A dictionary
-  entry is reusable knowledge that must never change when a problem is added or renamed
-  (MUST-reuse-changes-nothing). A task's own spec is the opposite by nature — a fixed,
-  one-time acceptance record for one already-solved problem, useful as a reference precisely
-  because it never needs to change either, just not for the same reason. `specs/` was always a
-  folder of RFC documents, not the dictionary; grouping a task's spec there with the catalog's own
-  specs is the same kind of document living together, not task knowledge leaking into the
-  dictionary. Traces to: MUST-no-task-specifics (narrowed to the dictionary).
+  to the specs, not in the solution", then "separate the specs that describe specs from the applied
+  ones") Reopens half of F4, deliberately, on the user's explicit choice: a task's own spec returns
+  as a real path under `specs/`. What does NOT reopen: the DICTIONARY (`_terms.md`) stays exactly
+  as task-free as F4/F5 left it — no `[euler::*]` record, no `Used in:` field, nothing a
+  problem-side rename would ever need to touch. The distinction F4 originally missed: a spec and a
+  dictionary entry are different kinds of artifact. A dictionary entry is reusable knowledge that
+  must never change when a problem is added or renamed (MUST-reuse-changes-nothing). A task's own
+  spec is the opposite by nature — a fixed, one-time acceptance record for one already-solved
+  problem, useful as a reference precisely because it never needs to change either, just not for
+  the same reason. A second distinction, inside `specs/` itself: this spec and `visualizations.md`
+  are META — they describe what makes ANY method record (or its picture) good, the same way for
+  every task. `specs/tasks/euler{NNN}.md` is APPLIED — one task's own requirements, checked once.
+  Same folder tree, two kinds of document, kept in separate subfolders (`specs/*.md` vs.
+  `specs/tasks/*.md`) so the split is visible in the file listing, not just in prose. Traces to:
+  MUST-no-task-specifics (narrowed to the dictionary).
 
 ## Architecture
 
@@ -160,9 +163,9 @@ from its own README.
   **MUST-no-task-specifics** — criterion: `_terms.md` contains no `[euler::*]` records and no
   `Used in:` field; reusing a known method on a new problem touches no line of it (see
   MUST-reuse-changes-nothing below). A task's OWN requirements and acceptance criteria are a
-  different artifact and live in `memory-bank/specs/euler{NNN}.md`, alongside this spec — that is
-  not a violation, it's the correct home for an RFC document. Status: done (F4, F5; narrowed by F9
-  to name the dictionary specifically once task specs returned to `specs/`).
+  different artifact and live in `memory-bank/specs/tasks/euler{NNN}.md` — applied specs, kept in
+  their own subfolder next to this meta-spec, not inside the dictionary. Status: done (F4, F5;
+  narrowed by F9 to name the dictionary specifically once task specs returned to `specs/`).
 - Reusing a known method on a new problem MUST NOT change this layer —
   **MUST-reuse-changes-nothing** — criterion: `git diff` on `_terms.md` is empty when a problem
   using an already-described method is added; the link appears only in `euler{NNN}/README.md`.

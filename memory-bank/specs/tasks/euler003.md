@@ -14,7 +14,7 @@ near `sqrt(N)`.
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../_terms.md`): [method::TrialDivision](../_terms.md#methodtrialdivision).
+(`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision).
 
 ## Scope
 **In scope:** `euler003/solution.cpp` — the model, the algorithm, correctness and bound arguments.
@@ -25,7 +25,7 @@ not this task); repository-wide rules (I/O format, ASCII-only — see the root R
 ## Architecture
 
 ### Overview (prose)
-[method::TrialDivision](../_terms.md#methodtrialdivision): first every factor of 2 is stripped out
+[method::TrialDivision](../../_terms.md#methodtrialdivision): first every factor of 2 is stripped out
 (divide while even), then only odd divisors `p = 3, 5, 7, ...` are tried, each pulled out of `n` as
 many times as it fits. The loop stops once `p·p > n` — if `n > 1` at that point, `n` itself is
 prime and, since divisors were tried in increasing order, larger than any divisor already pulled
@@ -63,5 +63,5 @@ no small factors.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Method: [method::TrialDivision](../_terms.md#methodtrialdivision).
+- Method: [method::TrialDivision](../../_terms.md#methodtrialdivision).
 - Code: `euler003/solution.cpp`; directory README: `euler003/README.md`.

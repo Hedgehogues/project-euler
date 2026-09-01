@@ -14,13 +14,12 @@ on the query.
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods used
-together, not one (`../memory-bank/_terms.md`):
-[method::Precomputation](../memory-bank/_terms.md#methodprecomputation),
-[method::BinarySearch](../memory-bank/_terms.md#methodbinarysearch).
+together, not one (`../../_terms.md`): [method::Precomputation](../../_terms.md#methodprecomputation),
+[method::BinarySearch](../../_terms.md#methodbinarysearch).
 
 ## Scope
-**In scope:** `solution.cpp` — the model, the algorithm, the complexity argument, correctness
-criteria.
+**In scope:** `euler002/solution.cpp` — the model, the algorithm, the complexity argument,
+correctness criteria.
 
 **Out of scope:** the visual explanation of binary search as a general technique (the catalog, not
 this task); repository-wide rules (I/O format, ASCII-only — see the root README).
@@ -31,12 +30,10 @@ this task); repository-wide rules (I/O format, ASCII-only — see the root READM
 Even Fibonacci terms occur every third term (`F(0)=0` is even, then odd-odd-even repeating — two
 odd terms sum to an even one). Instead of re-checking this on every term for every query, the
 solution builds the list of ALL even Fibonacci terms up to `4·10^16`, together with a running sum,
-exactly once
-([method::Precomputation](../memory-bank/_terms.md#methodprecomputation)) — this list is short
+exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) — this list is short
 (an even term grows exponentially, so there are only a few dozen up to `4·10^16`). For each query
-`N`, `upper_bound`
-([method::BinarySearch](../memory-bank/_terms.md#methodbinarysearch)) finds the last term `≤ N` in
-that list, and the answer is its stored running sum.
+`N`, `upper_bound` ([method::BinarySearch](../../_terms.md#methodbinarysearch)) finds the last term
+`≤ N` in that list, and the answer is its stored running sum.
 
 ### Data
 - Input: `T`, then `T` lines with `N` (up to `4·10^16`).
@@ -60,11 +57,11 @@ that list, and the answer is its stored running sum.
 - Building the list MUST NOT overflow or loop forever for `N` up to `4·10^16` —
   **MUST-no-overflow-at-bound** — criterion: `N_MAX = 4·10^16` fits in `long long`
   (`< 2^63 ≈ 9.2·10^18`); the build loop stops on `a <= N_MAX`, not unconditionally. Status: done.
-- `solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
-  `grep -nP '[^\x00-\x7F]' solution.cpp` is empty. Status: done.
+- `euler002/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
+  `grep -nP '[^\x00-\x7F]' euler002/solution.cpp` is empty. Status: done.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::Precomputation](../memory-bank/_terms.md#methodprecomputation),
-  [method::BinarySearch](../memory-bank/_terms.md#methodbinarysearch).
+- Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::BinarySearch](../../_terms.md#methodbinarysearch).
 - Code: `euler002/solution.cpp`; directory README: `euler002/README.md`.

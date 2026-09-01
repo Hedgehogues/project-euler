@@ -12,12 +12,13 @@ multiple of 3 or 5 — without looping over the range. HackerRank raises `N` and
 rule out the naive sum, so the solution must be `O(1)` per query.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods (`../memory-bank/_terms.md`):
-[method::InclusionExclusion](../memory-bank/_terms.md#methodinclusionexclusion),
-[method::ArithmeticProgressionSum](../memory-bank/_terms.md#methodarithmeticprogressionsum).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+(`../../_terms.md`): [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
+[method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
 
 ## Scope
-**In scope:** `solution.cpp` — the model, the formula, the `O(1)` argument, correctness criteria.
+**In scope:** `euler001/solution.cpp` — the model, the formula, the `O(1)` argument, correctness
+criteria.
 
 **Out of scope:** the visual explanation of either method (the catalog, not this task — see the
 README's own table); repository-wide rules (I/O format, ASCII-only — see the root README).
@@ -26,10 +27,10 @@ README's own table); repository-wide rules (I/O format, ASCII-only — see the r
 
 ### Overview (prose)
 The sum of multiples of `k` strictly below `n` is a sum of an arithmetic progression
-([method::ArithmeticProgressionSum](../memory-bank/_terms.md#methodarithmeticprogressionsum)):
+([method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum)):
 `m = (n-1)/k` such multiples exist and they sum to `k · m·(m+1)/2` — implemented as
 `sumMultiplesBelow(n, k)`. The answer to "multiple of 3 OR 5" is inclusion–exclusion
-([method::InclusionExclusion](../memory-bank/_terms.md#methodinclusionexclusion)) over that
+([method::InclusionExclusion](../../_terms.md#methodinclusionexclusion)) over that
 formula: `solve(n) = sumMultiplesBelow(n,3) + sumMultiplesBelow(n,5) − sumMultiplesBelow(n,15)`
 (15 = lcm(3,5) — the overlap, counted twice, subtracted once). Each query costs three calls to the
 formula, no loop over `[0, n)`.
@@ -55,14 +56,14 @@ formula, no loop over `[0, n)`.
   caught by the `n=15` test. Status: done.
 - `solve(n)` MUST subtract the sum of multiples of 15, derived as lcm(3,5) — not "3·5" as a
   coincidental product — **MUST-lcm-not-product** — criterion: the third term is tied explicitly
-  to [method::InclusionExclusion](../memory-bank/_terms.md#methodinclusionexclusion)'s overlap
-  term, not to multiplication in general. Status: done.
-- `solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
-  `grep -nP '[^\x00-\x7F]' solution.cpp` is empty. Status: done.
+  to [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion)'s overlap term, not to
+  multiplication in general. Status: done.
+- `euler001/solution.cpp` MUST be pure ASCII — **MUST-ascii-only** — criterion:
+  `grep -nP '[^\x00-\x7F]' euler001/solution.cpp` is empty. Status: done.
 - I/O MUST match HackerRank's format (first line `T`, then `T` lines of `N`; one answer line per
   query) — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::InclusionExclusion](../memory-bank/_terms.md#methodinclusionexclusion),
-  [method::ArithmeticProgressionSum](../memory-bank/_terms.md#methodarithmeticprogressionsum).
+- Methods: [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
+  [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
 - Code: `euler001/solution.cpp`; directory README: `euler001/README.md`.

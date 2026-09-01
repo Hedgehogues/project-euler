@@ -8,16 +8,17 @@
 > live as fields of a single `[method::*]` record; a method has at most one picture, and having
 > none is legitimate with a stated reason.
 >
-> The **specs** folder is a different thing: RFC documents, not dictionary entries. Two describe
-> the catalog itself (idea quality, picture quality); the rest are per-task specs, one per problem
-> — a task's own requirements and acceptance criteria are exactly the kind of content the
+> The **specs** folder is a different thing: RFC documents, not dictionary entries, split by kind.
+> `specs/*.md` describes the catalog itself (idea quality, picture quality) — a meta-spec, about
+> what makes any method record and its picture good. `specs/tasks/*.md` is applied — one per
+> problem, its own requirements and acceptance criteria. That is exactly the kind of content the
 > dictionary above must never hold, but a spec is not a dictionary entry.
 
 ## projecteuler — explaining solutions
 - [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
 - [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
-- [specs/euler001.md](specs/euler001.md) · [specs/euler002.md](specs/euler002.md) · [specs/euler003.md](specs/euler003.md) — per-task requirements and acceptance criteria; linked from each `euler{NNN}/README.md`
+- [specs/tasks/euler001.md](specs/tasks/euler001.md) · [specs/tasks/euler002.md](specs/tasks/euler002.md) · [specs/tasks/euler003.md](specs/tasks/euler003.md) — per-task requirements and acceptance criteria (applied specs); linked from each `euler{NNN}/README.md`
 
 ### Pictures — sources and build
 - `visualizations/examples/<slug>.{css,html,js}` — frame code (edited by hand)
