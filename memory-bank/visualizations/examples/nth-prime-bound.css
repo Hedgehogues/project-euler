@@ -54,3 +54,13 @@
 .npb-truth-mark{position:absolute; top:4px; width:2px; height:32px; background:var(--ink-soft); transform:translateX(-1px);}
 .npb-truth-label{position:absolute; top:-13px; left:0; transform:translateX(-50%);
   font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+
+.npb-hop-val{position:absolute; top:26px; transform:translateX(-50%); font-family:var(--font-m); font-size:11px; font-weight:700; white-space:nowrap;}
+.npb-hop-val.npb-bad{color:var(--b);}
+.npb-hop-val.npb-good{color:var(--good);}
+.npb-gap{position:absolute; top:19px; height:0; border-top:3px dashed var(--b); opacity:.7;}
+.npb-gap-x{position:absolute; top:-2px; left:50%; transform:translateX(-50%); font-size:12px; font-weight:700; color:var(--b);}
+.npb-ruler.npb-ruler-a{background:var(--warn);}
+.npb-ruler-total{position:absolute; top:-1px; left:100%; margin-left:6px; font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--b); white-space:nowrap;}
+.npb-bar-dot{position:absolute; top:50%; width:7px; height:7px; border-radius:50%; background:var(--a); transform:translate(-50%,-50%);}
+.npb-bar-dot.npb-bar-dot-hit{background:var(--good); width:9px; height:9px;}
