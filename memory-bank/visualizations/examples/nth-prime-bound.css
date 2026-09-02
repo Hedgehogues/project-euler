@@ -20,3 +20,14 @@
 .npb-mark-label{position:absolute; bottom:24px; left:50%; transform:translateX(-100%); font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--good); white-space:nowrap;}
 .npb-wall-mark{background:var(--b);}
 .npb-wall-label{color:var(--b); bottom:auto; top:24px;}
+
+.npb-walk{position:relative; width:100%; max-width:400px; height:40px; margin-top:2px;}
+.npb-walk-line{position:absolute; top:20px; left:0; right:0; height:2px; background:var(--rule);}
+.npb-hop-dot{position:absolute; top:15px; width:9px; height:9px; border-radius:50%;
+  background:var(--ink-soft); transform:translate(-50%,-50%);}
+.npb-hop-dot.npb-hop-last{width:15px; height:15px;}
+.npb-hop-dot.npb-hop-bad{background:var(--b);}
+.npb-hop-dot.npb-hop-good{background:var(--good);}
+.npb-truth-mark{position:absolute; top:4px; width:2px; height:32px; background:var(--ink-soft); transform:translateX(-1px);}
+.npb-truth-label{position:absolute; top:-13px; left:0; transform:translateX(-50%);
+  font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}

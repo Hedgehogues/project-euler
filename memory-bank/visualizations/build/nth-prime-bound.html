@@ -82,6 +82,17 @@
 .npb-mark-label{position:absolute; bottom:24px; left:50%; transform:translateX(-100%); font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--good); white-space:nowrap;}
 .npb-wall-mark{background:var(--b);}
 .npb-wall-label{color:var(--b); bottom:auto; top:24px;}
+
+.npb-walk{position:relative; width:100%; max-width:400px; height:40px; margin-top:2px;}
+.npb-walk-line{position:absolute; top:20px; left:0; right:0; height:2px; background:var(--rule);}
+.npb-hop-dot{position:absolute; top:15px; width:9px; height:9px; border-radius:50%;
+  background:var(--ink-soft); transform:translate(-50%,-50%);}
+.npb-hop-dot.npb-hop-last{width:15px; height:15px;}
+.npb-hop-dot.npb-hop-bad{background:var(--b);}
+.npb-hop-dot.npb-hop-good{background:var(--good);}
+.npb-truth-mark{position:absolute; top:4px; width:2px; height:32px; background:var(--ink-soft); transform:translateX(-1px);}
+.npb-truth-label{position:absolute; top:-13px; left:0; transform:translateX(-50%);
+  font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
 </style>
 </head>
 <body>
@@ -110,6 +121,16 @@
       <div class="npb-steplabel">gap &asymp; ln(x)</div>
       <div class="npb-formula">6 &times; ln 6 &asymp; 6 &times; 1.792 &asymp; 10.75</div>
     </div>
+    <div class="npb-walk">
+      <div class="npb-walk-line"></div>
+      <div class="npb-truth-mark" style="left:86.7%"><span class="npb-truth-label">13</span></div>
+      <div class="npb-hop-dot" style="left:11.9%"></div>
+      <div class="npb-hop-dot" style="left:23.9%"></div>
+      <div class="npb-hop-dot" style="left:35.8%"></div>
+      <div class="npb-hop-dot" style="left:47.8%"></div>
+      <div class="npb-hop-dot" style="left:59.7%"></div>
+      <div class="npb-hop-dot npb-hop-last npb-hop-bad" style="left:71.7%"></div>
+    </div>
     <div class="npb-checkline npb-checkline-bad">
       <span class="npb-checkmark">&#10007;</span> 13 &gt; 10.75
     </div>
@@ -123,6 +144,16 @@
     <div class="npb-step">
       <div class="npb-steplabel">ln(6&middot;ln 6) = ln 6 + ln ln 6 &asymp; 2.375</div>
       <div class="npb-formula">6 &times; (ln 6 + ln ln 6) &asymp; 14.25</div>
+    </div>
+    <div class="npb-walk">
+      <div class="npb-walk-line"></div>
+      <div class="npb-truth-mark" style="left:86.7%"><span class="npb-truth-label">13</span></div>
+      <div class="npb-hop-dot" style="left:15.8%"></div>
+      <div class="npb-hop-dot" style="left:31.7%"></div>
+      <div class="npb-hop-dot" style="left:47.5%"></div>
+      <div class="npb-hop-dot" style="left:63.3%"></div>
+      <div class="npb-hop-dot" style="left:79.2%"></div>
+      <div class="npb-hop-dot npb-hop-last npb-hop-good" style="left:95%"></div>
     </div>
     <div class="npb-arrow-row">&darr; round up</div>
     <div class="npb-big">15</div>
