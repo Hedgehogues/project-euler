@@ -102,12 +102,11 @@ Recognized by: the same structure (list, table, running sum) is used many times 
 General case: lift the construction of the shared structure out of the query loop — its cost is paid once instead of T times; HOW a query is then answered from the ready structure (search, indexing, range sum) is a separate method, not part of precomputation
 Picture: ![Precomputation](visualizations/build/precomputation.png)
 Sequence:
-  1. Problem — three queries ("is 16/25/30 a perfect square?"), each triggering its own separate
-     build of the same set of squares &le; 30 — 5 elements built 3 times over, cost 5&times;3=15
-  2. Transform → — the three separate builds merge into one build of {1,4,9,16,25}, done before
-     any query is answered — cost drops from 15 to 5
-  3. Solution — the one built set is shared; every query becomes a 1-step lookup into it (16 and
-     25 found, 30 not), total cost 5+3=8 against the original 15
+  1. Problem — three queries: is 16 / 25 / 30 a perfect square? Nothing is built yet
+  2. Transform prepare — before answering any query, the squares &le; 30 are computed once, in
+     order (1&sup2;, 2&sup2;, ... 5&sup2;), into the set {1,4,9,16,25}
+  3. Solution — each query navigates straight to its answer in that one ready set: 16 and 25 land
+     on a matching cell (found), 30 is checked against every cell and matches none (not found)
 Limits:
   - MUST NOT: be used when the structure depends on the query — then there is nothing to precompute
   - MUST: remember the build cost is always paid, even for a single query — with only one query there is no gain

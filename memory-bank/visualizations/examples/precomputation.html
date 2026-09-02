@@ -2,31 +2,22 @@
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
     <div class="pc-row"><div class="pc-q">16</div><div class="pc-q">25</div><div class="pc-q">30</div></div>
-    <div class="pc-arrows">↓&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
-    <div class="pc-row">
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-    </div>
-    <div class="pc-caption">5&times;3 = 15</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">→</div>
+<div class="frame-tag">prepare</div>
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
-    <div class="pc-row pc-fade">
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
+    <div class="pc-build-row">
+      <div class="pc-build-step"><div class="pc-exp">1&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">1</div></div>
+      <div class="pc-build-step"><div class="pc-exp">2&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">4</div></div>
+      <div class="pc-build-step"><div class="pc-exp">3&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">9</div></div>
+      <div class="pc-build-step"><div class="pc-exp">4&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">16</div></div>
+      <div class="pc-build-step"><div class="pc-exp">5&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">25</div></div>
     </div>
-    <div class="pc-arrows">↘&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↙</div>
-    <div class="pc-stack">
-      <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
-      <div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div>
-    </div>
-    <div class="pc-caption">15 &rarr; 5</div>
+    <div class="pc-arrows">&darr;</div>
+    <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
   </div>
 </div></div>
 
@@ -34,16 +25,18 @@
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
-    <div class="pc-stack">
-      <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
-      <div class="pc-ticks pc-fade"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div>
+    <div class="pc-nav-grid">
+      <div class="pc-nav-q"></div><div class="pc-nav-q"></div><div class="pc-nav-q"></div><div class="pc-nav-q">16</div><div class="pc-nav-q">25</div>
+      <div class="pc-nav-arrow"></div><div class="pc-nav-arrow"></div><div class="pc-nav-arrow"></div><div class="pc-nav-arrow">&darr;</div><div class="pc-nav-arrow">&darr;</div>
+      <div class="pc-nav-cell">1</div><div class="pc-nav-cell">4</div><div class="pc-nav-cell">9</div><div class="pc-nav-cell pc-hit">16</div><div class="pc-nav-cell pc-hit">25</div>
     </div>
-    <div class="pc-arrows">↙&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↘</div>
-    <div class="pc-row">
-      <div class="pc-stack"><div class="pc-q pc-fast pc-wideq">16 &#10003;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
-      <div class="pc-stack"><div class="pc-q pc-fast pc-wideq">25 &#10003;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
-      <div class="pc-stack"><div class="pc-q pc-miss pc-wideq">30 &#10007;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
+    <div class="pc-scan">
+      <span class="pc-q30">30</span>
+      <span class="pc-scan-line"></span>
+      <span class="pc-miss-x">&#10007;</span>
     </div>
-    <div class="pc-caption">5 + 3 = 8 <span style="opacity:.6">(was 15)</span></div>
+    <div class="pc-row" style="margin-top:6px;">
+      <div class="pc-q pc-fast pc-wideq">16 &#10003;</div><div class="pc-q pc-fast pc-wideq">25 &#10003;</div><div class="pc-q pc-miss pc-wideq">30 &#10007;</div>
+    </div>
   </div>
 </div></div>

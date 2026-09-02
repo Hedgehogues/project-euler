@@ -83,6 +83,28 @@
 .pc-tick.pc-warn{background:var(--warn);}
 .pc-tick.pc-good{background:var(--good);}
 .pc-ticks.pc-fade{opacity:.45;}
+
+.pc-build-row{display:flex; gap:8px;}
+.pc-build-step{display:flex; flex-direction:column; align-items:center; gap:4px;}
+.pc-build-step .pc-exp{font-family:var(--font-m); font-size:11px; color:var(--warn);}
+.pc-build-step .pc-arr{font-size:12px; color:var(--ink-soft); line-height:1;}
+.pc-build-step .pc-val{width:40px; height:30px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--warn); border-radius:6px; background:var(--warn-bg); color:var(--warn);
+  font-family:var(--font-m); font-weight:700; font-size:13px;}
+
+.pc-nav-grid{display:grid; grid-template-columns:repeat(5,44px); gap:8px; justify-items:center;}
+.pc-nav-q{height:20px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-m); font-weight:700; font-size:13px; color:var(--good);}
+.pc-nav-arrow{height:16px; font-size:13px; line-height:1; color:var(--ink-soft);}
+.pc-nav-cell{width:44px; height:32px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:6px; background:var(--surface);
+  font-family:var(--font-m); font-weight:700; font-size:13px; color:var(--ink);}
+.pc-nav-cell.pc-hit{border-color:var(--good); background:var(--good-bg); color:var(--good);}
+
+.pc-scan{display:flex; align-items:center; gap:8px; font-family:var(--font-m); font-weight:700; font-size:13px;}
+.pc-scan-line{width:220px; border-bottom:2px dashed var(--b); height:1px;}
+.pc-scan .pc-miss-x{color:var(--b);}
+.pc-scan .pc-q30{color:var(--b);}
 </style>
 </head>
 <body>
@@ -96,31 +118,22 @@
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
     <div class="pc-row"><div class="pc-q">16</div><div class="pc-q">25</div><div class="pc-q">30</div></div>
-    <div class="pc-arrows">↓&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↓</div>
-    <div class="pc-row">
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-    </div>
-    <div class="pc-caption">5&times;3 = 15</div>
   </div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
-<div class="frame-tag">→</div>
+<div class="frame-tag">prepare</div>
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
-    <div class="pc-row pc-fade">
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
-      <div class="pc-stack"><div class="pc-box pc-warn">squares<br>&le;30</div><div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div></div>
+    <div class="pc-build-row">
+      <div class="pc-build-step"><div class="pc-exp">1&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">1</div></div>
+      <div class="pc-build-step"><div class="pc-exp">2&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">4</div></div>
+      <div class="pc-build-step"><div class="pc-exp">3&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">9</div></div>
+      <div class="pc-build-step"><div class="pc-exp">4&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">16</div></div>
+      <div class="pc-build-step"><div class="pc-exp">5&sup2;</div><div class="pc-arr">&darr;</div><div class="pc-val">25</div></div>
     </div>
-    <div class="pc-arrows">↘&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↙</div>
-    <div class="pc-stack">
-      <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
-      <div class="pc-ticks"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div>
-    </div>
-    <div class="pc-caption">15 &rarr; 5</div>
+    <div class="pc-arrows">&darr;</div>
+    <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
   </div>
 </div></div>
 
@@ -128,17 +141,19 @@
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
   <div class="pc-col">
-    <div class="pc-stack">
-      <div class="pc-box pc-good pc-wide">{1,4,9,16,25}</div>
-      <div class="pc-ticks pc-fade"><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div><div class="pc-tick pc-warn"></div></div>
+    <div class="pc-nav-grid">
+      <div class="pc-nav-q"></div><div class="pc-nav-q"></div><div class="pc-nav-q"></div><div class="pc-nav-q">16</div><div class="pc-nav-q">25</div>
+      <div class="pc-nav-arrow"></div><div class="pc-nav-arrow"></div><div class="pc-nav-arrow"></div><div class="pc-nav-arrow">&darr;</div><div class="pc-nav-arrow">&darr;</div>
+      <div class="pc-nav-cell">1</div><div class="pc-nav-cell">4</div><div class="pc-nav-cell">9</div><div class="pc-nav-cell pc-hit">16</div><div class="pc-nav-cell pc-hit">25</div>
     </div>
-    <div class="pc-arrows">↙&nbsp;&nbsp;&nbsp;&nbsp;↓&nbsp;&nbsp;&nbsp;&nbsp;↘</div>
-    <div class="pc-row">
-      <div class="pc-stack"><div class="pc-q pc-fast pc-wideq">16 &#10003;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
-      <div class="pc-stack"><div class="pc-q pc-fast pc-wideq">25 &#10003;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
-      <div class="pc-stack"><div class="pc-q pc-miss pc-wideq">30 &#10007;</div><div class="pc-ticks"><div class="pc-tick pc-good"></div></div></div>
+    <div class="pc-scan">
+      <span class="pc-q30">30</span>
+      <span class="pc-scan-line"></span>
+      <span class="pc-miss-x">&#10007;</span>
     </div>
-    <div class="pc-caption">5 + 3 = 8 <span style="opacity:.6">(was 15)</span></div>
+    <div class="pc-row" style="margin-top:6px;">
+      <div class="pc-q pc-fast pc-wideq">16 &#10003;</div><div class="pc-q pc-fast pc-wideq">25 &#10003;</div><div class="pc-q pc-miss pc-wideq">30 &#10007;</div>
+    </div>
   </div>
 </div></div>
     </div>
