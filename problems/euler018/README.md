@@ -25,6 +25,11 @@ through its smaller sub-triangles, bottom row first.
 
 [![Dynamic programming](../../memory-bank/visualizations/build/dynamic-programming.png)](../../memory-bank/visualizations/build/dynamic-programming.html)
 
+**In-place algorithm** — Each row is folded into the row above it, over the input itself.
+[`[method::InPlaceAlgorithm]`](../../memory-bank/_terms.md#methodinplacealgorithm)
+
+[![In-place algorithm](../../memory-bank/visualizations/build/in-place-algorithm.png)](../../memory-bank/visualizations/build/in-place-algorithm.html)
+
 ## Build & run
 
 ```

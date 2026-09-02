@@ -27,6 +27,14 @@ blogs/teaching sites), and every abundant number's divisor sum is still built on
 query, the same [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation)
 pattern already catalogued.
 
+**Sieving over multiples** — The same sweep accumulates divisor sums for every number up to the bound.
+[`[method::SievingOverMultiples]`](../../memory-bank/_terms.md#methodsievingovermultiples)
+
+**Symmetry breaking** — The second summand starts at the first, so each unordered pair is tried once.
+[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+
+[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+
 ## Build & run
 
 ```

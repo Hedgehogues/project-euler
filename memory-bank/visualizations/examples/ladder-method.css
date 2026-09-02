@@ -7,3 +7,10 @@
   padding:6px 14px 6px 10px;}
 .lnum{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
 .lnum.prime{color:var(--good); background:var(--good-bg); padding:4px 12px; border-radius:8px; border:1.5px solid var(--good);}
+
+/* last frame: the leftover's OWN trial bound running out — the stop is shown, not claimed */
+.lstop{margin-top:15px; display:flex; flex-direction:column; align-items:center; gap:6px;}
+.lstest{display:flex; align-items:center; gap:10px; font-family:var(--font-m); font-size:14px; font-weight:700;}
+.lst-calc{color:var(--ink-soft); width:112px; text-align:right;}
+.lst-no{color:var(--b);}
+.lst-stop{color:var(--good);}

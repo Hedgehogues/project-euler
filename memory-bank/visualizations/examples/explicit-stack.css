@@ -1,0 +1,23 @@
+.es-chain{display:flex; align-items:center; justify-content:center; gap:5px;}
+.es-node{width:56px; border:1.5px solid var(--rule); border-radius:8px; background:var(--surface); text-align:center; padding:5px 0;}
+.es-name{font-family:var(--font-m); font-size:17px; font-weight:700; color:var(--ink); display:block;}
+.es-ans{font-family:var(--font-m); font-size:14px; font-weight:700; display:block; margin-top:2px;}
+.es-unk{color:var(--ink-soft);}
+.es-base{border-color:var(--good); background:var(--good-bg);}
+.es-base .es-ans{color:var(--good);}
+.es-push{border-color:var(--ab); background:var(--ab-bg);}
+.es-push .es-name{color:var(--ab);}
+.es-done{border-color:var(--good); background:var(--good-bg);}
+.es-done .es-ans{color:var(--good);}
+.es-goal{border-width:2.5px;}
+.es-link{font-family:var(--font-m); color:var(--ink-soft); font-size:16px;}
+
+.es-srow{display:flex; align-items:center; justify-content:center; gap:10px; margin:3px 0;}
+.es-slab{width:64px; font-family:var(--font-m); font-size:10px; color:var(--ink-soft); text-align:right;}
+.es-scalc{width:98px; font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink); text-align:left;}
+.es-slot{width:60px; padding:5px 0; text-align:center; border-radius:6px;
+  font-family:var(--font-m); font-size:16px; font-weight:700;
+  border:1.5px solid var(--ab); background:var(--ab-bg); color:var(--ab);}
+.es-slot-out{border-color:var(--good); background:var(--good-bg); color:var(--good);}
+.es-slot-seed{border-color:var(--good); background:var(--good-bg); color:var(--good); border-style:dashed;}
+.es-mid{font-family:var(--font-m); font-size:15px; color:var(--ink-soft); text-align:center; margin:8px 0 2px;}

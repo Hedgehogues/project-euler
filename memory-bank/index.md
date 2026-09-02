@@ -17,12 +17,13 @@
 > dictionary entry.
 
 ## projecteuler — explaining solutions
-- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method` — SkipCounting, InclusionExclusion, VennDiagram, ArithmeticProgressionSum, Precomputation, BinarySearch, TrialDivision, EuclideanAlgorithm, LCMViaGCD, SumOfSquares, SieveOfEratosthenes, NthPrimeBound, PrimeNumberTheorem, PrefixSum,
-  DivisorCountFormula, BigIntegerArithmetic, Memoization, FastExponentiation,
-  ModularInverseFermat, LatticePaths, DynamicProgramming, DayOfWeekFormula, LehmerCode,
-  CycleDetectionViaRemainders, NextPermutation, BruteForceSearch, VariableElimination
-  (the catalog- and shell-level invariants live in the two specs below, not as blocks of their own)
-- [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic or a named composition, recognizable from the statement, canonical source, at most one picture
+- [_terms.md](_terms.md) — the dictionary and the ONLY place descriptions live: context `method`. The
+  `## [method::*]` headings of that file ARE the list of methods, and this line deliberately does
+  not copy them: the copy that used to live here went stale inside a single session (approaches.md's
+  F10) and the same drift then repeated one level up. Read the headings; a record is an atom, a
+  named composition, or a family with an `Axis:` over its specializations. (The catalog- and
+  shell-level invariants live in the specs below, not as blocks of their own.)
+- [approaches](specs/approaches.md) — Status: draft — requirements on the IDEA in a method record: atomic, a named composition, or a family along a named axis; recognizable from the statement, canonical source, at most one picture
 - [visualizations](specs/visualizations.md) — Status: draft — requirements on the PICTURE: frames problem → transforms → solution, deterministic `build.sh`, observing the render, repository QR
 - [tasks](specs/tasks.md) — Status: draft — requirements on a TASK SPEC's own format: six sections in order, methods must resolve, a Status line must name real evidence
 - [specs/tasks/euler001.md](specs/tasks/euler001.md) · [specs/tasks/euler002.md](specs/tasks/euler002.md) · [specs/tasks/euler003.md](specs/tasks/euler003.md) · [specs/tasks/euler004.md](specs/tasks/euler004.md) · [specs/tasks/euler005.md](specs/tasks/euler005.md) · [specs/tasks/euler006.md](specs/tasks/euler006.md) · [specs/tasks/euler007.md](specs/tasks/euler007.md) · [specs/tasks/euler008.md](specs/tasks/euler008.md) · [specs/tasks/euler009.md](specs/tasks/euler009.md) · [specs/tasks/euler010.md](specs/tasks/euler010.md) · [specs/tasks/euler011.md](specs/tasks/euler011.md) · [specs/tasks/euler012.md](specs/tasks/euler012.md) · [specs/tasks/euler013.md](specs/tasks/euler013.md) · [specs/tasks/euler014.md](specs/tasks/euler014.md) · [specs/tasks/euler015.md](specs/tasks/euler015.md) · [specs/tasks/euler016.md](specs/tasks/euler016.md) · [specs/tasks/euler017.md](specs/tasks/euler017.md) · [specs/tasks/euler018.md](specs/tasks/euler018.md) · [specs/tasks/euler019.md](specs/tasks/euler019.md) · [specs/tasks/euler020.md](specs/tasks/euler020.md) · [specs/tasks/euler021.md](specs/tasks/euler021.md) · [specs/tasks/euler022.md](specs/tasks/euler022.md) · [specs/tasks/euler023.md](specs/tasks/euler023.md) · [specs/tasks/euler024.md](specs/tasks/euler024.md) · [specs/tasks/euler025.md](specs/tasks/euler025.md) · [specs/tasks/euler026.md](specs/tasks/euler026.md) · [specs/tasks/euler027.md](specs/tasks/euler027.md) · [specs/tasks/euler028.md](specs/tasks/euler028.md) · [specs/tasks/euler029.md](specs/tasks/euler029.md) · [specs/tasks/euler030.md](specs/tasks/euler030.md) · [specs/tasks/euler031.md](specs/tasks/euler031.md) · [specs/tasks/euler032.md](specs/tasks/euler032.md) · [specs/tasks/euler033.md](specs/tasks/euler033.md) · [specs/tasks/euler034.md](specs/tasks/euler034.md) · [specs/tasks/euler035.md](specs/tasks/euler035.md) · [specs/tasks/euler036.md](specs/tasks/euler036.md) · [specs/tasks/euler037.md](specs/tasks/euler037.md) — the applied instances of `tasks.md`'s format; linked from each `problems/euler{NNN}/README.md`
@@ -35,5 +36,5 @@
 
 ### Outside the memory bank
 - `problems/euler{NNN}/README.md` — the problem itself: statement, algorithm, submission status, links to the methods it uses and to its spec (all problems live under one `problems/` folder, not loose at the repo root)
-- `.claude/rules/visualization-principles.md` — principles 1–16 (the short, auto-loaded form of the spec requirements)
+- `.claude/rules/visualization-principles.md` — the short, auto-loaded form of the spec requirements; its own `## N.` headings are the count, not a number written down here (same drift as F10)
 - `.claude/skills/document-problem/SKILL.md` — the skill: writes a solved problem's README + spec + any new method entries (catalog lookup, picture build, both), by precedent from `problems/euler001-003`; escalates when a new problem doesn't fit that precedent

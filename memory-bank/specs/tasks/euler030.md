@@ -15,8 +15,8 @@ gives the point past which no number can qualify, since `10^(d-1)` overtakes `d 
 permanently once `d` is large enough.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — the derived digit-growth bound caps the candidate range before the scan starts.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — the derived digit-growth bound caps the candidate range before the scan starts, [method::DigitalInvariantBound](../../_terms.md#methoddigitalinvariantbound) (the largest reachable digit total is weighed against the smallest number of each length, which ends the search), [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the candidate is taken apart into digits, which is what the condition is about), and [method::LookupTable](../../_terms.md#methodlookuptable) (each digit own power is a ten-entry table computed once).
 
 ## Scope
 **In scope:** `problems/euler030/solution.cpp` — the bound derivation, the direct digit-power
@@ -58,5 +58,8 @@ powers (looked up from a precomputed `digitPow` table) and compare to the number
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch),
+  [method::DigitalInvariantBound](../../_terms.md#methoddigitalinvariantbound),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation),
+  [method::LookupTable](../../_terms.md#methodlookuptable).
 - Code: `problems/euler030/solution.cpp`; directory README: `problems/euler030/README.md`.

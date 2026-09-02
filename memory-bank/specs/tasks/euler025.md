@@ -14,9 +14,9 @@ every query would also repeat the same growing addition chain up to 5000 times; 
 and recording every threshold's first-reaching index answers every query with a lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation), [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the terms are held as digit blocks, nine decimal digits to an element), [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (only the last two terms are kept and overwritten), [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm) (the digit-length thresholds are all read first and filled in one ascending pass), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (the block size is chosen so a product of two blocks stays inside a machine word).
 
 ## Scope
 **In scope:** `problems/euler025/solution.cpp` — the digit-array Fibonacci walk, the
@@ -61,5 +61,9 @@ every threshold `k` up to the new count. Each query then reads `firstIndex[N]` d
 
 ## Links
 - Methods: [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation),
+  [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm),
+  [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler025/solution.cpp`; directory README: `problems/euler025/README.md`.

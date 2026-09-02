@@ -36,6 +36,11 @@ number at a time, using the GCD to avoid ever overcounting shared factors. [`[me
 
 [![LCM via GCD](../../memory-bank/visualizations/build/lcm-via-gcd.png)](../../memory-bank/visualizations/build/lcm-via-gcd.html)
 
+**Keeping a value in range** — The greatest common divisor is divided out before the multiplication, never after.
+[`[method::IntegerOverflowAvoidance]`](../../memory-bank/_terms.md#methodintegeroverflowavoidance)
+
+[![Keeping a value in range](../../memory-bank/visualizations/build/integer-overflow-avoidance.png)](../../memory-bank/visualizations/build/integer-overflow-avoidance.html)
+
 ## Build & run
 
 ```

@@ -14,8 +14,8 @@ a SINGLE query, let alone 1000. The Lehmer-code reconstruction builds the answer
 `O(k²)` (`k=13`) per query, regardless of how large `N` is.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::LehmerCode](../../_terms.md#methodlehmercode).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::LehmerCode](../../_terms.md#methodlehmercode), and [method::LookupTable](../../_terms.md#methodlookuptable) (the factorials below the pool size are a small fixed table).
 
 ## Scope
 **In scope:** `problems/euler024/solution.cpp` — the factorial precomputation, the digit-peeling
@@ -57,5 +57,6 @@ the remaining pool size minus one; the quotient indexes into the still-shrinking
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::LehmerCode](../../_terms.md#methodlehmercode).
+- Methods: [method::LehmerCode](../../_terms.md#methodlehmercode),
+  [method::LookupTable](../../_terms.md#methodlookuptable).
 - Code: `problems/euler024/solution.cpp`; directory README: `problems/euler024/README.md`.

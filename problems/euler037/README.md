@@ -25,6 +25,11 @@ unmarked is exactly the primes, checked once and reused for every truncation.
 
 [![Sieve of Eratosthenes](../../memory-bank/visualizations/build/sieve-of-eratosthenes.png)](../../memory-bank/visualizations/build/sieve-of-eratosthenes.html)
 
+**Positional notation** — Truncating from either end is an operation on the written form.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

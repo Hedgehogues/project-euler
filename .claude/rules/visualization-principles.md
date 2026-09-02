@@ -172,13 +172,26 @@ caption beside it. Every built page and every snapshot therefore carries a QR co
 - MUST NOT: cover the QR with other elements, shrink it below ~70px on the built page, or recolor it
   into something with low contrast against the background.
 
-## 11. A method is an atom or a named composition of atoms; at most one picture per method
+## 11. A method is an atom, a named composition of atoms, or a family generalizing atoms along a named axis; at most one picture per method
 
 The method catalog is not a pile of formulas but an algebra: each record is either an indivisible
-idea (it does not decompose further into something simpler and reusable) or an explicitly named
-composition of two or more indivisible ideas used together. The forbidden middle state is "an
-indivisible idea plus an extra that is not named separately" — a composition without admitting that
-it is one.
+idea (it does not decompose further into something simpler and reusable), an explicitly named
+composition of two or more indivisible ideas used together, or a family — one idea that several
+catalogued atoms are specializations OF, differing only along an axis the family itself names. The
+forbidden middle state is "an indivisible idea plus an extra that is not named separately" — a
+composition without admitting that it is one.
+
+A family is the only record allowed to sit ABOVE others, and it earns that place solely by naming
+ONE axis — the single thing that differs between its specializations and nothing else: the sieve
+skeleton is one idea and what gets written into the cells is the axis; the positional representation
+of a number is one idea and the base is the axis, which is exactly what separates a big integer in
+base a billion from a permutation index in the factorial system. A family that cannot name its axis
+is not a generalization — it is a retelling of its children, and that is the duplication principle 9
+forbids, arriving from above instead of from the side. Two or three axes at once is the
+`NthPrimeBound` failure in new clothing: a picture teaching several ideas at once, and a record
+whose children differ along whichever axis the reader happens to look at. Choices made INSIDE one
+specialization (which end of the array holds the low digit, what carries the digits) are not axes
+of the family — an axis must be what distinguishes one child from another.
 
 A direct consequence: a record cannot have two pictures. If a record tries to point at two or more
 visualizations at once, that is almost always a signal that TWO different ideas are hiding under one
@@ -196,6 +209,24 @@ is lost — both pictures stay, each with its own record.
   as a composition until proven otherwise — run the independence test on each operation before
   drawing. A theorem or a bound reads as one indivisible thing, and that is exactly how a
   composition hides.
+- MUST: a family record carry `Class: family`, an `Axis:` field naming what varies between its
+  specializations, and a `Specializations:` field linking two or more existing records; each of
+  those records carries `Family:` pointing back. A family whose `Specializations:` holds fewer than
+  two links is an atom that has not met its siblings yet, not a family.
+- MUST NOT: let a family's `General case` restate any specialization's own mechanism — the family
+  states what all of them share plus the axis, and nothing that belongs to one child only. The
+  test: delete every specialization from the catalog and the family still reads as one idea; keep
+  them and the family adds no sentence they already carry.
+- MUST: draw a family's picture as the axis itself — one skeleton held fixed while the varying part
+  changes across frames — never as one specialization's mechanism. A family whose axis has no
+  visual form carries `Picture: —` with the reason, rather than borrowing a child's picture.
+- Precedent 4: an audit of all 37 solved problems found 48 techniques in use with no record at all.
+  Twenty-two are non-trivial, and they group into thirteen families — and seven records already in
+  the catalog (`SieveOfEratosthenes`, `PrefixSum`, `Canonicalization`, `TrialDivision`,
+  `ModularInverseFermat`, `FastExponentiation`, `CycleDetectionViaRemainders`) turned out to be
+  specializations of a family rather than independent atoms. With only two relations available, each
+  of those families would have had to restate its children to exist at all; the third relation is
+  what lets the generalization be recorded once instead of nine times.
 - Precedent 3: `NthPrimeBound` — n(ln n + ln ln n) — was catalogued as one atom and redesigned four
   times, failing each time because the picture was teaching three ideas at once. Split into the
   composition of `PrimeNumberTheorem`, `FixedPointIteration` and `LogarithmProductRule` (the latter

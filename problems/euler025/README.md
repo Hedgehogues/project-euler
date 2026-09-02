@@ -30,6 +30,26 @@ recomputed per query — the same
 [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern already
 catalogued.
 
+**Positional notation** — The terms are held as digit blocks, nine decimal digits to an element.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
+**In-place algorithm** — Only the last two terms are kept and overwritten.
+[`[method::InPlaceAlgorithm]`](../../memory-bank/_terms.md#methodinplacealgorithm)
+
+[![In-place algorithm](../../memory-bank/visualizations/build/in-place-algorithm.png)](../../memory-bank/visualizations/build/in-place-algorithm.html)
+
+**Offline algorithm** — The digit-length thresholds are all read first and filled in one ascending pass.
+[`[method::OfflineAlgorithm]`](../../memory-bank/_terms.md#methodofflinealgorithm)
+
+[![Offline algorithm](../../memory-bank/visualizations/build/offline-algorithm.png)](../../memory-bank/visualizations/build/offline-algorithm.html)
+
+**Keeping a value in range** — The block size is chosen so a product of two blocks stays inside a machine word.
+[`[method::IntegerOverflowAvoidance]`](../../memory-bank/_terms.md#methodintegeroverflowavoidance)
+
+[![Keeping a value in range](../../memory-bank/visualizations/build/integer-overflow-avoidance.png)](../../memory-bank/visualizations/build/integer-overflow-avoidance.html)
+
 ## Build & run
 
 ```

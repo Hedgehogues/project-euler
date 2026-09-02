@@ -50,6 +50,16 @@ The sieve is built once for the largest `N` across all `T` queries, not once per
 [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern already
 catalogued.
 
+**Offline algorithm** — Every query is read before any answer is produced, so one sieve is sized to the largest of them.
+[`[method::OfflineAlgorithm]`](../../memory-bank/_terms.md#methodofflinealgorithm)
+
+[![Offline algorithm](../../memory-bank/visualizations/build/offline-algorithm.png)](../../memory-bank/visualizations/build/offline-algorithm.html)
+
+**Keeping a value in range** — The sieve bound is compared by division rather than by forming a product.
+[`[method::IntegerOverflowAvoidance]`](../../memory-bank/_terms.md#methodintegeroverflowavoidance)
+
+[![Keeping a value in range](../../memory-bank/visualizations/build/integer-overflow-avoidance.png)](../../memory-bank/visualizations/build/integer-overflow-avoidance.html)
+
 ## Build & run
 
 ```

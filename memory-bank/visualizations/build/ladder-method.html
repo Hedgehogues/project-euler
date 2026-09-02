@@ -69,6 +69,13 @@
   padding:6px 14px 6px 10px;}
 .lnum{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
 .lnum.prime{color:var(--good); background:var(--good-bg); padding:4px 12px; border-radius:8px; border:1.5px solid var(--good);}
+
+/* last frame: the leftover's OWN trial bound running out — the stop is shown, not claimed */
+.lstop{margin-top:15px; display:flex; flex-direction:column; align-items:center; gap:6px;}
+.lstest{display:flex; align-items:center; gap:10px; font-family:var(--font-m); font-size:14px; font-weight:700;}
+.lst-calc{color:var(--ink-soft); width:112px; text-align:right;}
+.lst-no{color:var(--b);}
+.lst-stop{color:var(--good);}
 </style>
 </head>
 <body>
@@ -112,9 +119,13 @@
     <div class="lrow" style="margin-left:46px;"><div class="ldiv">3</div><div class="lbar"><span class="lnum">15</span></div></div>
     <div class="lrow" style="margin-left:92px;"><div class="lbar"><span class="lnum prime">5</span></div></div>
   </div>
+  <div class="lstop">
+    <div class="lstest"><span class="lst-calc">2 &times; 2 = 4 &le; 5</span><span class="lst-no">&#10007;</span></div>
+    <div class="lstest"><span class="lst-calc">3 &times; 3 = 9 &gt; 5</span><span class="lst-stop">&#9632;</span></div>
+  </div>
 </div></div>
     </div>
-    <div class="filelink">memory-bank/_terms.md · [method::TrialDivision] · 7dfd487</div>
+    <div class="filelink">memory-bank/_terms.md · [method::TrialDivision] · e9b8ce7</div>
     <div class="repo">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
       <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>

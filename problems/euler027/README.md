@@ -30,6 +30,11 @@ to at most 2000 values of `a` times the primes up to `N`, each scored by a short
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Wheel factorization** — Two is handled apart, after which only odd candidates are tested.
+[`[method::WheelFactorization]`](../../memory-bank/_terms.md#methodwheelfactorization)
+
+[![Wheel factorization](../../memory-bank/visualizations/build/wheel-factorization.png)](../../memory-bank/visualizations/build/wheel-factorization.html)
+
 ## Build & run
 
 ```

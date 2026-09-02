@@ -1,0 +1,17 @@
+.ip-col{display:flex; flex-direction:column; align-items:center; gap:10px;}
+.ip-row{display:flex; align-items:flex-end; gap:5px;}
+.ip-cell{display:flex; flex-direction:column; align-items:center; gap:3px;}
+.ip-q{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--a); height:18px; line-height:1;}
+.ip-slot{min-width:50px; height:38px; padding:0 7px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:7px; background:var(--surface);
+  font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink);}
+.ip-slot.ip-want{border-color:var(--a); background:var(--a-bg); color:var(--a);}
+.ip-slot.ip-live{border-color:var(--good); background:var(--good-bg); color:var(--good);}
+.ip-slot.ip-dead{border-color:var(--b); background:var(--b-bg); color:var(--b); opacity:.55; text-decoration:line-through;}
+.ip-op{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--warn); padding-bottom:12px;}
+.ip-badges{display:flex; align-items:center; gap:8px;}
+.ip-badge{font-family:var(--font-m); font-size:11px; font-weight:700; padding:3px 10px; border-radius:20px; white-space:nowrap;}
+.ip-badge.bad{background:var(--b-bg); color:var(--b);}
+.ip-badge.good{background:var(--good-bg); color:var(--good);}
+.ip-badge.soft{background:var(--paper); color:var(--ink-soft); border:1px solid var(--rule);}
+.ip-arrow{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink-soft); line-height:1;}

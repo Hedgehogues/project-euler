@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Digit-power bound</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/digital-invariant-bound.css --- */
+.db-eq{display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap;}
+.db-n{font-family:var(--font-m); font-size:28px; font-weight:700; color:var(--good);
+  border:2px solid var(--good); background:var(--good-bg); border-radius:9px; padding:4px 12px;}
+.db-op{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink-soft);}
+.db-cube{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);
+  border:1.5px solid var(--rule); background:var(--surface); border-radius:7px; padding:4px 9px;}
+.db-open{display:flex; align-items:center; justify-content:center; gap:7px; margin-top:14px;}
+.db-tick{width:26px; height:26px; border:1.5px dashed var(--rule); border-radius:5px; background:var(--paper);}
+.db-inf{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink-soft);}
+
+.db-grid{display:flex; flex-direction:column; gap:4px; align-items:center;}
+.db-head{display:flex; gap:10px; align-items:flex-end;}
+.db-hc{width:104px; font-family:var(--font-m); font-size:11px; text-align:center; color:var(--ink-soft); line-height:1.35;}
+.db-hk{width:34px;}
+.db-hv{width:44px;}
+.db-line{display:flex; gap:10px; align-items:center;}
+.db-k{width:34px; font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--ink-soft); text-align:right;}
+.db-cell{width:104px; padding:5px 0; text-align:center; border-radius:7px;
+  font-family:var(--font-m); font-size:15px; font-weight:700;}
+.db-max{border:1.5px solid var(--ab); background:var(--ab-bg); color:var(--ab);}
+.db-min{border:1.5px solid var(--a); background:var(--a-bg); color:var(--a);}
+.db-ghost{border:1.5px dashed var(--rule); background:var(--paper); color:transparent;}
+.db-v{width:44px; text-align:center; font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--good);}
+.db-vx{color:var(--warn);}
+.db-cross .db-min{border-color:var(--warn); background:var(--warn-bg); color:var(--warn);}
+.db-rule{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); text-align:center; margin-top:11px;}
+
+.db-final{display:flex; align-items:center; justify-content:center; gap:12px;}
+.db-fbox{border-radius:11px; padding:9px 17px; text-align:center;
+  border:2px solid var(--good); background:var(--good-bg);}
+.db-fn{font-family:var(--font-m); font-size:30px; font-weight:700; color:var(--good); line-height:1;}
+.db-fl{font-family:var(--font-m); font-size:11px; color:var(--good); margin-top:4px;}
+.db-arrow{font-family:var(--font-m); font-size:19px; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Digit-power bound</h2>
+    <div class="stdtag found">✓ Finiteness bound for perfect digital invariants</div>
+    <div class="flow">
+<!-- examples/digital-invariant-bound.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="db-eq">
+    <div class="db-n">370</div>
+    <div class="db-op">=</div>
+    <div class="db-cube">3&sup3; = 27</div>
+    <div class="db-op">+</div>
+    <div class="db-cube">7&sup3; = 343</div>
+    <div class="db-op">+</div>
+    <div class="db-cube">0&sup3; = 0</div>
+  </div>
+  <div class="db-open">
+    <div class="db-tick"></div><div class="db-tick"></div><div class="db-tick"></div>
+    <div class="db-tick"></div><div class="db-tick"></div>
+    <div class="db-inf">&hellip; ?</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">max</div>
+<div class="frame"><div class="frame-inner">
+  <div class="db-grid">
+    <div class="db-head">
+      <div class="db-hc db-hk">k</div>
+      <div class="db-hc">k &times; 9&sup3;</div>
+    </div>
+    <div class="db-line"><div class="db-k">1</div><div class="db-cell db-max">729</div></div>
+    <div class="db-line"><div class="db-k">2</div><div class="db-cell db-max">1458</div></div>
+    <div class="db-line"><div class="db-k">3</div><div class="db-cell db-max">2187</div></div>
+    <div class="db-line"><div class="db-k">4</div><div class="db-cell db-max">2916</div></div>
+    <div class="db-line"><div class="db-k">5</div><div class="db-cell db-max">3645</div></div>
+  </div>
+  <div class="db-rule">+ 729 per row</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">min</div>
+<div class="frame"><div class="frame-inner">
+  <div class="db-grid">
+    <div class="db-head">
+      <div class="db-hc db-hk">k</div>
+      <div class="db-hc">k &times; 9&sup3;</div>
+      <div class="db-hc">smallest</div>
+      <div class="db-hc db-hv"></div>
+    </div>
+    <div class="db-line"><div class="db-k">1</div><div class="db-cell db-max">729</div><div class="db-cell db-min">1</div><div class="db-v">&#10003;</div></div>
+    <div class="db-line"><div class="db-k">2</div><div class="db-cell db-max">1458</div><div class="db-cell db-min">10</div><div class="db-v">&#10003;</div></div>
+    <div class="db-line"><div class="db-k">3</div><div class="db-cell db-max">2187</div><div class="db-cell db-min">100</div><div class="db-v">&#10003;</div></div>
+    <div class="db-line"><div class="db-k">4</div><div class="db-cell db-max">2916</div><div class="db-cell db-min">1000</div><div class="db-v">&#10003;</div></div>
+    <div class="db-line db-cross"><div class="db-k">5</div><div class="db-cell db-max">3645</div><div class="db-cell db-min">10000</div><div class="db-v db-vx">&#10007;</div></div>
+  </div>
+  <div class="db-rule">+ 729 per row &nbsp;&middot;&nbsp; &times; 10 per row</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="db-final">
+    <div class="db-fbox"><div class="db-fn">4</div><div class="db-fl">digits at most</div></div>
+    <div class="db-arrow">&rarr;</div>
+    <div class="db-fbox"><div class="db-fn">10000</div><div class="db-fl">search below</div></div>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::DigitalInvariantBound] · d0051c4</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/digital-invariant-bound.js
+</script>
+</body>
+</html>

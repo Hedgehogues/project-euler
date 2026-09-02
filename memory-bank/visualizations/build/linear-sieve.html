@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Linear sieve</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/linear-sieve.css --- */
+/* Sibling of sieve-of-eratosthenes.css: same cell language and same three accent roles, but a
+   cell here HOLDS a value (two rows: the number, the factor stored in it) instead of being
+   crossed out, so it is 26px wide and taller rather than square. */
+.lsrow{display:flex; gap:3px; justify-content:center; flex-wrap:nowrap;}
+.lscell{width:26px; flex-shrink:0; border:1.5px solid var(--rule); border-radius:6px;
+  background:var(--surface); font-family:var(--font-m); overflow:hidden;}
+.lscell .n{display:block; font-size:9px; line-height:13px; text-align:center;
+  color:var(--ink-soft); border-bottom:1px solid var(--rule);}
+.lscell .f{display:block; font-size:12px; line-height:19px; text-align:center;
+  font-weight:700; color:var(--ink-soft);}
+.lscell.empty{border-style:dashed;}
+.lscell.empty .f{color:var(--rule);}
+.lscell.p2{border-color:var(--a); background:var(--a-bg);}
+.lscell.p2 .f{color:var(--a);}
+.lscell.p3{border-color:var(--b); background:var(--b-bg);}
+.lscell.p3 .f{color:var(--b);}
+.lscell.self{border-color:var(--good); background:var(--good-bg);}
+.lscell.self .f{color:var(--good);}
+
+/* one write per composite: cell <- i x p */
+.stampgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px 8px; max-width:470px; margin:0 auto;}
+.stamp{font-family:var(--font-m); font-size:12px; text-align:center; background:var(--surface);
+  border:1px solid var(--rule); border-radius:6px; padding:5px 2px; color:var(--ink-soft);}
+.stamp b{font-weight:700; color:var(--ink);}
+.stamp .p2{color:var(--a); font-weight:700;}
+.stamp .p3{color:var(--b); font-weight:700;}
+
+/* following the stored factor down */
+.chain{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;}
+.cbox{width:52px; border:1.5px solid var(--rule); border-radius:8px; background:var(--surface);
+  font-family:var(--font-m); overflow:hidden;}
+.cbox .n{display:block; font-size:15px; font-weight:700; line-height:24px; text-align:center; color:var(--ink);}
+.cbox .f{display:block; font-size:10px; line-height:16px; text-align:center;
+  border-top:1px solid var(--rule); color:var(--ink-soft);}
+.cbox.p2{border-color:var(--a); background:var(--a-bg);}
+.cbox.p2 .n, .cbox.p2 .f{color:var(--a);}
+.cbox.p2 .f{font-weight:700;}
+.cbox.self{border-color:var(--good); background:var(--good-bg);}
+.cbox.self .n, .cbox.self .f{color:var(--good);}
+.cbox.self .f{font-weight:700;}
+.cdiv{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+.prod{margin-top:12px; text-align:center; font-family:var(--font-m); font-size:15px;}
+.prod .p2{color:var(--a); font-weight:700;}
+.prod .self{color:var(--good); font-weight:700;}
+
+.caption{font-size:11px; color:var(--ink-soft); text-align:center; margin-top:10px; line-height:1.5;}
+.legend{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; font-size:11px; color:var(--ink-soft); margin-top:10px;}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend i{width:9px; height:9px; border-radius:3px; display:inline-block;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Linear sieve</h2>
+    <div class="stdtag found">✓ Linear sieve (Euler's sieve)</div>
+    <div class="flow">
+<!-- examples/linear-sieve.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lsrow">
+    <div class="lscell empty"><span class="n">2</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">3</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">4</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">5</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">6</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">7</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">8</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">9</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">10</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">11</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">12</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">13</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">14</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">15</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">16</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">17</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">18</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">19</span><span class="f">&middot;</span></div>
+    <div class="lscell empty"><span class="n">20</span><span class="f">&middot;</span></div>
+  </div>
+  <div class="caption">2..20</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">i &times; p</div>
+<div class="frame"><div class="frame-inner">
+  <div class="stampgrid">
+    <div class="stamp">2 &middot; <span class="p2">2</span> &rarr; <b>4</b></div>
+    <div class="stamp">3 &middot; <span class="p2">2</span> &rarr; <b>6</b></div>
+    <div class="stamp">3 &middot; <span class="p3">3</span> &rarr; <b>9</b></div>
+    <div class="stamp">4 &middot; <span class="p2">2</span> &rarr; <b>8</b></div>
+    <div class="stamp">5 &middot; <span class="p2">2</span> &rarr; <b>10</b></div>
+    <div class="stamp">5 &middot; <span class="p3">3</span> &rarr; <b>15</b></div>
+    <div class="stamp">6 &middot; <span class="p2">2</span> &rarr; <b>12</b></div>
+    <div class="stamp">7 &middot; <span class="p2">2</span> &rarr; <b>14</b></div>
+    <div class="stamp">8 &middot; <span class="p2">2</span> &rarr; <b>16</b></div>
+    <div class="stamp">9 &middot; <span class="p2">2</span> &rarr; <b>18</b></div>
+    <div class="stamp">10 &middot; <span class="p2">2</span> &rarr; <b>20</b></div>
+  </div>
+  <div class="caption">each composite once</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">lp</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lsrow">
+    <div class="lscell self"><span class="n">2</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">3</span><span class="f">3</span></div>
+    <div class="lscell p2"><span class="n">4</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">5</span><span class="f">5</span></div>
+    <div class="lscell p2"><span class="n">6</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">7</span><span class="f">7</span></div>
+    <div class="lscell p2"><span class="n">8</span><span class="f">2</span></div>
+    <div class="lscell p3"><span class="n">9</span><span class="f">3</span></div>
+    <div class="lscell p2"><span class="n">10</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">11</span><span class="f">11</span></div>
+    <div class="lscell p2"><span class="n">12</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">13</span><span class="f">13</span></div>
+    <div class="lscell p2"><span class="n">14</span><span class="f">2</span></div>
+    <div class="lscell p3"><span class="n">15</span><span class="f">3</span></div>
+    <div class="lscell p2"><span class="n">16</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">17</span><span class="f">17</span></div>
+    <div class="lscell p2"><span class="n">18</span><span class="f">2</span></div>
+    <div class="lscell self"><span class="n">19</span><span class="f">19</span></div>
+    <div class="lscell p2"><span class="n">20</span><span class="f">2</span></div>
+  </div>
+  <div class="caption">smallest prime factor</div>
+  <div class="legend">
+    <span><i style="background:var(--a)"></i>stored 2</span>
+    <span><i style="background:var(--b)"></i>stored 3</span>
+    <span><i style="background:var(--good)"></i>prime &mdash; itself</span>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="chain">
+    <div class="cbox p2"><span class="n">20</span><span class="f">2</span></div>
+    <div class="cdiv">&divide;2 &rarr;</div>
+    <div class="cbox p2"><span class="n">10</span><span class="f">2</span></div>
+    <div class="cdiv">&divide;2 &rarr;</div>
+    <div class="cbox self"><span class="n">5</span><span class="f">5</span></div>
+    <div class="cdiv">&divide;5 &rarr;</div>
+    <div class="cbox"><span class="n">1</span><span class="f">&mdash;</span></div>
+  </div>
+  <div class="prod">20 = <span class="p2">2</span> &middot; <span class="p2">2</span> &middot; <span class="self">5</span></div>
+  <div class="caption">3 divisions</div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::LinearSieve] · 6abdf06</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/linear-sieve.js
+</script>
+</body>
+</html>

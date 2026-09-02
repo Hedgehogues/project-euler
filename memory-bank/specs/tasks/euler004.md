@@ -14,9 +14,9 @@ of such palindromes never depends on `N` — recomputing it by scanning all ~500
 exceeding the time limit for no reason; the set only needs to be built once.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods used
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods used
 together, not one (`../../_terms.md`): [method::Precomputation](../../_terms.md#methodprecomputation),
-[method::BinarySearch](../../_terms.md#methodbinarysearch).
+[method::BinarySearch](../../_terms.md#methodbinarysearch), [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking) (the inner factor starts at the outer one, so each unordered pair is formed once), [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (a palindrome is a statement about the digits, checked on the digit sequence itself), and [method::LazyInitialization](../../_terms.md#methodlazyinitialization) (the table of palindromic products is built on the first query that needs it, not at the start).
 
 ## Scope
 **In scope:** `problems/euler004/solution.cpp` — the model, the algorithm, the complexity argument,
@@ -69,5 +69,8 @@ what the problem asks for, not "at most `N`".
 
 ## Links
 - Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
-  [method::BinarySearch](../../_terms.md#methodbinarysearch).
+  [method::BinarySearch](../../_terms.md#methodbinarysearch),
+  [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation),
+  [method::LazyInitialization](../../_terms.md#methodlazyinitialization).
 - Code: `problems/euler004/solution.cpp`; directory README: `problems/euler004/README.md`.

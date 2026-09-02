@@ -35,6 +35,9 @@ blogs/teaching sites, so it stays a plain variant of
 [`[method::SieveOfEratosthenes]`](../../memory-bank/_terms.md#methodsieveoferatosthenes)'s
 "touch every multiple" mechanism, described here rather than catalogued separately.
 
+**Sieving over multiples** — The sweep over multiples accumulates a divisor SUM in each cell rather than a mark.
+[`[method::SievingOverMultiples]`](../../memory-bank/_terms.md#methodsievingovermultiples)
+
 ## Build & run
 
 ```

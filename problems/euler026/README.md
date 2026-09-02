@@ -25,6 +25,11 @@ tracking which division remainders have already been seen.
 
 [![Cycle detection via remainders](../../memory-bank/visualizations/build/cycle-detection-remainders.png)](../../memory-bank/visualizations/build/cycle-detection-remainders.html)
 
+**Prefix sum** — The longest period so far is carried along one ascending pass, with the tie-break stated.
+[`[method::PrefixSum]`](../../memory-bank/_terms.md#methodprefixsum)
+
+[![Prefix sum](../../memory-bank/visualizations/build/prefix-sum.png)](../../memory-bank/visualizations/build/prefix-sum.html)
+
 ## Build & run
 
 ```

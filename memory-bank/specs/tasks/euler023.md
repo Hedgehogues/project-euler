@@ -14,11 +14,11 @@ numbers, only that fixed, small range needs a precomputed answer table at all �
 answers both the bounded case and (trivially, `YES`) the unbounded case for any `N` up to `10^5`.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::Precomputation](../../_terms.md#methodprecomputation). The
 divisor-sum accumulation itself is a plain variant of the "touch every multiple" sieve mechanism
 (see `problems/euler021/README.md`) — not independently catalogued (no encyclopedic source found
-for this specific summing variant, only blogs/teaching sites).
+for this specific summing variant, only blogs/teaching sites), [method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples) (the same sweep accumulates divisor sums for every number up to the bound), and [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking) (the second summand starts at the first, so each unordered pair is tried once).
 
 ## Scope
 **In scope:** `problems/euler023/solution.cpp` — the divisor-sum accumulation, the abundant-sum
@@ -61,5 +61,7 @@ above that proven bound.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::Precomputation](../../_terms.md#methodprecomputation).
+- Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples),
+  [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking).
 - Code: `problems/euler023/solution.cpp`; directory README: `problems/euler023/README.md`.

@@ -17,7 +17,7 @@ only real inefficiency worth avoiding, and a single hash map removes it.
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
 (`../../_terms.md`) — sorting and direct scoring are already the whole computation; see the
-Vision.
+Vision, [method::LookupTable](../../_terms.md#methodlookuptable) (the scores are answered from a dictionary keyed by the name itself).
 
 ## Scope
 **In scope:** `problems/euler022/solution.cpp` — the sort, the scoring, the lookup table,
@@ -56,5 +56,6 @@ lookup, not a re-scan of the name list.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: none,
+  [method::LookupTable](../../_terms.md#methodlookuptable).
 - Code: `problems/euler022/solution.cpp`; directory README: `problems/euler022/README.md`.

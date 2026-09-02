@@ -16,8 +16,8 @@ and computing every denominator's cycle length once, in increasing order, fills 
 answer in a single pass.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::CycleDetectionViaRemainders](../../_terms.md#methodcycledetectionviaremainders).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::CycleDetectionViaRemainders](../../_terms.md#methodcycledetectionviaremainders), and [method::PrefixSum](../../_terms.md#methodprefixsum) (the longest period so far is carried along one ascending pass, with the tie-break stated).
 
 ## Scope
 **In scope:** `problems/euler026/solution.cpp` — the remainder-tracking cycle length, the
@@ -62,5 +62,6 @@ longest cycle — filled once, in one forward pass, before any query is answered
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::CycleDetectionViaRemainders](../../_terms.md#methodcycledetectionviaremainders).
+- Methods: [method::CycleDetectionViaRemainders](../../_terms.md#methodcycledetectionviaremainders),
+  [method::PrefixSum](../../_terms.md#methodprefixsum).
 - Code: `problems/euler026/solution.cpp`; directory README: `problems/euler026/README.md`.

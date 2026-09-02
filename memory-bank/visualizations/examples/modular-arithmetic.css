@@ -1,0 +1,43 @@
+/* Family picture: the dial is the FIXED skeleton in every frame; the varying part is WHICH
+   feature of the finite residue set is in use (representative / + / x / the size of the set).
+   Cell centres sit on a circle of radius 88 around (110,110); the 34px cells are placed by
+   hand-computed absolute offsets (110 + 88*sin - 17, 110 - 88*cos - 17), no js. */
+.ma-in{font-family:var(--font-m); font-size:26px; font-weight:700; text-align:center; color:var(--ink);}
+.ma-dial{position:relative; width:220px; height:220px; margin:12px auto 0;}
+.ma-dial::before{content:""; position:absolute; left:42px; top:42px; width:136px; height:136px; border:1.5px dashed var(--rule); border-radius:50%;}
+.ma-hub{position:absolute; left:60px; top:101px; width:100px; text-align:center; font-family:var(--font-m); font-size:12px; font-weight:700; line-height:18px; color:var(--ink-soft);}
+.ma-c{position:absolute; width:34px; height:34px; border-radius:50%; border:1.5px solid var(--rule); background:var(--surface); color:var(--ink-soft); font-family:var(--font-m); font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+.ma-c.ma-a{border-color:var(--a); border-width:2.5px; background:var(--a-bg); color:var(--a);}
+.ma-c.ma-ab{border-color:var(--ab); border-width:2.5px; background:var(--ab-bg); color:var(--ab);}
+.ma-c.ma-b{border-color:var(--b); border-width:2.5px; background:var(--b-bg); color:var(--b);}
+
+.ma-p0{left:93px;  top:5px;}
+.ma-p1{left:137px; top:17px;}
+.ma-p2{left:169px; top:49px;}
+.ma-p3{left:181px; top:93px;}
+.ma-p4{left:169px; top:137px;}
+.ma-p5{left:137px; top:169px;}
+.ma-p6{left:93px;  top:181px;}
+.ma-p7{left:49px;  top:169px;}
+.ma-p8{left:17px;  top:137px;}
+.ma-p9{left:5px;   top:93px;}
+.ma-p10{left:17px; top:49px;}
+.ma-p11{left:49px; top:17px;}
+
+/* one full turn of the dial = one tile; the short tile is what is left over */
+.ma-bar{display:flex; justify-content:center; gap:0; margin-top:16px;}
+.ma-t{width:56px; height:34px; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--rule); background:var(--paper); color:var(--ink-soft); font-family:var(--font-m); font-size:14px; font-weight:700;}
+.ma-t.ma-rem{width:48px; border-color:var(--a); background:var(--a-bg); color:var(--a);}
+
+.ma-cap{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ink); margin-top:14px;}
+.ma-cap .ma-q{font-size:19px; color:var(--ink-soft);}
+.ma-cap .ma-hi{color:var(--a);}
+.ma-cap .ma-hiab{color:var(--ab);}
+.ma-cap .ma-hib{color:var(--b);}
+
+.ma-legend{display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap;}
+.ma-chip{font-family:var(--font-m); font-size:12px; font-weight:700; padding:4px 12px; border-radius:20px;}
+.ma-chip.ma-cn{background:var(--paper); color:var(--ink-soft); border:1.5px solid var(--rule);}
+.ma-chip.ma-ca{background:var(--a-bg); color:var(--a);}
+.ma-chip.ma-cab{background:var(--ab-bg); color:var(--ab);}
+.ma-chip.ma-cb{background:var(--b-bg); color:var(--b);}

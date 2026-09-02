@@ -14,9 +14,9 @@ the same buildup up to `10^4` times. The unbounded-knapsack coin-change recurren
 every amount up to the largest queried `N`, answers every query with a lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation), and [method::RestrictedPartitionCount](../../_terms.md#methodrestrictedpartitioncount) (the nesting order of the two loops is what decides that arrangements are not counted apart).
 
 ## Scope
 **In scope:** `problems/euler031/solution.cpp` — the coin-DP buildup, correctness criteria.
@@ -62,5 +62,6 @@ queries; each query then reads `dp[N]` directly.
 
 ## Links
 - Methods: [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::RestrictedPartitionCount](../../_terms.md#methodrestrictedpartitioncount).
 - Code: `problems/euler031/solution.cpp`; directory README: `problems/euler031/README.md`.

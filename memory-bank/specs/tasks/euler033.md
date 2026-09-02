@@ -14,8 +14,8 @@ which digits each removal-mask produces, is already fast; the search itself — 
 the whole computation at this scale.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 4 bounds the candidates to at most 9000 numbers times at most 6 removal masks.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 4 bounds the candidates to at most 9000 numbers times at most 6 removal masks, [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking) (candidates are grouped by a canonical key so only members of one group are ever compared), [method::CrossMultiplication](../../_terms.md#methodcrossmultiplication) (the two fractions are compared by multiplying across, with no division anywhere), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the digits are what the condition removes and compares).
 
 ## Scope
 **In scope:** `problems/euler033/solution.cpp` — the digit-mask enumeration, the grouping, the
@@ -60,5 +60,8 @@ deduplicated in a `std::set` before summing.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
+- Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch),
+  [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking),
+  [method::CrossMultiplication](../../_terms.md#methodcrossmultiplication),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler033/solution.cpp`; directory README: `problems/euler033/README.md`.

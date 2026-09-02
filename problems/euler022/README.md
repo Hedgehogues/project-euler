@@ -21,6 +21,11 @@ None of this repository's catalogued methods apply — sorting alphabetically an
 values directly is already the whole computation; there is no shortcut being taken that a named
 technique would explain.
 
+**Lookup table** — The scores are answered from a dictionary keyed by the name itself.
+[`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)
+
+[![Lookup table](../../memory-bank/visualizations/build/lookup-table.png)](../../memory-bank/visualizations/build/lookup-table.html)
+
 ## Build & run
 
 ```

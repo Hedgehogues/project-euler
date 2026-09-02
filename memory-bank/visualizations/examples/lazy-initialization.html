@@ -1,0 +1,60 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lz-col">
+    <div class="lz-lane">
+      <div class="lz-name">asks</div>
+      <div class="lz-slot lz-paid">table</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-q lz-need">&#9632;</div>
+      <div class="lz-q lz-need">&#9632;</div>
+      <div class="lz-tail warn">used</div>
+    </div>
+    <div class="lz-lane">
+      <div class="lz-name">never asks</div>
+      <div class="lz-slot lz-waste">table</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-tail bad">wasted</div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">gate</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lz-col">
+    <div class="lz-gate">
+      <div class="lz-q lz-need" style="width:40px">&#9632;</div>
+      <div class="lz-arrow">&rarr;</div>
+      <div class="lz-flag">flag</div>
+      <div class="lz-exits">
+        <div class="lz-exit"><span>unset</span><span class="lz-arrow">&rarr;</span><span class="lz-box warn">build</span></div>
+        <div class="lz-exit"><span>set</span><span class="lz-arrow">&rarr;</span><span class="lz-box good">read</span></div>
+      </div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lz-col">
+    <div class="lz-lane">
+      <div class="lz-name">asks</div>
+      <div class="lz-slot lz-none">&mdash;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-qwrap"><div class="lz-q lz-need">&#9632;</div><div class="lz-mini">table</div></div>
+      <div class="lz-q lz-need">&#9632;</div>
+      <div class="lz-tail warn">1 build</div>
+    </div>
+    <div class="lz-lane">
+      <div class="lz-name">never asks</div>
+      <div class="lz-slot lz-none">&mdash;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-q">&#9675;</div>
+      <div class="lz-tail good">0 builds</div>
+    </div>
+  </div>
+</div></div>

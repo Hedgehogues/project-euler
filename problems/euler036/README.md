@@ -24,6 +24,11 @@ the number has digits in the two bases — so every number below `N` is simply c
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Positional notation** — The same number is read as digits in two different bases.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

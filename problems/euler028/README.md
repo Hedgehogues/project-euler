@@ -38,6 +38,11 @@ reuses the same inverse-via-`p-2`-power machinery as euler015.
 [`[method::ModularInverseFermat]`](../../memory-bank/_terms.md#methodmodularinversefermat) ·
 [`[method::FastExponentiation]`](../../memory-bank/_terms.md#methodfastexponentiation)
 
+**Keeping a value in range** — Both factors are reduced before multiplying, so the product never leaves the range.
+[`[method::IntegerOverflowAvoidance]`](../../memory-bank/_terms.md#methodintegeroverflowavoidance)
+
+[![Keeping a value in range](../../memory-bank/visualizations/build/integer-overflow-avoidance.png)](../../memory-bank/visualizations/build/integer-overflow-avoidance.html)
+
 ## Build & run
 
 ```

@@ -28,6 +28,16 @@ length instead of walking it again.
 
 [![Memoization](../../memory-bank/visualizations/build/memoization.png)](../../memory-bank/visualizations/build/memoization.html)
 
+**Recursion as an explicit stack** — The descent is recorded in a stack of its own and unwound to fill in every length on the path.
+[`[method::ExplicitStackRecursion]`](../../memory-bank/_terms.md#methodexplicitstackrecursion)
+
+[![Recursion as an explicit stack](../../memory-bank/visualizations/build/explicit-stack.png)](../../memory-bank/visualizations/build/explicit-stack.html)
+
+**Prefix sum** — The best chain so far is carried along one ascending pass, with the tie-break stated.
+[`[method::PrefixSum]`](../../memory-bank/_terms.md#methodprefixsum)
+
+[![Prefix sum](../../memory-bank/visualizations/build/prefix-sum.png)](../../memory-bank/visualizations/build/prefix-sum.html)
+
 ## Build & run
 
 ```

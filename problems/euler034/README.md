@@ -27,6 +27,16 @@ digit-factorial lookups — so every number below `N` is simply checked directly
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Positional notation** — The candidate is taken apart into digits, which is what the condition is about.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
+**Lookup table** — Each digit factorial is a ten-entry table computed once.
+[`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)
+
+[![Lookup table](../../memory-bank/visualizations/build/lookup-table.png)](../../memory-bank/visualizations/build/lookup-table.html)
+
 ## Build & run
 
 ```

@@ -1,0 +1,31 @@
+.rp-bar{display:flex; gap:3px; justify-content:center;}
+.rp-empty{width:26px; height:26px; border:1.5px dashed var(--rule); border-radius:5px; background:var(--paper);}
+.rp-tiles{display:flex; gap:14px; justify-content:center; margin-top:14px;}
+.rp-tile{height:26px; border-radius:5px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-m); font-size:13px; font-weight:700; flex-shrink:0;}
+.rp-t1{width:26px; border:1.5px solid var(--a); background:var(--a-bg); color:var(--a);}
+.rp-t2{width:55px; border:1.5px solid var(--ab); background:var(--ab-bg); color:var(--ab);}
+.rp-q{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink-soft); text-align:center; margin-top:12px;}
+
+.rp-fer-row{display:flex; gap:26px; justify-content:center; align-items:flex-end;}
+.rp-fitem{display:flex; flex-direction:column; align-items:center; gap:7px;}
+.rp-fer{display:flex; flex-direction:column; gap:2px; align-items:flex-start;}
+.rp-frow{display:flex; gap:2px;}
+.rp-fc{width:18px; height:18px; border:1.5px solid var(--good); background:var(--good-bg); border-radius:3px;}
+.rp-flab{font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--good);}
+
+.rp-srow{display:flex; align-items:center; justify-content:center; gap:12px; margin:3px 0;}
+.rp-slab{width:82px; font-family:var(--font-m); font-size:12px; font-weight:700; text-align:right; color:var(--good);}
+.rp-slab-dup{color:var(--a);}
+.rp-strip{display:flex; gap:3px;}
+.rp-count{font-family:var(--font-m); font-size:16px; font-weight:700; text-align:center; margin-top:12px;}
+.rp-count-u{color:var(--good);}
+.rp-count-o{color:var(--a);}
+
+.rp-final{display:flex; gap:22px; justify-content:center;}
+.rp-fbox{width:132px; border-radius:12px; padding:10px 0; text-align:center;}
+.rp-fn{font-family:var(--font-m); font-size:34px; font-weight:700; line-height:1;}
+.rp-fl{font-family:var(--font-m); font-size:11px; margin-top:5px;}
+.rp-fgood{background:var(--good-bg); color:var(--good);}
+.rp-facc{background:var(--a-bg); color:var(--a);}
+.rp-tot{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); text-align:center; margin-top:12px;}

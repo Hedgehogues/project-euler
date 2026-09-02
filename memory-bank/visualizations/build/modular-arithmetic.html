@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modular arithmetic</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/modular-arithmetic.css --- */
+/* Family picture: the dial is the FIXED skeleton in every frame; the varying part is WHICH
+   feature of the finite residue set is in use (representative / + / x / the size of the set).
+   Cell centres sit on a circle of radius 88 around (110,110); the 34px cells are placed by
+   hand-computed absolute offsets (110 + 88*sin - 17, 110 - 88*cos - 17), no js. */
+.ma-in{font-family:var(--font-m); font-size:26px; font-weight:700; text-align:center; color:var(--ink);}
+.ma-dial{position:relative; width:220px; height:220px; margin:12px auto 0;}
+.ma-dial::before{content:""; position:absolute; left:42px; top:42px; width:136px; height:136px; border:1.5px dashed var(--rule); border-radius:50%;}
+.ma-hub{position:absolute; left:60px; top:101px; width:100px; text-align:center; font-family:var(--font-m); font-size:12px; font-weight:700; line-height:18px; color:var(--ink-soft);}
+.ma-c{position:absolute; width:34px; height:34px; border-radius:50%; border:1.5px solid var(--rule); background:var(--surface); color:var(--ink-soft); font-family:var(--font-m); font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center;}
+.ma-c.ma-a{border-color:var(--a); border-width:2.5px; background:var(--a-bg); color:var(--a);}
+.ma-c.ma-ab{border-color:var(--ab); border-width:2.5px; background:var(--ab-bg); color:var(--ab);}
+.ma-c.ma-b{border-color:var(--b); border-width:2.5px; background:var(--b-bg); color:var(--b);}
+
+.ma-p0{left:93px;  top:5px;}
+.ma-p1{left:137px; top:17px;}
+.ma-p2{left:169px; top:49px;}
+.ma-p3{left:181px; top:93px;}
+.ma-p4{left:169px; top:137px;}
+.ma-p5{left:137px; top:169px;}
+.ma-p6{left:93px;  top:181px;}
+.ma-p7{left:49px;  top:169px;}
+.ma-p8{left:17px;  top:137px;}
+.ma-p9{left:5px;   top:93px;}
+.ma-p10{left:17px; top:49px;}
+.ma-p11{left:49px; top:17px;}
+
+/* one full turn of the dial = one tile; the short tile is what is left over */
+.ma-bar{display:flex; justify-content:center; gap:0; margin-top:16px;}
+.ma-t{width:56px; height:34px; display:flex; align-items:center; justify-content:center; border:1.5px solid var(--rule); background:var(--paper); color:var(--ink-soft); font-family:var(--font-m); font-size:14px; font-weight:700;}
+.ma-t.ma-rem{width:48px; border-color:var(--a); background:var(--a-bg); color:var(--a);}
+
+.ma-cap{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ink); margin-top:14px;}
+.ma-cap .ma-q{font-size:19px; color:var(--ink-soft);}
+.ma-cap .ma-hi{color:var(--a);}
+.ma-cap .ma-hiab{color:var(--ab);}
+.ma-cap .ma-hib{color:var(--b);}
+
+.ma-legend{display:flex; justify-content:center; gap:10px; margin-top:16px; flex-wrap:wrap;}
+.ma-chip{font-family:var(--font-m); font-size:12px; font-weight:700; padding:4px 12px; border-radius:20px;}
+.ma-chip.ma-cn{background:var(--paper); color:var(--ink-soft); border:1.5px solid var(--rule);}
+.ma-chip.ma-ca{background:var(--a-bg); color:var(--a);}
+.ma-chip.ma-cab{background:var(--ab-bg); color:var(--ab);}
+.ma-chip.ma-cb{background:var(--b-bg); color:var(--b);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Modular arithmetic</h2>
+    <div class="stdtag found">✓ Clock face — arithmetic modulo twelve</div>
+    <div class="flow">
+<!-- examples/modular-arithmetic.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ma-in">34</div>
+  <div class="ma-dial">
+    <div class="ma-hub">mod 12</div>
+    <div class="ma-c ma-p0">0</div>
+    <div class="ma-c ma-p1">1</div>
+    <div class="ma-c ma-p2">2</div>
+    <div class="ma-c ma-p3">3</div>
+    <div class="ma-c ma-p4">4</div>
+    <div class="ma-c ma-p5">5</div>
+    <div class="ma-c ma-p6">6</div>
+    <div class="ma-c ma-p7">7</div>
+    <div class="ma-c ma-p8">8</div>
+    <div class="ma-c ma-p9">9</div>
+    <div class="ma-c ma-p10">10</div>
+    <div class="ma-c ma-p11">11</div>
+  </div>
+  <div class="ma-cap">34 &rarr; <span class="ma-q">?</span></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">mod</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ma-dial">
+    <div class="ma-hub">mod 12</div>
+    <div class="ma-c ma-p0">0</div>
+    <div class="ma-c ma-p1">1</div>
+    <div class="ma-c ma-p2">2</div>
+    <div class="ma-c ma-p3">3</div>
+    <div class="ma-c ma-p4">4</div>
+    <div class="ma-c ma-p5">5</div>
+    <div class="ma-c ma-p6">6</div>
+    <div class="ma-c ma-p7">7</div>
+    <div class="ma-c ma-p8">8</div>
+    <div class="ma-c ma-p9">9</div>
+    <div class="ma-c ma-p10 ma-a">10</div>
+    <div class="ma-c ma-p11">11</div>
+  </div>
+  <div class="ma-bar">
+    <div class="ma-t">12</div>
+    <div class="ma-t">12</div>
+    <div class="ma-t ma-rem">10</div>
+  </div>
+  <div class="ma-cap">34 &rarr; <span class="ma-hi">10</span></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">+</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ma-dial">
+    <div class="ma-hub">mod 12</div>
+    <div class="ma-c ma-p0">0</div>
+    <div class="ma-c ma-p1">1</div>
+    <div class="ma-c ma-p2">2</div>
+    <div class="ma-c ma-p3 ma-ab">3</div>
+    <div class="ma-c ma-p4">4</div>
+    <div class="ma-c ma-p5">5</div>
+    <div class="ma-c ma-p6">6</div>
+    <div class="ma-c ma-p7">7</div>
+    <div class="ma-c ma-p8">8</div>
+    <div class="ma-c ma-p9">9</div>
+    <div class="ma-c ma-p10 ma-a">10</div>
+    <div class="ma-c ma-p11">11</div>
+  </div>
+  <div class="ma-cap"><span class="ma-hi">10</span> + 5 = 15 = 12 + <span class="ma-hiab">3</span></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">&times;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ma-dial">
+    <div class="ma-hub">mod 12</div>
+    <div class="ma-c ma-p0">0</div>
+    <div class="ma-c ma-p1">1</div>
+    <div class="ma-c ma-p2 ma-b">2</div>
+    <div class="ma-c ma-p3">3</div>
+    <div class="ma-c ma-p4">4</div>
+    <div class="ma-c ma-p5">5</div>
+    <div class="ma-c ma-p6">6</div>
+    <div class="ma-c ma-p7">7</div>
+    <div class="ma-c ma-p8">8</div>
+    <div class="ma-c ma-p9">9</div>
+    <div class="ma-c ma-p10 ma-a">10</div>
+    <div class="ma-c ma-p11">11</div>
+  </div>
+  <div class="ma-cap"><span class="ma-hi">10</span> &times; 5 = 50 = 4 &times; 12 + <span class="ma-hib">2</span></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ma-dial">
+    <div class="ma-hub">mod 12</div>
+    <div class="ma-c ma-p0">0</div>
+    <div class="ma-c ma-p1">1</div>
+    <div class="ma-c ma-p2 ma-b">2</div>
+    <div class="ma-c ma-p3 ma-ab">3</div>
+    <div class="ma-c ma-p4">4</div>
+    <div class="ma-c ma-p5">5</div>
+    <div class="ma-c ma-p6">6</div>
+    <div class="ma-c ma-p7">7</div>
+    <div class="ma-c ma-p8">8</div>
+    <div class="ma-c ma-p9">9</div>
+    <div class="ma-c ma-p10 ma-a">10</div>
+    <div class="ma-c ma-p11">11</div>
+  </div>
+  <div class="ma-legend">
+    <div class="ma-chip ma-cn">12 cells</div>
+    <div class="ma-chip ma-ca">34 &rarr; 10</div>
+    <div class="ma-chip ma-cab">+ &rarr; 3</div>
+    <div class="ma-chip ma-cb">&times; &rarr; 2</div>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::ModularArithmetic] · 951158c</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/modular-arithmetic.js
+</script>
+</body>
+</html>

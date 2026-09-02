@@ -13,11 +13,11 @@ values mod `10^9+7`. `N` can be almost `10^18` — actually building the spiral 
 `m = (N-1)/2` alone, evaluated in `O(log MOD)` per query for the modular inverse it needs.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses four catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::SumOfSquares](../../_terms.md#methodsumofsquares),
 [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum),
 [method::ModularInverseFermat](../../_terms.md#methodmodularinversefermat),
-[method::FastExponentiation](../../_terms.md#methodfastexponentiation).
+[method::FastExponentiation](../../_terms.md#methodfastexponentiation), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (both factors are reduced before multiplying, so the product never leaves the range).
 
 ## Scope
 **In scope:** `problems/euler028/solution.cpp` — the closed-form ring-sum derivation, correctness
@@ -68,5 +68,6 @@ the whole closed form in O(1) beyond that one shared setup step.
 - Methods: [method::SumOfSquares](../../_terms.md#methodsumofsquares),
   [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum),
   [method::ModularInverseFermat](../../_terms.md#methodmodularinversefermat),
-  [method::FastExponentiation](../../_terms.md#methodfastexponentiation).
+  [method::FastExponentiation](../../_terms.md#methodfastexponentiation),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler028/solution.cpp`; directory README: `problems/euler028/README.md`.

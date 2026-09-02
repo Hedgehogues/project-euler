@@ -1,0 +1,20 @@
+/* The container's capacity is drawn as a fixed frame of three digit slots (an odometer's three
+   wheels); the value being placed in it is drawn right-aligned, digit per slot, so "does the
+   intermediate fit" is a countable comparison of digits against slots. A value one digit too
+   long sticks out to the LEFT of the frame, in red. */
+.ovf-big{font-family:var(--font-m); font-size:22px; font-weight:700; text-align:center; color:var(--ink);}
+.ovf-big b{color:var(--good);}
+.ovf-big .ovf-q{font-size:26px; color:var(--ink-soft);}
+.ovf-sub{font-family:var(--font-m); font-size:14px; font-weight:700; text-align:center; color:var(--ink-soft); margin-top:8px;}
+.ovf-sub .ovf-red{color:var(--b);}
+
+.ovf-gauge{position:relative; width:224px; height:48px; margin:16px auto 0;}
+.ovf-frame{position:absolute; right:0; top:0; width:135px; height:48px; border:1.5px dashed var(--ink-soft); border-radius:8px;}
+.ovf-digits{position:absolute; right:0; top:0; display:flex;}
+.ovf-d{width:39px; height:42px; margin:3px; display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:21px; font-weight:700; color:var(--ink-soft);}
+.ovf-d.ovf-fit{color:var(--good); background:var(--good-bg);}
+.ovf-d.ovf-over{color:var(--b); background:var(--b-bg); border:2px solid var(--b); border-radius:8px;}
+
+.ovf-note{font-family:var(--font-m); font-size:13px; font-weight:700; text-align:center; color:var(--ink-soft); margin-top:12px;}
+.ovf-note.ovf-badtx{color:var(--b);}
+.ovf-note.ovf-oktx{color:var(--good);}

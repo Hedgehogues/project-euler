@@ -1,0 +1,49 @@
+/* Sibling of sieve-of-eratosthenes.css: same cell language and same three accent roles, but a
+   cell here HOLDS a value (two rows: the number, the factor stored in it) instead of being
+   crossed out, so it is 26px wide and taller rather than square. */
+.lsrow{display:flex; gap:3px; justify-content:center; flex-wrap:nowrap;}
+.lscell{width:26px; flex-shrink:0; border:1.5px solid var(--rule); border-radius:6px;
+  background:var(--surface); font-family:var(--font-m); overflow:hidden;}
+.lscell .n{display:block; font-size:9px; line-height:13px; text-align:center;
+  color:var(--ink-soft); border-bottom:1px solid var(--rule);}
+.lscell .f{display:block; font-size:12px; line-height:19px; text-align:center;
+  font-weight:700; color:var(--ink-soft);}
+.lscell.empty{border-style:dashed;}
+.lscell.empty .f{color:var(--rule);}
+.lscell.p2{border-color:var(--a); background:var(--a-bg);}
+.lscell.p2 .f{color:var(--a);}
+.lscell.p3{border-color:var(--b); background:var(--b-bg);}
+.lscell.p3 .f{color:var(--b);}
+.lscell.self{border-color:var(--good); background:var(--good-bg);}
+.lscell.self .f{color:var(--good);}
+
+/* one write per composite: cell <- i x p */
+.stampgrid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px 8px; max-width:470px; margin:0 auto;}
+.stamp{font-family:var(--font-m); font-size:12px; text-align:center; background:var(--surface);
+  border:1px solid var(--rule); border-radius:6px; padding:5px 2px; color:var(--ink-soft);}
+.stamp b{font-weight:700; color:var(--ink);}
+.stamp .p2{color:var(--a); font-weight:700;}
+.stamp .p3{color:var(--b); font-weight:700;}
+
+/* following the stored factor down */
+.chain{display:flex; align-items:center; justify-content:center; gap:6px; flex-wrap:wrap;}
+.cbox{width:52px; border:1.5px solid var(--rule); border-radius:8px; background:var(--surface);
+  font-family:var(--font-m); overflow:hidden;}
+.cbox .n{display:block; font-size:15px; font-weight:700; line-height:24px; text-align:center; color:var(--ink);}
+.cbox .f{display:block; font-size:10px; line-height:16px; text-align:center;
+  border-top:1px solid var(--rule); color:var(--ink-soft);}
+.cbox.p2{border-color:var(--a); background:var(--a-bg);}
+.cbox.p2 .n, .cbox.p2 .f{color:var(--a);}
+.cbox.p2 .f{font-weight:700;}
+.cbox.self{border-color:var(--good); background:var(--good-bg);}
+.cbox.self .n, .cbox.self .f{color:var(--good);}
+.cbox.self .f{font-weight:700;}
+.cdiv{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+.prod{margin-top:12px; text-align:center; font-family:var(--font-m); font-size:15px;}
+.prod .p2{color:var(--a); font-weight:700;}
+.prod .self{color:var(--good); font-weight:700;}
+
+.caption{font-size:11px; color:var(--ink-soft); text-align:center; margin-top:10px; line-height:1.5;}
+.legend{display:flex; justify-content:center; gap:14px; flex-wrap:wrap; font-size:11px; color:var(--ink-soft); margin-top:10px;}
+.legend span{display:inline-flex; align-items:center; gap:5px;}
+.legend i{width:9px; height:9px; border-radius:3px; display:inline-block;}

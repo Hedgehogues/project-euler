@@ -45,6 +45,19 @@ two coprime halves instead of itself.
 
 [![Divisor count formula](../../memory-bank/visualizations/build/divisor-count-formula.png)](../../memory-bank/visualizations/build/divisor-count-formula.html)
 
+**Linear sieve** — The sieve stores every number smallest prime factor, so any number in range is taken apart by repeated division.
+[`[method::LinearSieve]`](../../memory-bank/_terms.md#methodlinearsieve)
+
+[![Linear sieve](../../memory-bank/visualizations/build/linear-sieve.png)](../../memory-bank/visualizations/build/linear-sieve.html)
+
+**Multiplicative function** — The triangular number splits into two factors sharing no prime, and their divisor counts multiply.
+[`[method::MultiplicativeFunction]`](../../memory-bank/_terms.md#methodmultiplicativefunction)
+
+**Offline algorithm** — The thresholds are all read first and answered in one ascending pass.
+[`[method::OfflineAlgorithm]`](../../memory-bank/_terms.md#methodofflinealgorithm)
+
+[![Offline algorithm](../../memory-bank/visualizations/build/offline-algorithm.png)](../../memory-bank/visualizations/build/offline-algorithm.html)
+
 ## Build & run
 
 ```

@@ -13,9 +13,9 @@ Fibonacci sequence from scratch per query is wasted work, since the sequence its
 on the query.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods used
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods used
 together, not one (`../../_terms.md`): [method::Precomputation](../../_terms.md#methodprecomputation),
-[method::BinarySearch](../../_terms.md#methodbinarysearch).
+[method::BinarySearch](../../_terms.md#methodbinarysearch), and [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (only the last two terms of the sequence are ever kept, and they are written over each other).
 
 ## Scope
 **In scope:** `problems/euler002/solution.cpp` â€” the model, the algorithm, the complexity argument,
@@ -63,5 +63,6 @@ exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) â€
 
 ## Links
 - Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
-  [method::BinarySearch](../../_terms.md#methodbinarysearch).
+  [method::BinarySearch](../../_terms.md#methodbinarysearch),
+  [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm).
 - Code: `problems/euler002/solution.cpp`; directory README: `problems/euler002/README.md`.

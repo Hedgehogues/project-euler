@@ -1,0 +1,393 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wheel factorization</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/wheel-factorization.css --- */
+.wf{display:block; width:280px; max-width:100%; height:auto; margin:0 auto;}
+.wf-c{fill:var(--surface); stroke:var(--rule); stroke-width:1;}
+.wf-c.wf-x2{fill:var(--a-bg); stroke:var(--a-faint);}
+.wf-c.wf-x3{fill:var(--b-bg); stroke:var(--b);}
+.wf-c.wf-x5{fill:var(--warn-bg); stroke:var(--warn);}
+.wf-c.wf-w6{fill:var(--ab-bg); stroke:var(--ab);}
+.wf-c.wf-ok{fill:var(--good-bg); stroke:var(--good);}
+.wf-hub{fill:var(--paper); stroke:var(--rule); stroke-width:1;}
+
+.wf-t{font-family:var(--font-m); font-size:11px; fill:var(--ink-soft);
+  text-anchor:middle; dominant-baseline:central;}
+.wf-t.wf-t-x2{fill:var(--a);}
+.wf-t.wf-t-x3{fill:var(--b);}
+.wf-t.wf-t-x5{fill:var(--warn);}
+.wf-t.wf-t-w6{fill:var(--ab); font-weight:700;}
+.wf-t.wf-t-ok{fill:var(--good); font-weight:700;}
+.wf-t.wf-t-hub{fill:var(--ink); font-size:13px; font-weight:700;}
+
+.wf-cap{font-family:var(--font-m); font-size:12px; color:var(--ink-soft);
+  text-align:center; margin-top:8px;}
+.wf-legend{display:flex; justify-content:center; gap:12px; flex-wrap:wrap;
+  font-size:11px; color:var(--ink-soft); margin-top:10px;}
+.wf-legend span{display:inline-flex; align-items:center; gap:5px;}
+.wf-legend i{width:9px; height:9px; border-radius:3px; display:inline-block;
+  border:1px solid var(--rule);}
+.wf-legend i.wf-s2{background:var(--a-bg); border-color:var(--a);}
+.wf-legend i.wf-s3{background:var(--b-bg); border-color:var(--b);}
+.wf-legend i.wf-s5{background:var(--warn-bg); border-color:var(--warn);}
+.wf-legend i.wf-sok{background:var(--good-bg); border-color:var(--good);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Wheel factorization</h2>
+    <div class="stdtag found">✓ Wheel diagram</div>
+    <div class="flow">
+<!-- examples/wheel-factorization.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="wf" viewBox="0 0 280 280" role="img">
+    <path class="wf-c" d="M140 106L140 86A54 54 0 0 1 186.8 113L169.4 123A34 34 0 0 0 140 106Z"/>
+    <path class="wf-c" d="M169.4 123L186.8 113A54 54 0 0 1 186.8 167L169.4 157A34 34 0 0 0 169.4 123Z"/>
+    <path class="wf-c" d="M169.4 157L186.8 167A54 54 0 0 1 140 194L140 174A34 34 0 0 0 169.4 157Z"/>
+    <path class="wf-c" d="M140 174L140 194A54 54 0 0 1 93.2 167L110.6 157A34 34 0 0 0 140 174Z"/>
+    <path class="wf-c" d="M110.6 157L93.2 167A54 54 0 0 1 93.2 113L110.6 123A34 34 0 0 0 110.6 157Z"/>
+    <path class="wf-c" d="M110.6 123L93.2 113A54 54 0 0 1 140 86L140 106A34 34 0 0 0 110.6 123Z"/>
+    <path class="wf-c" d="M140 86L140 66A74 74 0 0 1 204.1 103L186.8 113A54 54 0 0 0 140 86Z"/>
+    <path class="wf-c" d="M186.8 113L204.1 103A74 74 0 0 1 204.1 177L186.8 167A54 54 0 0 0 186.8 113Z"/>
+    <path class="wf-c" d="M186.8 167L204.1 177A74 74 0 0 1 140 214L140 194A54 54 0 0 0 186.8 167Z"/>
+    <path class="wf-c" d="M140 194L140 214A74 74 0 0 1 75.9 177L93.2 167A54 54 0 0 0 140 194Z"/>
+    <path class="wf-c" d="M93.2 167L75.9 177A74 74 0 0 1 75.9 103L93.2 113A54 54 0 0 0 93.2 167Z"/>
+    <path class="wf-c" d="M93.2 113L75.9 103A74 74 0 0 1 140 66L140 86A54 54 0 0 0 93.2 113Z"/>
+    <path class="wf-c" d="M140 66L140 46A94 94 0 0 1 221.4 93L204.1 103A74 74 0 0 0 140 66Z"/>
+    <path class="wf-c" d="M204.1 103L221.4 93A94 94 0 0 1 221.4 187L204.1 177A74 74 0 0 0 204.1 103Z"/>
+    <path class="wf-c" d="M204.1 177L221.4 187A94 94 0 0 1 140 234L140 214A74 74 0 0 0 204.1 177Z"/>
+    <path class="wf-c" d="M140 214L140 234A94 94 0 0 1 58.6 187L75.9 177A74 74 0 0 0 140 214Z"/>
+    <path class="wf-c" d="M75.9 177L58.6 187A94 94 0 0 1 58.6 93L75.9 103A74 74 0 0 0 75.9 177Z"/>
+    <path class="wf-c" d="M75.9 103L58.6 93A94 94 0 0 1 140 46L140 66A74 74 0 0 0 75.9 103Z"/>
+    <path class="wf-c" d="M140 46L140 26A114 114 0 0 1 238.7 83L221.4 93A94 94 0 0 0 140 46Z"/>
+    <path class="wf-c" d="M221.4 93L238.7 83A114 114 0 0 1 238.7 197L221.4 187A94 94 0 0 0 221.4 93Z"/>
+    <path class="wf-c" d="M221.4 187L238.7 197A114 114 0 0 1 140 254L140 234A94 94 0 0 0 221.4 187Z"/>
+    <path class="wf-c" d="M140 234L140 254A114 114 0 0 1 41.3 197L58.6 187A94 94 0 0 0 140 234Z"/>
+    <path class="wf-c" d="M58.6 187L41.3 197A114 114 0 0 1 41.3 83L58.6 93A94 94 0 0 0 58.6 187Z"/>
+    <path class="wf-c" d="M58.6 93L41.3 83A114 114 0 0 1 140 26L140 46A94 94 0 0 0 58.6 93Z"/>
+    <path class="wf-c" d="M140 26L140 6A134 134 0 0 1 256 73L238.7 83A114 114 0 0 0 140 26Z"/>
+    <path class="wf-c" d="M238.7 83L256 73A134 134 0 0 1 256 207L238.7 197A114 114 0 0 0 238.7 83Z"/>
+    <path class="wf-c" d="M238.7 197L256 207A134 134 0 0 1 140 274L140 254A114 114 0 0 0 238.7 197Z"/>
+    <path class="wf-c" d="M140 254L140 274A134 134 0 0 1 24 207L41.3 197A114 114 0 0 0 140 254Z"/>
+    <path class="wf-c" d="M41.3 197L24 207A134 134 0 0 1 24 73L41.3 83A114 114 0 0 0 41.3 197Z"/>
+    <path class="wf-c" d="M41.3 83L24 73A134 134 0 0 1 140 6L140 26A114 114 0 0 0 41.3 83Z"/>
+    <circle class="wf-hub" cx="140" cy="140" r="34"/><text class="wf-t wf-t-hub" x="140" y="140">+6</text>
+    <text class="wf-t" x="162" y="101.9">1</text>
+    <text class="wf-t" x="184" y="140">2</text>
+    <text class="wf-t" x="162" y="178.1">3</text>
+    <text class="wf-t" x="118" y="178.1">4</text>
+    <text class="wf-t" x="96" y="140">5</text>
+    <text class="wf-t" x="118" y="101.9">6</text>
+    <text class="wf-t" x="172" y="84.6">7</text>
+    <text class="wf-t" x="204" y="140">8</text>
+    <text class="wf-t" x="172" y="195.4">9</text>
+    <text class="wf-t" x="108" y="195.4">10</text>
+    <text class="wf-t" x="76" y="140">11</text>
+    <text class="wf-t" x="108" y="84.6">12</text>
+    <text class="wf-t" x="182" y="67.3">13</text>
+    <text class="wf-t" x="224" y="140">14</text>
+    <text class="wf-t" x="182" y="212.7">15</text>
+    <text class="wf-t" x="98" y="212.7">16</text>
+    <text class="wf-t" x="56" y="140">17</text>
+    <text class="wf-t" x="98" y="67.3">18</text>
+    <text class="wf-t" x="192" y="49.9">19</text>
+    <text class="wf-t" x="244" y="140">20</text>
+    <text class="wf-t" x="192" y="230.1">21</text>
+    <text class="wf-t" x="88" y="230.1">22</text>
+    <text class="wf-t" x="36" y="140">23</text>
+    <text class="wf-t" x="88" y="49.9">24</text>
+    <text class="wf-t" x="202" y="32.6">25</text>
+    <text class="wf-t" x="264" y="140">26</text>
+    <text class="wf-t" x="202" y="247.4">27</text>
+    <text class="wf-t" x="78" y="247.4">28</text>
+    <text class="wf-t" x="16" y="140">29</text>
+    <text class="wf-t" x="78" y="32.6">30</text>
+  </svg>
+  <div class="wf-cap">6 spokes &middot; 30 numbers</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">&divide;2</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="wf" viewBox="0 0 280 280" role="img">
+    <path class="wf-c" d="M140 106L140 86A54 54 0 0 1 186.8 113L169.4 123A34 34 0 0 0 140 106Z"/>
+    <path class="wf-c wf-x2" d="M169.4 123L186.8 113A54 54 0 0 1 186.8 167L169.4 157A34 34 0 0 0 169.4 123Z"/>
+    <path class="wf-c" d="M169.4 157L186.8 167A54 54 0 0 1 140 194L140 174A34 34 0 0 0 169.4 157Z"/>
+    <path class="wf-c wf-x2" d="M140 174L140 194A54 54 0 0 1 93.2 167L110.6 157A34 34 0 0 0 140 174Z"/>
+    <path class="wf-c" d="M110.6 157L93.2 167A54 54 0 0 1 93.2 113L110.6 123A34 34 0 0 0 110.6 157Z"/>
+    <path class="wf-c wf-x2" d="M110.6 123L93.2 113A54 54 0 0 1 140 86L140 106A34 34 0 0 0 110.6 123Z"/>
+    <path class="wf-c" d="M140 86L140 66A74 74 0 0 1 204.1 103L186.8 113A54 54 0 0 0 140 86Z"/>
+    <path class="wf-c wf-x2" d="M186.8 113L204.1 103A74 74 0 0 1 204.1 177L186.8 167A54 54 0 0 0 186.8 113Z"/>
+    <path class="wf-c" d="M186.8 167L204.1 177A74 74 0 0 1 140 214L140 194A54 54 0 0 0 186.8 167Z"/>
+    <path class="wf-c wf-x2" d="M140 194L140 214A74 74 0 0 1 75.9 177L93.2 167A54 54 0 0 0 140 194Z"/>
+    <path class="wf-c" d="M93.2 167L75.9 177A74 74 0 0 1 75.9 103L93.2 113A54 54 0 0 0 93.2 167Z"/>
+    <path class="wf-c wf-x2" d="M93.2 113L75.9 103A74 74 0 0 1 140 66L140 86A54 54 0 0 0 93.2 113Z"/>
+    <path class="wf-c" d="M140 66L140 46A94 94 0 0 1 221.4 93L204.1 103A74 74 0 0 0 140 66Z"/>
+    <path class="wf-c wf-x2" d="M204.1 103L221.4 93A94 94 0 0 1 221.4 187L204.1 177A74 74 0 0 0 204.1 103Z"/>
+    <path class="wf-c" d="M204.1 177L221.4 187A94 94 0 0 1 140 234L140 214A74 74 0 0 0 204.1 177Z"/>
+    <path class="wf-c wf-x2" d="M140 214L140 234A94 94 0 0 1 58.6 187L75.9 177A74 74 0 0 0 140 214Z"/>
+    <path class="wf-c" d="M75.9 177L58.6 187A94 94 0 0 1 58.6 93L75.9 103A74 74 0 0 0 75.9 177Z"/>
+    <path class="wf-c wf-x2" d="M75.9 103L58.6 93A94 94 0 0 1 140 46L140 66A74 74 0 0 0 75.9 103Z"/>
+    <path class="wf-c" d="M140 46L140 26A114 114 0 0 1 238.7 83L221.4 93A94 94 0 0 0 140 46Z"/>
+    <path class="wf-c wf-x2" d="M221.4 93L238.7 83A114 114 0 0 1 238.7 197L221.4 187A94 94 0 0 0 221.4 93Z"/>
+    <path class="wf-c" d="M221.4 187L238.7 197A114 114 0 0 1 140 254L140 234A94 94 0 0 0 221.4 187Z"/>
+    <path class="wf-c wf-x2" d="M140 234L140 254A114 114 0 0 1 41.3 197L58.6 187A94 94 0 0 0 140 234Z"/>
+    <path class="wf-c" d="M58.6 187L41.3 197A114 114 0 0 1 41.3 83L58.6 93A94 94 0 0 0 58.6 187Z"/>
+    <path class="wf-c wf-x2" d="M58.6 93L41.3 83A114 114 0 0 1 140 26L140 46A94 94 0 0 0 58.6 93Z"/>
+    <path class="wf-c" d="M140 26L140 6A134 134 0 0 1 256 73L238.7 83A114 114 0 0 0 140 26Z"/>
+    <path class="wf-c wf-x2" d="M238.7 83L256 73A134 134 0 0 1 256 207L238.7 197A114 114 0 0 0 238.7 83Z"/>
+    <path class="wf-c" d="M238.7 197L256 207A134 134 0 0 1 140 274L140 254A114 114 0 0 0 238.7 197Z"/>
+    <path class="wf-c wf-x2" d="M140 254L140 274A134 134 0 0 1 24 207L41.3 197A114 114 0 0 0 140 254Z"/>
+    <path class="wf-c" d="M41.3 197L24 207A134 134 0 0 1 24 73L41.3 83A114 114 0 0 0 41.3 197Z"/>
+    <path class="wf-c wf-x2" d="M41.3 83L24 73A134 134 0 0 1 140 6L140 26A114 114 0 0 0 41.3 83Z"/>
+    <circle class="wf-hub" cx="140" cy="140" r="34"/><text class="wf-t wf-t-hub" x="140" y="140">+6</text>
+    <text class="wf-t" x="162" y="101.9">1</text>
+    <text class="wf-t wf-t-x2" x="184" y="140">2</text>
+    <text class="wf-t" x="162" y="178.1">3</text>
+    <text class="wf-t wf-t-x2" x="118" y="178.1">4</text>
+    <text class="wf-t" x="96" y="140">5</text>
+    <text class="wf-t wf-t-x2" x="118" y="101.9">6</text>
+    <text class="wf-t" x="172" y="84.6">7</text>
+    <text class="wf-t wf-t-x2" x="204" y="140">8</text>
+    <text class="wf-t" x="172" y="195.4">9</text>
+    <text class="wf-t wf-t-x2" x="108" y="195.4">10</text>
+    <text class="wf-t" x="76" y="140">11</text>
+    <text class="wf-t wf-t-x2" x="108" y="84.6">12</text>
+    <text class="wf-t" x="182" y="67.3">13</text>
+    <text class="wf-t wf-t-x2" x="224" y="140">14</text>
+    <text class="wf-t" x="182" y="212.7">15</text>
+    <text class="wf-t wf-t-x2" x="98" y="212.7">16</text>
+    <text class="wf-t" x="56" y="140">17</text>
+    <text class="wf-t wf-t-x2" x="98" y="67.3">18</text>
+    <text class="wf-t" x="192" y="49.9">19</text>
+    <text class="wf-t wf-t-x2" x="244" y="140">20</text>
+    <text class="wf-t" x="192" y="230.1">21</text>
+    <text class="wf-t wf-t-x2" x="88" y="230.1">22</text>
+    <text class="wf-t" x="36" y="140">23</text>
+    <text class="wf-t wf-t-x2" x="88" y="49.9">24</text>
+    <text class="wf-t" x="202" y="32.6">25</text>
+    <text class="wf-t wf-t-x2" x="264" y="140">26</text>
+    <text class="wf-t" x="202" y="247.4">27</text>
+    <text class="wf-t wf-t-x2" x="78" y="247.4">28</text>
+    <text class="wf-t" x="16" y="140">29</text>
+    <text class="wf-t wf-t-x2" x="78" y="32.6">30</text>
+  </svg>
+  <div class="wf-cap">15 / 30 = 1/2</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">&divide;3</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="wf" viewBox="0 0 280 280" role="img">
+    <path class="wf-c wf-w6" d="M140 106L140 86A54 54 0 0 1 186.8 113L169.4 123A34 34 0 0 0 140 106Z"/>
+    <path class="wf-c wf-x2" d="M169.4 123L186.8 113A54 54 0 0 1 186.8 167L169.4 157A34 34 0 0 0 169.4 123Z"/>
+    <path class="wf-c wf-x3" d="M169.4 157L186.8 167A54 54 0 0 1 140 194L140 174A34 34 0 0 0 169.4 157Z"/>
+    <path class="wf-c wf-x2" d="M140 174L140 194A54 54 0 0 1 93.2 167L110.6 157A34 34 0 0 0 140 174Z"/>
+    <path class="wf-c wf-w6" d="M110.6 157L93.2 167A54 54 0 0 1 93.2 113L110.6 123A34 34 0 0 0 110.6 157Z"/>
+    <path class="wf-c wf-x2" d="M110.6 123L93.2 113A54 54 0 0 1 140 86L140 106A34 34 0 0 0 110.6 123Z"/>
+    <path class="wf-c wf-w6" d="M140 86L140 66A74 74 0 0 1 204.1 103L186.8 113A54 54 0 0 0 140 86Z"/>
+    <path class="wf-c wf-x2" d="M186.8 113L204.1 103A74 74 0 0 1 204.1 177L186.8 167A54 54 0 0 0 186.8 113Z"/>
+    <path class="wf-c wf-x3" d="M186.8 167L204.1 177A74 74 0 0 1 140 214L140 194A54 54 0 0 0 186.8 167Z"/>
+    <path class="wf-c wf-x2" d="M140 194L140 214A74 74 0 0 1 75.9 177L93.2 167A54 54 0 0 0 140 194Z"/>
+    <path class="wf-c wf-w6" d="M93.2 167L75.9 177A74 74 0 0 1 75.9 103L93.2 113A54 54 0 0 0 93.2 167Z"/>
+    <path class="wf-c wf-x2" d="M93.2 113L75.9 103A74 74 0 0 1 140 66L140 86A54 54 0 0 0 93.2 113Z"/>
+    <path class="wf-c wf-w6" d="M140 66L140 46A94 94 0 0 1 221.4 93L204.1 103A74 74 0 0 0 140 66Z"/>
+    <path class="wf-c wf-x2" d="M204.1 103L221.4 93A94 94 0 0 1 221.4 187L204.1 177A74 74 0 0 0 204.1 103Z"/>
+    <path class="wf-c wf-x3" d="M204.1 177L221.4 187A94 94 0 0 1 140 234L140 214A74 74 0 0 0 204.1 177Z"/>
+    <path class="wf-c wf-x2" d="M140 214L140 234A94 94 0 0 1 58.6 187L75.9 177A74 74 0 0 0 140 214Z"/>
+    <path class="wf-c wf-w6" d="M75.9 177L58.6 187A94 94 0 0 1 58.6 93L75.9 103A74 74 0 0 0 75.9 177Z"/>
+    <path class="wf-c wf-x2" d="M75.9 103L58.6 93A94 94 0 0 1 140 46L140 66A74 74 0 0 0 75.9 103Z"/>
+    <path class="wf-c wf-w6" d="M140 46L140 26A114 114 0 0 1 238.7 83L221.4 93A94 94 0 0 0 140 46Z"/>
+    <path class="wf-c wf-x2" d="M221.4 93L238.7 83A114 114 0 0 1 238.7 197L221.4 187A94 94 0 0 0 221.4 93Z"/>
+    <path class="wf-c wf-x3" d="M221.4 187L238.7 197A114 114 0 0 1 140 254L140 234A94 94 0 0 0 221.4 187Z"/>
+    <path class="wf-c wf-x2" d="M140 234L140 254A114 114 0 0 1 41.3 197L58.6 187A94 94 0 0 0 140 234Z"/>
+    <path class="wf-c wf-w6" d="M58.6 187L41.3 197A114 114 0 0 1 41.3 83L58.6 93A94 94 0 0 0 58.6 187Z"/>
+    <path class="wf-c wf-x2" d="M58.6 93L41.3 83A114 114 0 0 1 140 26L140 46A94 94 0 0 0 58.6 93Z"/>
+    <path class="wf-c wf-w6" d="M140 26L140 6A134 134 0 0 1 256 73L238.7 83A114 114 0 0 0 140 26Z"/>
+    <path class="wf-c wf-x2" d="M238.7 83L256 73A134 134 0 0 1 256 207L238.7 197A114 114 0 0 0 238.7 83Z"/>
+    <path class="wf-c wf-x3" d="M238.7 197L256 207A134 134 0 0 1 140 274L140 254A114 114 0 0 0 238.7 197Z"/>
+    <path class="wf-c wf-x2" d="M140 254L140 274A134 134 0 0 1 24 207L41.3 197A114 114 0 0 0 140 254Z"/>
+    <path class="wf-c wf-w6" d="M41.3 197L24 207A134 134 0 0 1 24 73L41.3 83A114 114 0 0 0 41.3 197Z"/>
+    <path class="wf-c wf-x2" d="M41.3 83L24 73A134 134 0 0 1 140 6L140 26A114 114 0 0 0 41.3 83Z"/>
+    <circle class="wf-hub" cx="140" cy="140" r="34"/><text class="wf-t wf-t-hub" x="140" y="140">+6</text>
+    <text class="wf-t wf-t-w6" x="162" y="101.9">1</text>
+    <text class="wf-t wf-t-x2" x="184" y="140">2</text>
+    <text class="wf-t wf-t-x3" x="162" y="178.1">3</text>
+    <text class="wf-t wf-t-x2" x="118" y="178.1">4</text>
+    <text class="wf-t wf-t-w6" x="96" y="140">5</text>
+    <text class="wf-t wf-t-x2" x="118" y="101.9">6</text>
+    <text class="wf-t wf-t-w6" x="172" y="84.6">7</text>
+    <text class="wf-t wf-t-x2" x="204" y="140">8</text>
+    <text class="wf-t wf-t-x3" x="172" y="195.4">9</text>
+    <text class="wf-t wf-t-x2" x="108" y="195.4">10</text>
+    <text class="wf-t wf-t-w6" x="76" y="140">11</text>
+    <text class="wf-t wf-t-x2" x="108" y="84.6">12</text>
+    <text class="wf-t wf-t-w6" x="182" y="67.3">13</text>
+    <text class="wf-t wf-t-x2" x="224" y="140">14</text>
+    <text class="wf-t wf-t-x3" x="182" y="212.7">15</text>
+    <text class="wf-t wf-t-x2" x="98" y="212.7">16</text>
+    <text class="wf-t wf-t-w6" x="56" y="140">17</text>
+    <text class="wf-t wf-t-x2" x="98" y="67.3">18</text>
+    <text class="wf-t wf-t-w6" x="192" y="49.9">19</text>
+    <text class="wf-t wf-t-x2" x="244" y="140">20</text>
+    <text class="wf-t wf-t-x3" x="192" y="230.1">21</text>
+    <text class="wf-t wf-t-x2" x="88" y="230.1">22</text>
+    <text class="wf-t wf-t-w6" x="36" y="140">23</text>
+    <text class="wf-t wf-t-x2" x="88" y="49.9">24</text>
+    <text class="wf-t wf-t-w6" x="202" y="32.6">25</text>
+    <text class="wf-t wf-t-x2" x="264" y="140">26</text>
+    <text class="wf-t wf-t-x3" x="202" y="247.4">27</text>
+    <text class="wf-t wf-t-x2" x="78" y="247.4">28</text>
+    <text class="wf-t wf-t-w6" x="16" y="140">29</text>
+    <text class="wf-t wf-t-x2" x="78" y="32.6">30</text>
+  </svg>
+  <div class="wf-cap">6k &plusmn; 1 &rarr; 10 / 30 = 1/3</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag solved">&divide;5</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="wf" viewBox="0 0 280 280" role="img">
+    <path class="wf-c wf-ok" d="M140 106L140 86A54 54 0 0 1 186.8 113L169.4 123A34 34 0 0 0 140 106Z"/>
+    <path class="wf-c wf-x2" d="M169.4 123L186.8 113A54 54 0 0 1 186.8 167L169.4 157A34 34 0 0 0 169.4 123Z"/>
+    <path class="wf-c wf-x3" d="M169.4 157L186.8 167A54 54 0 0 1 140 194L140 174A34 34 0 0 0 169.4 157Z"/>
+    <path class="wf-c wf-x2" d="M140 174L140 194A54 54 0 0 1 93.2 167L110.6 157A34 34 0 0 0 140 174Z"/>
+    <path class="wf-c wf-x5" d="M110.6 157L93.2 167A54 54 0 0 1 93.2 113L110.6 123A34 34 0 0 0 110.6 157Z"/>
+    <path class="wf-c wf-x2" d="M110.6 123L93.2 113A54 54 0 0 1 140 86L140 106A34 34 0 0 0 110.6 123Z"/>
+    <path class="wf-c wf-ok" d="M140 86L140 66A74 74 0 0 1 204.1 103L186.8 113A54 54 0 0 0 140 86Z"/>
+    <path class="wf-c wf-x2" d="M186.8 113L204.1 103A74 74 0 0 1 204.1 177L186.8 167A54 54 0 0 0 186.8 113Z"/>
+    <path class="wf-c wf-x3" d="M186.8 167L204.1 177A74 74 0 0 1 140 214L140 194A54 54 0 0 0 186.8 167Z"/>
+    <path class="wf-c wf-x2" d="M140 194L140 214A74 74 0 0 1 75.9 177L93.2 167A54 54 0 0 0 140 194Z"/>
+    <path class="wf-c wf-ok" d="M93.2 167L75.9 177A74 74 0 0 1 75.9 103L93.2 113A54 54 0 0 0 93.2 167Z"/>
+    <path class="wf-c wf-x2" d="M93.2 113L75.9 103A74 74 0 0 1 140 66L140 86A54 54 0 0 0 93.2 113Z"/>
+    <path class="wf-c wf-ok" d="M140 66L140 46A94 94 0 0 1 221.4 93L204.1 103A74 74 0 0 0 140 66Z"/>
+    <path class="wf-c wf-x2" d="M204.1 103L221.4 93A94 94 0 0 1 221.4 187L204.1 177A74 74 0 0 0 204.1 103Z"/>
+    <path class="wf-c wf-x3" d="M204.1 177L221.4 187A94 94 0 0 1 140 234L140 214A74 74 0 0 0 204.1 177Z"/>
+    <path class="wf-c wf-x2" d="M140 214L140 234A94 94 0 0 1 58.6 187L75.9 177A74 74 0 0 0 140 214Z"/>
+    <path class="wf-c wf-ok" d="M75.9 177L58.6 187A94 94 0 0 1 58.6 93L75.9 103A74 74 0 0 0 75.9 177Z"/>
+    <path class="wf-c wf-x2" d="M75.9 103L58.6 93A94 94 0 0 1 140 46L140 66A74 74 0 0 0 75.9 103Z"/>
+    <path class="wf-c wf-ok" d="M140 46L140 26A114 114 0 0 1 238.7 83L221.4 93A94 94 0 0 0 140 46Z"/>
+    <path class="wf-c wf-x2" d="M221.4 93L238.7 83A114 114 0 0 1 238.7 197L221.4 187A94 94 0 0 0 221.4 93Z"/>
+    <path class="wf-c wf-x3" d="M221.4 187L238.7 197A114 114 0 0 1 140 254L140 234A94 94 0 0 0 221.4 187Z"/>
+    <path class="wf-c wf-x2" d="M140 234L140 254A114 114 0 0 1 41.3 197L58.6 187A94 94 0 0 0 140 234Z"/>
+    <path class="wf-c wf-ok" d="M58.6 187L41.3 197A114 114 0 0 1 41.3 83L58.6 93A94 94 0 0 0 58.6 187Z"/>
+    <path class="wf-c wf-x2" d="M58.6 93L41.3 83A114 114 0 0 1 140 26L140 46A94 94 0 0 0 58.6 93Z"/>
+    <path class="wf-c wf-x5" d="M140 26L140 6A134 134 0 0 1 256 73L238.7 83A114 114 0 0 0 140 26Z"/>
+    <path class="wf-c wf-x2" d="M238.7 83L256 73A134 134 0 0 1 256 207L238.7 197A114 114 0 0 0 238.7 83Z"/>
+    <path class="wf-c wf-x3" d="M238.7 197L256 207A134 134 0 0 1 140 274L140 254A114 114 0 0 0 238.7 197Z"/>
+    <path class="wf-c wf-x2" d="M140 254L140 274A134 134 0 0 1 24 207L41.3 197A114 114 0 0 0 140 254Z"/>
+    <path class="wf-c wf-ok" d="M41.3 197L24 207A134 134 0 0 1 24 73L41.3 83A114 114 0 0 0 41.3 197Z"/>
+    <path class="wf-c wf-x2" d="M41.3 83L24 73A134 134 0 0 1 140 6L140 26A114 114 0 0 0 41.3 83Z"/>
+    <circle class="wf-hub" cx="140" cy="140" r="34"/><text class="wf-t wf-t-hub" x="140" y="140">+30</text>
+    <text class="wf-t wf-t-ok" x="162" y="101.9">1</text>
+    <text class="wf-t wf-t-x2" x="184" y="140">2</text>
+    <text class="wf-t wf-t-x3" x="162" y="178.1">3</text>
+    <text class="wf-t wf-t-x2" x="118" y="178.1">4</text>
+    <text class="wf-t wf-t-x5" x="96" y="140">5</text>
+    <text class="wf-t wf-t-x2" x="118" y="101.9">6</text>
+    <text class="wf-t wf-t-ok" x="172" y="84.6">7</text>
+    <text class="wf-t wf-t-x2" x="204" y="140">8</text>
+    <text class="wf-t wf-t-x3" x="172" y="195.4">9</text>
+    <text class="wf-t wf-t-x2" x="108" y="195.4">10</text>
+    <text class="wf-t wf-t-ok" x="76" y="140">11</text>
+    <text class="wf-t wf-t-x2" x="108" y="84.6">12</text>
+    <text class="wf-t wf-t-ok" x="182" y="67.3">13</text>
+    <text class="wf-t wf-t-x2" x="224" y="140">14</text>
+    <text class="wf-t wf-t-x3" x="182" y="212.7">15</text>
+    <text class="wf-t wf-t-x2" x="98" y="212.7">16</text>
+    <text class="wf-t wf-t-ok" x="56" y="140">17</text>
+    <text class="wf-t wf-t-x2" x="98" y="67.3">18</text>
+    <text class="wf-t wf-t-ok" x="192" y="49.9">19</text>
+    <text class="wf-t wf-t-x2" x="244" y="140">20</text>
+    <text class="wf-t wf-t-x3" x="192" y="230.1">21</text>
+    <text class="wf-t wf-t-x2" x="88" y="230.1">22</text>
+    <text class="wf-t wf-t-ok" x="36" y="140">23</text>
+    <text class="wf-t wf-t-x2" x="88" y="49.9">24</text>
+    <text class="wf-t wf-t-x5" x="202" y="32.6">25</text>
+    <text class="wf-t wf-t-x2" x="264" y="140">26</text>
+    <text class="wf-t wf-t-x3" x="202" y="247.4">27</text>
+    <text class="wf-t wf-t-x2" x="78" y="247.4">28</text>
+    <text class="wf-t wf-t-ok" x="16" y="140">29</text>
+    <text class="wf-t wf-t-x2" x="78" y="32.6">30</text>
+  </svg>
+  <div class="wf-cap">8 / 30</div>
+  <div class="wf-legend">
+    <span><i class="wf-s2"></i>&times;2</span>
+    <span><i class="wf-s3"></i>&times;3</span>
+    <span><i class="wf-s5"></i>&times;5</span>
+    <span><i class="wf-sok"></i>coprime</span>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::WheelFactorization] · c0e8135</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/wheel-factorization.js
+</script>
+</body>
+</html>

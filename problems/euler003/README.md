@@ -33,6 +33,11 @@ below, and stop once what's left is already prime. [`[method::TrialDivision]`](.
 
 [![Ladder method](../../memory-bank/visualizations/build/ladder-method.png)](../../memory-bank/visualizations/build/ladder-method.html)
 
+**Wheel factorization** — Two is divided out first, after which only the odd candidates are stepped through.
+[`[method::WheelFactorization]`](../../memory-bank/_terms.md#methodwheelfactorization)
+
+[![Wheel factorization](../../memory-bank/visualizations/build/wheel-factorization.png)](../../memory-bank/visualizations/build/wheel-factorization.html)
+
 ## Build & run
 
 ```

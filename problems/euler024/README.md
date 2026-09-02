@@ -25,6 +25,11 @@ index by a shrinking factorial each round.
 
 [![Lehmer code](../../memory-bank/visualizations/build/lehmer-code.png)](../../memory-bank/visualizations/build/lehmer-code.html)
 
+**Lookup table** — The factorials below the pool size are a small fixed table.
+[`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)
+
+[![Lookup table](../../memory-bank/visualizations/build/lookup-table.png)](../../memory-bank/visualizations/build/lookup-table.html)
+
 ## Build & run
 
 ```

@@ -25,6 +25,11 @@ direct, ad-hoc mapping specific to how English names numbers (irregular words be
 separate tens table, "Hundred"/"Thousand"/... scale words), not a general reusable algorithmic
 technique.
 
+**Lookup table** — The irregular names below twenty and the tens are given, not derived, so they are tabulated.
+[`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)
+
+[![Lookup table](../../memory-bank/visualizations/build/lookup-table.png)](../../memory-bank/visualizations/build/lookup-table.html)
+
 ## Build & run
 
 ```

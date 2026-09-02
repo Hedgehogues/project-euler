@@ -42,6 +42,22 @@ variable-elimination|Variable elimination|Solving a system by substitution|Varia
 canonicalization|Canonicalization|Counting from one representative per class|Canonicalization
 logarithm-product-rule|Logarithm product rule|Slide rule — logarithms turn multiplication into addition|LogarithmProductRule
 fixed-point-iteration|Fixed-point iteration|Fixed-point iteration (cobweb plot)|FixedPointIteration
+positional-notation|Positional notation|Base-ten blocks (Dienes blocks), multibase variant|PositionalNotation
+lookup-table|Lookup table|Printed table of precomputed values|LookupTable
+modular-arithmetic|Modular arithmetic|Clock face — arithmetic modulo twelve|ModularArithmetic
+integer-overflow-avoidance|Keeping a value in range|Odometer rollover|IntegerOverflowAvoidance
+in-place-algorithm|In-place algorithm|Overwrite what is no longer needed|InPlaceAlgorithm
+batch-inversion|Batch inversion|Montgomery's trick|BatchInversion
+offline-algorithm|Offline algorithm|Whole batch before the first answer|OfflineAlgorithm
+lazy-initialization|Lazy initialization|Built on first use|LazyInitialization
+symmetry-breaking|Symmetry breaking|Square board read against its diagonal|SymmetryBreaking
+wheel-factorization|Wheel factorization|Wheel diagram|WheelFactorization
+linear-sieve|Linear sieve|Linear sieve (Euler's sieve)|LinearSieve
+sparse-set|Sparse set|Sparse-dense pair, Briggs and Torczon 1993|SparseSet
+restricted-partitions|Partitions and compositions|Young (Ferrers) diagram|RestrictedPartitionCount
+explicit-stack|Recursion as an explicit stack|Explicit call stack|ExplicitStackRecursion
+cross-multiplication|Cross-multiplication|Cross-multiplication|CrossMultiplication
+digital-invariant-bound|Digit-power bound|Finiteness bound for perfect digital invariants|DigitalInvariantBound
 EOF
 }
 

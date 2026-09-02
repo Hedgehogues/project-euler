@@ -16,7 +16,7 @@ MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses four catalogued m
 (`../../_terms.md`): [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum)
 (each single-divisor sum in closed form),
 [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion) (subtract the multiples of
-15 counted twice), [method::SkipCounting](../../_terms.md#methodskipcounting) (what "multiple of"
+15 counted twice), and [method::SkipCounting](../../_terms.md#methodskipcounting) (what "multiple of"
 means — the groundwork the other three stand on) and
 [method::VennDiagram](../../_terms.md#methodvenndiagram) (the same overlap as regions rather than
 arithmetic).

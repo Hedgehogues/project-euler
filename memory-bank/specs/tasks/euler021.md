@@ -15,13 +15,13 @@ each multiple of each `d` once) and then prefix-summing the amicable ones answer
 a lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::PrefixSum](../../_terms.md#methodprefixsum). The divisor-sum
 accumulation itself is a plain variant of
 [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes)'s "touch every multiple"
 mechanism (see
 `problems/euler021/README.md`) — not independently catalogued (no encyclopedic source found for
-this specific summing variant, only blogs/teaching sites).
+this specific summing variant, only blogs/teaching sites), and [method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples) (the sweep over multiples accumulates a divisor SUM in each cell rather than a mark).
 
 ## Scope
 **In scope:** `problems/euler021/solution.cpp` — the divisor-sum accumulation, the amicable check,
@@ -70,5 +70,6 @@ once; each query reads `prefix[N-1]` directly.
 ## Links
 - Methods: [method::PrefixSum](../../_terms.md#methodprefixsum);
   [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes)'s multiple-touching
-  mechanism, used as the divisor-sum accumulation variant described in Terms.
+  mechanism, used as the divisor-sum accumulation variant described in Terms,
+  [method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples).
 - Code: `problems/euler021/solution.cpp`; directory README: `problems/euler021/README.md`.

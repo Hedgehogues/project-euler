@@ -14,10 +14,10 @@ ever needed) — the smallest such multiple must be built by combining numbers o
 subtracting out what's already covered, not by blind multiplication.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods, one the
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods, one the
 mechanism and one what's built with it (`../../_terms.md`):
 [method::EuclideanAlgorithm](../../_terms.md#methodeuclideanalgorithm),
-[method::LCMViaGCD](../../_terms.md#methodlcmviagcd).
+[method::LCMViaGCD](../../_terms.md#methodlcmviagcd), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (the greatest common divisor is divided out before the multiplication, never after).
 
 ## Scope
 **In scope:** `problems/euler005/solution.cpp` — the model, the algorithm, correctness and bound
@@ -65,5 +65,6 @@ the final answer.
 
 ## Links
 - Methods: [method::EuclideanAlgorithm](../../_terms.md#methodeuclideanalgorithm),
-  [method::LCMViaGCD](../../_terms.md#methodlcmviagcd).
+  [method::LCMViaGCD](../../_terms.md#methodlcmviagcd),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler005/solution.cpp`; directory README: `problems/euler005/README.md`.

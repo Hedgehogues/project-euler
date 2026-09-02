@@ -34,6 +34,11 @@ and discarding the half that can't contain the answer. [`[method::BinarySearch]`
 
 [![Binary search](../../memory-bank/visualizations/build/binary-search.png)](../../memory-bank/visualizations/build/binary-search.html)
 
+**In-place algorithm** — Only the last two terms of the sequence are ever kept, and they are written over each other.
+[`[method::InPlaceAlgorithm]`](../../memory-bank/_terms.md#methodinplacealgorithm)
+
+[![In-place algorithm](../../memory-bank/visualizations/build/in-place-algorithm.png)](../../memory-bank/visualizations/build/in-place-algorithm.html)
+
 ## Build & run
 
 ```

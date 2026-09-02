@@ -16,7 +16,7 @@ where "Hundred" and the scale words attach) across numbers up to a trillion, not
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
 (`../../_terms.md`) — the digit-group-to-English mapping is specific to this problem's language
-rules, not a general reusable technique; see the Vision.
+rules, not a general reusable technique; see the Vision, [method::LookupTable](../../_terms.md#methodlookuptable) (the irregular names below twenty and the tens are given, not derived, so they are tabulated).
 
 ## Scope
 **In scope:** `problems/euler017/solution.cpp` — the digit-grouping, the word tables, correctness
@@ -58,5 +58,6 @@ scale name ("Thousand", "Million", ...) and a single space.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: none,
+  [method::LookupTable](../../_terms.md#methodlookuptable).
 - Code: `problems/euler017/solution.cpp`; directory README: `problems/euler017/README.md`.

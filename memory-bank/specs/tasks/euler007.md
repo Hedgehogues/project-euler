@@ -15,7 +15,7 @@ built once for the largest `N` actually asked for and reused by every query, rep
 independent searches with one.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses three catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
 [method::NthPrimeBound](../../_terms.md#methodnthprimebound),
 [method::Precomputation](../../_terms.md#methodprecomputation). NthPrimeBound is itself a named
@@ -24,7 +24,7 @@ composition, and its parts are used here through it, not separately:
 ln x apart), [method::FixedPointIteration](../../_terms.md#methodfixedpointiteration) (one pass of
 p &larr; n&middot;ln p) and
 [method::LogarithmProductRule](../../_terms.md#methodlogarithmproductrule) (which is what the
-ln ln n term is).
+ln ln n term is), [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm) (every query is read before any answer is produced, so one sieve is sized to the largest of them), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (the sieve bound is compared by division rather than by forming a product).
 
 ## Scope
 **In scope:** `problems/euler007/solution.cpp` — the model, the sieve, the bound used to size it,
@@ -83,5 +83,7 @@ Each query is then answered by indexing directly into the sieved list, `primes[n
   [method::PrimeNumberTheorem](../../_terms.md#methodprimenumbertheorem),
   [method::FixedPointIteration](../../_terms.md#methodfixedpointiteration),
   [method::LogarithmProductRule](../../_terms.md#methodlogarithmproductrule)),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler007/solution.cpp`; directory README: `problems/euler007/README.md`.

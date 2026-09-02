@@ -14,8 +14,8 @@ Sieving every prime below `N` once and reusing that table for every truncation c
 check into an O(1) lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (truncating from either end is an operation on the written form).
 
 ## Scope
 **In scope:** `problems/euler037/solution.cpp` — the sieve, the two-directional truncation check,
@@ -58,5 +58,6 @@ excluded by starting the outer loop at `p = 10`.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes).
+- Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler037/solution.cpp`; directory README: `problems/euler037/README.md`.

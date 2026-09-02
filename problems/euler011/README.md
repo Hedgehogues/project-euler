@@ -23,6 +23,11 @@ starting points, each a 4-term product, so every candidate line is simply checke
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Symmetry breaking** — Four of the eight directions are scanned, because each line would otherwise be found twice.
+[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+
+[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+
 ## Build & run
 
 ```

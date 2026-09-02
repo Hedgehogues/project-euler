@@ -30,6 +30,11 @@ Every amount's answer is built once, for every coin, before any query is answere
 [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern already
 catalogued.
 
+**Partitions and compositions** — The nesting order of the two loops is what decides that arrangements are not counted apart.
+[`[method::RestrictedPartitionCount]`](../../memory-bank/_terms.md#methodrestrictedpartitioncount)
+
+[![Partitions and compositions](../../memory-bank/visualizations/build/restricted-partitions.png)](../../memory-bank/visualizations/build/restricted-partitions.html)
+
 ## Build & run
 
 ```

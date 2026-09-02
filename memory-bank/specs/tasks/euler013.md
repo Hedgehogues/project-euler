@@ -14,8 +14,8 @@ number is far beyond any native integer type (`long long` holds under 19 digits,
 never as a single native arithmetic operation.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the addends are held as digit sequences because no native type holds them).
 
 ## Scope
 **In scope:** `problems/euler013/solution.cpp` — the digit-array addition, correctness criteria.
@@ -57,5 +57,6 @@ most-significant — zero entries) are printed, truncated to the first ten.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic).
+- Methods: [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler013/solution.cpp`; directory README: `problems/euler013/README.md`.

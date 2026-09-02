@@ -143,6 +143,16 @@ and the problems themselves, which live in `problems/euler{NNN}/README.md`.
   failing because it taught all three at once. The atomicity test had been run on algorithmic
   records but not on formula-shaped ones. Traces to: [approaches](approaches.md)'s
   MUST-atomic-or-composed (formula case).
+- **F18** (found while auditing the catalog, not by the user asking) A written-down COUNT of things
+  that grow goes stale, and it went stale three times over this catalog's short history: the
+  principle count in this spec's own Links line ("principles 1–12", stale since principle 13, caught
+  incidentally), the method list copied into `memory-bank/index.md`, and the same principle count
+  copied there too. The pattern is identical to [approaches](approaches.md)'s F10 and has the same
+  fix, applied everywhere rather than one site at a time: a document that needs to refer to a
+  growing set points at the headings that ARE the set and writes no number. Every count outside the
+  file that owns it has now been removed. Traces to: F10's own resolution, generalized — a count is
+  an enumeration, and an enumeration needs a synchronized edit on every addition, which is exactly
+  what nobody remembers to make.
 
 ## Architecture
 
@@ -243,9 +253,16 @@ rendering "by eye", no cloud, no hand-made pictures.
   **MUST-picture-optional** — criterion: any `Picture: —` value is accompanied by an explanation of
   why no visual form exists, checked live (a real search across the sources named in
   MUST-canonical-source), not asserted from an earlier session's memory or copied from a
-  structurally similar record. Status: done — currently vacuously true (every record in the
-  catalog has a picture as of `EuclideanAlgorithm`/`LCMViaGCD`/`Precomputation`; the rule stays
-  binding for the next record that genuinely has none).
+  structurally similar record. The SHAPE of such a record, settled the first time one was actually
+  written and binding from then on: the reason stands in place of the value on the `Picture:` line
+  itself, and the record carries no `Sequence:` and no `Example:` line at all, both of which
+  describe a drawing that does not exist — a list of frames nobody drew is worse than no list. Its
+  `Spec:` line points only at [approaches](approaches.md), never at this spec, since no requirement
+  here applies to it. Status: done — no longer vacuous: `SievingOverMultiples` (the axis is what a
+  cell RECEIVES, and a mark, a stored prime and a running total are indistinguishable drawn as
+  cells) and `MultiplicativeFunction` (the honest drawing is the exponent grid `DivisorCountFormula`
+  already owns, so drawing it again would be one picture serving twice) are the first two, and both
+  state which sources were checked before the field was given a dash.
 - The absence of a picture MUST NOT be used as an argument about the idea — not about whether it is
   a technique, and not about whether it deserves its own record —
   **MUST-picture-absence-says-nothing** — criterion: no record is merged into another, and none is
@@ -310,6 +327,7 @@ rendering "by eye", no cloud, no hand-made pictures.
 ## Links
 - The layer below, which this spec may reference and which never references back:
   [approaches](approaches.md) (requirements on the idea).
-- Rules (short auto-loaded form): `.claude/rules/visualization-principles.md` (principles 1–16).
+- Rules (short auto-loaded form): `.claude/rules/visualization-principles.md` — its own `## N.`
+  headings are the list; no count is written here, see F18.
 - Skill: `.claude/skills/document-problem/SKILL.md` (shell + build).
 - Records: `memory-bank/_terms.md`; index — `memory-bank/index.md`.

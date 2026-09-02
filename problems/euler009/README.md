@@ -26,6 +26,16 @@ search from two free unknowns to one.
 
 [![Variable elimination](../../memory-bank/visualizations/build/variable-elimination.png)](../../memory-bank/visualizations/build/variable-elimination.html)
 
+**Symmetry breaking** — Ordering the three sides removes the six arrangements of each triple and bounds the smallest side.
+[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+
+[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+
+**Cross-multiplication** — A candidate side is accepted only when the division comes out exact, tested by its remainder.
+[`[method::CrossMultiplication]`](../../memory-bank/_terms.md#methodcrossmultiplication)
+
+[![Cross-multiplication](../../memory-bank/visualizations/build/cross-multiplication.png)](../../memory-bank/visualizations/build/cross-multiplication.html)
+
 ## Build & run
 
 ```

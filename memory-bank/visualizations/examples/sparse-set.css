@@ -1,0 +1,33 @@
+.ss-diag{display:block; width:100%; max-width:540px; margin:0 auto; overflow:visible;}
+.ss-cell{fill:var(--surface); stroke:var(--rule); stroke-width:1.5;}
+.ss-cell-on{fill:var(--a-bg); stroke:var(--a); stroke-width:2;}
+.ss-cell-clr{fill:var(--good-bg); stroke:var(--good); stroke-width:2;}
+.ss-cell-off{fill:var(--paper); stroke:var(--rule); stroke-width:1.5; stroke-dasharray:3 3;}
+.ss-cell-den{fill:var(--ab-bg); stroke:var(--ab); stroke-width:2;}
+.ss-ix{font-family:var(--font-m); font-size:10px; fill:var(--ink-soft);}
+.ss-dot{fill:var(--a);}
+.ss-back{font-family:var(--font-m); font-size:8px; font-weight:700; fill:var(--a);}
+.ss-den-v{font-family:var(--font-m); font-size:14px; font-weight:700; fill:var(--ab);}
+.ss-link{stroke:var(--ab); stroke-width:1.6; fill:none;}
+.ss-link-on{stroke:var(--good); stroke-width:2.4; fill:none;}
+.ss-head{fill:var(--ab);}
+.ss-head-on{fill:var(--good);}
+.ss-meas{stroke:var(--ink-soft); stroke-width:1;}
+.ss-meas-t{font-family:var(--font-m); font-size:12px; font-weight:700; fill:var(--ink-soft);}
+
+.ss-q{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ink-soft); margin-top:8px;}
+.ss-n{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ab); margin-top:6px;}
+.ss-n-on{color:var(--good);}
+
+.ss-cost{display:flex; align-items:center; justify-content:center; gap:12px; margin:2px 0;}
+.ss-cost-n{font-family:var(--font-m); font-size:22px; font-weight:700; width:44px; text-align:right;}
+.ss-ticks{display:flex; gap:3px;}
+.ss-tick{width:12px; height:24px; border-radius:3px;}
+.ss-good .ss-cost-n{color:var(--good);}
+.ss-good .ss-tick{background:var(--good-bg); border:1.5px solid var(--good);}
+.ss-dim .ss-cost-n{color:var(--ink-soft);}
+.ss-dim .ss-tick{background:var(--paper); border:1.5px dashed var(--rule);}
+.ss-mark{font-family:var(--font-m); font-size:18px; font-weight:700; width:18px;}
+.ss-good .ss-mark{color:var(--good);}
+.ss-dim .ss-mark{color:var(--b);}
+.ss-cmp{font-family:var(--font-m); font-size:20px; font-weight:700; text-align:center; color:var(--ink); margin-top:12px;}

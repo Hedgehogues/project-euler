@@ -15,11 +15,11 @@ grow combinatorially. The binomial-coefficient closed form, with factorials and 
 precomputed once, answers every query in `O(1)`.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses four catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::LatticePaths](../../_terms.md#methodlatticepaths),
 [method::ModularInverseFermat](../../_terms.md#methodmodularinversefermat),
 [method::FastExponentiation](../../_terms.md#methodfastexponentiation),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation), [method::BatchInversion](../../_terms.md#methodbatchinversion) (every inverse factorial comes from one exponentiation and a walk back down), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (the intermediate product is widened so it cannot leave the range).
 
 ## Scope
 **In scope:** `problems/euler015/solution.cpp` — the factorial/inverse-factorial precomputation,
@@ -71,5 +71,7 @@ factorial. Each query is then answered by `fact[N+M] · invFact[N] · invFact[M]
 - Methods: [method::LatticePaths](../../_terms.md#methodlatticepaths),
   [method::ModularInverseFermat](../../_terms.md#methodmodularinversefermat),
   [method::FastExponentiation](../../_terms.md#methodfastexponentiation),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::BatchInversion](../../_terms.md#methodbatchinversion),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler015/solution.cpp`; directory README: `problems/euler015/README.md`.

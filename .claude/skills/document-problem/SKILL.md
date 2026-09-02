@@ -37,9 +37,22 @@ from the RFC documents each time.
      brute-force oracle exists, no submission id is available) — do not write a "done" status you
      couldn't actually check.
 
-3. **Identify the technique(s) the solution uses**, then classify each one against the catalog:
+3. **Identify the technique(s) the solution uses** — every technique, including the ones that look
+   too small to name (decomposing a number into digits, fixing one order to kill a symmetry,
+   clearing only what was touched). A residue audit of all 37 problems found 48 such techniques in
+   active use with no record of any kind, and 22 of them met the catalog's own bar; the reason they
+   were invisible is that each looked, on its own, like a way of writing something down rather than
+   an idea. List them first, judge them after. Then classify each one against the catalog:
    - **Already catalogued** (an existing `[method::Name]` block in `_terms.md` describes it) —
      reuse by reference. Per MUST-reuse-changes-nothing, this touches ZERO lines of `_terms.md`.
+   - **A specialization of a catalogued family** (a `Class: family` record whose `Axis:` covers
+     exactly what differs here) — reuse the family by reference and add nothing; if the axis nearly
+     but not quite covers it, that is an escalation, not a judgement call to make alone.
+   - **The third instance of a pattern already catalogued twice as separate atoms** — stop and
+     escalate: this is the trigger for a FAMILY record (principle 11, MUST-family-axis), and a
+     family may only be created when its axis can be named in one sentence and it has its own
+     established name plus an encyclopedic source. Two atoms that merely resemble each other are
+     not a family; a third instance differing along the SAME axis is.
    - **Not catalogued** — add it properly, in this order, not as a shortcut inline description:
      (a) `WebSearch` for the established name and an encyclopedic source (Wikipedia, Britannica,
      cp-algorithms, a professional body — blogs are supplements only) BEFORE writing anything; if
@@ -115,6 +128,12 @@ from the RFC documents each time.
      it on a weak source and hope to fix it later.
    - **Escalate** if the technique matches two or more existing `[method::Name]` blocks about
      equally well — ask which one, don't guess.
+   - **Escalate** if a technique is real and reused but has no established name after an honest
+     search — the source rule forbids cataloguing it, and the honest outcome is to say so and leave
+     it uncatalogued, not to invent a name. Three of the thirteen families found by the F12 audit
+     (bounding a search space a priori, explicit management of working memory, "the shape of the
+     enumeration defines what is counted") are blocked on exactly this and were deliberately NOT
+     created; do not quietly create them later without a source.
    - **Determinism**: rebuilding an EXISTING method (no `examples/` edit) must yield a byte-for-byte
      identical page — if a rebuild differs, that's a bug in `build.sh`/`examples/`, not acceptable
      variance; fix the mismatch before moving on, don't just re-run and hope.

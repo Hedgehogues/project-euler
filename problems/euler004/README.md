@@ -35,6 +35,21 @@ and discarding the half that can't contain the answer. [`[method::BinarySearch]`
 
 [![Binary search](../../memory-bank/visualizations/build/binary-search.png)](../../memory-bank/visualizations/build/binary-search.html)
 
+**Symmetry breaking** — The inner factor starts at the outer one, so each unordered pair is formed once.
+[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+
+[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+
+**Positional notation** — A palindrome is a statement about the digits, checked on the digit sequence itself.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
+**Lazy initialization** — The table of palindromic products is built on the first query that needs it, not at the start.
+[`[method::LazyInitialization]`](../../memory-bank/_terms.md#methodlazyinitialization)
+
+[![Lazy initialization](../../memory-bank/visualizations/build/lazy-initialization.png)](../../memory-bank/visualizations/build/lazy-initialization.html)
+
 ## Build & run
 
 ```

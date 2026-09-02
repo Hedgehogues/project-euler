@@ -15,9 +15,9 @@ up to 100 times; building every digit sum once up to the largest queried `N` ans
 with a lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation), [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (the digit array is doubled over itself, since only the final power is wanted), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the power is held as a digit sequence and its digits are what the question asks about).
 
 ## Scope
 **In scope:** `problems/euler016/solution.cpp` — the digit-array doubling, the digit-sum cache,
@@ -62,5 +62,7 @@ queries. Each query is then a single array lookup.
 
 ## Links
 - Methods: [method::BigIntegerArithmetic](../../_terms.md#methodbigintegerarithmetic),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler016/solution.cpp`; directory README: `problems/euler016/README.md`.

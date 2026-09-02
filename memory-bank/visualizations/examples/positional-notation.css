@@ -1,0 +1,52 @@
+/* Family picture: ONE skeleton (dial + grouped counters + digit strip) held fixed,
+   only the base — the axis — changes across frames. No child's mechanism is drawn. */
+
+.pn-col{display:flex; flex-direction:column; align-items:center; gap:10px;}
+
+/* --- the axis, made visible: a dial whose pointer moves --- */
+.pn-dial{display:grid; grid-template-columns:repeat(3,84px); gap:6px; justify-content:center;}
+.pn-tick{height:22px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--rule); border-radius:11px; background:var(--surface);
+  font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+.pn-tick.pn-on{border-color:var(--ab); background:var(--ab-bg); color:var(--ab);}
+.pn-ptr{height:13px; line-height:13px; text-align:center;
+  font-family:var(--font-m); font-size:11px; color:var(--ab);}
+.pn-ptr.pn-ask{color:var(--ink-soft); font-size:13px; font-weight:700;}
+
+/* --- the quantity, ungrouped --- */
+.pn-loose{display:flex; gap:4px; padding:7px 9px; border:1.5px dashed var(--rule); border-radius:9px;}
+
+/* --- the quantity, grouped by place --- */
+.pn-places{display:flex; align-items:flex-start; gap:17px; justify-content:center;}
+.pn-place{display:flex; flex-direction:column; align-items:center; gap:5px;}
+.pn-w{height:13px; line-height:13px; font-family:var(--font-m); font-size:10px; font-weight:700; color:var(--ink-soft);}
+.pn-groups{min-height:52px; display:flex; align-items:center; gap:4px;}
+.pn-grp{display:grid; gap:2px; padding:3px; border:1.5px solid var(--a-faint); border-radius:5px; background:var(--a-bg);}
+.pn-grp.pn-void{border-style:dashed; border-color:var(--rule); background:transparent;}
+.pn-c1{grid-template-columns:repeat(1,8px);}
+.pn-c2{grid-template-columns:repeat(2,8px);}
+.pn-c3{grid-template-columns:repeat(3,8px);}
+.pn-c4{grid-template-columns:repeat(4,8px);}
+.pn-c5{grid-template-columns:repeat(5,8px);}
+.pn-c6{grid-template-columns:repeat(6,8px);}
+.pn-dot{width:8px; height:8px; border-radius:50%; background:var(--a);}
+.pn-grp.pn-void .pn-dot{box-sizing:border-box; background:transparent; border:1px solid var(--rule);}
+
+/* --- the digit strip, one cell under each place --- */
+.pn-d{width:26px; height:25px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--ink-soft); border-radius:6px; background:var(--surface);
+  font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--ink);}
+.pn-d.pn-zero{border-color:var(--warn); background:var(--warn-bg); color:var(--warn);}
+
+.pn-sum{font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--ink-soft);}
+
+/* --- the three strips of one quantity, side by side --- */
+.pn-cmp{display:flex; flex-direction:column; align-items:center; gap:5px;
+  margin-top:4px; padding-top:12px; border-top:1px dashed var(--rule); width:100%;}
+.pn-cmp-row{display:flex; align-items:center; gap:5px;}
+.pn-cmp-lab{width:56px; text-align:right; font-family:var(--font-m); font-size:10px; font-weight:700; color:var(--ink-soft);}
+.pn-cmp-d{width:22px; height:21px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--ink-soft); border-radius:5px; background:var(--surface);
+  font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--ink);}
+.pn-cmp-d.pn-zero{border-color:var(--warn); background:var(--warn-bg); color:var(--warn);}
+.pn-cmp-eq{margin-left:5px; font-family:var(--font-m); font-size:12px; font-weight:700; color:var(--good);}

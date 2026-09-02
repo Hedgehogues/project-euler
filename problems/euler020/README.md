@@ -30,6 +30,16 @@ Every digit sum from `0!` up to `1000!` is built once, not once per query — th
 [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern already
 catalogued.
 
+**In-place algorithm** — One digit array is multiplied in place, since only the last factorial is wanted.
+[`[method::InPlaceAlgorithm]`](../../memory-bank/_terms.md#methodinplacealgorithm)
+
+[![In-place algorithm](../../memory-bank/visualizations/build/in-place-algorithm.png)](../../memory-bank/visualizations/build/in-place-algorithm.html)
+
+**Positional notation** — The factorial is held as a digit sequence and its digits are what is summed.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

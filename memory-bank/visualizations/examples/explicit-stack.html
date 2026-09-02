@@ -1,0 +1,54 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="es-chain">
+    <div class="es-node es-goal"><span class="es-name">D</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node"><span class="es-name">C</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node"><span class="es-name">B</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-base"><span class="es-name">A</span><span class="es-ans">0</span></div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">push</div>
+<div class="frame"><div class="frame-inner">
+  <div class="es-chain">
+    <div class="es-node es-push es-goal"><span class="es-name">D</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-push"><span class="es-name">C</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-push"><span class="es-name">B</span><span class="es-ans es-unk">?</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-base"><span class="es-name">A</span><span class="es-ans">0</span></div>
+  </div>
+  <div class="es-mid">&darr;</div>
+  <div class="es-srow"><div class="es-slab">top</div><div class="es-slot">B</div><div class="es-scalc"></div></div>
+  <div class="es-srow"><div class="es-slab"></div><div class="es-slot">C</div><div class="es-scalc"></div></div>
+  <div class="es-srow"><div class="es-slab">bottom</div><div class="es-slot">D</div><div class="es-scalc"></div></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">pop</div>
+<div class="frame"><div class="frame-inner">
+  <div class="es-srow"><div class="es-slab">from A</div><div class="es-slot es-slot-seed">0</div><div class="es-scalc"></div></div>
+  <div class="es-srow"><div class="es-slab">top</div><div class="es-slot es-slot-out">B</div><div class="es-scalc">0+1 = 1</div></div>
+  <div class="es-srow"><div class="es-slab"></div><div class="es-slot es-slot-out">C</div><div class="es-scalc">1+1 = 2</div></div>
+  <div class="es-srow"><div class="es-slab">bottom</div><div class="es-slot es-slot-out">D</div><div class="es-scalc">2+1 = 3</div></div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="es-chain">
+    <div class="es-node es-done es-goal"><span class="es-name">D</span><span class="es-ans">3</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-done"><span class="es-name">C</span><span class="es-ans">2</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-done"><span class="es-name">B</span><span class="es-ans">1</span></div>
+    <div class="es-link">&rarr;</div>
+    <div class="es-node es-base"><span class="es-name">A</span><span class="es-ans">0</span></div>
+  </div>
+  <div class="ans-big" style="margin-top:14px">3</div>
+</div></div>

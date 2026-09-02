@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sparse set</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/sparse-set.css --- */
+.ss-diag{display:block; width:100%; max-width:540px; margin:0 auto; overflow:visible;}
+.ss-cell{fill:var(--surface); stroke:var(--rule); stroke-width:1.5;}
+.ss-cell-on{fill:var(--a-bg); stroke:var(--a); stroke-width:2;}
+.ss-cell-clr{fill:var(--good-bg); stroke:var(--good); stroke-width:2;}
+.ss-cell-off{fill:var(--paper); stroke:var(--rule); stroke-width:1.5; stroke-dasharray:3 3;}
+.ss-cell-den{fill:var(--ab-bg); stroke:var(--ab); stroke-width:2;}
+.ss-ix{font-family:var(--font-m); font-size:10px; fill:var(--ink-soft);}
+.ss-dot{fill:var(--a);}
+.ss-back{font-family:var(--font-m); font-size:8px; font-weight:700; fill:var(--a);}
+.ss-den-v{font-family:var(--font-m); font-size:14px; font-weight:700; fill:var(--ab);}
+.ss-link{stroke:var(--ab); stroke-width:1.6; fill:none;}
+.ss-link-on{stroke:var(--good); stroke-width:2.4; fill:none;}
+.ss-head{fill:var(--ab);}
+.ss-head-on{fill:var(--good);}
+.ss-meas{stroke:var(--ink-soft); stroke-width:1;}
+.ss-meas-t{font-family:var(--font-m); font-size:12px; font-weight:700; fill:var(--ink-soft);}
+
+.ss-q{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ink-soft); margin-top:8px;}
+.ss-n{font-family:var(--font-m); font-size:15px; font-weight:700; text-align:center; color:var(--ab); margin-top:6px;}
+.ss-n-on{color:var(--good);}
+
+.ss-cost{display:flex; align-items:center; justify-content:center; gap:12px; margin:2px 0;}
+.ss-cost-n{font-family:var(--font-m); font-size:22px; font-weight:700; width:44px; text-align:right;}
+.ss-ticks{display:flex; gap:3px;}
+.ss-tick{width:12px; height:24px; border-radius:3px;}
+.ss-good .ss-cost-n{color:var(--good);}
+.ss-good .ss-tick{background:var(--good-bg); border:1.5px solid var(--good);}
+.ss-dim .ss-cost-n{color:var(--ink-soft);}
+.ss-dim .ss-tick{background:var(--paper); border:1.5px dashed var(--rule);}
+.ss-mark{font-family:var(--font-m); font-size:18px; font-weight:700; width:18px;}
+.ss-good .ss-mark{color:var(--good);}
+.ss-dim .ss-mark{color:var(--b);}
+.ss-cmp{font-family:var(--font-m); font-size:20px; font-weight:700; text-align:center; color:var(--ink); margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Sparse set</h2>
+    <div class="stdtag found">✓ Sparse-dense pair, Briggs and Torczon 1993</div>
+    <div class="flow">
+<!-- examples/sparse-set.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="ss-diag" viewBox="0 0 540 82" height="82">
+    <text class="ss-ix" x="24" y="12" text-anchor="middle">0</text>
+    <text class="ss-ix" x="68" y="12" text-anchor="middle">1</text>
+    <text class="ss-ix" x="112" y="12" text-anchor="middle">2</text>
+    <text class="ss-ix" x="156" y="12" text-anchor="middle">3</text>
+    <text class="ss-ix" x="200" y="12" text-anchor="middle">4</text>
+    <text class="ss-ix" x="244" y="12" text-anchor="middle">5</text>
+    <text class="ss-ix" x="288" y="12" text-anchor="middle">6</text>
+    <text class="ss-ix" x="332" y="12" text-anchor="middle">7</text>
+    <text class="ss-ix" x="376" y="12" text-anchor="middle">8</text>
+    <text class="ss-ix" x="420" y="12" text-anchor="middle">9</text>
+    <text class="ss-ix" x="464" y="12" text-anchor="middle">10</text>
+    <text class="ss-ix" x="508" y="12" text-anchor="middle">11</text>
+    <rect class="ss-cell" x="4" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="48" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="92" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="136" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="180" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="224" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="268" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="312" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="356" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="400" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="444" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="488" y="20" width="40" height="34" rx="6"/>
+    <circle class="ss-dot" cx="112" cy="37" r="5"/>
+    <circle class="ss-dot" cx="288" cy="37" r="5"/>
+    <circle class="ss-dot" cx="420" cy="37" r="5"/>
+    <line class="ss-meas" x1="4" y1="64" x2="528" y2="64"/>
+    <line class="ss-meas" x1="4" y1="59" x2="4" y2="69"/>
+    <line class="ss-meas" x1="528" y1="59" x2="528" y2="69"/>
+    <text class="ss-meas-t" x="266" y="80" text-anchor="middle">12</text>
+  </svg>
+  <div class="ss-q">clear ?</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">roster</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="ss-diag" viewBox="0 0 540 152" height="152">
+    <text class="ss-ix" x="24" y="12" text-anchor="middle">0</text>
+    <text class="ss-ix" x="68" y="12" text-anchor="middle">1</text>
+    <text class="ss-ix" x="112" y="12" text-anchor="middle">2</text>
+    <text class="ss-ix" x="156" y="12" text-anchor="middle">3</text>
+    <text class="ss-ix" x="200" y="12" text-anchor="middle">4</text>
+    <text class="ss-ix" x="244" y="12" text-anchor="middle">5</text>
+    <text class="ss-ix" x="288" y="12" text-anchor="middle">6</text>
+    <text class="ss-ix" x="332" y="12" text-anchor="middle">7</text>
+    <text class="ss-ix" x="376" y="12" text-anchor="middle">8</text>
+    <text class="ss-ix" x="420" y="12" text-anchor="middle">9</text>
+    <text class="ss-ix" x="464" y="12" text-anchor="middle">10</text>
+    <text class="ss-ix" x="508" y="12" text-anchor="middle">11</text>
+    <rect class="ss-cell" x="4" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="48" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="92" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="136" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="180" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="224" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="268" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="312" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="356" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-on" x="400" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="444" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell" x="488" y="20" width="40" height="34" rx="6"/>
+    <circle class="ss-dot" cx="112" cy="40" r="5"/>
+    <circle class="ss-dot" cx="288" cy="40" r="5"/>
+    <circle class="ss-dot" cx="420" cy="40" r="5"/>
+    <text class="ss-back" x="126" y="31" text-anchor="middle">0</text>
+    <text class="ss-back" x="302" y="31" text-anchor="middle">1</text>
+    <text class="ss-back" x="434" y="31" text-anchor="middle">2</text>
+    <line class="ss-link" x1="224" y1="112" x2="112" y2="64"/>
+    <polygon class="ss-head" points="106,66 118,66 112,56"/>
+    <line class="ss-link" x1="268" y1="112" x2="288" y2="64"/>
+    <polygon class="ss-head" points="282,66 294,66 288,56"/>
+    <line class="ss-link" x1="312" y1="112" x2="420" y2="64"/>
+    <polygon class="ss-head" points="414,66 426,66 420,56"/>
+    <rect class="ss-cell-den" x="204" y="112" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-den" x="248" y="112" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-den" x="292" y="112" width="40" height="34" rx="6"/>
+    <text class="ss-den-v" x="224" y="134" text-anchor="middle">2</text>
+    <text class="ss-den-v" x="268" y="134" text-anchor="middle">6</text>
+    <text class="ss-den-v" x="312" y="134" text-anchor="middle">9</text>
+  </svg>
+  <div class="ss-n">n = 3</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">clear</div>
+<div class="frame"><div class="frame-inner">
+  <svg class="ss-diag" viewBox="0 0 540 152" height="152">
+    <text class="ss-ix" x="24" y="12" text-anchor="middle">0</text>
+    <text class="ss-ix" x="68" y="12" text-anchor="middle">1</text>
+    <text class="ss-ix" x="112" y="12" text-anchor="middle">2</text>
+    <text class="ss-ix" x="156" y="12" text-anchor="middle">3</text>
+    <text class="ss-ix" x="200" y="12" text-anchor="middle">4</text>
+    <text class="ss-ix" x="244" y="12" text-anchor="middle">5</text>
+    <text class="ss-ix" x="288" y="12" text-anchor="middle">6</text>
+    <text class="ss-ix" x="332" y="12" text-anchor="middle">7</text>
+    <text class="ss-ix" x="376" y="12" text-anchor="middle">8</text>
+    <text class="ss-ix" x="420" y="12" text-anchor="middle">9</text>
+    <text class="ss-ix" x="464" y="12" text-anchor="middle">10</text>
+    <text class="ss-ix" x="508" y="12" text-anchor="middle">11</text>
+    <rect class="ss-cell-off" x="4" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="48" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-clr" x="92" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="136" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="180" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="224" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-clr" x="268" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="312" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="356" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-clr" x="400" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="444" y="20" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-off" x="488" y="20" width="40" height="34" rx="6"/>
+    <line class="ss-link-on" x1="224" y1="112" x2="112" y2="64"/>
+    <polygon class="ss-head-on" points="105,66 119,66 112,55"/>
+    <line class="ss-link-on" x1="268" y1="112" x2="288" y2="64"/>
+    <polygon class="ss-head-on" points="281,66 295,66 288,55"/>
+    <line class="ss-link-on" x1="312" y1="112" x2="420" y2="64"/>
+    <polygon class="ss-head-on" points="413,66 427,66 420,55"/>
+    <rect class="ss-cell-den" x="204" y="112" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-den" x="248" y="112" width="40" height="34" rx="6"/>
+    <rect class="ss-cell-den" x="292" y="112" width="40" height="34" rx="6"/>
+    <text class="ss-den-v" x="224" y="134" text-anchor="middle">2</text>
+    <text class="ss-den-v" x="268" y="134" text-anchor="middle">6</text>
+    <text class="ss-den-v" x="312" y="134" text-anchor="middle">9</text>
+  </svg>
+  <div class="ss-n ss-n-on">3 steps</div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="ss-cost ss-good">
+    <div class="ss-cost-n">3</div>
+    <div class="ss-ticks"><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div></div>
+    <div class="ss-mark">&#10003;</div>
+  </div>
+  <div class="ss-cost ss-dim">
+    <div class="ss-cost-n">12</div>
+    <div class="ss-ticks"><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div><div class="ss-tick"></div></div>
+    <div class="ss-mark">&#10007;</div>
+  </div>
+  <div class="ss-cmp">3 &lt; 12</div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::SparseSet] · c18f6ae</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/sparse-set.js
+</script>
+</body>
+</html>

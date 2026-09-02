@@ -40,6 +40,16 @@ Every factorial and inverse factorial is built once, up to the largest `N+M` acr
 the same [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern
 already catalogued.
 
+**Batch inversion** — Every inverse factorial comes from one exponentiation and a walk back down.
+[`[method::BatchInversion]`](../../memory-bank/_terms.md#methodbatchinversion)
+
+[![Batch inversion](../../memory-bank/visualizations/build/batch-inversion.png)](../../memory-bank/visualizations/build/batch-inversion.html)
+
+**Keeping a value in range** — The intermediate product is widened so it cannot leave the range.
+[`[method::IntegerOverflowAvoidance]`](../../memory-bank/_terms.md#methodintegeroverflowavoidance)
+
+[![Keeping a value in range](../../memory-bank/visualizations/build/integer-overflow-avoidance.png)](../../memory-bank/visualizations/build/integer-overflow-avoidance.html)
+
 ## Build & run
 
 ```

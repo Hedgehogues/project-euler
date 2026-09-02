@@ -15,8 +15,8 @@ of the same digit count), so every rotation encountered is guaranteed to have a 
 answer available.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (a rotation is an operation on the written form, not on the value).
 
 ## Scope
 **In scope:** `problems/euler035/solution.cpp` — the extended sieve bound, the rotation check,
@@ -60,5 +60,6 @@ added to the sum only if every rotation is prime.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes).
+- Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
+  [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler035/solution.cpp`; directory README: `problems/euler035/README.md`.

@@ -15,12 +15,12 @@ values in a small set of integer products per primitive base, never touching an 
 integer.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::Canonicalization](../../_terms.md#methodcanonicalization) — skipping
 a base that is itself a power of a smaller, already-processed base is exactly picking one canonical
 representative per equivalence class of bases. The exponent deduplication within a single
 primitive base's own `k=2..maxK` sweep is specific to counting distinct powers, not a separately
-catalogued technique.
+catalogued technique, and [method::SparseSet](../../_terms.md#methodsparseset) (the reuse buffer is cleared by walking the positions actually touched, not the whole array).
 
 ## Scope
 **In scope:** `problems/euler029/solution.cpp` — the primitive-base grouping, the exponent
@@ -70,5 +70,6 @@ allocation each time.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::Canonicalization](../../_terms.md#methodcanonicalization).
+- Methods: [method::Canonicalization](../../_terms.md#methodcanonicalization),
+  [method::SparseSet](../../_terms.md#methodsparseset).
 - Code: `problems/euler029/solution.cpp`; directory README: `problems/euler029/README.md`.

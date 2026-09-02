@@ -1,0 +1,33 @@
+.db-eq{display:flex; align-items:center; justify-content:center; gap:9px; flex-wrap:wrap;}
+.db-n{font-family:var(--font-m); font-size:28px; font-weight:700; color:var(--good);
+  border:2px solid var(--good); background:var(--good-bg); border-radius:9px; padding:4px 12px;}
+.db-op{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink-soft);}
+.db-cube{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);
+  border:1.5px solid var(--rule); background:var(--surface); border-radius:7px; padding:4px 9px;}
+.db-open{display:flex; align-items:center; justify-content:center; gap:7px; margin-top:14px;}
+.db-tick{width:26px; height:26px; border:1.5px dashed var(--rule); border-radius:5px; background:var(--paper);}
+.db-inf{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink-soft);}
+
+.db-grid{display:flex; flex-direction:column; gap:4px; align-items:center;}
+.db-head{display:flex; gap:10px; align-items:flex-end;}
+.db-hc{width:104px; font-family:var(--font-m); font-size:11px; text-align:center; color:var(--ink-soft); line-height:1.35;}
+.db-hk{width:34px;}
+.db-hv{width:44px;}
+.db-line{display:flex; gap:10px; align-items:center;}
+.db-k{width:34px; font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--ink-soft); text-align:right;}
+.db-cell{width:104px; padding:5px 0; text-align:center; border-radius:7px;
+  font-family:var(--font-m); font-size:15px; font-weight:700;}
+.db-max{border:1.5px solid var(--ab); background:var(--ab-bg); color:var(--ab);}
+.db-min{border:1.5px solid var(--a); background:var(--a-bg); color:var(--a);}
+.db-ghost{border:1.5px dashed var(--rule); background:var(--paper); color:transparent;}
+.db-v{width:44px; text-align:center; font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--good);}
+.db-vx{color:var(--warn);}
+.db-cross .db-min{border-color:var(--warn); background:var(--warn-bg); color:var(--warn);}
+.db-rule{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); text-align:center; margin-top:11px;}
+
+.db-final{display:flex; align-items:center; justify-content:center; gap:12px;}
+.db-fbox{border-radius:11px; padding:9px 17px; text-align:center;
+  border:2px solid var(--good); background:var(--good-bg);}
+.db-fn{font-family:var(--font-m); font-size:30px; font-weight:700; color:var(--good); line-height:1;}
+.db-fl{font-family:var(--font-m); font-size:11px; color:var(--good); margin-top:4px;}
+.db-arrow{font-family:var(--font-m); font-size:19px; color:var(--ink-soft);}

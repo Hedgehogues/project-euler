@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lookup table</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/lookup-table.css --- */
+.lt-col{display:flex; flex-direction:column; align-items:center; gap:9px;}
+
+/* --- frame 1: one test per case, walked from the top --- */
+.lt-in{width:36px; height:26px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--a); border-radius:7px; background:var(--a-bg);
+  font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--a);}
+.lt-chain{display:flex; flex-direction:column; gap:1px;}
+.lt-test{display:flex; align-items:center; gap:5px; height:14px;}
+.lt-arr{width:9px; text-align:center; line-height:14px; font-family:var(--font-m); font-size:9px; color:var(--a);}
+.lt-k{width:24px; height:14px; display:flex; align-items:center; justify-content:center;
+  border:1px solid var(--rule); border-radius:4px; background:var(--surface);
+  font-family:var(--font-m); font-size:9px; font-weight:700; color:var(--ink-soft);}
+.lt-v{min-width:66px; font-family:var(--font-m); font-size:9px; color:var(--ink-soft);}
+.lt-mk{width:12px; font-family:var(--font-m); font-size:10px; font-weight:700; color:var(--good);}
+.lt-test.lt-hit .lt-k{border-color:var(--good); background:var(--good-bg); color:var(--good);}
+.lt-test.lt-hit .lt-v{color:var(--good); font-weight:700;}
+
+/* --- frames 2 and 3: the table, one cell per key --- */
+.lt-grid{display:grid; grid-template-columns:repeat(20,24px); gap:2px; justify-content:center;}
+.lt-idx{height:11px; line-height:11px; text-align:center;
+  font-family:var(--font-m); font-size:8px; font-weight:700; color:var(--ink-soft);}
+.lt-cell{height:58px; display:flex; align-items:center; justify-content:center; overflow:hidden;
+  border:1.5px solid var(--rule); border-radius:5px; background:var(--surface);}
+.lt-name{writing-mode:vertical-rl; font-family:var(--font-m); font-size:9px; color:var(--ink);}
+.lt-cell.lt-lit{border-color:var(--good); background:var(--good-bg);}
+.lt-cell.lt-lit .lt-name{color:var(--good); font-weight:700;}
+
+.lt-q{height:24px; display:flex; align-items:center; justify-content:center;}
+.lt-qbox{width:24px; height:24px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--a); border-radius:6px; background:var(--a-bg);
+  font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--a);}
+.lt-down{height:14px; line-height:14px; text-align:center; font-family:var(--font-m); font-size:12px; color:var(--good);}
+.lt-outrow{height:24px; display:flex; align-items:center; justify-content:center;}
+.lt-out{white-space:nowrap; padding:3px 9px; border:1.5px solid var(--good); border-radius:6px;
+  background:var(--good-bg); font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--good);}
+
+/* --- frame 3: the chain of tests of frame 1, in miniature, struck out --- */
+.lt-gone{align-self:center; display:flex; align-items:center; gap:13px; margin-bottom:14px;}
+.lt-mini{position:relative; display:flex; flex-direction:column; gap:1.5px; opacity:.45;}
+.lt-mrow{display:flex; align-items:center; gap:4px;}
+.lt-marr{font-family:var(--font-m); font-size:8px; line-height:1; color:var(--ink-soft);}
+.lt-mkey{width:13px; height:7px; border:1px solid var(--ink-soft); border-radius:2px;}
+.lt-mname{width:38px; height:2.5px; border-radius:1.5px; background:var(--ink-soft);}
+.lt-mini::after{content:""; position:absolute; left:-7px; right:-7px; top:50%;
+  height:2.5px; background:var(--b); border-radius:2px; transform:rotate(-30deg);}
+.lt-x{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--b);}
+
+.lt-cap{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Lookup table</h2>
+    <div class="stdtag found">✓ Printed table of precomputed values</div>
+    <div class="flow">
+<!-- examples/lookup-table.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lt-col">
+    <div class="lt-in">11</div>
+    <div class="lt-chain">
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">0</span><span class="lt-v">zero</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">1</span><span class="lt-v">one</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">2</span><span class="lt-v">two</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">3</span><span class="lt-v">three</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">4</span><span class="lt-v">four</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">5</span><span class="lt-v">five</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">6</span><span class="lt-v">six</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">7</span><span class="lt-v">seven</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">8</span><span class="lt-v">eight</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">9</span><span class="lt-v">nine</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">10</span><span class="lt-v">ten</span><span class="lt-mk"></span></div>
+      <div class="lt-test lt-hit"><span class="lt-arr">&darr;</span><span class="lt-k">11</span><span class="lt-v">eleven</span><span class="lt-mk">&#10003;</span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">12</span><span class="lt-v">twelve</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">13</span><span class="lt-v">thirteen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">14</span><span class="lt-v">fourteen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">15</span><span class="lt-v">fifteen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">16</span><span class="lt-v">sixteen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">17</span><span class="lt-v">seventeen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">18</span><span class="lt-v">eighteen</span><span class="lt-mk"></span></div>
+      <div class="lt-test"><span class="lt-arr">&darr;</span><span class="lt-k">19</span><span class="lt-v">nineteen</span><span class="lt-mk"></span></div>
+    </div>
+    <div class="lt-out">eleven</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">tabulate</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lt-col">
+    <div class="lt-grid">
+      <div class="lt-idx">0</div><div class="lt-idx">1</div><div class="lt-idx">2</div><div class="lt-idx">3</div><div class="lt-idx">4</div>
+      <div class="lt-idx">5</div><div class="lt-idx">6</div><div class="lt-idx">7</div><div class="lt-idx">8</div><div class="lt-idx">9</div>
+      <div class="lt-idx">10</div><div class="lt-idx">11</div><div class="lt-idx">12</div><div class="lt-idx">13</div><div class="lt-idx">14</div>
+      <div class="lt-idx">15</div><div class="lt-idx">16</div><div class="lt-idx">17</div><div class="lt-idx">18</div><div class="lt-idx">19</div>
+
+      <div class="lt-cell"><span class="lt-name">zero</span></div>
+      <div class="lt-cell"><span class="lt-name">one</span></div>
+      <div class="lt-cell"><span class="lt-name">two</span></div>
+      <div class="lt-cell"><span class="lt-name">three</span></div>
+      <div class="lt-cell"><span class="lt-name">four</span></div>
+      <div class="lt-cell"><span class="lt-name">five</span></div>
+      <div class="lt-cell"><span class="lt-name">six</span></div>
+      <div class="lt-cell"><span class="lt-name">seven</span></div>
+      <div class="lt-cell"><span class="lt-name">eight</span></div>
+      <div class="lt-cell"><span class="lt-name">nine</span></div>
+      <div class="lt-cell"><span class="lt-name">ten</span></div>
+      <div class="lt-cell"><span class="lt-name">eleven</span></div>
+      <div class="lt-cell"><span class="lt-name">twelve</span></div>
+      <div class="lt-cell"><span class="lt-name">thirteen</span></div>
+      <div class="lt-cell"><span class="lt-name">fourteen</span></div>
+      <div class="lt-cell"><span class="lt-name">fifteen</span></div>
+      <div class="lt-cell"><span class="lt-name">sixteen</span></div>
+      <div class="lt-cell"><span class="lt-name">seventeen</span></div>
+      <div class="lt-cell"><span class="lt-name">eighteen</span></div>
+      <div class="lt-cell"><span class="lt-name">nineteen</span></div>
+    </div>
+    <div class="lt-cap">index = key</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag solved">&#10003;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="lt-col">
+    <div class="lt-gone">
+      <div class="lt-mini">
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      <div class="lt-mrow"><span class="lt-marr">&darr;</span><i class="lt-mkey"></i><i class="lt-mname"></i></div>
+      </div>
+      <span class="lt-x">&#10007;</span>
+    </div>
+
+    <div class="lt-grid">
+      <div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div>
+      <div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div>
+      <div class="lt-q"></div><div class="lt-q"><div class="lt-qbox">11</div></div><div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"></div>
+      <div class="lt-q"></div><div class="lt-q"></div><div class="lt-q"><div class="lt-qbox">17</div></div><div class="lt-q"></div><div class="lt-q"></div>
+
+      <div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div>
+      <div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div>
+      <div class="lt-down"></div><div class="lt-down">&darr;</div><div class="lt-down"></div><div class="lt-down"></div><div class="lt-down"></div>
+      <div class="lt-down"></div><div class="lt-down"></div><div class="lt-down">&darr;</div><div class="lt-down"></div><div class="lt-down"></div>
+
+      <div class="lt-cell"><span class="lt-name">zero</span></div>
+      <div class="lt-cell"><span class="lt-name">one</span></div>
+      <div class="lt-cell"><span class="lt-name">two</span></div>
+      <div class="lt-cell"><span class="lt-name">three</span></div>
+      <div class="lt-cell"><span class="lt-name">four</span></div>
+      <div class="lt-cell"><span class="lt-name">five</span></div>
+      <div class="lt-cell"><span class="lt-name">six</span></div>
+      <div class="lt-cell"><span class="lt-name">seven</span></div>
+      <div class="lt-cell"><span class="lt-name">eight</span></div>
+      <div class="lt-cell"><span class="lt-name">nine</span></div>
+      <div class="lt-cell"><span class="lt-name">ten</span></div>
+      <div class="lt-cell lt-lit"><span class="lt-name">eleven</span></div>
+      <div class="lt-cell"><span class="lt-name">twelve</span></div>
+      <div class="lt-cell"><span class="lt-name">thirteen</span></div>
+      <div class="lt-cell"><span class="lt-name">fourteen</span></div>
+      <div class="lt-cell"><span class="lt-name">fifteen</span></div>
+      <div class="lt-cell"><span class="lt-name">sixteen</span></div>
+      <div class="lt-cell lt-lit"><span class="lt-name">seventeen</span></div>
+      <div class="lt-cell"><span class="lt-name">eighteen</span></div>
+      <div class="lt-cell"><span class="lt-name">nineteen</span></div>
+
+      <div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div>
+      <div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div>
+      <div class="lt-outrow"></div><div class="lt-outrow"><span class="lt-out">eleven</span></div><div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"></div>
+      <div class="lt-outrow"></div><div class="lt-outrow"></div><div class="lt-outrow"><span class="lt-out">seventeen</span></div><div class="lt-outrow"></div><div class="lt-outrow"></div>
+    </div>
+
+    <div class="lt-cap">20 cells</div>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::LookupTable] · 495fde5</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/lookup-table.js
+</script>
+</body>
+</html>

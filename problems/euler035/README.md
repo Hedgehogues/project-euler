@@ -24,6 +24,11 @@ unmarked is exactly the primes, sieved once up to a bound safely covering every 
 
 [![Sieve of Eratosthenes](../../memory-bank/visualizations/build/sieve-of-eratosthenes.png)](../../memory-bank/visualizations/build/sieve-of-eratosthenes.html)
 
+**Positional notation** — A rotation is an operation on the written form, not on the value.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

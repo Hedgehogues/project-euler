@@ -24,6 +24,11 @@ and add column by column with carries, the same way as on paper.
 
 [![Big-integer arithmetic](../../memory-bank/visualizations/build/big-integer-arithmetic.png)](../../memory-bank/visualizations/build/big-integer-arithmetic.html)
 
+**Positional notation** — The addends are held as digit sequences because no native type holds them.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

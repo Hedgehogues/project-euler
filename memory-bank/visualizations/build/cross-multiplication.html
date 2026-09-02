@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cross-multiplication</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/cross-multiplication.css --- */
+.cm-row{display:flex; align-items:center; justify-content:center; gap:26px;}
+.cm-frac{display:flex; flex-direction:column; align-items:center; font-family:var(--font-m); font-weight:700;}
+.cm-num,.cm-den{font-size:26px; color:var(--ink); line-height:1.15; padding:0 6px;}
+.cm-bar{width:38px; height:2.5px; background:var(--ink); margin:3px 0;}
+.cm-rel{font-family:var(--font-m); font-size:26px; font-weight:700; color:var(--ink-soft);}
+.cm-rel-good{color:var(--good);}
+
+.cm-div{display:flex; flex-direction:column; align-items:center; gap:9px;}
+.cm-dline{display:flex; align-items:center; justify-content:center; gap:10px;}
+.cm-dfrac{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink-soft); width:46px; text-align:right;}
+.cm-dval{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);
+  border:1.5px dashed var(--warn); background:var(--warn-bg); border-radius:6px; padding:4px 9px;}
+.cm-tail{color:var(--warn);}
+.cm-x{font-family:var(--font-m); font-size:18px; font-weight:700; color:var(--warn);}
+.cm-note{font-family:var(--font-m); font-size:12px; color:var(--warn); text-align:center; margin-top:10px;}
+
+.cm-cross{position:relative; display:flex; align-items:center; justify-content:center; gap:74px; padding:6px 0;}
+.cm-cross svg{position:absolute; left:0; top:0; width:100%; height:100%; overflow:visible;}
+.cm-prodrow{display:flex; align-items:center; justify-content:center; gap:26px; margin-top:14px;}
+.cm-prod{font-family:var(--font-m); font-size:15px; font-weight:700; border-radius:7px; padding:5px 11px;}
+.cm-p1{border:1.5px solid var(--a); background:var(--a-bg); color:var(--a);}
+.cm-p2{border:1.5px solid var(--ab); background:var(--ab-bg); color:var(--ab);}
+
+.cm-verdict{display:flex; align-items:center; justify-content:center; gap:14px;}
+.cm-vnum{font-family:var(--font-m); font-size:24px; font-weight:700; border-radius:8px; padding:5px 13px;}
+.cm-back{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); text-align:center; margin-top:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Cross-multiplication</h2>
+    <div class="stdtag found">✓ Cross-multiplication</div>
+    <div class="flow">
+<!-- examples/cross-multiplication.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="cm-row">
+    <div class="cm-frac"><div class="cm-num">3</div><div class="cm-bar"></div><div class="cm-den">7</div></div>
+    <div class="cm-rel">?</div>
+    <div class="cm-frac"><div class="cm-num">4</div><div class="cm-bar"></div><div class="cm-den">9</div></div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">&divide;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="cm-div">
+    <div class="cm-dline">
+      <div class="cm-dfrac">3 / 7</div>
+      <div class="cm-dval">0.428571<span class="cm-tail">&hellip;</span></div>
+      <div class="cm-x">&#10007;</div>
+    </div>
+    <div class="cm-dline">
+      <div class="cm-dfrac">4 / 9</div>
+      <div class="cm-dval">0.444444<span class="cm-tail">&hellip;</span></div>
+      <div class="cm-x">&#10007;</div>
+    </div>
+  </div>
+  <div class="cm-note">rounded, not the number</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">&times;</div>
+<div class="frame"><div class="frame-inner">
+  <svg viewBox="0 0 420 132" width="100%" height="132" aria-hidden="true">
+    <line x1="96" y1="34" x2="324" y2="100" stroke="var(--a)" stroke-width="2.5"/>
+    <line x1="324" y1="34" x2="96" y2="100" stroke="var(--ab)" stroke-width="2.5"/>
+    <circle cx="96" cy="34" r="19" fill="var(--paper)" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle cx="96" cy="100" r="19" fill="var(--paper)" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle cx="324" cy="34" r="19" fill="var(--paper)" stroke="var(--rule)" stroke-width="1.5"/>
+    <circle cx="324" cy="100" r="19" fill="var(--paper)" stroke="var(--rule)" stroke-width="1.5"/>
+    <text x="96" y="34" text-anchor="middle" dominant-baseline="central" font-family="var(--font-m)" font-size="21" font-weight="700" fill="var(--ink)">3</text>
+    <text x="96" y="100" text-anchor="middle" dominant-baseline="central" font-family="var(--font-m)" font-size="21" font-weight="700" fill="var(--ink)">7</text>
+    <text x="324" y="34" text-anchor="middle" dominant-baseline="central" font-family="var(--font-m)" font-size="21" font-weight="700" fill="var(--ink)">4</text>
+    <text x="324" y="100" text-anchor="middle" dominant-baseline="central" font-family="var(--font-m)" font-size="21" font-weight="700" fill="var(--ink)">9</text>
+    <line x1="70" y1="67" x2="122" y2="67" stroke="var(--ink)" stroke-width="2.5"/>
+    <line x1="298" y1="67" x2="350" y2="67" stroke="var(--ink)" stroke-width="2.5"/>
+  </svg>
+  <div class="cm-prodrow">
+    <div class="cm-prod cm-p1">3 &times; 9 = 27</div>
+    <div class="cm-prod cm-p2">4 &times; 7 = 28</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="cm-verdict">
+    <div class="cm-vnum cm-p1">27</div>
+    <div class="cm-rel cm-rel-good">&lt;</div>
+    <div class="cm-vnum cm-p2">28</div>
+  </div>
+  <div class="cm-row" style="margin-top:14px">
+    <div class="cm-frac"><div class="cm-num">3</div><div class="cm-bar"></div><div class="cm-den">7</div></div>
+    <div class="cm-rel cm-rel-good">&lt;</div>
+    <div class="cm-frac"><div class="cm-num">4</div><div class="cm-bar"></div><div class="cm-den">9</div></div>
+  </div>
+  <div class="cm-back">no division</div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::CrossMultiplication] · 0b1d789</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/cross-multiplication.js
+</script>
+</body>
+</html>

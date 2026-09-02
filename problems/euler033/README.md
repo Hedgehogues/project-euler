@@ -29,6 +29,21 @@ directly, then grouped.
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Symmetry breaking** — Candidates are grouped by a canonical key so only members of one group are ever compared.
+[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+
+[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+
+**Cross-multiplication** — The two fractions are compared by multiplying across, with no division anywhere.
+[`[method::CrossMultiplication]`](../../memory-bank/_terms.md#methodcrossmultiplication)
+
+[![Cross-multiplication](../../memory-bank/visualizations/build/cross-multiplication.png)](../../memory-bank/visualizations/build/cross-multiplication.html)
+
+**Positional notation** — The digits are what the condition removes and compares.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
 ## Build & run
 
 ```

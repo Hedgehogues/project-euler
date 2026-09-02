@@ -13,8 +13,8 @@ strip out small factors as it goes so the remaining number shrinks fast, keeping
 near `sqrt(N)`.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::TrialDivision](../../_terms.md#methodtrialdivision), and [method::WheelFactorization](../../_terms.md#methodwheelfactorization) (two is divided out first, after which only the odd candidates are stepped through).
 
 ## Scope
 **In scope:** `problems/euler003/solution.cpp` — the model, the algorithm, correctness and bound arguments.
@@ -63,5 +63,6 @@ no small factors.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Method: [method::TrialDivision](../../_terms.md#methodtrialdivision).
+- Methods: [method::TrialDivision](../../_terms.md#methodtrialdivision),
+  [method::WheelFactorization](../../_terms.md#methodwheelfactorization).
 - Code: `problems/euler003/solution.cpp`; directory README: `problems/euler003/README.md`.

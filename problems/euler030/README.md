@@ -27,6 +27,21 @@ candidates, so every number below it is simply checked directly.
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Digit-power bound** — The largest reachable digit total is weighed against the smallest number of each length, which ends the search.
+[`[method::DigitalInvariantBound]`](../../memory-bank/_terms.md#methoddigitalinvariantbound)
+
+[![Digit-power bound](../../memory-bank/visualizations/build/digital-invariant-bound.png)](../../memory-bank/visualizations/build/digital-invariant-bound.html)
+
+**Positional notation** — The candidate is taken apart into digits, which is what the condition is about.
+[`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
+
+[![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
+**Lookup table** — Each digit own power is a ten-entry table computed once.
+[`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)
+
+[![Lookup table](../../memory-bank/visualizations/build/lookup-table.png)](../../memory-bank/visualizations/build/lookup-table.html)
+
 ## Build & run
 
 ```

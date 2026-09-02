@@ -16,8 +16,8 @@ every number visited along the way, means each edge of the whole chain graph is 
 matter how many queries or starting points share it.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::Memoization](../../_terms.md#methodmemoization).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::Memoization](../../_terms.md#methodmemoization), [method::ExplicitStackRecursion](../../_terms.md#methodexplicitstackrecursion) (the descent is recorded in a stack of its own and unwound to fill in every length on the path), and [method::PrefixSum](../../_terms.md#methodprefixsum) (the best chain so far is carried along one ascending pass, with the tie-break stated).
 
 ## Scope
 **In scope:** `problems/euler014/solution.cpp` — the memoized chain walk, the running-best
@@ -62,5 +62,7 @@ every possible query answer).
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::Memoization](../../_terms.md#methodmemoization).
+- Methods: [method::Memoization](../../_terms.md#methodmemoization),
+  [method::ExplicitStackRecursion](../../_terms.md#methodexplicitstackrecursion),
+  [method::PrefixSum](../../_terms.md#methodprefixsum).
 - Code: `problems/euler014/solution.cpp`; directory README: `problems/euler014/README.md`.

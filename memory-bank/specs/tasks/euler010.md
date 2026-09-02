@@ -14,10 +14,10 @@ for the largest `N` actually queried, and keeping a running total alongside it, 
 into a single array lookup.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses three catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
 [method::PrefixSum](../../_terms.md#methodprefixsum),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation), [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm) (the whole batch of limits is read first, and one sieve serves all of them), and [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance) (the sieve bound is compared by division rather than by forming a product).
 
 ## Scope
 **In scope:** `problems/euler010/solution.cpp` — the sieve, the running total, correctness
@@ -62,5 +62,7 @@ seen so far. Each query is then answered by indexing directly into that array, `
 ## Links
 - Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
   [method::PrefixSum](../../_terms.md#methodprefixsum),
-  [method::Precomputation](../../_terms.md#methodprecomputation).
+  [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm),
+  [method::IntegerOverflowAvoidance](../../_terms.md#methodintegeroverflowavoidance).
 - Code: `problems/euler010/solution.cpp`; directory README: `problems/euler010/README.md`.

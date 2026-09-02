@@ -15,8 +15,8 @@ triangle with 100 rows, where `2^99` paths make enumeration impossible, and the 
 bottom-up recurrence still answers it in `O(N²)`.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
-(`../../_terms.md`): [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
+(`../../_terms.md`): [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming), and [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (each row is folded into the row above it, over the input itself).
 
 ## Scope
 **In scope:** `problems/euler018/solution.cpp` — the bottom-up triangle sweep, correctness
@@ -59,5 +59,6 @@ sweep reaches row 0, `tri[0][0]` holds the maximum path sum for the whole triang
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming).
+- Methods: [method::DynamicProgramming](../../_terms.md#methoddynamicprogramming),
+  [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm).
 - Code: `problems/euler018/solution.cpp`; directory README: `problems/euler018/README.md`.

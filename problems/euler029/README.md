@@ -37,6 +37,11 @@ Deduplicating exponents above `N` with a reusable seen-set (the `k=2..maxK` swee
 primitive base) is a combinatorial technique specific to counting distinct powers, not a
 separately catalogued general pattern.
 
+**Sparse set** — The reuse buffer is cleared by walking the positions actually touched, not the whole array.
+[`[method::SparseSet]`](../../memory-bank/_terms.md#methodsparseset)
+
+[![Sparse set](../../memory-bank/visualizations/build/sparse-set.png)](../../memory-bank/visualizations/build/sparse-set.html)
+
 ## Build & run
 
 ```
