@@ -10,13 +10,35 @@
 </div></div>
 
 <div class="flow-arrow">↓</div>
+<div class="frame-tag">gaps</div>
+<div class="frame"><div class="frame-inner">
+  <div class="npb-card">
+    <div class="npb-strip">
+      <div class="npb-strip-line"></div>
+      <div class="npb-tick" style="left:5%"></div><div class="npb-tick" style="left:10%"></div><div class="npb-tick" style="left:15%"></div><div class="npb-tick" style="left:20%"></div><div class="npb-tick" style="left:25%"></div>
+      <div class="npb-tick" style="left:30%"></div><div class="npb-tick" style="left:35%"></div><div class="npb-tick" style="left:40%"></div><div class="npb-tick" style="left:45%"></div><div class="npb-tick" style="left:50%"></div>
+      <div class="npb-tick" style="left:55%"></div><div class="npb-tick" style="left:60%"></div><div class="npb-tick" style="left:65%"></div><div class="npb-tick" style="left:70%"></div><div class="npb-tick" style="left:75%"></div>
+      <div class="npb-tick" style="left:80%"></div><div class="npb-tick" style="left:85%"></div><div class="npb-tick" style="left:90%"></div><div class="npb-tick" style="left:95%"></div><div class="npb-tick" style="left:100%"></div>
+      <div class="npb-prime" style="left:10%"></div><span class="npb-prime-label" style="left:10%">2</span>
+      <div class="npb-prime" style="left:15%"></div><span class="npb-prime-label" style="left:15%">3</span>
+      <div class="npb-prime" style="left:25%"></div><span class="npb-prime-label" style="left:25%">5</span>
+      <div class="npb-prime" style="left:35%"></div><span class="npb-prime-label" style="left:35%">7</span>
+      <div class="npb-prime" style="left:55%"></div><span class="npb-prime-label" style="left:55%">11</span>
+      <div class="npb-prime" style="left:65%"></div><span class="npb-prime-label" style="left:65%">13</span>
+      <div class="npb-prime" style="left:85%"></div><span class="npb-prime-label" style="left:85%">17</span>
+      <div class="npb-prime" style="left:95%"></div><span class="npb-prime-label" style="left:95%">19</span>
+      <div class="npb-ruler" style="left:25.5%; width:9%"><span class="npb-ruler-label">ln 6 &asymp; 1.8</span></div>
+      <div class="npb-ruler" style="left:58.6%; width:12.8%"><span class="npb-ruler-label">ln 13 &asymp; 2.6</span></div>
+    </div>
+    <div class="npb-steplabel">gap &asymp; ln(x)</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
 <div class="frame-tag">guess</div>
 <div class="frame"><div class="frame-inner">
   <div class="npb-card">
-    <div class="npb-step">
-      <div class="npb-steplabel">gap &asymp; ln(x)</div>
-      <div class="npb-formula">6 &times; ln 6 &asymp; 6 &times; 1.792 &asymp; 10.75</div>
-    </div>
+    <div class="npb-formula">6 &times; ln 6 &asymp; 6 &times; 1.792 &asymp; 10.75</div>
     <div class="npb-walk">
       <div class="npb-walk-line"></div>
       <div class="npb-truth-mark" style="left:86.7%"><span class="npb-truth-label">13</span></div>
@@ -26,6 +48,7 @@
       <div class="npb-hop-dot" style="left:47.8%"></div>
       <div class="npb-hop-dot" style="left:59.7%"></div>
       <div class="npb-hop-dot npb-hop-last npb-hop-bad" style="left:71.7%"></div>
+      <div class="npb-ruler" style="left:0; width:11.9%"><span class="npb-ruler-label">ln 6</span></div>
     </div>
     <div class="npb-checkline npb-checkline-bad">
       <span class="npb-checkmark">&#10007;</span> 13 &gt; 10.75
@@ -38,11 +61,12 @@
 <div class="frame"><div class="frame-inner">
   <div class="npb-card">
     <div class="npb-step">
-      <div class="npb-steplabel">ln(6&middot;ln 6) = ln 6 + ln ln 6 &asymp; 2.375</div>
+      <div class="npb-steplabel">ln 10.75 = ln(6&middot;ln 6) = ln 6 + ln ln 6 &asymp; 2.375</div>
       <div class="npb-formula">6 &times; (ln 6 + ln ln 6) &asymp; 14.25</div>
     </div>
     <div class="npb-walk">
       <div class="npb-walk-line"></div>
+      <div class="npb-prev-mark" style="left:71.7%"><span class="npb-prev-label">10.75</span></div>
       <div class="npb-truth-mark" style="left:86.7%"><span class="npb-truth-label">13</span></div>
       <div class="npb-hop-dot" style="left:15.8%"></div>
       <div class="npb-hop-dot" style="left:31.7%"></div>
@@ -50,6 +74,7 @@
       <div class="npb-hop-dot" style="left:63.3%"></div>
       <div class="npb-hop-dot" style="left:79.2%"></div>
       <div class="npb-hop-dot npb-hop-last npb-hop-good" style="left:95%"></div>
+      <div class="npb-ruler npb-ruler-b" style="left:0; width:15.8%"><span class="npb-ruler-label">ln 10.75</span></div>
     </div>
     <div class="npb-arrow-row">&darr; round up</div>
     <div class="npb-big">15</div>

@@ -233,16 +233,20 @@ General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform guess — 6 equal hops of size ln 6 &asymp; 1.792, walked out from 0 on a number line
-     that also marks the real 6th prime (13): the 6th hop lands at 10.75, visibly short of the 13
-     mark — the formula 6 &times; ln 6 &asymp; 10.75 is the same walk, spelled out in numbers
-  3. Transform refine — 6 equal hops of the corrected, bigger size ln 6 + ln ln 6 &asymp; 2.375,
-     walked on the same line: the 6th hop now lands at 14.25, past the 13 mark — rounded up to a
-     ceiling of 15. Why the hop had to grow: the gap near the ANSWER (close to 13) is bigger than
-     the gap near 6, so a hop measured at 6 undershoots; the bigger hop size is obtained by
-     plugging step 2's own (too-small) guess back into the gap formula: ln(6 &times; ln 6) = ln 6
-     + ln ln 6
-  4. Solution — the 6th prime, 13, lands safely inside that corrected ceiling of 15
+  2. Transform gaps — the real primes up to 20 on a number line (2, 3, 5, 7 packed on the left;
+     11, 13, 17, 19 spread out on the right), with two rulers under it: the typical gap near 6 is
+     ln 6 &asymp; 1.8 long, near 13 it is ln 13 &asymp; 2.6 — the ruler grows the way the spacing
+     does. This is where the logarithm comes from: it is the observed thinning-out of primes
+     ([method::PrimeNumberTheorem](#methodprimenumbertheorem)), shown, not derived. Counting six
+     dots along this strip also lands on 13 — the target the next two frames measure against
+  3. Transform guess — 6 equal hops of the ruler measured at 6 (ln 6 &asymp; 1.792), walked out from
+     0: the 6th hop lands at 10.75, visibly short of the 13 mark
+  4. Transform refine — the hop was measured in the wrong place: at 6, where primes are still
+     dense, not near where the walk ends. Re-measure the ruler at the landing point instead —
+     ln 10.75 &asymp; 2.375 — and walk the same 6 hops: the 6th lands at 14.25, past 13, rounded up
+     to a ceiling of 15. The "log of a log" is only this: 10.75 is itself 6 &times; ln 6, so
+     ln 10.75 = ln(6 &times; ln 6) = ln 6 + ln ln 6
+  5. Solution — the 6th prime, 13, lands safely inside that corrected ceiling of 15
 Limits:
   - MUST NOT: be used for n &lt; 6 — a limit of the IDEA: the inequality is proven only from n=6 upward; smaller n are checked directly instead
   - MUST: pad the computed bound rather than use it exactly at the boundary — a limit of PRACTICE, not of the theorem: the inequality is proven exact, but floating-point evaluation of ln/ln ln can round down by a hair right at the boundary
