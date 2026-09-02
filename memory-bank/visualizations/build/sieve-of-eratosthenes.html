@@ -84,7 +84,7 @@
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
   <div class="numline-row" id="rowPlain"></div>
-  <div class="caption">Numbers 2 to 19 — none checked yet.</div>
+  <div class="caption">2..19</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
@@ -92,7 +92,7 @@
 <div class="frame"><div class="frame-inner">
   <svg class="hops" id="hops2"></svg>
   <div class="numline-row" id="row2"></div>
-  <div class="caption">2 is the first unmarked number — a prime. Hop by 2s from it and cross out every landing: 4, 6, 8, 10, 12, 14, 16, 18.</div>
+  <div class="caption">2 &rarr; &times;2</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
@@ -100,14 +100,14 @@
 <div class="frame"><div class="frame-inner">
   <svg class="hops" id="hops3"></svg>
   <div class="numline-row" id="row3"></div>
-  <div class="caption">3 is the next unmarked number — a prime. Hop by 3s from it: 6, 9, 12, 15, 18. Of these, 6, 12, 18 are already crossed out; 9 and 15 are newly crossed out.</div>
+  <div class="caption">3 &rarr; &times;3</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
   <div class="numline-row" id="rowFinal"></div>
-  <div class="caption">No unmarked number below 20 has an unmarked hop-source left below its own square root (the next candidate, 5, has 5&sup2;=25 &gt; 19) — sieving stops. The 8 numbers that were never crossed out are exactly the primes below 20: 2, 3, 5, 7, 11, 13, 17, 19.</div>
+  <div class="caption">5<sup>2</sup>=25 &gt; 19 &rarr; stop</div>
   <div class="legend">
     <span><i style="background:var(--a)"></i>crossed out (multiple of 2)</span>
     <span><i style="background:var(--b)"></i>crossed out (multiple of 3)</span>

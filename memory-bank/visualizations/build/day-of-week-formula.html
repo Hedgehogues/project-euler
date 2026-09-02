@@ -87,12 +87,12 @@
 <div class="frame"><div class="frame-inner">
   <div class="dow-formula">1999 + 499 &minus; 19 + 4 + 0 + 1 = 2484</div>
   <div class="dow-terms">
-    <span>year (Jan/Feb count as prev. year): 1999</span>
-    <span>+ leap every 4 years: 499</span>
-    <span>&minus; except every 100: 19</span>
-    <span>+ except every 400: 4</span>
-    <span>+ month offset (Jan): 0</span>
-    <span>+ day: 1</span>
+    <span>y = 1999</span>
+    <span>+ &lfloor;y/4&rfloor; = 499</span>
+    <span>&minus; &lfloor;y/100&rfloor; = 19</span>
+    <span>+ &lfloor;y/400&rfloor; = 4</span>
+    <span>+ m = 0</span>
+    <span>+ d = 1</span>
   </div>
 </div></div>
 
@@ -103,7 +103,7 @@
   <div class="dow-week">
     <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span class="dow-hit">Sat</span>
   </div>
-  <div class="dow-note">index 0=Sunday .. 6=Saturday &mdash; 1 Jan 2000 really was a Saturday.</div>
+  <div class="dow-note">0=Sun .. 6=Sat</div>
 </div></div>
     </div>
     <div class="filelink">memory-bank/_terms.md · [method::DayOfWeekFormula]</div>

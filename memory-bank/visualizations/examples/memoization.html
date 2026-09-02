@@ -1,7 +1,7 @@
 <div class="frame-tag">?</div>
 <div class="frame"><div class="frame-inner">
   <div class="mz-goal">fib(4) = ?</div>
-  <div class="mz-note">fib(4) needs fib(3) AND fib(2) &mdash; and fib(3) itself needs fib(2) too.</div>
+  <div class="mz-note">fib(2) needed &times;2</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
@@ -17,12 +17,12 @@
                 <div class="mz-node mz-leaf">fib(1) = 1</div>
                 <div class="mz-node mz-leaf">fib(0) = 0</div>
               </div>
-              <div class="mz-store">1 + 0 = 1 &mdash; store it</div>
+              <div class="mz-store">1+0=1 &rarr; cache</div>
             </div>
             <div class="mz-node mz-leaf">fib(1) = 1</div>
           </div>
         </div>
-        <div class="mz-node mz-cached">fib(2) &rarr; 1 (cached, not recomputed)</div>
+        <div class="mz-node mz-cached">fib(2)=1 cached</div>
       </div>
     </div>
   </div>

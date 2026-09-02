@@ -5,7 +5,7 @@
     <tr><td class="lp-q">?</td><td class="lp-q">?</td><td class="lp-q">?</td></tr>
     <tr><td class="lp-q">?</td><td class="lp-q">?</td><td class="lp-q">?</td></tr>
   </table>
-  <div class="lp-note">only right and down moves &mdash; how many routes from top-left to bottom-right of a 2&times;2 grid?</div>
+  <div class="lp-note">&rarr; / &darr; only</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
@@ -16,11 +16,11 @@
     <tr><td>1</td><td>2</td><td>3</td></tr>
     <tr><td>1</td><td>3</td><td class="lp-building">6</td></tr>
   </table>
-  <div class="lp-note">every point = the routes to the point above it + the routes to the point left of it (the only two ways to arrive)</div>
+  <div class="lp-note">P(i,j) = P(i&minus;1,j) + P(i,j&minus;1)</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
 <div class="frame-tag solved">=</div>
 <div class="frame"><div class="frame-inner">
-  <div class="lp-eq">C(2+2, 2) = <span class="lp-good">6</span> routes</div>
+  <div class="lp-eq">C(2+2, 2) = <span class="lp-good">6</span></div>
 </div></div>

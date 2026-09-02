@@ -309,8 +309,17 @@ shows up in the file listing itself, not only in a README paragraph.
 Trigger: any request to show a solution or a method as a picture — a new catalog record, a
 per-problem infographic, an edit to an existing visualization; an invocation of the
 `document-problem` skill; adding or editing any method record.
-Mechanization: `PASSIVE — risk logged`. Principles 1, 4, 5, 7, 11 are judgement calls and are not
-script-checkable. Principle 2 — `LIGHTWEIGHT-GATE — memory-bank/visualizations/build.sh` always
+Mechanization: `PASSIVE — risk logged`. Principles 1, 4, 7, 11 are judgement calls and are not
+script-checkable. Principle 5 — partly `LIGHTWEIGHT-GATE — memory-bank/visualizations/check-
+captions.py` (`python3 memory-bank/visualizations/check-captions.py`): flags a frame label reading
+as a full sentence (6+ real words, 2+ common English connectives) rather than a symbolic mark —
+added after an audit found 20 of the 28 pictures in this catalog carrying full-sentence captions,
+including one (`VariableElimination`) authored in the very session that had just fixed
+`BruteForceSearch` for the same fault; a single hand-corrected picture does not hold the standard
+for the rest of the catalog without something that measures every one of them. Not wired into
+`build.sh` or CI — a judgement call still decides what SHORT symbolic replacement text to use, the
+script only flags that the old text was too long/prose-like to be one. Principle 2 —
+`LIGHTWEIGHT-GATE — memory-bank/visualizations/build.sh` always
 produces a png and SKILL.md steps 3/4e require reading it before showing (there is no mechanical
 block on showing without looking — the risk is accepted); principle 3 — a list of numbers in the
 record (not implemented); principle 6 — `MECHANIZED — build.sh` (assembly only from

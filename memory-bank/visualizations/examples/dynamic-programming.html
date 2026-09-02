@@ -6,7 +6,7 @@
     <div class="dp-row"><span>2</span><span>4</span><span>6</span></div>
     <div class="dp-row"><span>8</span><span>5</span><span>9</span><span>3</span></div>
   </div>
-  <div class="dp-note">move only to an adjacent number below &mdash; which path top-to-bottom scores highest?</div>
+  <div class="dp-note">i &rarr; i or i+1</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
@@ -18,7 +18,7 @@
     <div class="dp-row"><span class="dp-done">10</span><span class="dp-done">13</span><span class="dp-done">15</span></div>
     <div class="dp-row"><span class="dp-base">8</span><span class="dp-base">5</span><span class="dp-base">9</span><span class="dp-base">3</span></div>
   </div>
-  <div class="dp-note">bottom row is already the best (nowhere else to go); every row above adds itself to the BETTER of the two cells below it &mdash; e.g. 2 + max(8,5) = 10</div>
+  <div class="dp-note">2 + max(8,5) = 10</div>
 </div></div>
 
 <div class="flow-arrow">↓</div>
