@@ -13,3 +13,9 @@
 .pc-box.pc-wide{padding:9px 18px; font-size:13px;}
 .pc-row.pc-fade{opacity:.45;}
 .pc-caption{font-family:var(--font-m); font-size:12px; color:var(--ink-soft); margin-top:6px; text-align:center;}
+.pc-stack{display:flex; flex-direction:column; align-items:center; gap:6px;}
+.pc-ticks{display:flex; gap:3px;}
+.pc-tick{width:8px; height:8px; border-radius:2px;}
+.pc-tick.pc-warn{background:var(--warn);}
+.pc-tick.pc-good{background:var(--good);}
+.pc-ticks.pc-fade{opacity:.45;}
