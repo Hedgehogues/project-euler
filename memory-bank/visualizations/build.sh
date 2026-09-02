@@ -50,7 +50,13 @@ assemble() {  # $1 slug $2 title $3 stdname $4 term
   local css="examples/$slug.css" html="examples/$slug.html" js="examples/$slug.js"
   [ -f "$js" ] || js=/dev/null
   [ -f qr-repo.svg ] || { echo "qr-repo.svg missing -- every visualization must carry the repo QR (principle 10)" >&2; exit 1; }
-  awk -v title="$title" -v std="$std" -v slug="$slug" -v term="$term" \
+  # Version stamp (principle 17): a content hash of exactly the inputs that make this page, so a
+  # screenshot identifies which version it shows. A hash of the INPUTS, not a commit id or a
+  # timestamp -- those would change a page whose inputs did not, breaking the byte-identical
+  # rebuild that principle 6 requires.
+  local hash
+  hash=$(cat skeleton.html "$css" "$html" "$js" | shasum -a 256 | cut -c1-7)
+  awk -v title="$title" -v std="$std" -v slug="$slug" -v term="$term" -v hash="$hash" \
       -v cssf="$css" -v htmlf="$html" -v jsf="$js" -v qrf="qr-repo.svg" '
     function dump(f,   line) { while ((getline line < f) > 0) print line; close(f) }
     {
@@ -59,7 +65,7 @@ assemble() {  # $1 slug $2 title $3 stdname $4 term
       if ($0 ~ /^\{\{JS\}\}$/)        { dump(jsf);   next }
       if ($0 ~ /^\{\{QR\}\}$/)        { dump(qrf);   next }
       gsub(/\{\{TITLE\}\}/, title); gsub(/\{\{STDNAME\}\}/, std)
-      gsub(/\{\{SLUG\}\}/, slug);   gsub(/\{\{TERM\}\}/, term)
+      gsub(/\{\{SLUG\}\}/, slug);   gsub(/\{\{TERM\}\}/, term); gsub(/\{\{HASH\}\}/, hash)
       print
     }' skeleton.html > "build/$slug.html"
 }

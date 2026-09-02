@@ -126,6 +126,23 @@ and the problems themselves, which live in `problems/euler{NNN}/README.md`.
   simplification into the cubic form, not a fabricated full derivation. Traces to:
   MUST-frame-sequence, MUST-picture-optional (the record's Note is explicit about exactly how far
   the picture's derivation goes and where it hands off to a cited algebraic fact).
+- **F15** (user, seven times across two pictures in one session: "непонятно, в чём суть", "откуда
+  это берётся", "непонятен переход") `Precomputation` and `NthPrimeBound` each passed the
+  per-number check (every number in the solution frame traced to an earlier frame) and still failed
+  the reader: the OPERATIONS between frames — why ×6, why ln, why a log of a log — appeared as
+  givens. Each round patched exactly the link the reader had just tripped on and shipped; the next
+  one was still missing, because every link was obvious to the author. Traces to:
+  MUST-operation-visible (new), MUST-frame-sequence.
+- **F16** (twice in the same session, the user's screenshot showed the version BEFORE the fix that
+  had just been pushed) A render carries no version identity, so a cached copy and the current one
+  are indistinguishable until the content is compared line by line; two review rounds went to
+  establishing which version was on screen. Traces to: MUST-version-stamp (new).
+- **F17** (user: "break it into parts and visualize each separately") `NthPrimeBound` was
+  catalogued as one atom and redesigned four times; its formula n(ln n + ln ln n) was in fact three
+  ideas — `PrimeNumberTheorem`, `FixedPointIteration`, `LogarithmProductRule` — and the picture kept
+  failing because it taught all three at once. The atomicity test had been run on algorithmic
+  records but not on formula-shaped ones. Traces to: [approaches](approaches.md)'s
+  MUST-atomic-or-composed (formula case).
 
 ## Architecture
 
@@ -169,6 +186,12 @@ rendering "by eye", no cloud, no hand-made pictures.
 - Everything meant to be read MUST live in the record, not under the picture —
   **MUST-text-in-record** — criterion: the built page has no paragraphs below `.flow`, only a link
   to the record. Status: done.
+- Every transition between frames MUST have its cause visible in the frame before it —
+  **MUST-operation-visible** — criterion: for each arrow in `examples/<slug>.html`, the operation it
+  performs (×6, ln, +ln ln, round up) and the drawn element of the previous frame that motivates it
+  are both nameable from the picture alone; a per-number trace (F14) does not satisfy this on its
+  own. Status: done for `Precomputation` and `NthPrimeBound` after F15; checked by hand on new
+  records (skill step 3(h)), not by script.
 - "Done" MUST NOT be declared until the render has been observed (screenshot/zoom); counting tags
   MUST NOT count as checking the picture — **MUST-render-observed** — criterion: there is an
   observation step before showing the owner, and the owner is not the first to see the picture.
@@ -243,6 +266,12 @@ rendering "by eye", no cloud, no hand-made pictures.
 - Rebuilding a method MUST yield a byte-identical picture — **MUST-deterministic-rebuild** —
   criterion: the page is assembled by copying the shell + `examples/<slug>.*`; no number, color or
   class lives outside version-controlled files. Status: done.
+- Every built page MUST carry a stamp identifying its content: a short hash of `skeleton.html` +
+  the method's `examples/` files, printed in the footer next to the record name —
+  **MUST-version-stamp** — criterion: two renders with identical inputs show the identical stamp
+  (so MUST-deterministic-rebuild still holds), and any edit to those inputs changes it; a commit id
+  or timestamp MUST NOT be used, since either would change a page whose inputs did not. Status:
+  done (`build.sh` substitutes `{{HASH}}`; F16).
 - The frame code MUST be stored separately from the record, which references it via `Example:` —
   **MUST-code-separate** — criterion: the record contains no code, only an `Example:` field with
   paths; `examples/<slug>.{css,html,js}` exist and match what the builder inserts. Status: done.

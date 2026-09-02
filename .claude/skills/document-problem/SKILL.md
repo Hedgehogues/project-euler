@@ -82,6 +82,28 @@ from the RFC documents each time.
      what in the picture explains how the result is obtained, not by this skill's own process.
      Having principle 5 written down did not, by itself, stop the violation from recurring; this
      explicit per-number check is the step that's supposed to catch it before the user has to.
+     (h) **the same audit for every OPERATION, not just every number.** For each arrow between two
+     frames, name the operation it performs (×6, ln, +ln ln, round up, ...) and point at the element
+     of the PREVIOUS frame that makes a stranger expect exactly that operation next. No such element
+     — the reader will experience the operation as a given, however correct the numbers are; add the
+     frame or the visual mark BEFORE showing, not after the complaint. The number check (g) cannot
+     catch this: numbers can all trace back cleanly while the reason for the step never appears.
+     Precedent: two pictures in one session (`Precomputation`, `NthPrimeBound`) went through SEVEN
+     rounds of "непонятно, в чём суть / откуда это берётся" — each round I patched exactly the one
+     link the user had just stumbled on (why ×6, why ln, why ln ln, what the answer even is) and
+     shipped, and the next link was missing. Every one of those links was obvious to me, which is
+     precisely why a per-step audit has to be written down: the author cannot see them by looking.
+     Cheap form: describe the picture to yourself frame by frame using ONLY what is drawn; every
+     "and then we..." that needs a word not on the picture is a missing element.
+   - **A formula is a composition until proven otherwise.** A method whose General case is a
+     formula with two or more distinct operations inside (a log, a product, an iteration, a bound)
+     gets the independence test run on EACH operation before anything is drawn: "is this operation
+     recognized in another problem without the rest of the formula?" — yes → its own record, and
+     the formula's picture only shows the parts meeting. Precedent: `NthPrimeBound` lived as one
+     "atomic" record through four redesigns because a theorem read as one indivisible thing; the
+     picture kept failing because it was trying to teach `PrimeNumberTheorem`,
+     `FixedPointIteration` and `LogarithmProductRule` at once — split only when the user asked to
+     "break it into parts and visualize each separately".
    - **Escalate** if the solution combines two or more techniques and it's unclear whether they are
      one atomic idea or should be split into independent records (per MUST-atomic-or-composed, the
      real test is "is each one recognizable in ANOTHER problem without the other" — if that test

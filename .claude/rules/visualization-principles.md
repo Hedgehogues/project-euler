@@ -76,6 +76,16 @@ read lives in the record, not on the picture.
   from problem to answer must be seen, not read.
 - MUST: the reference part (name, source, applicability, limits) is a markdown record in RFC blocks
   (`[method::Name]`, MUST/MUST NOT fields), not text under the picture.
+- MUST: every transition between frames has its cause visible in the frame BEFORE it — for each
+  arrow, name the operation (×6, ln, +ln ln, round up) and point at the drawn element that makes a
+  stranger expect it; if none exists, add it before showing. Tracing every NUMBER back to an earlier
+  frame is necessary but not sufficient: the numbers can all check out while the reason for each
+  step never appears on the picture.
+- Precedent: `Precomputation` and `NthPrimeBound` took seven rounds of "непонятно, в чём суть /
+  откуда это берётся" in one session. Each round fixed exactly the link the reader had just tripped
+  on and shipped; the next link was still missing. All of them were obvious to the author, which is
+  the point — the author cannot find them by looking, only by auditing each step against what is
+  drawn.
 
 ## 6. Sameness is held by files, not by intention
 
@@ -182,6 +192,14 @@ is lost — both pictures stay, each with its own record.
 - MUST NOT: fuse an idea-with-a-picture and an idea-without-one into a single record merely because
   the second has no visual form of its own — the absence of a picture is not an argument against a
   separate record (principle 9).
+- MUST: treat a record whose General case is a formula with two or more distinct operations inside
+  as a composition until proven otherwise — run the independence test on each operation before
+  drawing. A theorem or a bound reads as one indivisible thing, and that is exactly how a
+  composition hides.
+- Precedent 3: `NthPrimeBound` — n(ln n + ln ln n) — was catalogued as one atom and redesigned four
+  times, failing each time because the picture was teaching three ideas at once. Split into the
+  composition of `PrimeNumberTheorem`, `FixedPointIteration` and `LogarithmProductRule` (the latter
+  two new records) only when the user asked to break it into parts.
 - Precedent 1: euler002's `Precomputation` + `BinarySearch` were fused into one
   `PrecomputeAndBinarySearch` record out of exactly this confusion — separated after a direct
   question from the user.
@@ -306,6 +324,21 @@ shows up in the file listing itself, not only in a README paragraph.
   `problems/euler{NNN}` only after a second, separately worded request ("gather them in one
   folder") that was, in substance, the exact same fix applied to a different pair.
 
+## 17. A reviewed render carries its own version identity
+
+A screenshot travels without its commit. When the same page is re-rendered several times in a
+session, a reviewer looking at a cached copy has no way to tell it from the current one — and
+neither does the author reading the screenshot, until the content is compared line by line.
+
+- MUST: every built page (and so every PNG) prints a short stamp next to the record name in its
+  footer — a hash of exactly the inputs that produced it (`skeleton.html` + the method's
+  `examples/` files). Same inputs, same stamp; any edit, a new stamp.
+- MUST NOT: stamp a commit id or a timestamp — both change on a page whose inputs did not, which
+  would break the byte-identical rebuild principle 6 requires. The stamp identifies CONTENT.
+- Precedent: twice in one session the user's screenshot showed the version before the fix just
+  pushed (browser and GitHub image caches), and a review round each time went to establishing which
+  version was being discussed. With the stamp, the footer answers that at a glance.
+
 Trigger: any request to show a solution or a method as a picture — a new catalog record, a
 per-problem infographic, an edit to an existing visualization; an invocation of the
 `document-problem` skill; adding or editing any method record.
@@ -323,7 +356,8 @@ script only flags that the old text was too long/prose-like to be one. Principle
 produces a png and SKILL.md steps 3/4e require reading it before showing (there is no mechanical
 block on showing without looking — the risk is accepted); principle 3 — a list of numbers in the
 record (not implemented); principle 6 — `MECHANIZED — build.sh` (assembly only from
-`skeleton.html` + `examples/`); principle 10 — `MECHANIZED — build.sh` (the QR is baked into the
+`skeleton.html` + `examples/`); principle 17 — `MECHANIZED — build.sh` (the content-hash stamp is substituted into every page);
+principle 10 — `MECHANIZED — build.sh` (the QR is baked into the
 shell and the build fails without `qr-repo.svg`; decoding from the snapshot is a manual step when
 the QR changes); principle 12 — partly `LIGHTWEIGHT-GATE` (`grep -r 'specs/euler\|\[euler::\|^Used
 in:' memory-bank/` must be empty — not wired into a script, checked by hand); principle 13 —

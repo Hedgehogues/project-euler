@@ -109,6 +109,17 @@ techniques found during research and has its own citation discipline.
   heading list IS the count, so no number is written down here to go stale. Traces to:
   MUST-reuse-changes-nothing (a count is exactly the kind of enumeration that needs a synchronized
   edit on every addition).
+- **F11** (user: "break it into parts and visualize each separately", after "непонятно, в чём
+  суть" / "откуда это берётся" across seven prior rounds) `NthPrimeBound`'s General case,
+  n(ln n + ln ln n), was catalogued and redesigned four times as one atom. It was never one idea:
+  the independence test — "is this recognized in another problem without the rest?" — passes
+  separately for the spacing-of-primes fact, for the one-pass refinement of a self-referential
+  estimate, and for the log-of-a-product step that produces the "ln ln" term. Each is now its own
+  record; `NthPrimeBound` names the composition and links all three. The atomicity test had only
+  ever been applied to records built from separate algorithmic steps (F2); a record whose General
+  case is a single formula reads as indivisible for the same reason a run-on sentence does, and
+  needs the same test run per operation, not skipped because there is only one expression to look
+  at. Traces to: MUST-atomic-or-composed (formula case).
 
 ## Architecture
 
@@ -161,7 +172,12 @@ from its own README.
   two or more atomic ones, and MUST NOT be "an atom plus an unnamed extra" —
   **MUST-atomic-or-composed** — criterion: when a solution uses two or more independently
   recognizable ideas, each gets its own record; the test is whether each is recognized in ANOTHER
-  problem WITHOUT the other. Status: done (precedent F2: `Precomputation` + `BinarySearch`).
+  problem WITHOUT the other. Applies equally to a record whose General case is a FORMULA — a
+  theorem or a bound reads as one indivisible thing, which is exactly how a composition of two or
+  more distinct operations hides inside it; the same independence test is run per operation before
+  drawing. Status: done (precedent F2: `Precomputation` + `BinarySearch`; precedent F11:
+  `NthPrimeBound` = n(ln n + ln ln n), one formula holding three independently-recognizable ideas,
+  redesigned four times before being split).
 - The catalog — `_terms.md`'s `[method::*]` records — MUST NOT hold ANYTHING about a specific
   problem — no statement, no solution, no correctness criteria, not even a "used in" backlink —
   **MUST-no-task-specifics** — criterion: `_terms.md` contains no `[euler::*]` records and no
