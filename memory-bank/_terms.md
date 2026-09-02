@@ -233,14 +233,15 @@ General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform gaps — the real primes up to 20 on a number line (2, 3, 5, 7 packed on the left;
-     11, 13, 17, 19 spread out on the right), with two rulers under it: the typical gap near 6 is
-     ln 6 &asymp; 1.8 long, near 13 it is ln 13 &asymp; 2.6 — the ruler grows the way the spacing
-     does. This is where the logarithm comes from: it is the observed thinning-out of primes
-     ([method::PrimeNumberTheorem](#methodprimenumbertheorem)), shown, not derived. Counting six
-     dots along this strip also lands on 13 — the target the next two frames measure against
-  3. Transform guess — 6 equal hops of the ruler measured at 6 (ln 6 &asymp; 1.792), walked out from
-     0: the 6th hop lands at 10.75, visibly short of the 13 mark
+  2. Transform gaps — the real primes up to 20 on a number line, numbered 1st..8th (2, 3, 5, 7
+     packed on the left; 11, 13, 17, 19 spread out on the right — the 6th is 13, the target the
+     next frames measure against). Under it, on the same x-scale, the curve ln x with two bars
+     reaching up to it: at 6 the bar is 1.8 tall, at 13 it is 2.6 — the curve rises the way the
+     spacing widens. This is where the logarithm comes from: it is the observed thinning-out of
+     primes ([method::PrimeNumberTheorem](#methodprimenumbertheorem)), shown as a fit, not derived
+  3. Transform guess — 6 numbered hops, each the length of the bar at 6 (ln 6 &asymp; 1.792), walked
+     out from 0: the 6th hop lands at 10.75, visibly short of the 13 mark; 6 &times; ln 6 is that
+     walk written as arithmetic (six hops, one ruler)
   4. Transform refine — the hop was measured in the wrong place: at 6, where primes are still
      dense, not near where the walk ends. Re-measure the ruler at the landing point instead —
      ln 10.75 &asymp; 2.375 — and walk the same 6 hops: the 6th lands at 14.25, past 13, rounded up

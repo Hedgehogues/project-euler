@@ -31,6 +31,15 @@
 .npb-ruler-label{position:absolute; top:9px; left:50%; transform:translateX(-50%); font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--warn); white-space:nowrap;}
 .npb-ruler-b .npb-ruler-label{color:var(--b);}
 .npb-strip .npb-ruler{top:32px;}
+.npb-idx{position:absolute; top:27px; transform:translateX(-50%); font-family:var(--font-m); font-size:10px; color:var(--ink-soft);}
+.npb-strip.npb-strip-short{height:44px;}
+.npb-chart{width:100%; max-width:400px; display:block; overflow:visible;}
+.npb-chart .npb-axis{stroke:var(--rule); stroke-width:2;}
+.npb-chart .npb-curve{fill:none; stroke:var(--a); stroke-width:2.5; stroke-linejoin:round;}
+.npb-chart .npb-bar-ln{fill:var(--warn);}
+.npb-chart text{font-family:var(--font-m); font-size:11px; font-weight:700; fill:var(--warn);}
+.npb-chart text.npb-curve-label{fill:var(--a);}
+.npb-hop-idx{position:absolute; top:-1px; transform:translateX(-50%); font-family:var(--font-m); font-size:10px; color:var(--ink-soft);}
 
 .npb-walk{position:relative; width:100%; max-width:400px; height:62px; margin-top:2px;}
 .npb-walk .npb-ruler{top:36px;}
