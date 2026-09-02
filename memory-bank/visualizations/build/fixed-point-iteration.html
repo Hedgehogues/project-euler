@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fixed-point iteration</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/fixed-point-iteration.css --- */
+.fpi-col{display:flex; flex-direction:column; align-items:center; gap:10px; width:100%;}
+.fpi-big{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
+.fpi-formula{font-family:var(--font-m); font-size:13px; color:var(--ink-soft);}
+.fpi-rows{display:flex; flex-direction:column; align-items:stretch; gap:8px;}
+.fpi-row{display:grid; grid-template-columns:72px 18px 200px 18px 72px; align-items:center; justify-items:center; gap:4px;}
+.fpi-f{font-family:var(--font-m); font-size:12px; color:var(--ink-soft); white-space:nowrap;}
+.fpi-box{font-family:var(--font-m); font-size:13px; font-weight:700; padding:6px 10px; border-radius:7px;
+  border:1.5px solid var(--rule); background:var(--surface); color:var(--ink);}
+.fpi-box.fpi-start{border-color:var(--warn); color:var(--warn); background:var(--warn-bg);}
+.fpi-box.fpi-end{border-color:var(--good); color:var(--good); background:var(--good-bg);}
+.fpi-arr{font-size:14px; color:var(--ink-soft);}
+.fpi-box{min-width:64px; text-align:center;}
+.fpi-plot{width:300px; height:300px; display:block; overflow:visible;}
+.fpi-plot .fpi-axis{stroke:var(--rule); stroke-width:2;}
+.fpi-plot .fpi-diag{stroke:var(--ink-soft); stroke-width:1.5; stroke-dasharray:4 4;}
+.fpi-plot .fpi-curve{fill:none; stroke:var(--a); stroke-width:2.5;}
+.fpi-plot .fpi-stair{fill:none; stroke:var(--warn); stroke-width:2;}
+.fpi-plot .fpi-dot{fill:var(--warn);}
+.fpi-plot .fpi-fixed{fill:var(--good);}
+.fpi-plot text{font-family:var(--font-m); font-size:11px; font-weight:700; fill:var(--ink-soft);}
+.fpi-plot text.fpi-t-a{fill:var(--a);}
+.fpi-plot text.fpi-t-good{fill:var(--good);}
+.fpi-plot text.fpi-t-warn{fill:var(--warn);}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Fixed-point iteration</h2>
+    <div class="stdtag found">✓ Fixed-point iteration (cobweb plot)</div>
+    <div class="flow">
+<!-- examples/fixed-point-iteration.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="fpi-col">
+    <div class="fpi-big">&radic;2 = ?</div>
+    <div class="fpi-formula">x = (x + 2/x) / 2</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag">&#8635;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="fpi-col">
+    <div class="fpi-rows">
+      <div class="fpi-row"><div class="fpi-box fpi-start">1</div><span class="fpi-arr">&rarr;</span><span class="fpi-f">(1 + 2/1) / 2</span><span class="fpi-arr">&rarr;</span><div class="fpi-box">1.5</div></div>
+      <div class="fpi-row"><div class="fpi-box">1.5</div><span class="fpi-arr">&rarr;</span><span class="fpi-f">(1.5 + 2/1.5) / 2</span><span class="fpi-arr">&rarr;</span><div class="fpi-box">1.4167</div></div>
+      <div class="fpi-row"><div class="fpi-box">1.4167</div><span class="fpi-arr">&rarr;</span><span class="fpi-f">(1.4167 + 2/1.4167) / 2</span><span class="fpi-arr">&rarr;</span><div class="fpi-box fpi-end">1.4142</div></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">↓</div>
+<div class="frame-tag solved">=</div>
+<div class="frame"><div class="frame-inner">
+  <div class="fpi-col">
+    <svg class="fpi-plot" viewBox="-30 -12 345 340">
+      <line class="fpi-axis" x1="0" y1="300" x2="300" y2="300"/>
+      <line class="fpi-axis" x1="0" y1="300" x2="0" y2="0"/>
+      <line class="fpi-diag" x1="0" y1="300" x2="300" y2="0"/>
+      <polyline class="fpi-curve" points="0.0,52.1 18.8,64.6 37.5,75.0 56.3,83.5 75.0,90.3 93.8,95.8 112.5,100.0 131.3,103.1 150.0,105.3 168.8,106.6 187.5,107.1 206.3,107.0 225.0,106.2 243.8,104.9 262.5,103.1 281.3,100.9 300.0,98.2"/>
+      <polyline class="fpi-stair" points="37.5,262.5 37.5,75.0 225.0,75.0 225.0,106.3 193.7,106.3 193.7,107.2 192.8,107.2"/>
+      <circle class="fpi-dot" cx="37.5" cy="262.5" r="5"/>
+      <circle class="fpi-dot" cx="225.0" cy="75.0" r="4"/>
+      <circle class="fpi-dot" cx="193.7" cy="106.3" r="4"/>
+      <circle class="fpi-fixed" cx="192.8" cy="107.2" r="6"/>
+      <text class="fpi-t-warn" x="37.5" y="318" text-anchor="middle">1</text>
+      <text class="fpi-t-warn" x="225" y="318" text-anchor="middle">1.5</text>
+      <text class="fpi-t-good" x="192.8" y="330" text-anchor="middle">1.4142</text>
+      <text class="fpi-t-a" x="6" y="44" text-anchor="start">(x + 2/x)/2</text>
+      <text x="296" y="-2" text-anchor="end">y = x</text>
+    </svg>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::FixedPointIteration]</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/fixed-point-iteration.js
+</script>
+</body>
+</html>

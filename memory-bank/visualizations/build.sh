@@ -40,6 +40,8 @@ next-permutation|Next permutation|Permutation (generation in lexicographic order
 brute-force-search|Brute-force search|Brute-force search (exhaustive search)|BruteForceSearch
 variable-elimination|Variable elimination|Solving a system by substitution|VariableElimination
 canonicalization|Canonicalization|Counting from one representative per class|Canonicalization
+logarithm-product-rule|Logarithm product rule|Slide rule — logarithms turn multiplication into addition|LogarithmProductRule
+fixed-point-iteration|Fixed-point iteration|Fixed-point iteration (cobweb plot)|FixedPointIteration
 EOF
 }
 

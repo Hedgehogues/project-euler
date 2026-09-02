@@ -1,0 +1,23 @@
+.fpi-col{display:flex; flex-direction:column; align-items:center; gap:10px; width:100%;}
+.fpi-big{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
+.fpi-formula{font-family:var(--font-m); font-size:13px; color:var(--ink-soft);}
+.fpi-rows{display:flex; flex-direction:column; align-items:stretch; gap:8px;}
+.fpi-row{display:grid; grid-template-columns:72px 18px 200px 18px 72px; align-items:center; justify-items:center; gap:4px;}
+.fpi-f{font-family:var(--font-m); font-size:12px; color:var(--ink-soft); white-space:nowrap;}
+.fpi-box{font-family:var(--font-m); font-size:13px; font-weight:700; padding:6px 10px; border-radius:7px;
+  border:1.5px solid var(--rule); background:var(--surface); color:var(--ink);}
+.fpi-box.fpi-start{border-color:var(--warn); color:var(--warn); background:var(--warn-bg);}
+.fpi-box.fpi-end{border-color:var(--good); color:var(--good); background:var(--good-bg);}
+.fpi-arr{font-size:14px; color:var(--ink-soft);}
+.fpi-box{min-width:64px; text-align:center;}
+.fpi-plot{width:300px; height:300px; display:block; overflow:visible;}
+.fpi-plot .fpi-axis{stroke:var(--rule); stroke-width:2;}
+.fpi-plot .fpi-diag{stroke:var(--ink-soft); stroke-width:1.5; stroke-dasharray:4 4;}
+.fpi-plot .fpi-curve{fill:none; stroke:var(--a); stroke-width:2.5;}
+.fpi-plot .fpi-stair{fill:none; stroke:var(--warn); stroke-width:2;}
+.fpi-plot .fpi-dot{fill:var(--warn);}
+.fpi-plot .fpi-fixed{fill:var(--good);}
+.fpi-plot text{font-family:var(--font-m); font-size:11px; font-weight:700; fill:var(--ink-soft);}
+.fpi-plot text.fpi-t-a{fill:var(--a);}
+.fpi-plot text.fpi-t-good{fill:var(--good);}
+.fpi-plot text.fpi-t-warn{fill:var(--warn);}

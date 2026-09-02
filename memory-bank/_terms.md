@@ -226,33 +226,22 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::NthPrimeBound]
 Class: entity
-Standard name: Upper bound on the nth prime · picture — number-line ceiling (this catalog's own construction, not an independently named historical device — see Picture note)
+Standard name: Upper bound on the nth prime (Rosser, 1941) · a named COMPOSITION of three catalogued ideas — see General case; picture — number-line walk (this catalog's own construction, see Note)
 Essence: Before searching for the Nth prime, get an explicit numeric ceiling on how large it can possibly be from a proven inequality, instead of guessing a limit or growing the search open-endedly.
 Recognized by: you are told only the INDEX N of a prime (not any bound on the prime's own size) and need to know in advance how far a search or a sieve must reach to be certain of finding it
-General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln n &minus; 1) &lt; p<sub>n</sub> &lt; n(ln n + ln ln n) — the upper half alone is enough to size a sieve safely; this inequality is a sharpened, explicit-for-every-n form of [method::PrimeNumberTheorem](#methodprimenumbertheorem)'s limit statement
+General case: for n &ge; 6, the nth prime p<sub>n</sub> satisfies n(ln n + ln ln n &minus; 1) &lt; p<sub>n</sub> &lt; n(ln n + ln ln n) — the upper half alone is enough to size a sieve safely. The bound's SHAPE is a composition of three ideas, each recognizable on its own elsewhere: (1) [method::PrimeNumberTheorem](#methodprimenumbertheorem) — near x the primes are spaced about ln x apart, so n primes take about n &times; ln x of room; (2) [method::FixedPointIteration](#methodfixedpointiteration) — that room depends on where you end up (x &asymp; p<sub>n</sub>), so p &asymp; n &middot; ln p is an equation in its own answer: start from p<sub>0</sub> = n ln n and take ONE pass, p<sub>1</sub> = n &middot; ln(n ln n); (3) [method::LogarithmProductRule](#methodlogarithmproductrule) — ln(n &middot; ln n) = ln n + ln ln n, which is the whole reason a "log of a log" appears in the formula. Rosser's theorem is what turns this heuristic shape into a proven inequality
 Picture: ![Upper bound on the nth prime](visualizations/build/nth-prime-bound.png)
 Sequence:
   1. Problem — find the 6th prime; the number line has no marked end, only a "?"
-  2. Transform gaps — the real primes up to 20 on a number line, numbered 1st..8th (2, 3, 5, 7
-     packed on the left; 11, 13, 17, 19 spread out on the right — the 6th is 13, the target the
-     next frames measure against). Under it, on the same x-scale, the curve ln x with two bars
-     reaching up to it: at 6 the bar is 1.8 tall, at 13 it is 2.6 — the curve rises the way the
-     spacing widens. This is where the logarithm comes from: it is the observed thinning-out of
-     primes ([method::PrimeNumberTheorem](#methodprimenumbertheorem)), shown as a fit, not derived
-  3. Transform guess — 6 numbered hops, each the length of the bar at 6 (ln 6 &asymp; 1.792), walked
-     out from 0: the 6th hop lands at 10.75, visibly short of the 13 mark; 6 &times; ln 6 is that
-     walk written as arithmetic (six hops, one ruler)
-  4. Transform refine — the hop was measured in the wrong place: at 6, where primes are still
-     dense, not near where the walk ends. Re-measure the ruler at the landing point instead —
-     ln 10.75 &asymp; 2.375 — and walk the same 6 hops: the 6th lands at 14.25, past 13, rounded up
-     to a ceiling of 15. The "log of a log" is only this: 10.75 is itself 6 &times; ln 6, so
-     ln 10.75 = ln(6 &times; ln 6) = ln 6 + ln ln 6
+  2. Transform gaps ([method::PrimeNumberTheorem](#methodprimenumbertheorem)) — the real primes up to 20 on a number line, numbered 1st..8th (the 6th is 13, the target the next frames measure against); under it, on the same x-scale, the curve ln x with two bars reaching up to it — 1.8 at 6, 2.6 at 13. The spacing widens the way the curve rises: this is where the logarithm comes from, shown as a fit, not derived
+  3. Transform guess — 6 numbered hops of the ruler measured at 6 (ln 6 &asymp; 1.792), walked out from 0: the 6th hop lands at 10.75, visibly short of the 13 mark; 6 &times; ln 6 is that walk as arithmetic (six hops, one ruler)
+  4. Transform &#8635; ([method::FixedPointIteration](#methodfixedpointiteration), one pass) — the hop was measured in the wrong place: at 6, where primes are still dense, not near where the walk ends. Re-measure the ruler at the landing point, 10.75, and walk the same 6 hops again: the 6th now lands at 14.25, past 13, rounded up to a ceiling of 15. The label ln 10.75 = ln(6 &middot; ln 6) = ln 6 + ln ln 6 is [method::LogarithmProductRule](#methodlogarithmproductrule): 10.75 is itself 6 &times; ln 6, so its logarithm splits into the two named terms
   5. Solution — the 6th prime, 13, lands safely inside that corrected ceiling of 15
 Limits:
   - MUST NOT: be used for n &lt; 6 — a limit of the IDEA: the inequality is proven only from n=6 upward; smaller n are checked directly instead
   - MUST: pad the computed bound rather than use it exactly at the boundary — a limit of PRACTICE, not of the theorem: the inequality is proven exact, but floating-point evaluation of ln/ln ln can round down by a hair right at the boundary
   - MUST NOT: present the guess-then-refine picture as the actual 1941 proof — a limit of the PICTURE: it shows the standard HEURISTIC motivation for the formula's shape (self-consistent substitution: p&#8776;n&middot;ln(p), then ln(p)&asymp;ln(n&middot;ln n)), not Rosser's real analytic argument, which is more careful and is what actually makes the inequality a proven ceiling rather than just a plausible guess
-Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is. Three earlier designs did not survive direct user feedback: a formula-in-a-box with no derivation at all ("doesn't answer how it's obtained, no geometry"), 6 tiles laid end to end each just labeled with the formula itself ("useless" — restates the arithmetic, explains nothing about where the formula comes from), and a version with the guess/refine formulas but no geometry at all ("how is the log of a log obtained — visualize this without text so the problem and the fix are both clear"). This version walks the SAME 6-hop step out on a number line twice, once per guess, both against the same fixed mark for the real 6th prime (13): the first walk's equal hops (size ln 6) visibly land short of 13; the second walk's bigger hops (size ln 6 + ln ln 6) visibly clear it — the correction is a comparison a reader counts by eye (hop spacing, landing position), not a formula they have to parse to believe.
+Note: No encyclopedic source draws a picture for this inequality (checked: Wikipedia's Prime-counting function article states the bound as a formula only, no diagram; no published plot comparing p_n against the bound was found anywhere encyclopedic) — the idea itself is standard and sourced below; the picture is this catalog's own construction, honestly not attributed to an established visual tradition the way [method::SieveOfEratosthenes](#methodsieveoferatosthenes)'s grid is. Three earlier designs did not survive direct user feedback: a formula-in-a-box with no derivation at all ("doesn't answer how it's obtained, no geometry"), 6 tiles laid end to end each just labeled with the formula itself ("useless" — restates the arithmetic, explains nothing about where the formula comes from), and a version with the guess/refine formulas but no geometry at all ("how is the log of a log obtained — visualize this without text so the problem and the fix are both clear"). This version walks the SAME 6-hop step out on a number line twice, once per guess, both against the same fixed mark for the real 6th prime (13): the first walk's equal hops (size ln 6) visibly land short of 13; the second walk's bigger hops (size ln 6 + ln ln 6) visibly clear it — the correction is a comparison a reader counts by eye (hop spacing, landing position), not a formula they have to parse to believe. A fourth round ("where does the logarithm come from at all, and the log of a log?") split the record into a named composition: the logarithm's origin is [method::PrimeNumberTheorem](#methodprimenumbertheorem) (frame 2 now shows the ln x curve fitted to the real prime spacing), the refinement is one pass of [method::FixedPointIteration](#methodfixedpointiteration), and the ln ln term is [method::LogarithmProductRule](#methodlogarithmproductrule) — each of the latter two got its own record and picture, so this picture only has to show them meeting, not teach them.
 Source: [Wikipedia — Prime-counting function](https://en.wikipedia.org/wiki/Prime-counting_function) (bounds section, upper bound attributed to Rosser, 1941)
 Example: `visualizations/examples/nth-prime-bound.{css,html}` (no js needed — the values are static) → `visualizations/build/nth-prime-bound.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
@@ -545,4 +534,42 @@ Limits:
   - MUST: the picture's 9 bases are deliberately small enough to read every relation by eye — a limit of the PICTURE: real equivalence classes (e.g. every power of 2 up to a large N) can have far more than 3 members, which a row this size cannot show without the reader losing count
 Source: [Wikipedia — Canonicalization](https://en.wikipedia.org/wiki/Canonicalization) (lead section: canonicalization is used "to compare different representations for equivalence, to count the number of distinct data structures... and to make it possible to build efficient algorithms by regularizing... redundant information") · [Wikipedia — Equivalence class](https://en.wikipedia.org/wiki/Equivalence_class) (&sect; representative) · [Wikipedia — Canonical form](https://en.wikipedia.org/wiki/Canonical_form) ("for a class of objects on which an equivalence relation is defined, a canonical form consists in the choice of a specific object in each class")
 Example: `visualizations/examples/canonicalization.{css,html,js}` → `visualizations/build/canonicalization.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::LogarithmProductRule]
+Class: entity
+Standard name: Product rule of logarithms · picture — slide rule (adding lengths on a logarithmic scale multiplies the numbers)
+Essence: The logarithm of a product is the sum of the logarithms — so anything that multiplies becomes something that adds, and two lengths laid end to end stand for two numbers multiplied together.
+Recognized by: a quantity is a product (or a power) too large or too awkward to multiply out, but only its size, digit count, or comparison against another product is needed; or a formula contains a logarithm of a product that would read more clearly as a sum of two named terms
+General case: log(a &times; b) = log a + log b, for any base; as a consequence log(a<sup>k</sup>) = k &middot; log a. Taking logarithms of both sides of a product turns the multiplication into addition that is cheap, stays in range, and compares term by term
+Picture: ![Logarithm product rule](visualizations/build/logarithm-product-rule.png)
+Sequence:
+  1. Problem — ln(4 &times; 8) = ?
+  2. Transform + — a ruler whose ticks 1, 2, 4, 8, 16, 32 are evenly spaced (a logarithmic scale): a bar of length ln 4 = 1.386 reaches the tick 4; a bar of length ln 8 = 2.079 laid end to end after it reaches the tick 32
+  3. Solution — the two bars together are one bar of length 1.386 + 2.079 = 3.466, and 3.466 = ln 32; adding the lengths multiplied the numbers
+Limits:
+  - MUST NOT: be applied to a sum — a limit of the IDEA: ln(a + b) does not split into anything simpler; only products, quotients and powers turn into sums, differences and multiples
+  - MUST: keep to one base throughout — a limit of PRACTICE: the rule holds in any base, but the two logarithms being added have to be in the same one
+  - MUST: the ruler's ticks 1..32 are powers of 2 so that the picture stays countable — a limit of the PICTURE: on a real slide rule every number has its place, but a scale with every integer marked cannot be read at this size
+Source: [Wikipedia — Logarithm](https://en.wikipedia.org/wiki/Logarithm) (&sect; Logarithmic identities: "log_b(xy) = log_b x + log_b y"; &sect; Slide rules: "sliding the upper scale appropriately amounts to mechanically adding logarithms") · [Wikipedia — Slide rule](https://en.wikipedia.org/wiki/Slide_rule)
+Example: `visualizations/examples/logarithm-product-rule.{css,html}` (no js needed — the values are static) → `visualizations/build/logarithm-product-rule.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::FixedPointIteration]
+Class: entity
+Standard name: Fixed-point iteration · picture — cobweb plot
+Essence: When the unknown appears on both sides of its own equation, start from a rough guess, feed it into the right-hand side, and take what comes out as the next guess — each pass lands closer to the value that reproduces itself.
+Recognized by: the quantity you want is defined in terms of itself (x = f(x)), a direct formula for it is unavailable or clumsy, but evaluating the right-hand side at any given number is easy
+General case: choose x<sub>0</sub>; set x<sub>n+1</sub> = f(x<sub>n</sub>); stop when successive values agree to the precision needed, or after a fixed number of passes when only an estimate is wanted. Converges when f is contracting near the fixed point (|f'| &lt; 1 there); one pass from a decent starting guess already improves it, which is often all a bound needs
+Picture: ![Fixed-point iteration](visualizations/build/fixed-point-iteration.png)
+Sequence:
+  1. Problem — &radic;2 = ?, written as an equation that mentions its own answer: x = (x + 2/x) / 2
+  2. Transform &#8635; — start at 1; the right-hand side gives 1.5; feed 1.5 back in and get 1.4167; feed that back and get 1.4142 — the same recipe three times, each time on its own previous output
+  3. Solution — on a graph of y = (x + 2/x)/2 against the diagonal y = x, the passes are a staircase: up from 1 to the curve, across to the diagonal, up to the curve again — the steps shrink onto the point 1.4142 where the curve crosses the diagonal, the value that reproduces itself
+Limits:
+  - MUST NOT: be assumed to converge — a limit of the IDEA: if the curve is steeper than the diagonal at the crossing (|f'| &gt; 1), the staircase runs away instead of closing in; the iteration then needs a different rearrangement of the same equation
+  - MUST: say how many passes were taken when the result is used as an estimate — a limit of PRACTICE: one pass and ten passes are both "fixed-point iteration", with very different accuracy
+  - MUST: the picture uses &radic;2 so the crossing is a familiar number — a limit of the PICTURE: it is the Babylonian square-root recipe, chosen for recognisability; the method is the staircase, not that particular curve
+Source: [Wikipedia — Fixed-point iteration](https://en.wikipedia.org/wiki/Fixed-point_iteration) ("x_{n+1} = f(x_n), n = 0, 1, 2, ..."; the Babylonian method f(x) = (a/x + x)/2 for &radic;a is one of its worked examples) · [Wikipedia — Cobweb plot](https://en.wikipedia.org/wiki/Cobweb_plot) (the staircase drawing between the curve and the diagonal)
+Example: `visualizations/examples/fixed-point-iteration.{css,html}` (no js needed — the values are static) → `visualizations/build/fixed-point-iteration.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

@@ -1,0 +1,16 @@
+.lpr-col{display:flex; flex-direction:column; align-items:center; gap:10px; width:100%;}
+.lpr-big{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--ink);}
+.lpr-rule{position:relative; width:100%; max-width:400px; height:70px;}
+.lpr-axis{position:absolute; top:44px; left:0; right:0; height:2px; background:var(--rule);}
+.lpr-tick{position:absolute; top:38px; width:2px; height:14px; background:var(--ink-soft); transform:translateX(-50%);}
+.lpr-tick-label{position:absolute; top:54px; transform:translateX(-50%); font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft);}
+.lpr-bar{position:absolute; top:22px; height:12px; border-radius:6px;}
+.lpr-bar.lpr-a{background:var(--a);}
+.lpr-bar.lpr-b{background:var(--b);}
+.lpr-bar.lpr-sum{background:var(--good); top:6px;}
+.lpr-bar-label{position:absolute; top:-16px; left:50%; transform:translateX(-50%); font-family:var(--font-m); font-size:11px; font-weight:700; white-space:nowrap;}
+.lpr-a .lpr-bar-label{color:var(--a);}
+.lpr-b .lpr-bar-label{color:var(--b);}
+.lpr-sum .lpr-bar-label{color:var(--good);}
+.lpr-eq{font-family:var(--font-m); font-size:14px; color:var(--ink); background:var(--surface); border:1.5px solid var(--rule); border-radius:8px; padding:8px 14px; white-space:nowrap;}
+.lpr-eq b{color:var(--good);}

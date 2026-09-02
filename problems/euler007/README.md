@@ -38,6 +38,14 @@ open-endedly. [`[method::NthPrimeBound]`](../../memory-bank/_terms.md#methodnthp
 
 [![Upper bound on the nth prime](../../memory-bank/visualizations/build/nth-prime-bound.png)](../../memory-bank/visualizations/build/nth-prime-bound.html)
 
+That bound is a named composition of three smaller ideas, each with its own catalog record and
+picture: the spacing of primes from
+[`[method::PrimeNumberTheorem]`](../../memory-bank/_terms.md#methodprimenumbertheorem), one pass of
+[`[method::FixedPointIteration]`](../../memory-bank/_terms.md#methodfixedpointiteration) (measure the
+gap where the first guess landed, not where it started), and
+[`[method::LogarithmProductRule]`](../../memory-bank/_terms.md#methodlogarithmproductrule) (which is
+all the `ln ln n` term is).
+
 The sieve is built once for the largest `N` across all `T` queries, not once per query — the same
 [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation) pattern already
 catalogued.
