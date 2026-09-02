@@ -258,11 +258,18 @@ rendering "by eye", no cloud, no hand-made pictures.
   itself, and the record carries no `Sequence:` and no `Example:` line at all, both of which
   describe a drawing that does not exist — a list of frames nobody drew is worse than no list. Its
   `Spec:` line points only at [approaches](approaches.md), never at this spec, since no requirement
-  here applies to it. Status: done — no longer vacuous: `SievingOverMultiples` (the axis is what a
-  cell RECEIVES, and a mark, a stored prime and a running total are indistinguishable drawn as
-  cells) and `MultiplicativeFunction` (the honest drawing is the exponent grid `DivisorCountFormula`
-  already owns, so drawing it again would be one picture serving twice) are the first two, and both
-  state which sources were checked before the field was given a dash.
+  here applies to it. Status: done — no longer vacuous: `SievingOverMultiples` is the first, and it
+  states which sources were checked before the field was given a dash (its axis is what a cell
+  RECEIVES, and a mark, a stored prime and a running total are indistinguishable drawn as cells).
+  `MultiplicativeFunction` was the second and is no longer one — worth recording, because the
+  reasoning that gave it a dash was wrong in an instructive way. It read "the honest drawing is the
+  exponent grid `DivisorCountFormula` already owns, so drawing it again would be one picture serving
+  twice", which holds only while the picture is imagined as a grid over one number's own exponents.
+  The record's actual subject is a different grid — the two coprime factors' DIVISOR LISTS, whose
+  cells are their products — and its claim is that no two of those products coincide, which is
+  precisely what fails, visibly, when the factors share a prime. A dash is therefore justified by
+  what the record's own idea needs drawn, never by what a neighbouring record's picture happens to
+  look like; the neighbour test is a check against duplication, not a reason on its own.
 - The absence of a picture MUST NOT be used as an argument about the idea — not about whether it is
   a technique, and not about whether it deserves its own record —
   **MUST-picture-absence-says-nothing** — criterion: no record is merged into another, and none is

@@ -58,6 +58,7 @@ restricted-partitions|Partitions and compositions|Young (Ferrers) diagram|Restri
 explicit-stack|Recursion as an explicit stack|Explicit call stack|ExplicitStackRecursion
 cross-multiplication|Cross-multiplication|Cross-multiplication|CrossMultiplication
 digital-invariant-bound|Digit-power bound|Finiteness bound for perfect digital invariants|DigitalInvariantBound
+multiplicative-function|Multiplicative function|Divisors of a coprime product, paired|MultiplicativeFunction
 EOF
 }
 
