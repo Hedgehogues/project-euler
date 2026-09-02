@@ -18,7 +18,13 @@ independent searches with one.
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses three catalogued methods
 (`../../_terms.md`): [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
 [method::NthPrimeBound](../../_terms.md#methodnthprimebound),
-[method::Precomputation](../../_terms.md#methodprecomputation).
+[method::Precomputation](../../_terms.md#methodprecomputation). NthPrimeBound is itself a named
+composition, and its parts are used here through it, not separately:
+[method::PrimeNumberTheorem](../../_terms.md#methodprimenumbertheorem) (primes near x sit about
+ln x apart), [method::FixedPointIteration](../../_terms.md#methodfixedpointiteration) (one pass of
+p &larr; n&middot;ln p) and
+[method::LogarithmProductRule](../../_terms.md#methodlogarithmproductrule) (which is what the
+ln ln n term is).
 
 ## Scope
 **In scope:** `problems/euler007/solution.cpp` — the model, the sieve, the bound used to size it,
@@ -73,6 +79,9 @@ Each query is then answered by indexing directly into the sieved list, `primes[n
 
 ## Links
 - Methods: [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
-  [method::NthPrimeBound](../../_terms.md#methodnthprimebound),
+  [method::NthPrimeBound](../../_terms.md#methodnthprimebound) (= composition of
+  [method::PrimeNumberTheorem](../../_terms.md#methodprimenumbertheorem),
+  [method::FixedPointIteration](../../_terms.md#methodfixedpointiteration),
+  [method::LogarithmProductRule](../../_terms.md#methodlogarithmproductrule)),
   [method::Precomputation](../../_terms.md#methodprecomputation).
 - Code: `problems/euler007/solution.cpp`; directory README: `problems/euler007/README.md`.

@@ -17,7 +17,9 @@ a lookup.
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
 (`../../_terms.md`): [method::PrefixSum](../../_terms.md#methodprefixsum). The divisor-sum
-accumulation itself is a plain variant of the "touch every multiple" sieve mechanism (see
+accumulation itself is a plain variant of
+[method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes)'s "touch every multiple"
+mechanism (see
 `problems/euler021/README.md`) — not independently catalogued (no encyclopedic source found for
 this specific summing variant, only blogs/teaching sites).
 
@@ -66,5 +68,7 @@ once; each query reads `prefix[N-1]` directly.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::PrefixSum](../../_terms.md#methodprefixsum).
+- Methods: [method::PrefixSum](../../_terms.md#methodprefixsum);
+  [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes)'s multiple-touching
+  mechanism, used as the divisor-sum accumulation variant described in Terms.
 - Code: `problems/euler021/solution.cpp`; directory README: `problems/euler021/README.md`.

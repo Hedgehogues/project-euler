@@ -12,9 +12,14 @@ multiple of 3 or 5 — without looping over the range. HackerRank raises `N` and
 rule out the naive sum, so the solution must be `O(1)` per query.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
-(`../../_terms.md`): [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
-[method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses four catalogued methods
+(`../../_terms.md`): [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum)
+(each single-divisor sum in closed form),
+[method::InclusionExclusion](../../_terms.md#methodinclusionexclusion) (subtract the multiples of
+15 counted twice), [method::SkipCounting](../../_terms.md#methodskipcounting) (what "multiple of"
+means — the groundwork the other three stand on) and
+[method::VennDiagram](../../_terms.md#methodvenndiagram) (the same overlap as regions rather than
+arithmetic).
 
 ## Scope
 **In scope:** `problems/euler001/solution.cpp` — the model, the formula, the `O(1)` argument, correctness
@@ -64,6 +69,8 @@ formula, no loop over `[0, n)`.
   query) — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
-  [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum).
+- Methods: [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum),
+  [method::InclusionExclusion](../../_terms.md#methodinclusionexclusion),
+  [method::SkipCounting](../../_terms.md#methodskipcounting),
+  [method::VennDiagram](../../_terms.md#methodvenndiagram).
 - Code: `problems/euler001/solution.cpp`; directory README: `problems/euler001/README.md`.
