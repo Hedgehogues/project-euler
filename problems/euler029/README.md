@@ -25,10 +25,17 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — grouping bases by their "primitive root" and
-deduplicating exponents above `N` with a reusable seen-set is a combinatorial technique specific
-to counting distinct powers, not a general reusable algorithmic pattern found elsewhere in this
-catalog.
+Skipping a base that is itself a power of a smaller, already-processed base is
+[`[method::Canonicalization]`](../../memory-bank/_terms.md#methodcanonicalization): every base in
+that base's equivalence class (2, 4, 8, ... all generate powers of 2) produces a set of exponent
+values that is a subset of the smallest ("primitive") base's own — so only that one representative
+is ever processed, and every other member is skipped outright.
+
+[![Canonicalization](../../memory-bank/visualizations/build/canonicalization.png)](../../memory-bank/visualizations/build/canonicalization.html)
+
+Deduplicating exponents above `N` with a reusable seen-set (the `k=2..maxK` sweep within a single
+primitive base) is a combinatorial technique specific to counting distinct powers, not a
+separately catalogued general pattern.
 
 ## Build & run
 

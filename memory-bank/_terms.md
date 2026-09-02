@@ -513,3 +513,22 @@ Limits:
 Source: [Wikipedia — System of equations](https://en.wikipedia.org/wiki/System_of_equations) · [Wikipedia — System of linear equations](https://en.wikipedia.org/wiki/System_of_linear_equations) (&sect; substitution: "solve the top equation for x in terms of y... substitute this expression... results in a single equation involving only the variable y" — stated there for a linear system; the same move is what eliminates an unknown in a non-linear one)
 Example: `visualizations/examples/variable-elimination.{css,html,js}` → `visualizations/build/variable-elimination.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::Canonicalization]
+Class: entity
+Standard name: Canonicalization (via a canonical/equivalence-class representative)
+Essence: When several different starting points can produce overlapping results, pick exactly one canonical starting point per group that produces the same results, and only ever start from that one — every other member of the group is a known duplicate and is skipped outright, never processed.
+Recognized by: distinct outputs are generated from a set of starting points (bases, seeds), and one starting point's whole output is provably a subset of another, smaller starting point's output — so processing both would recount the smaller one's results
+General case: define which starting points are equivalent (one is expressible as a fixed transform of a smaller one); for each equivalence class pick the smallest/simplest member as the canonical representative; scan all starting points in order, and skip any that is not canonical the moment it is recognized as a transform of an already-seen smaller one — only representatives ever get processed
+Picture: ![Canonicalization](visualizations/build/canonicalization.png)
+Sequence:
+  1. Problem — 9 candidate bases, 2 through 10, nothing known about them yet
+  2. Transform &#61; — 3 of them are a smaller base raised to a power already in the row (4&#61;2&sup2;, 8&#61;2&sup3;, 9&#61;3&sup2;) &mdash; marked as duplicates of that smaller base
+  3. Solution — the 6 canonical bases (2, 3, 5, 6, 7, 10) get processed; the 3 duplicates are skipped, never touched again
+Limits:
+  - MUST NOT: be applied unless the "is-a-transform-of" relation between starting points is actually provable ahead of time — a limit of the IDEA: guessing at equivalence without proof can silently drop a starting point that was not really a duplicate
+  - MUST: recognize a starting point as non-canonical BEFORE doing any of its own work — a limit of PRACTICE: checking after the fact defeats the purpose, since the duplicate work has already been paid for
+  - MUST: the picture's 9 bases are deliberately small enough to read every relation by eye — a limit of the PICTURE: real equivalence classes (e.g. every power of 2 up to a large N) can have far more than 3 members, which a row this size cannot show without the reader losing count
+Source: [Wikipedia — Canonicalization](https://en.wikipedia.org/wiki/Canonicalization) (lead section: canonicalization is used "to compare different representations for equivalence, to count the number of distinct data structures... and to make it possible to build efficient algorithms by regularizing... redundant information") · [Wikipedia — Equivalence class](https://en.wikipedia.org/wiki/Equivalence_class) (&sect; representative) · [Wikipedia — Canonical form](https://en.wikipedia.org/wiki/Canonical_form) ("for a class of objects on which an equivalence relation is defined, a canonical form consists in the choice of a specific object in each class")
+Example: `visualizations/examples/canonicalization.{css,html,js}` → `visualizations/build/canonicalization.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

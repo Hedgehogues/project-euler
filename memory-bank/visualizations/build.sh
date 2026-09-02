@@ -39,6 +39,7 @@ cycle-detection-remainders|Cycle detection via remainders|Repeating decimal (rem
 next-permutation|Next permutation|Permutation (generation in lexicographic order)|NextPermutation
 brute-force-search|Brute-force search|Brute-force search (exhaustive search)|BruteForceSearch
 variable-elimination|Variable elimination|Solving a system by substitution|VariableElimination
+canonicalization|Canonicalization|Counting from one representative per class|Canonicalization
 EOF
 }
 

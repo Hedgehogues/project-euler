@@ -28,33 +28,9 @@ a textbook.
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Terms live in `_terms.md`, context
-`method`: [method::SkipCounting](../_terms.md#methodskipcounting),
-[method::InclusionExclusion](../_terms.md#methodinclusionexclusion),
-[method::VennDiagram](../_terms.md#methodvenndiagram),
-[method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
-[method::Precomputation](../_terms.md#methodprecomputation),
-[method::BinarySearch](../_terms.md#methodbinarysearch),
-[method::TrialDivision](../_terms.md#methodtrialdivision),
-[method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm),
-[method::LCMViaGCD](../_terms.md#methodlcmviagcd),
-[method::SumOfSquares](../_terms.md#methodsumofsquares),
-[method::SieveOfEratosthenes](../_terms.md#methodsieveoferatosthenes),
-[method::NthPrimeBound](../_terms.md#methodnthprimebound),
-[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem),
-[method::PrefixSum](../_terms.md#methodprefixsum),
-[method::DivisorCountFormula](../_terms.md#methoddivisorcountformula),
-[method::BigIntegerArithmetic](../_terms.md#methodbigintegerarithmetic),
-[method::Memoization](../_terms.md#methodmemoization),
-[method::FastExponentiation](../_terms.md#methodfastexponentiation),
-[method::ModularInverseFermat](../_terms.md#methodmodularinversefermat),
-[method::LatticePaths](../_terms.md#methodlatticepaths),
-[method::DynamicProgramming](../_terms.md#methoddynamicprogramming),
-[method::DayOfWeekFormula](../_terms.md#methoddayofweekformula),
-[method::LehmerCode](../_terms.md#methodlehmercode),
-[method::CycleDetectionViaRemainders](../_terms.md#methodcycledetectionviaremainders),
-[method::NextPermutation](../_terms.md#methodnextpermutation),
-[method::BruteForceSearch](../_terms.md#methodbruteforcesearch),
-[method::VariableElimination](../_terms.md#methodvariableelimination).
+`method` — the `## [method::*]` headings of that file ARE the list, and it is the only place the
+list lives: an enumeration copied here would need a synchronized edit on every addition, and the
+one time it was copied it went stale within a single working session (see F10 below).
 
 ## Scope
 **In scope:** the idea fields of `[method::*]` records — `Essence`, `Recognized by`,
@@ -125,6 +101,14 @@ techniques found during research and has its own citation discipline.
   Same folder tree, two kinds of document, kept in separate subfolders (`specs/*.md` vs.
   `specs/tasks/*.md`) so the split is visible in the file listing, not just in prose. Traces to:
   MUST-no-task-specifics (narrowed to the dictionary).
+- **F10** (found by retro, not by the user directly asking) This Terms section used to spell out
+  the count of `[method::*]` records by name ("twenty-seven `[method::*]` records", "(27)"). The
+  count went stale inside a single working session: several new methods (`BruteForceSearch`,
+  `VariableElimination`, `NextPermutation`, and others) were catalogued in `_terms.md` while this
+  file's copy of the number stayed fixed. The fix is the same as MUST itself already states — the
+  heading list IS the count, so no number is written down here to go stale. Traces to:
+  MUST-reuse-changes-nothing (a count is exactly the kind of enumeration that needs a synchronized
+  edit on every addition).
 
 ## Architecture
 
@@ -142,7 +126,7 @@ from its own README.
   invariants (schema, atomic-or-composed, sourcing) ARE the requirements below, not a block of
   their own — a record restating them a second time (`Class: aggregate`) would be the same fact
   twice, the exact duplication this spec elsewhere forbids on ideas (MUST-atomic-or-composed).
-  `_terms.md` holds only the entities — the twenty-seven `[method::*]` records themselves.
+  `_terms.md` holds only the entities — the `[method::*]` records themselves.
 
 ## Requirements
 > Statement — acceptance criterion — status.
@@ -150,7 +134,7 @@ from its own README.
 ### MUST
 - Every record MUST carry Essence / Recognized by / General case / Source, and MUST NOT carry a
   field about a specific problem — **MUST-entry-schema** — criterion: grepping each mandatory
-  heading yields as many lines as there are method records (27); there is no `Used in:` field.
+  heading yields as many lines as there are method records; there is no `Used in:` field.
   Status: done.
 - "Essence" MUST be a single sentence without formulas — **MUST-essence-plain** — criterion: the
   field contains no `·`, `/`, exponents or variable names. Status: done.
@@ -163,7 +147,7 @@ from its own README.
   property of the solution. Status: done.
 - Every record MUST carry its own `Source:` field — an independent citation that the idea is
   standard — **MUST-source** — criterion: `grep -c '^Source:'` equals the number of method records.
-  Status: done (27 of 27).
+  Status: done — the two counts are compared, never stated as a literal here.
 - At least one source MUST be ENCYCLOPEDIC (Wikipedia, Britannica, cp-algorithms, a professional
   body such as NCTM) — blogs, teaching sites and least of all shop pages are not evidence of
   standardness and may only supplement — **MUST-canonical-source** — criterion: every record's
@@ -196,8 +180,7 @@ from its own README.
 
 ### SHOULD
 - A method's name SHOULD be the commonly accepted one, verified by search —
-  **SHOULD-standard-name**. Status: done for all twenty-seven (each name checked by search before it was
-  written down).
+  **SHOULD-standard-name**. Status: done — each name checked by search before it was written down.
 
 ## Links
 - Records this spec governs: the `[method::*]` blocks in `memory-bank/_terms.md`.

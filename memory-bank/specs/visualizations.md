@@ -32,33 +32,8 @@ escalation points); each requirement below is tied to the round in which it was 
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Domain terms live in `_terms.md`,
-context `method`: [method::SkipCounting](../_terms.md#methodskipcounting),
-[method::InclusionExclusion](../_terms.md#methodinclusionexclusion),
-[method::ArithmeticProgressionSum](../_terms.md#methodarithmeticprogressionsum),
-[method::VennDiagram](../_terms.md#methodvenndiagram),
-[method::Precomputation](../_terms.md#methodprecomputation),
-[method::BinarySearch](../_terms.md#methodbinarysearch),
-[method::TrialDivision](../_terms.md#methodtrialdivision),
-[method::EuclideanAlgorithm](../_terms.md#methodeuclideanalgorithm),
-[method::LCMViaGCD](../_terms.md#methodlcmviagcd),
-[method::SumOfSquares](../_terms.md#methodsumofsquares),
-[method::SieveOfEratosthenes](../_terms.md#methodsieveoferatosthenes),
-[method::NthPrimeBound](../_terms.md#methodnthprimebound),
-[method::PrimeNumberTheorem](../_terms.md#methodprimenumbertheorem),
-[method::PrefixSum](../_terms.md#methodprefixsum),
-[method::DivisorCountFormula](../_terms.md#methoddivisorcountformula),
-[method::BigIntegerArithmetic](../_terms.md#methodbigintegerarithmetic),
-[method::Memoization](../_terms.md#methodmemoization),
-[method::FastExponentiation](../_terms.md#methodfastexponentiation),
-[method::ModularInverseFermat](../_terms.md#methodmodularinversefermat),
-[method::LatticePaths](../_terms.md#methodlatticepaths),
-[method::DynamicProgramming](../_terms.md#methoddynamicprogramming),
-[method::DayOfWeekFormula](../_terms.md#methoddayofweekformula),
-[method::LehmerCode](../_terms.md#methodlehmercode),
-[method::CycleDetectionViaRemainders](../_terms.md#methodcycledetectionviaremainders),
-[method::NextPermutation](../_terms.md#methodnextpermutation),
-[method::BruteForceSearch](../_terms.md#methodbruteforcesearch),
-[method::VariableElimination](../_terms.md#methodvariableelimination).
+context `method` — the `## [method::*]` headings of that file ARE the list; it is not restated
+here (see [approaches](approaches.md)'s Terms section for why).
 
 ## Scope
 **In scope:** the layout of `memory-bank/visualizations/` (shell, frame code, build, output); the
@@ -172,7 +147,7 @@ rendering "by eye", no cloud, no hand-made pictures.
   (formerly `[method::Catalog]`) are exactly this Architecture section plus the MUST requirements
   below — a block restating them a second time in `_terms.md` was the same fact twice (F13). There
   is no separate context for pictures either (F10) — a picture is a set of fields on a method
-  record. `_terms.md` holds only the twenty-seven entities.
+  record. `_terms.md` holds only the entities.
 
 ## Requirements
 > Statement — acceptance criterion — status.

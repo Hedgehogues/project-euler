@@ -15,10 +15,12 @@ values in a small set of integer products per primitive base, never touching an 
 integer.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses no catalogued method
-(`../../_terms.md`) — the primitive-root grouping and exponent deduplication is specific to
-counting distinct powers, not a general reusable technique; see the Vision and
-`problems/euler029/README.md`.
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses one catalogued method
+(`../../_terms.md`): [method::Canonicalization](../../_terms.md#methodcanonicalization) — skipping
+a base that is itself a power of a smaller, already-processed base is exactly picking one canonical
+representative per equivalence class of bases. The exponent deduplication within a single
+primitive base's own `k=2..maxK` sweep is specific to counting distinct powers, not a separately
+catalogued technique.
 
 ## Scope
 **In scope:** `problems/euler029/solution.cpp` — the primitive-base grouping, the exponent
@@ -30,7 +32,10 @@ deduplication, correctness criteria.
 
 ### Overview (prose)
 `isPower[a]` marks every perfect power of a smaller base as it is discovered, so the outer loop
-over `a` only processes "primitive" bases (not themselves a power of anything smaller). For each
+over `a` only processes "primitive" bases (not themselves a power of anything smaller) — per
+[method::Canonicalization](../../_terms.md#methodcanonicalization), each such primitive base is
+the canonical representative of the equivalence class of bases that produce the same set of
+exponent values, and every non-primitive base is skipped outright rather than reprocessed. For each
 primitive `a`, `maxK` is the largest power of `a` still `≤ N`. The `b=2..N` case (`k=1`) always
 contributes exactly `N-1` new exponent values. For `k=2..maxK`, an exponent `k·b` is only counted
 if it exceeds `N` (anything `≤ N` necessarily duplicates some `k=1` exponent) AND has not already
@@ -65,5 +70,5 @@ allocation each time.
 - I/O MUST match HackerRank's format — **MUST-io-format**. Status: done.
 
 ## Links
-- Methods: none.
+- Methods: [method::Canonicalization](../../_terms.md#methodcanonicalization).
 - Code: `problems/euler029/solution.cpp`; directory README: `problems/euler029/README.md`.
