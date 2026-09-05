@@ -29,10 +29,10 @@ directly, then grouped.
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
-**Symmetry breaking** — Candidates are grouped by a canonical key so only members of one group are ever compared.
-[`[method::SymmetryBreaking]`](../../memory-bank/_terms.md#methodsymmetrybreaking)
+**Hash grouping** — Every number is keyed by its sorted removed digits, and only numbers sharing a key are ever compared against each other.
+[`[method::HashGrouping]`](../../memory-bank/_terms.md#methodhashgrouping)
 
-[![Symmetry breaking](../../memory-bank/visualizations/build/symmetry-breaking.png)](../../memory-bank/visualizations/build/symmetry-breaking.html)
+[![Hash grouping](../../memory-bank/visualizations/build/hash-grouping.png)](../../memory-bank/visualizations/build/hash-grouping.html)
 
 **Cross-multiplication** — The two fractions are compared by multiplying across, with no division anywhere.
 [`[method::CrossMultiplication]`](../../memory-bank/_terms.md#methodcrossmultiplication)

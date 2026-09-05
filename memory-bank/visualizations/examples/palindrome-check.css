@@ -1,0 +1,11 @@
+.pal-row{display:flex; gap:4px; justify-content:center;}
+.pal-box{width:34px; height:34px; border:1.5px solid var(--rule); border-radius:6px; background:var(--paper);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:16px; font-weight:700;}
+.pal-box.peel{border-color:var(--a); background:var(--a-bg); color:var(--a);}
+.pal-note{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); text-align:center; margin-top:10px;}
+.pal-steps{display:flex; flex-direction:column; gap:4px; align-items:center; margin-top:4px;}
+.pal-step{font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--a);}
+.pal-compare{display:flex; gap:24px; justify-content:center; align-items:center; margin-top:4px;}
+.pal-col{display:flex; flex-direction:column; align-items:center; gap:6px;}
+.pal-col-label{font-family:var(--font-m); font-size:11px; color:var(--ink-soft);}
+.pal-check{font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--good); text-align:center; margin-top:10px;}

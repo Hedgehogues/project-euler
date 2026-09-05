@@ -1,0 +1,11 @@
+.hg-row{display:flex; gap:8px; justify-content:center; flex-wrap:wrap;}
+.hg-item{width:34px; height:28px; border:1.5px solid var(--rule); border-radius:5px; background:var(--paper);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:14px; font-weight:700;}
+.hg-note{font-family:var(--font-m); font-size:13px; color:var(--ink-soft); text-align:center; margin-top:10px;}
+.hg-buckets{display:flex; gap:14px; justify-content:center; margin-top:6px;}
+.hg-bucket{display:flex; flex-direction:column; align-items:center; gap:4px; padding:6px 8px; border:1.5px dashed var(--rule); border-radius:6px;}
+.hg-key{font-family:var(--font-m); font-size:11px; color:var(--ink-soft);}
+.hg-bucket .hg-item{border-color:var(--b); background:var(--b-bg); color:var(--b);}
+.hg-pairs{display:flex; gap:18px; justify-content:center; margin-top:8px;}
+.hg-pair{font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--good);}
+.hg-count{font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--good); text-align:center; margin-top:10px;}

@@ -1,0 +1,37 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="hg-row">
+    <div class="hg-item">21</div><div class="hg-item">12</div><div class="hg-item">13</div><div class="hg-item">31</div><div class="hg-item">11</div>
+  </div>
+  <div class="hg-note">5 candidates, 10 possible pairs &mdash; which are worth comparing?</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">key = sorted digits</div>
+<div class="frame"><div class="frame-inner">
+  <div class="hg-buckets">
+    <div class="hg-bucket">
+      <div class="hg-key">key 12</div>
+      <div class="hg-row"><div class="hg-item">21</div><div class="hg-item">12</div></div>
+    </div>
+    <div class="hg-bucket">
+      <div class="hg-key">key 13</div>
+      <div class="hg-row"><div class="hg-item">13</div><div class="hg-item">31</div></div>
+    </div>
+    <div class="hg-bucket">
+      <div class="hg-key">key 11</div>
+      <div class="hg-row"><div class="hg-item">11</div></div>
+    </div>
+  </div>
+  <div class="hg-note">3 buckets, by the sorted digits of each candidate</div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag solved">within-bucket only</div>
+<div class="frame"><div class="frame-inner">
+  <div class="hg-pairs">
+    <div class="hg-pair">21 &harr; 12</div>
+    <div class="hg-pair">13 &harr; 31</div>
+  </div>
+  <div class="hg-count">2 pairs checked, not 10 &mdash; 11 has no partner</div>
+</div></div>

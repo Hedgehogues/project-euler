@@ -61,6 +61,8 @@ digital-invariant-bound|Digit-power bound|Finiteness bound for perfect digital i
 multiplicative-function|Multiplicative function|Divisors of a coprime product, paired|MultiplicativeFunction
 composition|Composition|Composition (combinatorics)|Composition
 sorting|Sorting|Sorting algorithm|Sorting
+palindrome-check|Palindrome check|Palindromic number|PalindromeCheck
+hash-grouping|Hash grouping|Hash table (grouping by a computed key)|HashGrouping
 EOF
 }
 

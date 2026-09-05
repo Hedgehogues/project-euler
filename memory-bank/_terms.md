@@ -909,6 +909,7 @@ Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations
 
 ## [method::Canonicalization]
 Class: entity
+Family: [method::EquivalenceClass](#methodequivalenceclass) (its skip specialization — a starting point in the same class as an already-seen smaller one is never processed)
 Standard name: Canonicalization (via a canonical/equivalence-class representative)
 Essence: When several different starting points can produce overlapping results, pick exactly one canonical starting point per group that produces the same results, and only ever start from that one — every other member of the group is a known duplicate and is skipped outright, never processed.
 Recognized by: distinct outputs are generated from a set of starting points (bases, seeds), and one starting point's whole output is provably a subset of another, smaller starting point's output — so processing both would recount the smaller one's results
@@ -1022,3 +1023,55 @@ Limits:
 Source: [Wikipedia — Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm) ("puts elements of a list in a certain order"; the permutation-and-monotonic-order output condition; the n&middot;log(n) comparison lower bound for comparison sorts) · [Britannica — sorting algorithm](https://www.britannica.com/technology/sorting-algorithm)
 Example: `visualizations/examples/sorting.{css,html}` (no js needed — the values are static) → `visualizations/build/sorting.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::PalindromeCheck]
+Class: entity
+Standard name: Palindromic number
+Essence: A number reads the same when its digits are taken in reverse order as when read forward; extracting digits from the least-significant end and rebuilding them into a second number tests this directly, without ever converting to a string.
+Recognized by: the statement calls a number a palindrome, or asks to find/test numbers unchanged when their digits are reversed
+General case: peel the least-significant digit off with `n % 10`, append it onto a running accumulator via `rev = rev * 10 + digit`, and divide the remaining number by 10 (`n /= 10`); repeating until nothing remains rebuilds the digits in reverse order inside `rev` — the number is a palindrome exactly when `rev` equals the original. Building the WHOLE reversed number this way is the full/naive form; a faster variant (half reversal) stops peeling once `rev` has as many digits as what remains of the original, comparing the two halves directly (adjusting for an odd middle digit) and skipping the second half of the work
+Picture: ![Palindrome check](visualizations/build/palindrome-check.png)
+Sequence:
+  1. Problem — 232 in three boxes [2][3][2]; rev is empty; the units digit (rightmost 2) is marked as the next to peel
+  2. Transform (peel, three times) — the accumulator grows 0 &rarr; 2 &rarr; 23 &rarr; 232 as each digit is peeled from the right of what remains and appended to what's already built
+  3. Solution — rev (232) placed beside the original (232); every digit lines up, so the number is a palindrome
+Limits:
+  - MUST NOT: be read as string reversal — a limit of the IDEA: the check works on the digits arithmetically (mod/div), never by converting the number to text
+  - MUST: the picture peels a 3-digit number in full — a limit of the PICTURE: a longer number needs one more peel-frame per digit, which is the same step already shown, repeated
+Source: [Wikipedia — Palindromic number](https://en.wikipedia.org/wiki/Palindromic_number) ("a number... that remains the same when its digits are reversed")
+Example: `visualizations/examples/palindrome-check.{css,html}` (no js needed — the values are static) → `visualizations/build/palindrome-check.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::HashGrouping]
+Class: entity
+Family: [method::EquivalenceClass](#methodequivalenceclass) (its comparison specialization — candidates sharing a class are kept and compared against each other, not skipped)
+Standard name: Hash table (grouping/bucketing by a computed key)
+Essence: Compute a key for every candidate that keeps only what actually matters for a relation to be checked later and discards the rest; group candidates sharing a key into the same bucket, and only ever compare candidates that landed in the same bucket — comparing across buckets is known in advance to be pointless.
+Recognized by: a further relation must be checked between PAIRS of candidates, checking every pair is too slow, and the relation can only possibly hold between candidates that already share some computable, coarser feature
+General case: define a key function mapping every candidate to the feature the relation actually depends on (an invariant under whatever the relation is blind to); insert every candidate into a hash table keyed on this feature; every bucket collected this way holds one class of candidates that share the feature, and the remaining comparison work runs only within each bucket, never between buckets — an O(n&sup2;) all-pairs scan collapses to a sum of within-bucket scans
+Picture: ![Hash grouping](visualizations/build/hash-grouping.png)
+Sequence:
+  1. Problem — five candidates, 21, 12, 13, 31, 11 &mdash; 10 possible pairs among them; which are worth comparing?
+  2. Transform (key = sorted digits) — each candidate's digits sorted into its key: 21 and 12 both key to "12"; 13 and 31 both key to "13"; 11 keys to "11" alone
+  3. Solution — 3 buckets; only the 2 within-bucket pairs (21 with 12, 13 with 31) are ever compared, instead of all 10
+Limits:
+  - MUST NOT: be applied when the relation being tested is not invariant under whatever the key discards — a limit of the IDEA: if two candidates with different keys could still satisfy the relation, bucketing by that key would silently miss the pair
+  - MUST: the picture uses 5 candidates and 3 buckets — a limit of the PICTURE: enough to show unequal-size buckets and a singleton both occurring, without asking the reader to count more pairs than the arithmetic (10 &rarr; 2) needs
+Source: [Wikipedia — Hash table](https://en.wikipedia.org/wiki/Hash_table) ("a hash function is used to compute an index... into an array of buckets... from which the desired value can be found"; collisions — distinct keys landing in the same bucket — are the normal case the structure is built to hold) · [Britannica — hash table](https://www.britannica.com/topic/hash-table)
+Example: `visualizations/examples/hash-grouping.{css,html}` (no js needed — the values are static) → `visualizations/build/hash-grouping.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::EquivalenceClass]
+Class: family
+Standard name: Equivalence class (canonical representative)
+Essence: When a relation splits a set of candidates into groups that agree on some feature, every candidate maps to a canonical marker for its group — the smallest/simplest member, or a key derived the same way from any member — so that "which group is this candidate in" is answered without comparing it to every other candidate directly.
+Recognized by: candidates fall into groups by a relation that is reflexive, symmetric and transitive (everything is in its own group; "same group" doesn't care which way round you check it; grouping is consistent chain-wise) — what differs by specialization is what to DO once two candidates are found to be in the same group
+General case: an equivalence relation on a set partitions it into disjoint classes; every element of a class is a valid representative, but singling out one CANONICAL representative per class — constructed the same way from any member — lets membership be tested by computing and comparing representatives instead of checking the relation pairwise. What happens next is exactly the axis below
+Axis: what to do once two candidates are found to share a class — skip re-processing the one already covered by a smaller representative, or keep both and compare them against each other for a further relation
+Specializations: [method::Canonicalization](#methodcanonicalization) (skip — a starting point in the same class as an already-seen smaller one is known to be redundant and is never processed) · [method::HashGrouping](#methodhashgrouping) (compare — candidates sharing a class are exactly the ones worth comparing against each other)
+Picture: — the axis is what happens AFTER two candidates are found to share a class, and that action (skip vs. compare) is precisely what each specialization's own picture already shows; drawing the shared skeleton (compute a key, put matching keys together) without showing what happens next would be one more near-identical grouping diagram, and showing what happens next would retell a child's own picture
+Limits:
+  - MUST NOT: be applied unless the grouping relation is actually reflexive, symmetric and transitive — a limit of the IDEA: a relation missing any of the three does not partition the set into disjoint classes, so "canonical representative" stops being well-defined
+  - MUST NOT: carry the mechanism of either specialization — a limit of the RECORD: which representative is canonical (smallest source vs. any fixed key function) and what happens to matches (skip vs. compare) both belong to the specializations, not here
+Source: [Wikipedia — Equivalence class](https://en.wikipedia.org/wiki/Equivalence_class) ("the set of all equivalence classes of X forms a partition of X"; canonical representatives, "usually required to be especially nice in some way"; "possible to find the canonical representative of an equivalence class in a constructive way from any element") · [Wikipedia — Equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation) (reflexive, symmetric, transitive)
+Spec: [approaches](specs/approaches.md)

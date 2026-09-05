@@ -15,7 +15,7 @@ the whole computation at this scale.
 
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
-(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 4 bounds the candidates to at most 9000 numbers times at most 6 removal masks, [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking) (candidates are grouped by a canonical key so only members of one group are ever compared), [method::CrossMultiplication](../../_terms.md#methodcrossmultiplication) (the two fractions are compared by multiplying across, with no division anywhere), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the digits are what the condition removes and compares).
+(`../../_terms.md`): [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch) — N <= 4 bounds the candidates to at most 9000 numbers times at most 6 removal masks, [method::HashGrouping](../../_terms.md#methodhashgrouping) (every number is keyed by its sorted removed digits, and only numbers sharing a key are ever compared against each other — not [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking): no candidate is skipped or left ungenerated here, every number is produced and grouped, only the PAIRWISE COMPARISON is restricted to within-group pairs), [method::CrossMultiplication](../../_terms.md#methodcrossmultiplication) (the two fractions are compared by multiplying across, with no division anywhere), and [method::PositionalNotation](../../_terms.md#methodpositionalnotation) (the digits are what the condition removes and compares).
 
 ## Scope
 **In scope:** `problems/euler033/solution.cpp` — the digit-mask enumeration, the grouping, the
@@ -61,7 +61,7 @@ deduplicated in a `std::set` before summing.
 
 ## Links
 - Methods: [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch),
-  [method::SymmetryBreaking](../../_terms.md#methodsymmetrybreaking),
+  [method::HashGrouping](../../_terms.md#methodhashgrouping),
   [method::CrossMultiplication](../../_terms.md#methodcrossmultiplication),
   [method::PositionalNotation](../../_terms.md#methodpositionalnotation).
 - Code: `problems/euler033/solution.cpp`; directory README: `problems/euler033/README.md`.

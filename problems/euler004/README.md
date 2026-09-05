@@ -22,7 +22,7 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The ideas behind it
 
-Two independently catalogued ideas, used together — not one (full write-ups:
+Six independently catalogued ideas, used together — not one (full write-ups:
 [`memory-bank/_terms.md`](../../memory-bank/_terms.md)):
 
 **Precomputation** — build whatever doesn't depend on the query once, before answering any
@@ -44,6 +44,11 @@ and discarding the half that can't contain the answer. [`[method::BinarySearch]`
 [`[method::PositionalNotation]`](../../memory-bank/_terms.md#methodpositionalnotation)
 
 [![Positional notation](../../memory-bank/visualizations/build/positional-notation.png)](../../memory-bank/visualizations/build/positional-notation.html)
+
+**Palindrome check** — Each product is tested by peeling its digits into a reversed accumulator and comparing it to the original.
+[`[method::PalindromeCheck]`](../../memory-bank/_terms.md#methodpalindromecheck)
+
+[![Palindrome check](../../memory-bank/visualizations/build/palindrome-check.png)](../../memory-bank/visualizations/build/palindrome-check.html)
 
 **Lazy initialization** — The table of palindromic products is built on the first query that needs it, not at the start.
 [`[method::LazyInitialization]`](../../memory-bank/_terms.md#methodlazyinitialization)
