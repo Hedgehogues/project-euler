@@ -18,8 +18,8 @@ scratch.
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods
 (`../../_terms.md`): [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum),
-[method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
-[method::DivisorCountFormula](../../_terms.md#methoddivisorcountformula), [method::LinearSieve](../../_terms.md#methodlinearsieve) (the sieve stores every number smallest prime factor, so any number in range is taken apart by repeated division), [method::MultiplicativeFunction](../../_terms.md#methodmultiplicativefunction) (the triangular number splits into two factors sharing no prime, and their divisor counts multiply), and [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm) (the thresholds are all read first and answered in one ascending pass).
+[method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples) (the sieve stores every number's smallest prime factor instead of a composite flag, so any number in range is taken apart by repeated division; the ordinary O(N log log N) sweep, not the O(N) linear sieve),
+[method::DivisorCountFormula](../../_terms.md#methoddivisorcountformula), [method::MultiplicativeFunction](../../_terms.md#methodmultiplicativefunction) (the triangular number splits into two factors sharing no prime, and their divisor counts multiply), and [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm) (the thresholds are all read first and answered in one ascending pass).
 
 ## Scope
 **In scope:** `problems/euler012/solution.cpp` — the coprime split, the SPF sieve, the divisor
@@ -35,7 +35,7 @@ task); repository-wide rules (I/O format, ASCII-only — see the root README).
 general formula at `k=1`. Since `gcd(n,n+1)=1`, exactly one of `n`, `n+1` is even; splitting it as
 `a = n/2, b = n+1` (n even) or `a = n, b = (n+1)/2` (n odd) gives two coprime factors whose product
 is `T_n`. A smallest-prime-factor sieve
-([method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes), storing the smallest
+([method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples), storing the smallest
 prime factor per number instead of a composite flag) is built once up to a fixed bound. Each of
 `a`, `b` is factored by repeatedly dividing out its smallest prime factor, and
 [method::DivisorCountFormula](../../_terms.md#methoddivisorcountformula)'s multiplicativity gives
@@ -73,9 +73,8 @@ query answer in one pass.
 
 ## Links
 - Methods: [method::ArithmeticProgressionSum](../../_terms.md#methodarithmeticprogressionsum),
-  [method::SieveOfEratosthenes](../../_terms.md#methodsieveoferatosthenes),
+  [method::SievingOverMultiples](../../_terms.md#methodsievingovermultiples),
   [method::DivisorCountFormula](../../_terms.md#methoddivisorcountformula),
-  [method::LinearSieve](../../_terms.md#methodlinearsieve),
   [method::MultiplicativeFunction](../../_terms.md#methodmultiplicativefunction),
   [method::OfflineAlgorithm](../../_terms.md#methodofflinealgorithm).
 - Code: `problems/euler012/solution.cpp`; directory README: `problems/euler012/README.md`.

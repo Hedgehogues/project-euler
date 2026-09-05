@@ -31,12 +31,11 @@ formula's `k=1` special case.
 
 [![Gauss's trick](../../memory-bank/visualizations/build/gauss-pairing.png)](../../memory-bank/visualizations/build/gauss-pairing.html)
 
-**Sieve of Eratosthenes** — the same mark-every-multiple mechanism, storing each number's smallest
-prime factor instead of a plain composite flag, so any number up to the sieve's limit can be
-factored quickly afterward.
-[`[method::SieveOfEratosthenes]`](../../memory-bank/_terms.md#methodsieveoferatosthenes)
-
-[![Sieve of Eratosthenes](../../memory-bank/visualizations/build/sieve-of-eratosthenes.png)](../../memory-bank/visualizations/build/sieve-of-eratosthenes.html)
+**Sieving over multiples** — the same mark-every-multiple mechanism as the Sieve of Eratosthenes,
+but each cell keeps the smallest prime factor instead of a plain composite flag, so any number up
+to the sieve's limit can be factored quickly afterward. This is the ordinary O(N log log N) sweep,
+not the O(N) linear sieve (no list of found primes, no early-break condition).
+[`[method::SievingOverMultiples]`](../../memory-bank/_terms.md#methodsievingovermultiples)
 
 **Divisor count formula** — the number of divisors comes straight from the exponents in a prime
 factorization, and multiplies across coprime factors — exactly what lets `T_n` be counted via its
@@ -44,11 +43,6 @@ two coprime halves instead of itself.
 [`[method::DivisorCountFormula]`](../../memory-bank/_terms.md#methoddivisorcountformula)
 
 [![Divisor count formula](../../memory-bank/visualizations/build/divisor-count-formula.png)](../../memory-bank/visualizations/build/divisor-count-formula.html)
-
-**Linear sieve** — The sieve stores every number smallest prime factor, so any number in range is taken apart by repeated division.
-[`[method::LinearSieve]`](../../memory-bank/_terms.md#methodlinearsieve)
-
-[![Linear sieve](../../memory-bank/visualizations/build/linear-sieve.png)](../../memory-bank/visualizations/build/linear-sieve.html)
 
 **Multiplicative function** — The triangular number splits into two factors sharing no prime, and their divisor counts multiply.
 [`[method::MultiplicativeFunction]`](../../memory-bank/_terms.md#methodmultiplicativefunction)
