@@ -1075,3 +1075,22 @@ Limits:
   - MUST NOT: carry the mechanism of either specialization — a limit of the RECORD: which representative is canonical (smallest source vs. any fixed key function) and what happens to matches (skip vs. compare) both belong to the specializations, not here
 Source: [Wikipedia — Equivalence class](https://en.wikipedia.org/wiki/Equivalence_class) ("the set of all equivalence classes of X forms a partition of X"; canonical representatives, "usually required to be especially nice in some way"; "possible to find the canonical representative of an equivalence class in a constructive way from any element") · [Wikipedia — Equivalence relation](https://en.wikipedia.org/wiki/Equivalence_relation) (reflexive, symmetric, transitive)
 Spec: [approaches](specs/approaches.md)
+
+## [method::PandigitalCheck]
+Class: entity
+Standard name: Pandigital number (verification, "without redundant digits" variant)
+Essence: Test whether a run of digits uses every value from 1 to k exactly once by marking each digit seen, one pass, in a presence array indexed by the digit's own value — the digit IS the address, the same direct-addressing principle [method::LookupTable](#methodlookuptable) uses for an answer, applied here to a yes/no "seen" flag instead.
+Recognized by: the statement calls a number "k-pandigital", or requires that a decimal string/concatenation use each digit from 1 to k (or 0 to 9) exactly once, with no digit missing and none repeated
+General case: allocate a presence array of size k (or k+1 to also allow the digit 0), all unmarked; scan the candidate's digits once — reject immediately on a digit outside [1,k], on a digit already marked, or on the scanned length not equalling k; a candidate that survives the whole scan with every one of the k slots marked exactly once is exactly k-pandigital. Cost is one pass over the digits, O(k)
+Picture: ![Pandigital check](visualizations/build/pandigital-check.png)
+Sequence:
+  1. Problem — the digit string 18365472 above eight empty, dashed slots labelled 1 to 8; is it 1-8 pandigital?
+  2. Transform mark — each of the eight digits is linked, by its own value, straight down to the slot bearing that number; the eight links land on eight different slots, each exactly once
+  3. Solution — all eight slots hit and checked, matching the eight digits scanned with no slot left empty and none hit twice — 18365472 is 1-8 pandigital
+Limits:
+  - MUST NOT: be used when the candidate's length is not already known to equal k before or during the scan — a limit of the IDEA: a string one digit short can still mark every slot it reaches without repeats and would be wrongly accepted if the length itself were never checked
+  - MUST NOT: be confused with CONSTRUCTING a pandigital number by permuting the digits 1..k directly (as in Project Euler's pandigital-products family) — a limit of the IDEA: permuting guarantees pandigitality by construction and needs no check at all; this method is for verifying a number that arose some OTHER way (here, string concatenation of a multiplier's multiples)
+Note: the concept "pandigital number" is encyclopedic (Wikipedia); no encyclopedic source diagrams the VERIFICATION scan itself, so the picture is this catalog's own construction, in the same spirit as [method::LookupTable](#methodlookuptable)'s and [method::Precomputation](#methodprecomputation)'s own custom pictures for uncited mechanisms.
+Source: [Wikipedia — Pandigital number](https://en.wikipedia.org/wiki/Pandigital_number) ("an integer that in a given base has among its significant digits each digit used in the base at least once"; the "without redundant digits" variant used here requires each exactly once) · [Wikipedia — Index mapping](https://en.wikipedia.org/wiki/Index_mapping) (the direct-addressing mechanism the presence array reuses)
+Example: `visualizations/examples/pandigital-check.{css,html,js}` → `visualizations/build/pandigital-check.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

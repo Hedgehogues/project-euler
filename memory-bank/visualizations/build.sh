@@ -63,6 +63,7 @@ composition|Composition|Composition (combinatorics)|Composition
 sorting|Sorting|Sorting algorithm|Sorting
 palindrome-check|Palindrome check|Palindromic number|PalindromeCheck
 hash-grouping|Hash grouping|Hash table (grouping by a computed key)|HashGrouping
+pandigital-check|Pandigital check|Pandigital number (verification)|PandigitalCheck
 EOF
 }
 
