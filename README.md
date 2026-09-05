@@ -57,6 +57,7 @@ g++ -O2 -std=c++20 -o solution problems/eulerNNN/solution.cpp && ./solution < in
 | [037](problems/euler037) | Truncatable primes | Accepted, 100% |
 | [038](problems/euler038) | Pandigital multiples | Accepted, 100% |
 | [039](problems/euler039) | Integer right triangles | Accepted, 100% |
+| [040](problems/euler040) | Champernowne's constant | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and (where one
 exists) a picture of the idea — and links to its RFC-style spec (requirements and acceptance

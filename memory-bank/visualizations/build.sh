@@ -65,6 +65,7 @@ palindrome-check|Palindrome check|Palindromic number|PalindromeCheck
 hash-grouping|Hash grouping|Hash table (grouping by a computed key)|HashGrouping
 pandigital-check|Pandigital check|Pandigital number (verification)|PandigitalCheck
 euclids-formula|Euclid's formula|Euclid's formula for Pythagorean triples|EuclidsFormula
+champernowne-digit|Champernowne digit locator|Champernowne constant (block-offset delta_b(n))|ChampernowneConstant
 EOF
 }
 
