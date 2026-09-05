@@ -17,9 +17,11 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The idea(s) behind it
 
-None of this repository's catalogued methods apply — sorting alphabetically and summing letter
-values directly is already the whole computation; there is no shortcut being taken that a named
-technique would explain.
+**Sorting** — the names are rearranged into alphabetical order before anything else, since a
+name's score depends on its position in that order, not on the order it was read in.
+[`[method::Sorting]`](../../memory-bank/_terms.md#methodsorting)
+
+[![Sorting](../../memory-bank/visualizations/build/sorting.png)](../../memory-bank/visualizations/build/sorting.html)
 
 **Lookup table** — The scores are answered from a dictionary keyed by the name itself.
 [`[method::LookupTable]`](../../memory-bank/_terms.md#methodlookuptable)

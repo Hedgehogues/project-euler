@@ -984,3 +984,41 @@ Limits:
 Source: [Wikipedia — Fixed-point iteration](https://en.wikipedia.org/wiki/Fixed-point_iteration) ("x_{n+1} = f(x_n), n = 0, 1, 2, ..."; the Babylonian method f(x) = (a/x + x)/2 for &radic;a is one of its worked examples) · [Wikipedia — Cobweb plot](https://en.wikipedia.org/wiki/Cobweb_plot) (the staircase drawing between the curve and the diagonal)
 Example: `visualizations/examples/fixed-point-iteration.{css,html}` (no js needed — the values are static) → `visualizations/build/fixed-point-iteration.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::Composition]
+Class: entity
+Standard name: Composition (combinatorics)
+Essence: Write a total as an ORDERED sum of a fixed number of positive parts — equivalently, cut a row of that many units at a chosen set of the gaps between them, so enumerating every composition is the same act as enumerating every choice of where the cuts go.
+Recognized by: the statement (or the code) needs every way to break a fixed-length whole — a number, a string, a sequence — into an exact number of non-empty, ordered, contiguous pieces, and two pieces swapped in order count as two different answers, not one
+General case: a total of n split into exactly k ordered positive parts corresponds one-to-one with choosing k&minus;1 of the n&minus;1 gaps between n units to place a divider — so there are C(n&minus;1, k&minus;1) such compositions; summed over every k from 1 to n this gives 2^(n&minus;1), since each of the n&minus;1 gaps is independently a divider or not. The same correspondence reads a length-n sequence (not just a number): the k part LENGTHS are a composition of n, and the pieces themselves are exactly the sequence cut at the chosen dividers
+Picture: ![Composition](visualizations/build/composition.png)
+Sequence:
+  1. Problem — 5 units in a row, to be split into 3 ordered parts; how many ways is unknown
+  2. Transform place 2 dividers — 2 of the 4 gaps between the units are chosen (one gap stays open), cutting the row into parts 1, 3, 1 (1+3+1=5)
+  3. Solution — all 6 divider choices listed as their part sequences; 6 = C(4,2), choosing 2 of the 4 gaps
+Limits:
+  - MUST NOT: be confused with a PARTITION of the same total — a limit of the IDEA: a partition treats reorderings of the same parts as one object (1+3+1 and 3+1+1 are the same partition but different compositions); [method::RestrictedPartitionCount](#methodrestrictedpartitioncount) counts both objects, but by a DP recurrence over an unlimited supply of an allowed-size SET, a different mechanism from directly enumerating divider positions and legitimate only when that DP's own preconditions hold
+  - MUST NOT: be reached to COUNT how many compositions exist when only the count (not each one individually) is wanted and parts are restricted to an allowed set with unlimited supply — a limit of the IDEA: that count is [method::RestrictedPartitionCount](#methodrestrictedpartitioncount)'s "totals outer" table, filled once for every total at once, not by generating each composition
+  - MUST: the picture stops at n=5 — a limit of the PICTURE: the full list already has 6 rows at this size, and the count doubles for every part added to the leftmost end while the parts add up to n and the part count k stays fixed at 3
+Source: [Wikipedia — Composition (combinatorics)](https://en.wikipedia.org/wiki/Composition_(combinatorics)) ("a composition of an integer n is a way of writing n as the sum of a sequence of positive integers"; "each positive integer n has 2^(n&minus;1) distinct compositions") · [Encyclopedia of Mathematics — Composition (combinatorics)](https://encyclopediaofmath.org/wiki/Composition_(combinatorics)) ("a composition of n may be represented as a sequence of n dots separated by bars with no two bars adjacent")
+Example: `visualizations/examples/composition.{css,html}` (no js needed — the values are static) → `visualizations/build/composition.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::Sorting]
+Class: entity
+Standard name: Sorting algorithm
+Essence: Rearrange the elements of a sequence into a fixed order (usually non-decreasing) by repeatedly comparing two elements and exchanging them when they are out of that order — almost always a preparatory step that some later technique depends on, not the final answer by itself.
+Recognized by: something else in the solution needs the elements in order — reading names alphabetically, finding a range by binary search, scanning to break ties by position — and the input arrives in no particular order
+General case: any output is a valid sort exactly when it satisfies two conditions at once: it is a PERMUTATION of the input (every original element present, none added or dropped) and it is in MONOTONIC order (each element no smaller — or no larger — than the one before it, by whatever comparison the problem needs, not necessarily numeric). Every comparison-based sorting algorithm reaches that output by some sequence of pairwise comparisons and exchanges; which pairs are compared, and in what order, is what tells one sorting algorithm apart from another, but the two conditions on the OUTPUT never change
+Picture: ![Sorting](visualizations/build/sorting.png)
+Sequence:
+  1. Problem — five bars, heights 3, 5, 1, 4, 2, in that order; what order they belong in is unclear
+  2. Transform compare & exchange — 5 sits immediately before 1; the two are out of order by height, so they are exchanged
+  3. Solution — every later pair is compared and exchanged the same way, until none is left out of order: 1, 2, 3, 4, 5
+Limits:
+  - MUST NOT: be assumed to be free — a limit of the IDEA: a comparison-based sort needs at least on the order of n&middot;log(n) comparisons in the worst case (proved by the decision-tree argument: n! possible orderings, each comparison at most halves how many remain consistent), so sorting a large sequence just to read its extremes wastes the sort's own cost when a single scan for the extreme would do
+  - MUST: state which comparison decides the order when it is not the plain numeric one — a limit of PRACTICE: sorting strings alphabetically, records by one of several fields, or pairs by a derived key all need that comparison spelled out, not assumed
+  - MUST NOT: be relied on for STABILITY (equal elements keeping their original relative order) unless the specific algorithm used is documented as stable — a limit of the IDEA: some comparison sorts (quicksort, heapsort) do not guarantee it, others (merge sort, insertion sort) do
+Source: [Wikipedia — Sorting algorithm](https://en.wikipedia.org/wiki/Sorting_algorithm) ("puts elements of a list in a certain order"; the permutation-and-monotonic-order output condition; the n&middot;log(n) comparison lower bound for comparison sorts) · [Britannica — sorting algorithm](https://www.britannica.com/technology/sorting-algorithm)
+Example: `visualizations/examples/sorting.{css,html}` (no js needed — the values are static) → `visualizations/build/sorting.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

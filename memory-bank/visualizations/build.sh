@@ -59,6 +59,8 @@ explicit-stack|Recursion as an explicit stack|Explicit call stack|ExplicitStackR
 cross-multiplication|Cross-multiplication|Cross-multiplication|CrossMultiplication
 digital-invariant-bound|Digit-power bound|Finiteness bound for perfect digital invariants|DigitalInvariantBound
 multiplicative-function|Multiplicative function|Divisors of a coprime product, paired|MultiplicativeFunction
+composition|Composition|Composition (combinatorics)|Composition
+sorting|Sorting|Sorting algorithm|Sorting
 EOF
 }
 

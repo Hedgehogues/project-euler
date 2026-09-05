@@ -1,0 +1,16 @@
+.cmp-row{display:flex; gap:3px; justify-content:center;}
+.cmp-cell{width:28px; height:28px; border:1.5px solid var(--rule); border-radius:5px; background:var(--paper);
+  display:flex; align-items:center; justify-content:center; font-family:var(--font-m); font-size:13px; font-weight:700;}
+.cmp-q{font-family:var(--font-m); font-size:14px; font-weight:700; color:var(--ink-soft); text-align:center; margin-top:12px;}
+
+.cmp-gaprow{display:flex; align-items:center; justify-content:center;}
+.cmp-gap{width:16px; text-align:center; font-family:var(--font-m); font-size:14px; color:var(--rule);}
+.cmp-gap.chosen{color:var(--a); font-weight:700;}
+.cmp-split{display:flex; flex-direction:row; flex-wrap:nowrap; gap:8px; justify-content:center; margin-top:14px;}
+.cmp-part{min-width:36px; height:28px; padding:0 8px; border-radius:5px; display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-m); font-size:13px; font-weight:700; border:1.5px solid var(--a); background:var(--a-bg); color:var(--a); flex-shrink:0;}
+.cmp-sumline{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--a); text-align:center; margin-top:10px;}
+
+.cmp-list{display:flex; flex-direction:column; gap:5px; align-items:center; margin-top:4px;}
+.cmp-litem{font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--good);}
+.cmp-count{font-family:var(--font-m); font-size:16px; font-weight:700; color:var(--good); text-align:center; margin-top:12px;}

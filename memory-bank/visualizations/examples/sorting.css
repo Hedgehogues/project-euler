@@ -1,0 +1,9 @@
+.srt-row{display:flex; align-items:flex-end; gap:6px; justify-content:center; height:80px;}
+.srt-bar{width:30px; border-radius:5px 5px 0 0; display:flex; align-items:flex-start; justify-content:center;
+  padding-top:4px; font-family:var(--font-m); font-size:13px; font-weight:700; border:1.5px solid var(--rule);
+  background:var(--paper); color:var(--ink-soft);}
+.srt-bar.cmp{border-color:var(--b); background:var(--b-bg); color:var(--b);}
+.srt-bar.done{border-color:var(--good); background:var(--good-bg); color:var(--good);}
+.srt-h1{height:20px;} .srt-h2{height:34px;} .srt-h3{height:48px;} .srt-h4{height:62px;} .srt-h5{height:76px;}
+.srt-note{font-family:var(--font-m); font-size:13px; font-weight:700; color:var(--b); text-align:center; margin-top:10px;}
+.srt-note.good{color:var(--good);}

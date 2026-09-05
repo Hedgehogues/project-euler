@@ -14,9 +14,11 @@ the computation; the only real technique is generating every permutation without
 duplicating any, in a fixed, well-defined order.
 
 ## Terms
-MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses two catalogued methods
+MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses three catalogued methods
 (`../../_terms.md`): [method::NextPermutation](../../_terms.md#methodnextpermutation),
-[method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
+[method::BruteForceSearch](../../_terms.md#methodbruteforcesearch),
+[method::Composition](../../_terms.md#methodcomposition) (the `(i, j)` split-point loop tries
+every composition of the digit string into exactly 3 ordered, non-empty pieces).
 
 ## Scope
 **In scope:** `problems/euler032/solution.cpp` — the permutation loop, the three-way split check,
@@ -61,5 +63,6 @@ by more than one split or permutation). The final answer is the sum of that set.
 
 ## Links
 - Methods: [method::NextPermutation](../../_terms.md#methodnextpermutation),
-  [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch).
+  [method::BruteForceSearch](../../_terms.md#methodbruteforcesearch),
+  [method::Composition](../../_terms.md#methodcomposition).
 - Code: `problems/euler032/solution.cpp`; directory README: `problems/euler032/README.md`.

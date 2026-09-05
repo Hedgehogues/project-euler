@@ -32,6 +32,13 @@ candidates to `9! = 362,880` permutations times a handful of splits each, well i
 
 [![Brute-force search](../../memory-bank/visualizations/build/brute-force-search.png)](../../memory-bank/visualizations/build/brute-force-search.html)
 
+**Composition** — each split into `a`, `b`, `c` is one of the compositions of the `N`-digit string
+into exactly 3 ordered, non-empty, contiguous pieces; trying every split point pair is trying
+every such composition directly.
+[`[method::Composition]`](../../memory-bank/_terms.md#methodcomposition)
+
+[![Composition](../../memory-bank/visualizations/build/composition.png)](../../memory-bank/visualizations/build/composition.html)
+
 ## Build & run
 
 ```
