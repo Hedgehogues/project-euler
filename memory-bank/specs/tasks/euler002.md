@@ -15,7 +15,9 @@ on the query.
 ## Terms
 MUST/MUST NOT/SHALL/SHOULD/SHOULD NOT/MAY as in RFC 2119. Uses these catalogued methods used
 together, not one (`../../_terms.md`): [method::Precomputation](../../_terms.md#methodprecomputation),
-[method::BinarySearch](../../_terms.md#methodbinarysearch), and [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (only the last two terms of the sequence are ever kept, and they are written over each other).
+[method::PrefixSum](../../_terms.md#methodprefixsum) (a running sum restricted to the even terms is
+kept alongside the list as it's built), [method::BinarySearch](../../_terms.md#methodbinarysearch),
+and [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm) (only the last two terms of the sequence are ever kept, and they are written over each other).
 
 ## Scope
 **In scope:** `problems/euler002/solution.cpp` — the model, the algorithm, the complexity argument,
@@ -29,10 +31,11 @@ this task); repository-wide rules (I/O format, ASCII-only — see the root READM
 ### Overview (prose)
 Even Fibonacci terms occur every third term (`F(0)=0` is even, then odd-odd-even repeating — two
 odd terms sum to an even one). Instead of re-checking this on every term for every query, the
-solution builds the list of ALL even Fibonacci terms up to `4·10^16`, together with a running sum,
-exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) — this list is short
-(an even term grows exponentially, so there are only a few dozen up to `4·10^16`). For each query
-`N`, `upper_bound` ([method::BinarySearch](../../_terms.md#methodbinarysearch)) finds the last term
+solution builds the list of ALL even Fibonacci terms up to `4·10^16`, together with a running sum
+([method::PrefixSum](../../_terms.md#methodprefixsum), restricted to the terms passing the "even"
+test), exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) — this list is
+short (an even term grows exponentially, so there are only a few dozen up to `4·10^16`). For each
+query `N`, `upper_bound` ([method::BinarySearch](../../_terms.md#methodbinarysearch)) finds the last term
 `≤ N` in that list, and the answer is its stored running sum.
 
 ### Data
@@ -63,6 +66,7 @@ exactly once ([method::Precomputation](../../_terms.md#methodprecomputation)) �
 
 ## Links
 - Methods: [method::Precomputation](../../_terms.md#methodprecomputation),
+  [method::PrefixSum](../../_terms.md#methodprefixsum),
   [method::BinarySearch](../../_terms.md#methodbinarysearch),
   [method::InPlaceAlgorithm](../../_terms.md#methodinplacealgorithm).
 - Code: `problems/euler002/solution.cpp`; directory README: `problems/euler002/README.md`.

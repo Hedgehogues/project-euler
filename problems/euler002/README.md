@@ -21,13 +21,20 @@ Full requirements and acceptance criteria: [spec.md](../../memory-bank/specs/tas
 
 ## The ideas behind it
 
-Two independently catalogued ideas, used together — not one (full write-ups:
+Four independently catalogued ideas, used together — not one (full write-ups:
 [`memory-bank/_terms.md`](../../memory-bank/_terms.md)):
 
 **Precomputation** — build whatever doesn't depend on the query once, before answering any
 query, instead of redoing that work on every single one. [`[method::Precomputation]`](../../memory-bank/_terms.md#methodprecomputation)
 
 [![Precomputation](../../memory-bank/visualizations/build/precomputation.png)](../../memory-bank/visualizations/build/precomputation.html)
+
+**Prefix sum** — a running total is kept alongside the even terms as they're generated (restricted
+to the elements passing the "even" test), so a query's answer is a single stored value, not a
+re-added sum over every even term found so far.
+[`[method::PrefixSum]`](../../memory-bank/_terms.md#methodprefixsum)
+
+[![Prefix sum](../../memory-bank/visualizations/build/prefix-sum.png)](../../memory-bank/visualizations/build/prefix-sum.html)
 
 **Binary search** — narrow down to a value in a sorted list by repeatedly checking the middle
 and discarding the half that can't contain the answer. [`[method::BinarySearch]`](../../memory-bank/_terms.md#methodbinarysearch)
