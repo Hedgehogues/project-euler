@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Quadratic formula</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,600;0,6..72,700;1,6..72,600&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  :root{
+    --paper:#F1F3F6; --surface:#FFFFFF; --ink:#141821; --ink-soft:#565F6B; --rule:#DBE0E6;
+    --a:#2F6FED; --a-bg:#DCE7FD; --a-faint:#B7CDF9;
+    --b:#E0434B; --b-bg:#FBDEDF;
+    --ab:#7C3FD6; --ab-bg:#EBE0FA;
+    --good:#1E8F5F; --good-bg:#DCF2E6;
+    --warn:#9A6B0A; --warn-bg:#F3E7C9;
+    --shadow:0 1px 2px rgba(20,24,33,.06), 0 8px 24px -10px rgba(20,24,33,.18);
+    --font-d:'Newsreader',Georgia,serif; --font-b:'Public Sans',-apple-system,sans-serif; --font-m:'JetBrains Mono',ui-monospace,Menlo,monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#111318; --surface:#181B21; --ink:#E7EAEE; --ink-soft:#A2A9B3; --rule:#2A2F37;
+      --a:#6C9CF7; --a-bg:#1B2740; --a-faint:#33436B;
+      --b:#F0787D; --b-bg:#3A1E20;
+      --ab:#B18AF0; --ab-bg:#2B1F3F;
+      --good:#5FCB94; --good-bg:#173226;
+      --warn:#D9AC4E; --warn-bg:#3A2F16;
+      --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 30px -10px rgba(0,0,0,.6);
+    }
+  }
+  *{box-sizing:border-box;}
+  body{background:var(--paper); color:var(--ink); font-family:var(--font-b); margin:0; padding:24px 18px;}
+  .wrap{max-width:680px; margin:0 auto;}
+
+  .card{background:var(--surface); border:1px solid var(--rule); border-radius:16px; padding:24px clamp(18px,4vw,32px); margin:0; box-shadow:var(--shadow);}
+  .card h2{font-family:var(--font-d); font-size:23px; font-weight:700; margin:0 0 2px;}
+  .stdtag{font-family:var(--font-m); font-size:11px; margin-bottom:18px;}
+  .stdtag.found{color:var(--good);}
+
+  /* --- flow: problem -> transform(s) -> solution --- */
+  .flow{background:var(--paper); border:1px solid var(--rule); border-radius:12px; padding:18px; display:flex; flex-direction:column; align-items:center;}
+  .frame{width:100%; display:flex; justify-content:center;}
+  .frame-inner{width:100%; max-width:560px;}
+  .frame-tag{
+    font-family:var(--font-m); font-size:11px; font-weight:700; letter-spacing:.04em;
+    color:var(--surface); background:var(--ink-soft); border-radius:20px; padding:2px 10px;
+    display:block; width:fit-content; margin:0 auto 8px;
+  }
+  .frame-tag.solved{background:var(--good);}
+  .flow-arrow{color:var(--rule); font-size:20px; line-height:1; margin:6px 0; font-family:var(--font-m);}
+
+  .filelink{margin-top:14px; font-size:11px; color:var(--ink-soft); font-family:var(--font-m); text-align:center;}
+
+  /* --- footer: QR to the repository (every visualization carries it, principle 10) --- */
+  .repo{margin-top:16px; padding-top:14px; border-top:1px dashed var(--rule); display:flex; align-items:center; justify-content:center; gap:14px;}
+  .repo svg{width:72px; height:72px; color:var(--ink); flex-shrink:0; background:var(--surface);}
+  .repo .repo-txt{font-family:var(--font-m); font-size:11px; color:var(--ink-soft); line-height:1.5;}
+  .repo .repo-txt b{display:block; color:var(--ink); font-weight:600;}
+
+  .ans{background:var(--good-bg); color:var(--good); padding:2px 10px; border-radius:6px; font-weight:700;}
+  .ans-big{display:block; text-align:center; font-family:var(--font-m); font-size:36px; font-weight:700; background:var(--good-bg); color:var(--good); border-radius:12px; padding:14px 10px; margin:0 auto; max-width:170px;}
+
+  /* --- examples/quadratic-formula.css --- */
+.qf-col{display:flex; flex-direction:column; align-items:center; gap:12px;}
+
+.qf-eq{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink);}
+
+.qf-formulas{display:flex; flex-direction:column; gap:9px;}
+.qf-frow{display:flex; align-items:center; gap:10px; font-family:var(--font-m); font-size:13px;}
+.qf-fname{color:var(--ink-soft); min-width:220px;}
+.qf-feq{color:var(--ink-soft);}
+.qf-fout{font-weight:700; color:var(--good);}
+
+.qf-plot{width:340px; height:auto;}
+
+.qf-cap{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft); text-align:center; max-width:380px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card" id="card">
+    <h2>Quadratic formula</h2>
+    <div class="stdtag found">✓ Quadratic formula</div>
+    <div class="flow">
+<!-- examples/quadratic-formula.html -->
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="qf-col">
+    <div class="qf-eq">n&sup2; + n &minus; 42 = 0</div>
+    <div class="qf-cap">which n solves it? (t=21, from n(n+1)/2=21)</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">quadratic formula</div>
+<div class="frame"><div class="frame-inner">
+  <div class="qf-col">
+    <div class="qf-formulas">
+      <div class="qf-frow"><span class="qf-fname">discriminant &Delta; = 1&sup2;&minus;4&middot;1&middot;(&minus;42)</span><span class="qf-feq">=</span><span class="qf-fout">169</span></div>
+      <div class="qf-frow"><span class="qf-fname">&radic;&Delta;</span><span class="qf-feq">= &radic;169 =</span><span class="qf-fout">13</span></div>
+      <div class="qf-frow"><span class="qf-fname">n = (&minus;1 &plusmn; 13) / 2</span><span class="qf-feq">=</span><span class="qf-fout">6 or &minus;7</span></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag solved">&#10003;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="qf-col">
+    <svg class="qf-plot" id="qfPlot" viewBox="0 0 360 220"></svg>
+    <div class="qf-cap">the parabola crosses zero at n=&minus;7 (discarded, not a valid count) and n=6 (kept)</div>
+  </div>
+</div></div>
+    </div>
+    <div class="filelink">memory-bank/_terms.md · [method::QuadraticFormula] · feea5a5</div>
+    <div class="repo">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 111 111" class="segno"><path transform="scale(3)" class="qrline" stroke="currentColor" d="M2 2.5h7m1 0h3m1 0h1m1 0h1m1 0h1m1 0h4m1 0h1m2 0h7m-33 1h1m5 0h1m5 0h1m1 0h1m3 0h1m1 0h1m5 0h1m5 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m2 0h1m2 0h1m1 0h3m3 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m4 0h2m1 0h3m1 0h1m3 0h1m1 0h1m1 0h1m1 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h4m1 0h1m2 0h3m2 0h1m1 0h3m1 0h1m-33 1h1m5 0h1m1 0h3m2 0h1m1 0h2m9 0h1m5 0h1m-33 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-23 1h1m4 0h1m2 0h2m1 0h1m-21 1h7m3 0h1m1 0h5m9 0h2m3 0h1m-31 1h2m1 0h1m2 0h1m4 0h3m1 0h5m1 0h1m2 0h2m1 0h2m1 0h1m-33 1h2m2 0h3m4 0h5m1 0h1m3 0h2m1 0h3m1 0h1m1 0h2m-31 1h1m2 0h2m1 0h2m1 0h2m3 0h1m1 0h2m2 0h1m2 0h3m1 0h3m-31 1h3m1 0h3m2 0h1m1 0h1m1 0h1m1 0h2m2 0h2m2 0h3m1 0h3m2 0h1m-33 1h2m3 0h1m1 0h3m3 0h1m4 0h3m2 0h1m1 0h3m1 0h1m1 0h2m-33 1h1m4 0h2m1 0h2m2 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m-31 1h4m2 0h2m1 0h2m2 0h1m1 0h2m2 0h2m1 0h5m1 0h2m-30 1h1m1 0h2m1 0h1m2 0h2m2 0h3m2 0h1m3 0h4m1 0h2m3 0h1m-33 1h3m6 0h3m1 0h1m2 0h2m2 0h1m2 0h1m2 0h2m1 0h2m1 0h1m-33 1h1m2 0h4m1 0h1m1 0h4m1 0h1m2 0h1m1 0h3m1 0h1m2 0h2m1 0h2m-30 1h4m1 0h5m1 0h1m5 0h4m4 0h5m-31 1h1m1 0h1m1 0h2m1 0h1m3 0h1m2 0h5m2 0h1m1 0h2m2 0h2m1 0h1m-32 1h6m1 0h1m1 0h3m3 0h3m1 0h3m1 0h1m1 0h2m2 0h2m1 0h1m-33 1h1m2 0h2m1 0h3m3 0h1m1 0h2m1 0h2m6 0h1m3 0h1m1 0h1m-32 1h1m3 0h2m1 0h2m2 0h1m2 0h3m3 0h4m1 0h2m2 0h2m-31 1h1m1 0h1m3 0h2m2 0h3m1 0h4m1 0h1m2 0h8m1 0h2m-25 1h1m2 0h1m2 0h1m2 0h1m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m-33 1h7m1 0h1m1 0h2m1 0h2m1 0h3m1 0h5m1 0h1m1 0h1m1 0h2m-32 1h1m5 0h1m1 0h1m1 0h2m1 0h1m4 0h1m1 0h5m3 0h5m-33 1h1m1 0h3m1 0h1m1 0h2m3 0h2m1 0h2m1 0h1m2 0h1m1 0h6m1 0h1m-32 1h1m1 0h3m1 0h1m1 0h2m2 0h1m4 0h1m1 0h2m1 0h4m2 0h3m1 0h1m-33 1h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m3 0h1m1 0h1m1 0h1m3 0h2m1 0h2m-31 1h1m5 0h1m1 0h1m2 0h2m1 0h2m1 0h2m1 0h3m5 0h3m-31 1h7m2 0h2m2 0h1m8 0h3m1 0h2m3 0h1"/></svg>
+      <div class="repo-txt"><b>github.com/Hedgehogues/project-euler</b>sources, specs and the other methods</div>
+    </div>
+  </div>
+</div>
+<script>
+// examples/quadratic-formula.js
+(function(){
+  // n^2 + n - 42, plotted over n in [-10, 8]; roots at n=-7 and n=6 (from -1 +/- 13, over 2)
+  const f = x => x*x + x - 42;
+  const xMin = -10, xMax = 8;
+  const yMin = -42.25, yMax = 48; // vertex at x=-0.5 gives the minimum; endpoints give the max
+  const W = 360, H = 220, PAD = 14;
+
+  function px(x){ return PAD + (x - xMin) / (xMax - xMin) * (W - 2*PAD); }
+  function py(y){ return PAD + (yMax - y) / (yMax - yMin) * (H - 2*PAD); }
+
+  const svg = document.getElementById('qfPlot');
+  let pts = [];
+  for (let x = xMin; x <= xMax + 1e-9; x += 0.25) {
+    pts.push(`${px(x).toFixed(1)},${py(f(x)).toFixed(1)}`);
+  }
+  const curve = `<path d="M${pts.join(' L')}" fill="none" stroke="var(--a)" stroke-width="2"/>`;
+  const axis = `<line x1="${PAD}" y1="${py(0)}" x2="${W-PAD}" y2="${py(0)}" stroke="var(--rule)" stroke-width="1.5"/>`;
+
+  function root(x, kept){
+    const cx = px(x), cy = py(0);
+    const color = kept ? 'var(--good)' : 'var(--b)';
+    return `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${color}"/>
+            <text x="${cx}" y="${cy + (kept ? 20 : -10)}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" font-weight="700" fill="${color}">${x}</text>`;
+  }
+
+  svg.innerHTML = axis + curve + root(-7, false) + root(6, true);
+})();
+</script>
+</body>
+</html>

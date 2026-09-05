@@ -1150,3 +1150,21 @@ Limits:
 Source: [Wikipedia — Divisibility rule](https://en.wikipedia.org/wiki/Divisibility_rule) ("the sum of the digits is divisible by 3" for both 3 and 9; "this method works because ... 10 ≡ 1 (mod 3)" and the same for 9; "this method also works for finding divisibility by 3 or 9 ... divisors of b − 1")
 Example: `visualizations/examples/digit-sum-div3.{css,html,js}` → `visualizations/build/digit-sum-div3.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::QuadraticFormula]
+Class: entity
+Standard name: Quadratic formula
+Essence: Any equation of the form `a·x²+b·x+c=0` is solved directly, without searching, by one formula built from its three coefficients — used here to invert a quadratic relationship (recovering `n` from a value already known to equal `n(n+1)/2` or similar) instead of testing candidate `n` one at a time.
+Recognized by: the statement (or a derived relationship inside the solution) ties one unknown to a known quantity through a square of itself — testing whether some value is an `n`-th triangular/polygonal number and recovering `n`, or any other place a quadratic in one unknown needs inverting
+General case: for `a·x²+b·x+c=0` (`a≠0`), `x = (-b ± sqrt(b²-4ac)) / (2a)`; the discriminant `b²-4ac` decides how many real roots exist (two distinct, one repeated, or none). When the unknown must be a POSITIVE INTEGER (the Diophantine use, as opposed to the real-valued one) — three checks are needed beyond the bare formula: the discriminant must be a non-negative perfect square (its own square root computed exactly, e.g. via integer square root, not floating-point `sqrt` at sizes where that loses precision), the numerator `-b + sqrt(discriminant)` must be exactly divisible by `2a`, and the resulting root must fall inside whatever range the problem requires (here, positive) — the OTHER root of the same equation is mathematically valid but routinely falls outside that range and must be discarded, not silently ignored
+Picture: ![Quadratic formula](visualizations/build/quadratic-formula.png)
+Sequence:
+  1. Problem — `n²+n-42=0` (from testing whether `t=21` is a triangular number, `n(n+1)/2=21`); which n solves it?
+  2. Transform quadratic formula — discriminant `1²-4·1·(-42)=169`, `sqrt(169)=13`, `n=(-1±13)/2 = 6 or -7`
+  3. Solution — the parabola `y=n²+n-42` plotted against n, crossing zero at both roots: `n=-7` (discarded, not a valid count) and `n=6` (kept)
+Limits:
+  - MUST NOT: trust a floating-point `sqrt` of the discriminant when it can exceed about `2^53` (the precision of a double) — a limit of PRACTICE: at that size an integer square root (e.g. binary search, [method::BinarySearch](#methodbinarysearch)) is needed to get an EXACT root, not an approximation that might be off by one
+  - MUST: discard a root that is not a positive integer (or otherwise out of the problem's required range) — a limit of the IDEA: the formula returns BOTH roots of the equation regardless of what the problem is actually asking for; picking the wrong one, or reporting both, is a correctness bug, not a formula bug
+Source: [Wikipedia — Quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula) ("x = (-b &plusmn; &radic;(b&sup2;-4ac)) / 2a"; the discriminant `b²-4ac` and its role in the number of real roots; the article's own worked diagram is a parabola crossing the x-axis at its two roots, which this picture's solution frame follows directly)
+Example: `visualizations/examples/quadratic-formula.{css,html,js}` → `visualizations/build/quadratic-formula.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

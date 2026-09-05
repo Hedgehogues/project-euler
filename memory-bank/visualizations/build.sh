@@ -67,6 +67,7 @@ pandigital-check|Pandigital check|Pandigital number (verification)|PandigitalChe
 euclids-formula|Euclid's formula|Euclid's formula for Pythagorean triples|EuclidsFormula
 champernowne-digit|Champernowne digit locator|Champernowne constant (block-offset delta_b(n))|ChampernowneConstant
 digit-sum-div3|Digit-sum divisibility rule|Divisibility rule (digit sum, base 10)|DigitSumDivisibilityRule
+quadratic-formula|Quadratic formula|Quadratic formula|QuadraticFormula
 EOF
 }
 
