@@ -1132,3 +1132,21 @@ Limits:
 Source: [Wikipedia — Champernowne constant](https://en.wikipedia.org/wiki/Champernowne_constant) ("C_10 = 0.1234567891011121314151617181920..."; the block-offset function, verbatim, "&delta;<sub>b</sub>(n) = (b&minus;1)&sum;<sub>&#8467;=1</sub><sup>n-1</sup> b<sup>&#8467;-1</sup>&#8467; = 1/(b-1)(1 + b^(n-1)((b-1)n-b))", "the number of digits appearing before the initial contribution from n-digit base-b numbers")
 Example: `visualizations/examples/champernowne-digit.{css,html}` (no js needed — the values are static) → `visualizations/build/champernowne-digit.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::DigitSumDivisibilityRule]
+Class: entity
+Standard name: Divisibility rule (digit sum, base 10)
+Essence: A number is divisible by 3 (or by 9) exactly when the sum of its digits is — because every power of ten is 1 more than a multiple of 3 (and of 9), so a number and its digit sum always leave the same remainder mod 3/mod 9; used here as a cheap PRE-FILTER that rules out an entire candidate family before generating a single one of them.
+Recognized by: the statement (or a design choice about which cases to even try) turns on whether some number is divisible by 3 or 9, and that number's digits are already known or fixed by construction — testing the digit sum is cheaper than, or a substitute for, dividing the number itself
+General case: for base 10, `N ≡ digitsum(N) (mod 9)` (and therefore also mod 3, since 3 | 9) — because `10 ≡ 1 (mod 9)`, so every power of ten reduces to 1 and `N = sum(d_i · 10^i) ≡ sum(d_i) (mod 9)`. More generally, a base-b number admits a digit-sum divisibility test for exactly the divisors of `b−1` (base 10: 1, 3, 9). When the digits of a candidate are already fixed by construction (e.g. every permutation of `1..n` shares the same digit set, hence the same digit sum `n(n+1)/2`), the WHOLE family can be ruled in or out by one mod-3 check on that fixed sum, before generating or testing any individual member
+Picture: ![Digit-sum divisibility rule](visualizations/build/digit-sum-div3.png)
+Sequence:
+  1. Problem — the lengths n=1..9; could an n-digit 1-to-n pandigital number ever be prime?
+  2. Transform digit sum mod 3 — each length's digit sum, 1+2+...+n = n(n+1)/2, checked mod 3: n=1,4,7 give remainder 1 (kept), every other n gives remainder 0 (excluded — that whole length's numbers are always multiples of 3)
+  3. Solution — only n=4 and n=7 survive (n=1's only pandigital number, "1", is excluded separately for not being prime by definition) — every other length is ruled out before a single permutation is generated
+Limits:
+  - MUST NOT: be used for a divisor that does not divide `b−1` — a limit of the IDEA: the digit sum of a base-10 number carries no divisibility information about 7 or 11 the same simple way (11 has its own alternating-sum rule instead, from `10 ≡ −1 (mod 11)`)
+  - MUST: recompute the digit sum when the digit SET changes, not reuse a stale value — a limit of PRACTICE: the shortcut only holds because every permutation of a fixed digit multiset shares one digit sum; a family whose members use different digits needs the check per member, not once for the whole family
+Source: [Wikipedia — Divisibility rule](https://en.wikipedia.org/wiki/Divisibility_rule) ("the sum of the digits is divisible by 3" for both 3 and 9; "this method works because ... 10 ≡ 1 (mod 3)" and the same for 9; "this method also works for finding divisibility by 3 or 9 ... divisors of b − 1")
+Example: `visualizations/examples/digit-sum-div3.{css,html,js}` → `visualizations/build/digit-sum-div3.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
