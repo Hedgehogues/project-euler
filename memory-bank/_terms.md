@@ -1188,3 +1188,21 @@ Limits:
 Source: [Wikipedia — Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) ("write n - 1 as 2^s&middot;d with d odd... if none of a^d, a^(2d), a^(4d), ..., a^(2^(s-1)d) is congruent to -1 (mod n)... then n is composite and a is a witness"; "if n is composite, then at most 1/4 of the bases a are strong liars for n"; the deterministic table, culminating in "testing a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37" as sufficient for every n below 3,317,044,064,679,887,385,961,981)
 Example: `visualizations/examples/miller-rabin.{css,html}` (no js needed — the values are static) → `visualizations/build/miller-rabin.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::BitmaskSubsetEnumeration]
+Class: entity
+Standard name: Power set — binary representation of subsets
+Essence: Represent every subset of N labeled positions as an N-bit integer (bit i set means position i belongs to the subset), then enumerate every subset at all just by counting from 0 to 2^N-1 — restricting to subsets of one fixed size is then a single population-count filter on each mask, no separate combinatorial generator needed.
+Recognized by: the statement needs every WAY OF CHOOSING a subset of positions/items out of a small fixed N (which K digits to replace, which items to include) — small enough that 2^N masks is cheap to sweep — and, often, only the subsets of one particular size K actually matter
+General case: for N up to about 20-25 (so 2^N stays computationally small), loop m from 0 to 2^N-1; bit i of m (`m & (1<<i)`) says whether position i is in the subset m represents. The population count of m (number of set bits) is exactly the subset's size, so filtering `popcount(m)==K` restricts the sweep to exactly the C(N,K) size-K subsets, without a separate generator for combinations
+Picture: ![Bitmask subset enumeration](visualizations/build/bitmask-subsets.png)
+Sequence:
+  1. Problem — 3 positions p0,p1,p2; which subsets of size K=2?
+  2. Transform count 0 to 2^3-1 — all 8 masks listed with their bits, the set they name, and their popcount
+  3. Solution — the 3 masks with popcount=2 ({p0,p1}, {p0,p2}, {p1,p2}) are exactly the size-2 subsets
+Limits:
+  - MUST NOT: be used when N is large enough that 2^N is not cheap to sweep — a limit of the IDEA: the whole appeal is that N stays small (single digits to a few dozen); for a genuinely large set, a direct combinatorial generator of k-subsets is needed instead
+  - MUST: read bit i of m consistently as "is position i in the subset", never conflate the bit's numeric weight (2^i) with the position's own identity elsewhere in the same program — a limit of PRACTICE: mixing "the mask as a number" with "the mask as a set" is the standard source of off-by-one/wrong-position bugs in this idiom
+Source: [Wikipedia — Power set](https://en.wikipedia.org/wiki/Power_set) (&sect; Representing subsets as functions: subsets of a set correspond to functions to {0,1}, "enumerated... in which the number in each ordered pair represents the position... a 1 in the sequence means the element... exists in the subset"; the article's own worked table for a 3-element set lists every subset alongside its binary digit sequence and decimal equivalent, which this picture's second frame follows directly, extended with the size/popcount column this record's filtering step needs)
+Example: `visualizations/examples/bitmask-subsets.{css,html,js}` → `visualizations/build/bitmask-subsets.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)

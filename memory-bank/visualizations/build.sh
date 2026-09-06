@@ -69,6 +69,7 @@ champernowne-digit|Champernowne digit locator|Champernowne constant (block-offse
 digit-sum-div3|Digit-sum divisibility rule|Divisibility rule (digit sum, base 10)|DigitSumDivisibilityRule
 quadratic-formula|Quadratic formula|Quadratic formula|QuadraticFormula
 miller-rabin|Miller-Rabin primality test|Miller-Rabin primality test|MillerRabinPrimalityTest
+bitmask-subsets|Bitmask subset enumeration|Power set (binary representation of subsets)|BitmaskSubsetEnumeration
 EOF
 }
 
