@@ -64,6 +64,7 @@ g++ -O2 -std=c++20 -o solution problems/eulerNNN/solution.cpp && ./solution < in
 | [044](problems/euler044) | Pentagon numbers | Accepted, 100% |
 | [045](problems/euler045) | Triangular, pentagonal, and hexagonal | Accepted, 100% |
 | [046](problems/euler046) | Goldbach's other conjecture | Accepted, 100% |
+| [047](problems/euler047) | Distinct primes factors | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and (where one
 exists) a picture of the idea — and links to its RFC-style spec (requirements and acceptance
