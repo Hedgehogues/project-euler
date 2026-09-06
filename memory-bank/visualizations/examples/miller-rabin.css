@@ -1,0 +1,14 @@
+.mr-col{display:flex; flex-direction:column; align-items:center; gap:12px;}
+
+.mr-n{font-family:var(--font-m); font-size:19px; font-weight:700; color:var(--ink);}
+
+.mr-eq{font-family:var(--font-m); font-size:15px; font-weight:700; color:var(--ink);}
+
+.mr-chain{display:flex; flex-direction:column; gap:8px;}
+.mr-step{display:flex; align-items:center; gap:10px; font-family:var(--font-m); font-size:13px;}
+.mr-lbl{color:var(--ink-soft); min-width:110px;}
+.mr-eq{color:var(--ink-soft);}
+.mr-val{font-weight:700; color:var(--b); width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+  border:1.5px solid var(--b); border-radius:7px; background:var(--b-bg);}
+
+.mr-cap{font-family:var(--font-m); font-size:11px; font-weight:700; color:var(--ink-soft); text-align:center; max-width:380px;}

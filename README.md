@@ -67,6 +67,7 @@ g++ -O2 -std=c++20 -o solution problems/eulerNNN/solution.cpp && ./solution < in
 | [047](problems/euler047) | Distinct primes factors | Accepted, 100% |
 | [048](problems/euler048) | Self powers | Accepted, 100% |
 | [049](problems/euler049) | Prime permutations | Accepted, 100% |
+| [050](problems/euler050) | Consecutive prime sum | Accepted, 100% |
 
 Each problem's own directory README has the write-up — the approach, why it works, and (where one
 exists) a picture of the idea — and links to its RFC-style spec (requirements and acceptance

@@ -1,0 +1,36 @@
+<div class="frame-tag">?</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mr-col">
+    <div class="mr-n">n = 25</div>
+    <div class="mr-cap">witness a = 2 — is 25 prime?</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">write n&minus;1 = d&middot;2^r</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mr-col">
+    <div class="mr-eq">n&minus;1 = 24 = 3 &times; 2&sup3;</div>
+    <div class="mr-eq">d = 3, r = 3</div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag">a^d, then square r&minus;1 times</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mr-col">
+    <div class="mr-chain">
+      <div class="mr-step"><span class="mr-lbl">2&sup3; mod 25</span><span class="mr-eq">=</span><span class="mr-val">8</span></div>
+      <div class="mr-step"><span class="mr-lbl">8&sup2; mod 25</span><span class="mr-eq">=</span><span class="mr-val">14</span></div>
+      <div class="mr-step"><span class="mr-lbl">14&sup2; mod 25</span><span class="mr-eq">=</span><span class="mr-val">21</span></div>
+    </div>
+  </div>
+</div></div>
+
+<div class="flow-arrow">&darr;</div>
+<div class="frame-tag solved">&#10007;</div>
+<div class="frame"><div class="frame-inner">
+  <div class="mr-col">
+    <div class="mr-cap">none of 8, 14, 21 is 1 or n&minus;1=24 &mdash; witness 2 proves 25 is COMPOSITE (25 = 5&times;5)</div>
+  </div>
+</div></div>

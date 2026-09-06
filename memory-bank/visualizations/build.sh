@@ -68,6 +68,7 @@ euclids-formula|Euclid's formula|Euclid's formula for Pythagorean triples|Euclid
 champernowne-digit|Champernowne digit locator|Champernowne constant (block-offset delta_b(n))|ChampernowneConstant
 digit-sum-div3|Digit-sum divisibility rule|Divisibility rule (digit sum, base 10)|DigitSumDivisibilityRule
 quadratic-formula|Quadratic formula|Quadratic formula|QuadraticFormula
+miller-rabin|Miller-Rabin primality test|Miller-Rabin primality test|MillerRabinPrimalityTest
 EOF
 }
 

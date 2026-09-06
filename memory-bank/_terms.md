@@ -1168,3 +1168,23 @@ Limits:
 Source: [Wikipedia — Quadratic formula](https://en.wikipedia.org/wiki/Quadratic_formula) ("x = (-b &plusmn; &radic;(b&sup2;-4ac)) / 2a"; the discriminant `b²-4ac` and its role in the number of real roots; the article's own worked diagram is a parabola crossing the x-axis at its two roots, which this picture's solution frame follows directly)
 Example: `visualizations/examples/quadratic-formula.{css,html,js}` → `visualizations/build/quadratic-formula.html`
 Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
+
+## [method::MillerRabinPrimalityTest]
+Class: entity
+Standard name: Miller-Rabin primality test
+Essence: Test a number for primality far faster than trial division by writing n-1 as an odd part times a power of two, then checking whether a chosen witness's powers behave the way they PROVABLY must for any prime — a composite number is caught the moment a witness's chain of squarings fails that pattern, and a small, fixed set of witnesses is enough to be exactly right below a known bound.
+Recognized by: the statement needs primality of numbers too large, or tested too many times, for trial division up to the square root to be affordable — but the numbers still fit in 64 bits, where a small deterministic witness set is known to be exact (not merely probable)
+General case: write n-1 = d&middot;2^r with d odd; for a witness a (2&le;a&le;n-2), compute x=a^d mod n. If x=1 or x=n-1, a does not prove n composite. Otherwise, square x up to r-1 more times: if it ever reaches n-1, a does not prove n composite; if the chain finishes without ever reaching 1 (other than possibly at the very end, which is already the n-1 case) or n-1, a IS a witness to n being composite. For n &lt; 3,317,044,064,679,887,385,961,981 (&#8776;3.3&times;10^24, comfortably covering every n &lt; 2^64) testing the FIXED bases {2,3,5,7,11,13,17,19,23,29,31,37} in this way is not probabilistic at all — it is a proven-correct deterministic test, unlike the general randomized form that tests random witnesses and only bounds the error probability (at most 1/4 per witness)
+Picture: ![Miller-Rabin primality test](visualizations/build/miller-rabin.png)
+Sequence:
+  1. Problem — n=25, witness a=2; is 25 prime?
+  2. Transform write n-1=d&middot;2^r — 24 = 3 &times; 2&sup3;, so d=3, r=3
+  3. Transform a^d, then square r-1 times — 2&sup3; mod 25 = 8, squared to 14, squared again to 21
+  4. Solution — none of 8, 14, 21 is 1 or n-1=24, so witness 2 proves 25 is composite (25=5&times;5)
+Limits:
+  - MUST NOT: be relied on as a deterministic proof for n outside the range the fixed witness set is proven to cover — a limit of the IDEA: past that bound (or with witnesses chosen randomly rather than from the proven set) the result is only probabilistic, however small the error
+  - MUST NOT: be reached for a single one-off small n where trial division up to the square root is already cheap — a limit of PRACTICE: the whole point is avoiding an O(sqrt(n)) scan repeated many times or at large n; for that case [method::TrialDivision](#methodtrialdivision) is simpler and equally correct
+  - MUST: skip a witness `a` that is a multiple of `n` (`a % n == 0`) — a limit of PRACTICE: such a witness is degenerate (its powers are trivially 0, proving nothing) rather than a genuine test
+Source: [Wikipedia — Miller-Rabin primality test](https://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test) ("write n - 1 as 2^s&middot;d with d odd... if none of a^d, a^(2d), a^(4d), ..., a^(2^(s-1)d) is congruent to -1 (mod n)... then n is composite and a is a witness"; "if n is composite, then at most 1/4 of the bases a are strong liars for n"; the deterministic table, culminating in "testing a = 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, and 37" as sufficient for every n below 3,317,044,064,679,887,385,961,981)
+Example: `visualizations/examples/miller-rabin.{css,html}` (no js needed — the values are static) → `visualizations/build/miller-rabin.html`
+Spec: [approaches](specs/approaches.md) · [visualizations](specs/visualizations.md)
